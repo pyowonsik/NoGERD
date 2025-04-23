@@ -17,19 +17,19 @@ import 'package:no_gerd/features/record/presentation/widgets/recent_entry.dart';
 
 const List<GerdRecord> demo = [
   GerdRecord(
-    date: '2023년 04월 15일 (토)',
+    date: '2023년 04월 15일',
     symptoms: ['가슴 쓰림', '목 아픔'],
     status: '좋음',
     notes: '오늘은 증상이 경미했습니다. 저녁에 매운 음식을 피했더니 효과가 있었습니다.',
   ),
   GerdRecord(
-    date: '2023년 04월 14일 (금)',
+    date: '2023년 04월 14일',
     symptoms: ['가슴 쓰림', '역류'],
     status: '보통',
     notes: '점심에 커피를 마신 후 증상이 악화되었습니다.',
   ),
   GerdRecord(
-    date: '2023년 04월 13일 (목)',
+    date: '2023년 04월 13일',
     symptoms: ['가슴 쓰림', '역류', '소화불량'],
     status: '나쁨',
     notes: '오늘은 증상이 심했습니다. 취침 전 간식을 먹은 것이 원인인 것 같습니다.',
@@ -116,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   showDialog(
                                     context: context,
                                     builder: (context) =>
-                                        const AddRecordModal(),
+                                        AddRecordModal(viewModel: viewModel),
                                   );
                                 },
                               ),

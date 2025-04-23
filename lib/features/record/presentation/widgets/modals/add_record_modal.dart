@@ -1,9 +1,14 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:no_gerd/features/record/domain/entities/gerd_record.dart';
+import 'package:no_gerd/features/record/presentation/viewmodels/gred_view_model.dart';
 
 class AddRecordModal extends StatefulWidget {
-  const AddRecordModal({super.key});
+  final GerdViewModel viewModel;
+
+  const AddRecordModal({super.key, required this.viewModel});
 
   @override
   State<AddRecordModal> createState() => _AddRecordModalState();
@@ -260,7 +265,20 @@ class _AddRecordModalState extends State<AddRecordModal> {
                           onPressed: () {
                             if (_formKey.currentState!.validate() &&
                                 _selectedSymptoms.isNotEmpty) {
-                              // TODO: 저장 로직 구현
+                              // 새로운 GerdRecord 생성
+                              final newRecord = GerdRecord(
+                                date: DateFormat('yyyy년 MM월 dd일')
+                                    .format(DateTime.now()),
+                                symptoms: _selectedSymptoms,
+                                status: _selectedStatus,
+                                notes: _notesController.text,
+                              );
+
+                              final viewModel = widget.viewModel;
+                              viewModel.addRecord(
+                                  newRecord); // Add the new record to the ViewModel
+
+                              // 모달 닫기
                               Navigator.pop(context);
                             }
                           },
