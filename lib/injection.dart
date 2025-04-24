@@ -23,6 +23,4 @@ Future<void> init() async {
   sl.registerLazySingleton<GerdRecordRepository>(
     () => GerdRecordRepositoryImpl(sl()),
   );
-
-  // 추후 UseCase나 Bloc도 여기 등록 가능
 }

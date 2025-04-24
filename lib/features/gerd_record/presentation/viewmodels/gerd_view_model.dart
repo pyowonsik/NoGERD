@@ -26,7 +26,10 @@ class GerdViewModel {
     // 메모리에서도 동일 날짜 기록 제거 후 새로 추가
     final updated = List<GerdRecord>.from(currentRecords)
       ..removeWhere((r) => r.date == record.date)
-      ..insert(0, record); // 최신 기록 맨 앞에
+      ..add(record); // 먼저 추가하고
+
+    // 날짜 기준 정렬 (오름차순: 옛날 → 최신)
+    updated.sort((a, b) => b.date.compareTo(b.date));
 
     _recordsSubject.add(updated);
   }

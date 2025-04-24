@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 
-import 'package:table_calendar/table_calendar.dart';
+import 'package:intl/intl.dart';
 
 import 'package:no_gerd/features/gerd_record/domain/entities/gerd_record.dart';
 import 'package:no_gerd/features/gerd_record/presentation/viewmodels/gerd_view_model.dart';
@@ -24,6 +23,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final viewModel = GerdViewModel();
+  int currentPage = 0;
+  final int recordsPerPage = 3;
 
   @override
   void initState() {
@@ -31,158 +32,183 @@ class _HomeScreenState extends State<HomeScreen> {
     viewModel.loadAllRecords();
   }
 
+  void _nextPage(int totalRecords) {
+    final maxPage = (totalRecords / recordsPerPage).ceil() - 1;
+    if (currentPage < maxPage) {
+      setState(() {
+        currentPage++;
+      });
+    }
+  }
+
+  void _prevPage() {
+    if (currentPage > 0) {
+      setState(() {
+        currentPage--;
+      });
+    }
+  }
+
+  // 최근 날짜 기준으로 currentPage 설정
+  int _getInitialPage(List<GerdRecord> records) {
+    if (records.isEmpty) return 0;
+    // records를 날짜 내림차순으로 정렬
+    records.sort((a, b) => b.date.compareTo(a.date));
+
+    // 가장 최근 날짜의 기록을 기준으로 페이지 설정
+    final latestRecord = records.first;
+    final index = records.indexOf(latestRecord);
+
+    // 해당 기록이 몇 번째 페이지에 있는지 계산
+    return (index / recordsPerPage).floor();
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<List<GerdRecord>>(
-        stream: viewModel.recordsStream,
-        builder: (context, snapshot) {
-          final records = snapshot.data ?? [];
+      stream: viewModel.recordsStream,
+      builder: (context, snapshot) {
+        final records = snapshot.data ?? [];
 
-          return Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFFE3F2FD),
-                  Color(0xFFE8F5E9)
-                ], // 연한 파란색에서 연한 녹색으로
-              ),
+        // 초기 페이지 설정
+        if (currentPage == 0 && records.isNotEmpty) {
+          currentPage = _getInitialPage(records);
+        }
+
+        final start = currentPage * recordsPerPage;
+        final end = (start + recordsPerPage) > records.length
+            ? records.length
+            : (start + recordsPerPage);
+        final pagedRecords = records.sublist(start, end);
+
+        return Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Color(0xFFE3F2FD), Color(0xFFE8F5E9)],
             ),
-            child: SafeArea(
-              child: Column(
-                children: [
-                  // 글래스모피즘 앱바
-                  const GlassAppBar(),
-                  // 메인 콘텐츠
-                  Expanded(
-                    child: ListView(
-                      padding: const EdgeInsets.all(16),
-                      children: [
-                        // 마스코트와 환영 메시지
-                        const Mascot(),
-                        const SizedBox(height: 8),
-                        const Text(
-                          '오늘 어떠세요?',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                          ),
+          ),
+          child: SafeArea(
+            child: Column(
+              children: [
+                const GlassAppBar(),
+                Expanded(
+                  child: ListView(
+                    padding: const EdgeInsets.all(16),
+                    children: [
+                      const Mascot(),
+                      const SizedBox(height: 8),
+                      const Text(
+                        '오늘 어떠세요?',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
                         ),
-                        const Text(
-                          '증상을 기록하고 건강을 관리해보세요!',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey,
+                      ),
+                      const Text(
+                        '증상을 기록하고 건강을 관리해보세요!',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 14, color: Colors.grey),
+                      ),
+                      const SizedBox(height: 24),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: GradientButton(
+                              text: '오늘 기록하기',
+                              icon: Icons.add_circle_outline,
+                              colors: const [
+                                Color(0xFF1E88E5),
+                                Color(0xFF42A5F5),
+                              ],
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) =>
+                                      AddRecordModal(viewModel: viewModel),
+                                );
+                              },
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 24),
-
-                        // 빠른 액션 버튼 (기록하기, 달력 보기)
-                        Row(
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: GradientButton(
+                              text: '달력 보기',
+                              icon: Icons.calendar_today,
+                              colors: const [
+                                Color(0xFF66BB6A),
+                                Color(0xFF81C784),
+                              ],
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) =>
+                                      CalendarModal(viewModel: viewModel),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 24),
+                      GlassCard(
+                        title: '최근 상태 요약',
+                        subtitle: '지난 7일간의 증상 요약',
+                        color: const Color(0xFF1E88E5),
+                        child: Column(
                           children: [
-                            Expanded(
-                              child: GradientButton(
-                                text: '오늘 기록하기',
-                                icon: Icons.add_circle_outline,
-                                colors: const [
-                                  Color(0xFF1E88E5),
-                                  Color(0xFF42A5F5)
+                            SizedBox(
+                              height: 250,
+                              child: Chart(records: records),
+                            ),
+                            const SizedBox(height: 12),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      GlassCard(
+                        title: '최근 기록',
+                        subtitle: '최근 입력한 기록들',
+                        color: const Color(0xFF66BB6A),
+                        child: Column(
+                          children: [
+                            ...pagedRecords.map(
+                              (e) => Column(
+                                children: [
+                                  RecentEntry(record: e, viewModel: viewModel),
+                                  const SizedBox(height: 12),
                                 ],
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) =>
-                                        AddRecordModal(viewModel: viewModel),
-                                  );
-                                },
                               ),
                             ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: GradientButton(
-                                text: '달력 보기',
-                                icon: Icons.calendar_today,
-                                colors: const [
-                                  Color(0xFF66BB6A),
-                                  Color(0xFF81C784)
-                                ],
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => CalendarModal(
-                                      viewModel: viewModel,
-                                    ),
-                                  );
-                                },
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.arrow_back),
+                                  onPressed: _prevPage,
+                                ),
+                                Text(
+                                  '${records.isEmpty ? 0 : currentPage + 1} / ${(records.length / recordsPerPage).ceil()}',
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.arrow_forward),
+                                  onPressed: () => _nextPage(records.length),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                        const SizedBox(height: 24),
-
-                        // 최근 상태 차트
-                        GlassCard(
-                          title: '최근 상태 요약',
-                          subtitle: '지난 7일간의 증상 요약',
-                          color: const Color(0xFF1E88E5),
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 200,
-                                child: Chart(records: records),
-                              ),
-                              const SizedBox(height: 12),
-                              const Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  LegendItem(
-                                      text: '가슴쓰림', color: Color(0xFF1E88E5)),
-                                  SizedBox(width: 16),
-                                  LegendItem(
-                                      text: '역류', color: Color(0xFF66BB6A)),
-                                  SizedBox(width: 16),
-                                  LegendItem(
-                                      text: '소화불량', color: Color(0xFFFFB74D))
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 24),
-
-                        // 최근 기록
-                        GlassCard(
-                          title: '최근 기록',
-                          subtitle: '최근 입력한 기록들',
-                          color: const Color(0xFF66BB6A),
-                          child: Column(
-                            children: records
-                                .map(
-                                  (e) => Column(
-                                    children: [
-                                      RecentEntry(
-                                        record: e,
-                                        viewModel: viewModel,
-                                      ),
-                                      const SizedBox(
-                                        height: 12,
-                                      )
-                                    ],
-                                  ),
-                                )
-                                .toList(),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }
