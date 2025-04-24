@@ -25,8 +25,12 @@ mixin _$GerdRecord {
   String get status => throw _privateConstructorUsedError;
   String get notes => throw _privateConstructorUsedError;
 
+  /// Serializes this GerdRecord to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of GerdRecord
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $GerdRecordCopyWith<GerdRecord> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -50,6 +54,8 @@ class _$GerdRecordCopyWithImpl<$Res, $Val extends GerdRecord>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of GerdRecord
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -98,6 +104,8 @@ class __$$GerdRecordImplCopyWithImpl<$Res>
       _$GerdRecordImpl _value, $Res Function(_$GerdRecordImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of GerdRecord
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -171,12 +179,14 @@ class _$GerdRecordImpl implements _GerdRecord {
             (identical(other.notes, notes) || other.notes == notes));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, date,
       const DeepCollectionEquality().hash(_symptoms), status, notes);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of GerdRecord
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GerdRecordImplCopyWith<_$GerdRecordImpl> get copyWith =>
@@ -208,8 +218,11 @@ abstract class _GerdRecord implements GerdRecord {
   String get status;
   @override
   String get notes;
+
+  /// Create a copy of GerdRecord
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GerdRecordImplCopyWith<_$GerdRecordImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

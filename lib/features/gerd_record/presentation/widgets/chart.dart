@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:no_gerd/features/record/domain/entities/gerd_record.dart';
+import 'package:no_gerd/features/gerd_record/domain/entities/gerd_record.dart';
 
 class Chart extends StatelessWidget {
   const Chart({super.key, required this.records});

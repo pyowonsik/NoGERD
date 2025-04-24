@@ -1,6 +1,6 @@
 import 'package:rxdart/rxdart.dart';
 
-import 'package:no_gerd/features/record/domain/entities/gerd_record.dart';
+import 'package:no_gerd/features/gerd_record/domain/entities/gerd_record.dart';
 
 class GerdViewModel {
   // BehaviorSubject: 현재 값 유지 + 스트림 제공

@@ -1,9 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+
 import 'package:intl/intl.dart';
-import 'package:no_gerd/features/record/domain/entities/gerd_record.dart';
-import 'package:no_gerd/features/record/presentation/viewmodels/gred_view_model.dart';
+
+import 'package:no_gerd/features/gerd_record/domain/entities/gerd_record.dart';
+import 'package:no_gerd/features/gerd_record/presentation/viewmodels/gerd_view_model.dart';
 
 class AddRecordModal extends StatefulWidget {
   final GerdViewModel viewModel;

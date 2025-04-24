@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'gerd_record.dart';
+part of 'gerd_record_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator

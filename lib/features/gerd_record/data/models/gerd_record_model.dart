@@ -1,7 +1,9 @@
 import 'package:hive/hive.dart';
-import 'package:no_gerd/features/record/domain/entities/gerd_record.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-part 'gerd_record.g.dart';
+import 'package:no_gerd/features/gerd_record/domain/entities/gerd_record.dart';
+
+part 'gerd_record_model.g.dart';
 
 @HiveType(typeId: 0)
 class GerdRecordModel {
@@ -24,7 +26,7 @@ class GerdRecordModel {
     required this.notes,
   });
 
-  // GerdRecordModel을 GerdRecord로 변환
+  /// Model → Entity
   GerdRecord toEntity() {
     return GerdRecord(
       date: date,
@@ -34,7 +36,7 @@ class GerdRecordModel {
     );
   }
 
-  // GerdRecord를 GerdRecordModel로 변환
+  /// Entity → Model
   factory GerdRecordModel.fromEntity(GerdRecord entity) {
     return GerdRecordModel(
       date: entity.date,

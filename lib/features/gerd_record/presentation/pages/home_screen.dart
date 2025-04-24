@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 
 import 'package:table_calendar/table_calendar.dart';
 
-import 'package:no_gerd/features/record/domain/entities/gerd_record.dart';
-import 'package:no_gerd/features/record/presentation/viewmodels/gred_view_model.dart';
-import 'package:no_gerd/features/record/presentation/widgets/chart.dart';
-import 'package:no_gerd/features/record/presentation/widgets/glass_app_bar.dart';
-import 'package:no_gerd/features/record/presentation/widgets/glass_card.dart';
-import 'package:no_gerd/features/record/presentation/widgets/gradient_button.dart';
-import 'package:no_gerd/features/record/presentation/widgets/legned_item.dart';
-import 'package:no_gerd/features/record/presentation/widgets/mascot.dart';
-import 'package:no_gerd/features/record/presentation/widgets/modals/add_record_modal.dart';
-import 'package:no_gerd/features/record/presentation/widgets/modals/calendar_modal.dart';
-import 'package:no_gerd/features/record/presentation/widgets/recent_entry.dart';
+import 'package:no_gerd/features/gerd_record/domain/entities/gerd_record.dart';
+import 'package:no_gerd/features/gerd_record/presentation/viewmodels/gerd_view_model.dart';
+import 'package:no_gerd/features/gerd_record/presentation/widgets/chart.dart';
+import 'package:no_gerd/features/gerd_record/presentation/widgets/glass_app_bar.dart';
+import 'package:no_gerd/features/gerd_record/presentation/widgets/glass_card.dart';
+import 'package:no_gerd/features/gerd_record/presentation/widgets/gradient_button.dart';
+import 'package:no_gerd/features/gerd_record/presentation/widgets/legned_item.dart';
+import 'package:no_gerd/features/gerd_record/presentation/widgets/mascot.dart';
+import 'package:no_gerd/features/gerd_record/presentation/widgets/modals/add_record_modal.dart';
+import 'package:no_gerd/features/gerd_record/presentation/widgets/modals/calendar_modal.dart';
+import 'package:no_gerd/features/gerd_record/presentation/widgets/recent_entry.dart';
 
 const List<GerdRecord> demo = [
   GerdRecord(
