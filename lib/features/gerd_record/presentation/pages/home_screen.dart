@@ -15,27 +15,6 @@ import 'package:no_gerd/features/gerd_record/presentation/widgets/modals/add_rec
 import 'package:no_gerd/features/gerd_record/presentation/widgets/modals/calendar_modal.dart';
 import 'package:no_gerd/features/gerd_record/presentation/widgets/recent_entry.dart';
 
-const List<GerdRecord> demo = [
-  GerdRecord(
-    date: '2023년 04월 15일',
-    symptoms: ['가슴 쓰림', '목 아픔'],
-    status: '좋음',
-    notes: '오늘은 증상이 경미했습니다. 저녁에 매운 음식을 피했더니 효과가 있었습니다.',
-  ),
-  GerdRecord(
-    date: '2023년 04월 14일',
-    symptoms: ['가슴 쓰림', '역류'],
-    status: '보통',
-    notes: '점심에 커피를 마신 후 증상이 악화되었습니다.',
-  ),
-  GerdRecord(
-    date: '2023년 04월 13일',
-    symptoms: ['가슴 쓰림', '역류', '소화불량'],
-    status: '나쁨',
-    notes: '오늘은 증상이 심했습니다. 취침 전 간식을 먹은 것이 원인인 것 같습니다.',
-  ),
-];
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -49,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    viewModel.loadInitialData(demo);
+    viewModel.loadAllRecords();
   }
 
   @override
@@ -133,7 +112,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 onPressed: () {
                                   showDialog(
                                     context: context,
-                                    builder: (context) => const CalendarModal(),
+                                    builder: (context) => CalendarModal(
+                                      viewModel: viewModel,
+                                    ),
                                   );
                                 },
                               ),
@@ -182,7 +163,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 .map(
                                   (e) => Column(
                                     children: [
-                                      RecentEntry(record: e),
+                                      RecentEntry(
+                                        record: e,
+                                        viewModel: viewModel,
+                                      ),
                                       const SizedBox(
                                         height: 12,
                                       )

@@ -2,25 +2,25 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import 'package:no_gerd/features/gerd_record/domain/entities/gerd_record.dart';
+import 'package:no_gerd/features/gerd_record/presentation/viewmodels/gerd_view_model.dart';
+import 'package:no_gerd/features/gerd_record/presentation/widgets/modals/record_detail_modal.dart';
+import 'package:no_gerd/utils/status_util.dart';
+
 class CalendarModal extends StatefulWidget {
-  const CalendarModal({super.key});
+  final GerdViewModel viewModel;
+
+  const CalendarModal({super.key, required this.viewModel});
 
   @override
   State<CalendarModal> createState() => _CalendarModalState();
 }
 
 class _CalendarModalState extends State<CalendarModal> {
-  // 색상 상수 정의
-  static const Color _primaryColor = Color(0xFF1E88E5); // 메인 파란색
-  static const Color _successColor = Color(0xFF66BB6A); // 초록색
-  static const Color _warningColor = Color(0xFFFFCA28); // 주황색
-  static const Color _dangerColor = Color(0xFFEF5350); // 빨간색
-
   late DateTime _focusedDay;
   DateTime? _selectedDay;
   CalendarFormat _calendarFormat = CalendarFormat.month;
@@ -30,11 +30,22 @@ class _CalendarModalState extends State<CalendarModal> {
     super.initState();
     _focusedDay = DateTime.now();
     _selectedDay = DateTime.now();
+
     initializeDateFormatting('ko_KR', null);
   }
 
   @override
   Widget build(BuildContext context) {
+    // viewModel에서 전체 기록 가져오기
+    final records = widget.viewModel.currentRecords;
+
+    // "yyyy년 MM월 dd일" 포맷을 DateTime 객체로 변환
+    final recordDates = records.map((record) {
+      final parsedDate = DateFormat('yyyy년 MM월 dd일').parse(record.date);
+      // 시간 부분을 00:00으로 설정
+      return DateTime(parsedDate.year, parsedDate.month, parsedDate.day);
+    }).toSet();
+
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
@@ -68,7 +79,7 @@ class _CalendarModalState extends State<CalendarModal> {
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
-                    color: _primaryColor,
+                    color: StatusUtil.primaryColor,
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -90,14 +101,37 @@ class _CalendarModalState extends State<CalendarModal> {
                       _selectedDay = selectedDay;
                       _focusedDay = focusedDay;
                     });
+
+                    // 선택된 날짜의 기록 찾기
+                    final selectedDate =
+                        DateFormat('yyyy년 MM월 dd일').format(selectedDay);
+
+                    try {
+                      final selectedRecord =
+                          widget.viewModel.currentRecords.firstWhere(
+                        (record) => record.date == selectedDate,
+                      );
+
+                      // 기록이 있으면 상세 모달 표시
+                      showDialog(
+                        context: context,
+                        builder: (context) => RecordDetailModal(
+                          record: selectedRecord,
+                          viewModel: widget.viewModel,
+                        ),
+                      );
+                    } catch (e) {
+                      // 예외가 발생하면 모달을 띄우지 않음
+                      // print('선택된 날짜에 해당하는 기록이 없습니다: $e');
+                    }
                   },
                   calendarStyle: CalendarStyle(
                     selectedDecoration: const BoxDecoration(
-                      color: _primaryColor,
+                      color: StatusUtil.primaryColor,
                       shape: BoxShape.circle,
                     ),
                     todayDecoration: BoxDecoration(
-                      color: _primaryColor.withOpacity(0.3),
+                      color: StatusUtil.primaryColor.withOpacity(0.3),
                       shape: BoxShape.circle,
                     ),
                     weekendTextStyle: TextStyle(
@@ -118,11 +152,11 @@ class _CalendarModalState extends State<CalendarModal> {
                     ),
                     leftChevronIcon: const Icon(
                       Icons.chevron_left,
-                      color: _primaryColor,
+                      color: StatusUtil.primaryColor,
                     ),
                     rightChevronIcon: const Icon(
                       Icons.chevron_right,
-                      color: _primaryColor,
+                      color: StatusUtil.primaryColor,
                     ),
                   ),
                   calendarBuilders: CalendarBuilders(
@@ -141,6 +175,37 @@ class _CalendarModalState extends State<CalendarModal> {
                           ),
                         ),
                       );
+                    },
+                    // Marker (점) 표시
+                    markerBuilder: (context, date, events) {
+                      final normalizedDate =
+                          DateTime(date.year, date.month, date.day);
+
+                      try {
+                        // 해당 날짜의 기록 찾기
+                        final selectedRecord =
+                            widget.viewModel.currentRecords.firstWhere(
+                          (record) =>
+                              record.date ==
+                              DateFormat('yyyy년 MM월 dd일').format(date),
+                        );
+
+                        // 상태에 맞는 색상 및 아이콘을 가져오기
+                        Color statusColor =
+                            StatusUtil.getStatusColor(selectedRecord.status);
+
+                        return Container(
+                          width: 4,
+                          height: 4,
+                          decoration: BoxDecoration(
+                            color: statusColor, // 상태에 맞는 색상 적용
+                            shape: BoxShape.circle,
+                          ),
+                        );
+                      } catch (e) {
+                        // 예외가 발생하면 기록이 없는 것으로 간주하고, 점을 표시하지 않음
+                        return const SizedBox.shrink();
+                      }
                     },
                   ),
                   locale: 'ko_KR',

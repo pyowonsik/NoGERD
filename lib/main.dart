@@ -4,14 +4,15 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:no_gerd/apps/app.dart';
 import 'package:no_gerd/features/gerd_record/data/models/gerd_record_model.dart';
+import 'package:no_gerd/injection.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Hive.initFlutter();
-
   Hive.registerAdapter(GerdRecordModelAdapter());
-  await Hive.openBox<GerdRecordModel>('gerdRecords');
+
+  await init(); // 👈 get_it 설정
 
   runApp(const MyApp());
 }

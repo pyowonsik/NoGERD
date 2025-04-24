@@ -20,14 +20,14 @@ class GerdRecordRepositoryImpl implements GerdRecordRepository {
     return models.map((m) => m.toEntity()).toList();
   }
 
-  @override
-  Future<void> updateRecord(String key, GerdRecord updatedRecord) async {
-    final model = GerdRecordModel.fromEntity(updatedRecord);
-    await localDataSource.updateRecord(key, model);
-  }
+  // @override
+  // Future<void> updateRecord(String key, GerdRecord updatedRecord) async {
+  //   final model = GerdRecordModel.fromEntity(updatedRecord);
+  //   await localDataSource.updateRecord(key, model);
+  // }
 
-  @override
-  Future<void> deleteRecord(String key) async {
-    await localDataSource.deleteRecord(key);
-  }
+  // @override
+  // Future<void> deleteRecord(String key) async {
+  //   await localDataSource.deleteRecord(key);
+  // }
 }

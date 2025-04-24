@@ -1,35 +1,43 @@
+import 'package:get_it/get_it.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:no_gerd/features/gerd_record/domain/entities/gerd_record.dart';
+import 'package:no_gerd/features/gerd_record/domain/repositories/gerd_record_repository.dart';
 
 class GerdViewModel {
-  // BehaviorSubject: 현재 값 유지 + 스트림 제공
+  final GerdRecordRepository _repository =
+      GetIt.instance<GerdRecordRepository>();
+
   final _recordsSubject = BehaviorSubject<List<GerdRecord>>.seeded([]);
 
-  // 스트림 getter (읽기 전용)
   Stream<List<GerdRecord>> get recordsStream => _recordsSubject.stream;
-
-  // 현재 값
   List<GerdRecord> get currentRecords => _recordsSubject.value;
 
-  // 초기화 (예: demo 데이터 세팅)
-  void loadInitialData(List<GerdRecord> demo) {
-    _recordsSubject.add(demo);
+  // 초기 로딩
+  Future<void> loadAllRecords() async {
+    final records = await _repository.getAllRecords();
+    _recordsSubject.add(records);
   }
 
-  // 새 기록 추가
-  void addRecord(GerdRecord record) {
-    final updated = List<GerdRecord>.from(currentRecords)..insert(0, record);
+  Future<void> addRecord(GerdRecord record) async {
+    // DB에 무조건 덮어쓰기
+    await _repository.addRecord(record);
+
+    // 메모리에서도 동일 날짜 기록 제거 후 새로 추가
+    final updated = List<GerdRecord>.from(currentRecords)
+      ..removeWhere((r) => r.date == record.date)
+      ..insert(0, record); // 최신 기록 맨 앞에
+
     _recordsSubject.add(updated);
   }
 
-  // 기록 삭제
-  void deleteRecord(GerdRecord record) {
-    final updated = List<GerdRecord>.from(currentRecords)..remove(record);
-    _recordsSubject.add(updated);
-  }
+  // // 기록 삭제
+  // Future<void> deleteRecord(String key, GerdRecord record) async {
+  //   await _repository.deleteRecord(key);
+  //   final updated = List<GerdRecord>.from(currentRecords)..remove(record);
+  //   _recordsSubject.add(updated);
+  // }
 
-  // 자원 해제
   void dispose() {
     _recordsSubject.close();
   }

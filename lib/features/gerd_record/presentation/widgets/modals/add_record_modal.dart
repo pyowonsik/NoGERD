@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 
 import 'package:no_gerd/features/gerd_record/domain/entities/gerd_record.dart';
 import 'package:no_gerd/features/gerd_record/presentation/viewmodels/gerd_view_model.dart';
+import 'package:no_gerd/utils/status_util.dart';
 
 class AddRecordModal extends StatefulWidget {
   final GerdViewModel viewModel;
@@ -22,19 +23,15 @@ class _AddRecordModalState extends State<AddRecordModal> {
   String _selectedStatus = '보통';
   final List<String> _selectedSymptoms = [];
 
-  // 색상 상수 정의
-  static const Color _primaryColor = Color(0xFF1E88E5); // 메인 파란색
-  static const Color _successColor = Color(0xFF66BB6A); // 초록색
-  static const Color _warningColor = Color(0xFFFFCA28); // 주황색
-  static const Color _dangerColor = Color(0xFFEF5350); // 빨간색
-  static const Color _backgroundColor = Color(0xFFF5F5F5); // 연한 회색 배경
-
   final List<String> _symptoms = [
     '가슴 쓰림',
     '역류',
     '소화불량',
     '목 아픔',
     '복부 팽만감',
+    '기침',
+    '쉰 목소리',
+    '기타',
   ];
 
   final List<String> _statuses = [
@@ -87,7 +84,7 @@ class _AddRecordModalState extends State<AddRecordModal> {
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
-                      color: _primaryColor,
+                      color: StatusUtil.primaryColor,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -120,11 +117,12 @@ class _AddRecordModalState extends State<AddRecordModal> {
                           });
                         },
                         backgroundColor: Colors.white,
-                        selectedColor: _primaryColor.withOpacity(0.15),
-                        checkmarkColor: _primaryColor,
+                        selectedColor:
+                            StatusUtil.primaryColor.withOpacity(0.15),
+                        checkmarkColor: StatusUtil.primaryColor,
                         labelStyle: TextStyle(
                           color: _selectedSymptoms.contains(symptom)
-                              ? _primaryColor
+                              ? StatusUtil.primaryColor
                               : Colors.grey.shade700,
                           fontWeight: _selectedSymptoms.contains(symptom)
                               ? FontWeight.w600
@@ -134,7 +132,7 @@ class _AddRecordModalState extends State<AddRecordModal> {
                           borderRadius: BorderRadius.circular(20),
                           side: BorderSide(
                             color: _selectedSymptoms.contains(symptom)
-                                ? _primaryColor
+                                ? StatusUtil.primaryColor
                                 : Colors.grey.shade300,
                           ),
                         ),
@@ -170,19 +168,20 @@ class _AddRecordModalState extends State<AddRecordModal> {
                           ),
                           decoration: BoxDecoration(
                             color: isSelected
-                                ? _getStatusColor(status).withOpacity(0.15)
+                                ? StatusUtil.getStatusColor(status)
+                                    .withOpacity(0.15)
                                 : Colors.white,
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
                               color: isSelected
-                                  ? _getStatusColor(status)
+                                  ? StatusUtil.getStatusColor(status)
                                   : Colors.grey.shade300,
                               width: isSelected ? 2 : 1,
                             ),
                             boxShadow: isSelected
                                 ? [
                                     BoxShadow(
-                                      color: _getStatusColor(status)
+                                      color: StatusUtil.getStatusColor(status)
                                           .withOpacity(0.1),
                                       blurRadius: 8,
                                       offset: const Offset(0, 2),
@@ -194,7 +193,7 @@ class _AddRecordModalState extends State<AddRecordModal> {
                             status,
                             style: TextStyle(
                               color: isSelected
-                                  ? _getStatusColor(status)
+                                  ? StatusUtil.getStatusColor(status)
                                   : Colors.grey.shade700,
                               fontWeight: isSelected
                                   ? FontWeight.w600
@@ -234,7 +233,8 @@ class _AddRecordModalState extends State<AddRecordModal> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: _primaryColor),
+                        borderSide:
+                            const BorderSide(color: StatusUtil.primaryColor),
                       ),
                       contentPadding: const EdgeInsets.all(16),
                     ),
@@ -264,28 +264,29 @@ class _AddRecordModalState extends State<AddRecordModal> {
                       const SizedBox(width: 12),
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             if (_formKey.currentState!.validate() &&
                                 _selectedSymptoms.isNotEmpty) {
                               // 새로운 GerdRecord 생성
                               final newRecord = GerdRecord(
                                 date: DateFormat('yyyy년 MM월 dd일')
-                                    .format(DateTime.now()),
+                                    .format(DateTime(2025, 4, 28)),
+                                //  DateFormat('yyyy년 MM월 dd일')
+                                //     .format(DateTime.now()),
                                 symptoms: _selectedSymptoms,
                                 status: _selectedStatus,
                                 notes: _notesController.text,
                               );
 
                               final viewModel = widget.viewModel;
-                              viewModel.addRecord(
-                                  newRecord); // Add the new record to the ViewModel
+                              await viewModel.addRecord(newRecord);
 
                               // 모달 닫기
                               Navigator.pop(context);
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: _primaryColor,
+                            backgroundColor: StatusUtil.primaryColor,
                             foregroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(vertical: 12),
                             shape: RoundedRectangleBorder(
@@ -305,18 +306,5 @@ class _AddRecordModalState extends State<AddRecordModal> {
         ),
       ),
     );
-  }
-
-  Color _getStatusColor(String status) {
-    switch (status) {
-      case '좋음':
-        return _successColor;
-      case '보통':
-        return _warningColor;
-      case '나쁨':
-        return _dangerColor;
-      default:
-        return _primaryColor;
-    }
   }
 }
