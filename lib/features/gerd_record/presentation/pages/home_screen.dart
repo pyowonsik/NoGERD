@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'package:intl/intl.dart';
-
 import 'package:no_gerd/features/gerd_record/domain/entities/gerd_record.dart';
 import 'package:no_gerd/features/gerd_record/presentation/viewmodels/gerd_view_model.dart';
+import 'package:no_gerd/features/gerd_record/presentation/widgets/characters/empty_character.dart';
+import 'package:no_gerd/features/gerd_record/presentation/widgets/characters/main_character.dart';
 import 'package:no_gerd/features/gerd_record/presentation/widgets/chart.dart';
 import 'package:no_gerd/features/gerd_record/presentation/widgets/glass_app_bar.dart';
 import 'package:no_gerd/features/gerd_record/presentation/widgets/glass_card.dart';
 import 'package:no_gerd/features/gerd_record/presentation/widgets/gradient_button.dart';
-import 'package:no_gerd/features/gerd_record/presentation/widgets/legned_item.dart';
-import 'package:no_gerd/features/gerd_record/presentation/widgets/mascot.dart';
 import 'package:no_gerd/features/gerd_record/presentation/widgets/modals/add_record_modal.dart';
 import 'package:no_gerd/features/gerd_record/presentation/widgets/modals/calendar_modal.dart';
 import 'package:no_gerd/features/gerd_record/presentation/widgets/recent_entry.dart';
@@ -97,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: ListView(
                     padding: const EdgeInsets.all(16),
                     children: [
-                      const Mascot(),
+                      const MainCharacter(),
                       const SizedBox(height: 8),
                       const Text(
                         '오늘 어떠세요?',
@@ -172,34 +170,39 @@ class _HomeScreenState extends State<HomeScreen> {
                         title: '최근 기록',
                         subtitle: '최근 입력한 기록들',
                         color: const Color(0xFF66BB6A),
-                        child: Column(
-                          children: [
-                            ...pagedRecords.map(
-                              (e) => Column(
+                        child: pagedRecords.isEmpty
+                            ? const EmptyCharacter()
+                            : Column(
                                 children: [
-                                  RecentEntry(record: e, viewModel: viewModel),
-                                  const SizedBox(height: 12),
+                                  ...pagedRecords.map(
+                                    (e) => Column(
+                                      children: [
+                                        RecentEntry(
+                                            record: e, viewModel: viewModel),
+                                        const SizedBox(height: 12),
+                                      ],
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      IconButton(
+                                        icon: const Icon(Icons.arrow_back),
+                                        onPressed: _prevPage,
+                                      ),
+                                      Text(
+                                        '${records.isEmpty ? 0 : currentPage + 1} / ${(records.length / recordsPerPage).ceil()}',
+                                      ),
+                                      IconButton(
+                                        icon: const Icon(Icons.arrow_forward),
+                                        onPressed: () =>
+                                            _nextPage(records.length),
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                IconButton(
-                                  icon: const Icon(Icons.arrow_back),
-                                  onPressed: _prevPage,
-                                ),
-                                Text(
-                                  '${records.isEmpty ? 0 : currentPage + 1} / ${(records.length / recordsPerPage).ceil()}',
-                                ),
-                                IconButton(
-                                  icon: const Icon(Icons.arrow_forward),
-                                  onPressed: () => _nextPage(records.length),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
                       ),
                     ],
                   ),

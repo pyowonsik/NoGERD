@@ -24,12 +24,11 @@ class Chart extends StatelessWidget {
           records.where((record) => record.date == date).toList();
 
       // 각 증상별 카운트 계산
-      final symptomCounts =
-          SymptomsUtil.symptoms.map((symptom) {
-            return dateRecords
-                .where((record) => record.symptoms.contains(symptom))
-                .length;
-          }).toList();
+      final symptomCounts = SymptomsUtil.symptoms.map((symptom) {
+        return dateRecords
+            .where((record) => record.symptoms.contains(symptom))
+            .length;
+      }).toList();
 
       // 날짜 문자열을 DateTime으로 변환
       final dateParts = date.split(RegExp(r'[년월일]'));
@@ -53,25 +52,24 @@ class Chart extends StatelessWidget {
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
-      children:
-          SymptomsUtil.symptoms.asMap().entries.map((entry) {
-            final index = entry.key;
-            final symptom = entry.value;
-            // final isFirst = index == 0;
-            // final isLast = index == symptoms.length - 1;
+      children: SymptomsUtil.symptoms.asMap().entries.map((entry) {
+        final index = entry.key;
+        final symptom = entry.value;
+        // final isFirst = index == 0;
+        // final isLast = index == symptoms.length - 1;
 
-            return Container(
-              width: 24,
-              height: counts[index] * scale,
-              decoration: BoxDecoration(
-                color: SymptomsUtil.symptomColors[symptom],
-                // borderRadius: const BorderRadius.vertical(
+        return Container(
+          width: 24,
+          height: counts[index] * scale,
+          decoration: BoxDecoration(
+            color: SymptomsUtil.symptomColors[symptom],
+            borderRadius: const BorderRadius.vertical(
                 // top: isFirst ? const Radius.circular(4) : Radius.zero,
                 // bottom: isLast ? const Radius.circular(4) : Radius.zero,
-                // ),
-              ),
-            );
-          }).toList(),
+                ),
+          ),
+        );
+      }).toList(),
     );
   }
 
@@ -92,22 +90,20 @@ class Chart extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children:
-                  processedData.map((data) {
-                    return _buildChartBar(data);
-                  }).toList(),
+              children: processedData.map((data) {
+                return _buildChartBar(data);
+              }).toList(),
             ),
           ),
           const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children:
-                processedData.map((data) {
-                  return Text(
-                    data['date'],
-                    style: TextStyle(fontSize: 10, color: Colors.grey[600]),
-                  );
-                }).toList(),
+            children: processedData.map((data) {
+              return Text(
+                data['date'],
+                style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+              );
+            }).toList(),
           ),
           const SizedBox(height: 16),
           // 범례 추가
@@ -115,27 +111,26 @@ class Chart extends StatelessWidget {
             spacing: 8,
             runSpacing: 8,
             alignment: WrapAlignment.center,
-            children:
-                SymptomsUtil.symptoms.map((symptom) {
-                  return Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        width: 12,
-                        height: 12,
-                        decoration: BoxDecoration(
-                          color: SymptomsUtil.symptomColors[symptom],
-                          borderRadius: BorderRadius.circular(2),
-                        ),
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        symptom,
-                        style: TextStyle(fontSize: 10, color: Colors.grey[700]),
-                      ),
-                    ],
-                  );
-                }).toList(),
+            children: SymptomsUtil.symptoms.map((symptom) {
+              return Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 12,
+                    height: 12,
+                    decoration: BoxDecoration(
+                      color: SymptomsUtil.symptomColors[symptom],
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    symptom,
+                    style: TextStyle(fontSize: 10, color: Colors.grey[700]),
+                  ),
+                ],
+              );
+            }).toList(),
           ),
         ],
       ),

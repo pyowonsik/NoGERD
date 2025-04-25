@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Mascot extends StatelessWidget {
-  const Mascot({super.key});
+class MainCharacter extends StatelessWidget {
+  const MainCharacter({super.key});
 
   @override
   Widget build(BuildContext context) {
