@@ -2,11 +2,21 @@ import 'package:get_it/get_it.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'package:no_gerd/features/gerd_record/domain/entities/gerd_record.dart';
-import 'package:no_gerd/features/gerd_record/domain/repositories/gerd_record_repository.dart';
+import 'package:no_gerd/features/gerd_record/domain/usecases/add_record_usecase.dart';
+import 'package:no_gerd/features/gerd_record/domain/usecases/get_all_records_usecase.dart';
+import 'package:no_gerd/features/gerd_record/domain/usecases/usecase.dart';
 
 class GerdViewModel {
-  final GerdRecordRepository _repository =
-      GetIt.instance<GerdRecordRepository>();
+  final GetAllRecordsUseCase _getAllRecordsUseCase;
+  final AddRecordUseCase _addRecordUseCase;
+
+  GerdViewModel({
+    GetAllRecordsUseCase? getAllRecordsUseCase,
+    AddRecordUseCase? addRecordUseCase,
+  })  : _getAllRecordsUseCase =
+            getAllRecordsUseCase ?? GetIt.instance<GetAllRecordsUseCase>(),
+        _addRecordUseCase =
+            addRecordUseCase ?? GetIt.instance<AddRecordUseCase>();
 
   final _recordsSubject = BehaviorSubject<List<GerdRecord>>.seeded([]);
 
@@ -15,21 +25,20 @@ class GerdViewModel {
 
   // 초기 로딩
   Future<void> loadAllRecords() async {
-    final records = await _repository.getAllRecords();
+    final records = await _getAllRecordsUseCase.call(const NoParams());
     _recordsSubject.add(records);
   }
 
   Future<void> addRecord(GerdRecord record) async {
-    // DB에 무조건 덮어쓰기
-    await _repository.addRecord(record);
+    await _addRecordUseCase.call(AddRecordParams(record));
 
     // 메모리에서도 동일 날짜 기록 제거 후 새로 추가
     final updated = List<GerdRecord>.from(currentRecords)
       ..removeWhere((r) => r.date == record.date)
-      ..add(record); // 먼저 추가하고
+      ..add(record);
 
     // 날짜 기준 정렬 (오름차순: 옛날 → 최신)
-    updated.sort((a, b) => b.date.compareTo(b.date));
+    updated.sort((a, b) => b.date.compareTo(a.date));
 
     _recordsSubject.add(updated);
   }

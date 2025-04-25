@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import 'package:no_gerd/features/gerd_record/domain/entities/gerd_record.dart';
 import 'package:no_gerd/features/gerd_record/presentation/viewmodels/gerd_view_model.dart';
 import 'package:no_gerd/features/gerd_record/presentation/widgets/modals/record_detail_modal.dart';
 import 'package:no_gerd/utils/status_util.dart';
@@ -34,15 +34,12 @@ class _CalendarModalState extends State<CalendarModal> {
 
   @override
   Widget build(BuildContext context) {
-    // viewModel에서 전체 기록 가져오기
-    final records = widget.viewModel.currentRecords;
+    // final records = widget.viewModel.currentRecords;
 
-    // "yyyy년 MM월 dd일" 포맷을 DateTime 객체로 변환
-    final recordDates = records.map((record) {
-      final parsedDate = DateFormat('yyyy년 MM월 dd일').parse(record.date);
-      // 시간 부분을 00:00으로 설정
-      return DateTime(parsedDate.year, parsedDate.month, parsedDate.day);
-    }).toSet();
+    // final recordDates = records.map((record) {
+    //   final parsedDate = DateFormat('yyyy년 MM월 dd일').parse(record.date);
+    //   return DateTime(parsedDate.year, parsedDate.month, parsedDate.day);
+    // }).toSet();
 
     return Dialog(
       shape: RoundedRectangleBorder(
@@ -55,13 +52,11 @@ class _CalendarModalState extends State<CalendarModal> {
         clipBehavior: Clip.none,
         alignment: Alignment.topCenter,
         children: [
-          // 메인 컨테이너
           Padding(
             padding: const EdgeInsets.fromLTRB(24, 40, 24, 24),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // 타이틀
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -85,8 +80,6 @@ class _CalendarModalState extends State<CalendarModal> {
                   ],
                 ),
                 const SizedBox(height: 24),
-
-                // 달력 설명
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
@@ -121,8 +114,6 @@ class _CalendarModalState extends State<CalendarModal> {
                   ),
                 ),
                 const SizedBox(height: 16),
-
-                // 달력
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -151,7 +142,6 @@ class _CalendarModalState extends State<CalendarModal> {
                         _focusedDay = focusedDay;
                       });
 
-                      // 선택된 날짜의 기록 찾기
                       final selectedDate =
                           DateFormat('yyyy년 MM월 dd일').format(selectedDay);
 
@@ -161,7 +151,6 @@ class _CalendarModalState extends State<CalendarModal> {
                           (record) => record.date == selectedDate,
                         );
 
-                        // 기록이 있으면 상세 모달 표시
                         showDialog(
                           context: context,
                           builder: (context) => RecordDetailModal(
@@ -170,8 +159,7 @@ class _CalendarModalState extends State<CalendarModal> {
                           ),
                         );
                       } catch (e) {
-                        // 예외가 발생하면 모달을 띄우지 않음
-                        // print('선택된 날짜에 해당하는 기록이 없습니다: $e');
+                        // 기록이 없는 경우 무시
                       }
                     },
                     calendarStyle: CalendarStyle(
@@ -233,10 +221,8 @@ class _CalendarModalState extends State<CalendarModal> {
                           ),
                         );
                       },
-                      // Marker (점) 표시
                       markerBuilder: (context, date, events) {
                         try {
-                          // 해당 날짜의 기록 찾기
                           final selectedRecord =
                               widget.viewModel.currentRecords.firstWhere(
                             (record) =>
@@ -244,8 +230,7 @@ class _CalendarModalState extends State<CalendarModal> {
                                 DateFormat('yyyy년 MM월 dd일').format(date),
                           );
 
-                          // 상태에 맞는 색상 가져오기
-                          Color statusColor =
+                          final statusColor =
                               StatusUtil.getStatusColor(selectedRecord.status);
 
                           return Positioned(
@@ -267,7 +252,6 @@ class _CalendarModalState extends State<CalendarModal> {
                             ),
                           );
                         } catch (e) {
-                          // 예외가 발생하면 기록이 없는 것으로 간주하고, 점을 표시하지 않음
                           return const SizedBox.shrink();
                         }
                       },
@@ -276,8 +260,6 @@ class _CalendarModalState extends State<CalendarModal> {
                   ),
                 ),
                 const SizedBox(height: 24),
-
-                // 범례
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
@@ -294,8 +276,6 @@ class _CalendarModalState extends State<CalendarModal> {
                   ),
                 ),
                 const SizedBox(height: 24),
-
-                // 닫기 버튼
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -323,8 +303,6 @@ class _CalendarModalState extends State<CalendarModal> {
               ],
             ),
           ),
-
-          // 상단 아이콘
           Positioned(
             top: -30,
             child: Container(
@@ -352,8 +330,6 @@ class _CalendarModalState extends State<CalendarModal> {
               ),
             ),
           ),
-
-          // 닫기 버튼 (X)
           Positioned(
             top: 10,
             right: 10,
@@ -378,7 +354,6 @@ class _CalendarModalState extends State<CalendarModal> {
     );
   }
 
-  // 범례 아이템 위젯
   Widget _buildLegendItem(String text, Color color) {
     return Row(
       children: [
