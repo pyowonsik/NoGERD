@@ -17,7 +17,6 @@ class GerdRecordLocalDataSourceImpl implements GerdRecordLocalDataSource {
   @override
   Future<void> addRecord(GerdRecordModel record) async {
     await _box.put(record.date, record);
-    // print('addRecord : ${_box.values.toList().map((e) => e.toEntity())}');
   }
 
   @override
@@ -25,6 +24,7 @@ class GerdRecordLocalDataSourceImpl implements GerdRecordLocalDataSource {
     return _box.values.toList();
   }
 
+  /** 추후 구현 로직 */
   // @override
   // Future<void> updateRecord(String key, GerdRecordModel updatedRecord) async {
   //   await _box.put(key, updatedRecord);

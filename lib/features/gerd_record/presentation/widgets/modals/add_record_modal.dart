@@ -30,7 +30,6 @@ class _AddRecordModalState extends State<AddRecordModal> {
     super.dispose();
   }
 
-  // 메모 필드가 비어있을 때 표시할 예외 모달
   void _showEmptyNotesErrorModal(BuildContext context) {
     showDialog(
       context: context,
@@ -45,14 +44,12 @@ class _AddRecordModalState extends State<AddRecordModal> {
           clipBehavior: Clip.none,
           alignment: Alignment.topCenter,
           children: [
-            // 메인 컨테이너
             Padding(
               padding: const EdgeInsets.fromLTRB(24, 40, 24, 24),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // 타이틀
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -60,7 +57,7 @@ class _AddRecordModalState extends State<AddRecordModal> {
                         width: 4,
                         height: 24,
                         decoration: BoxDecoration(
-                          color: const Color(0xFFEF5350), // 에러 색상으로 변경
+                          color: const Color(0xFFEF5350),
                           borderRadius: BorderRadius.circular(2),
                         ),
                       ),
@@ -70,18 +67,16 @@ class _AddRecordModalState extends State<AddRecordModal> {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFFEF5350), // 에러 색상으로 변경
+                          color: Color(0xFFEF5350),
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 24),
-
-                  // 에러 메시지
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFFFEBEE), // 연한 빨간색 배경
+                      color: const Color(0xFFFFEBEE),
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
                         color: const Color(0xFFEF5350).withOpacity(0.3),
@@ -117,8 +112,6 @@ class _AddRecordModalState extends State<AddRecordModal> {
                     ),
                   ),
                   const SizedBox(height: 24),
-
-                  // 도움말
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
@@ -166,8 +159,6 @@ class _AddRecordModalState extends State<AddRecordModal> {
                     ),
                   ),
                   const SizedBox(height: 24),
-
-                  // 확인 버튼
                   ElevatedButton(
                     onPressed: () {
                       Navigator.pop(context);
@@ -192,8 +183,6 @@ class _AddRecordModalState extends State<AddRecordModal> {
                 ],
               ),
             ),
-
-            // 상단 아이콘
             Positioned(
               top: -30,
               child: Container(
@@ -238,13 +227,12 @@ class _AddRecordModalState extends State<AddRecordModal> {
       insetPadding: const EdgeInsets.symmetric(horizontal: 20),
       child: ConstrainedBox(
         constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(context).size.height * 0.7, // 화면 높이의 70%로 제한
+          maxHeight: MediaQuery.of(context).size.height * 0.7,
         ),
         child: Stack(
           clipBehavior: Clip.none,
           alignment: Alignment.topCenter,
           children: [
-            // 메인 컨테이너
             Padding(
               padding: const EdgeInsets.fromLTRB(24, 40, 24, 24),
               child: Form(
@@ -253,7 +241,6 @@ class _AddRecordModalState extends State<AddRecordModal> {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    // 타이틀
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -277,14 +264,11 @@ class _AddRecordModalState extends State<AddRecordModal> {
                       ],
                     ),
                     const SizedBox(height: 24),
-
-                    // 스크롤 가능한 콘텐츠
                     Flexible(
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            // 오늘 날짜 표시
                             Container(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 16,
@@ -323,8 +307,6 @@ class _AddRecordModalState extends State<AddRecordModal> {
                               ),
                             ),
                             const SizedBox(height: 20),
-
-                            // 증상 선택
                             _buildSectionTitle('증상', Icons.healing),
                             const SizedBox(height: 10),
                             Container(
@@ -411,8 +393,6 @@ class _AddRecordModalState extends State<AddRecordModal> {
                               ),
                             ),
                             const SizedBox(height: 20),
-
-                            // 상태 선택
                             _buildSectionTitle(
                                 '오늘의 상태', Icons.sentiment_satisfied_alt),
                             const SizedBox(height: 10),
@@ -495,8 +475,6 @@ class _AddRecordModalState extends State<AddRecordModal> {
                               ),
                             ),
                             const SizedBox(height: 20),
-
-                            // 메모 입력
                             _buildSectionTitle('메모', Icons.note_alt),
                             const SizedBox(height: 10),
                             Container(
@@ -556,10 +534,7 @@ class _AddRecordModalState extends State<AddRecordModal> {
                         ),
                       ),
                     ),
-
                     const SizedBox(height: 16),
-
-                    // 버튼 (스크롤 영역 밖에 고정)
                     Row(
                       children: [
                         Expanded(
@@ -590,13 +565,11 @@ class _AddRecordModalState extends State<AddRecordModal> {
                           child: ElevatedButton(
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
-                                // 메모 필드가 비어있는지 확인
                                 if (_notesController.text.trim().isEmpty) {
                                   _showEmptyNotesErrorModal(context);
                                   return;
                                 }
 
-                                // 새로운 GerdRecord 생성
                                 final newRecord = GerdRecord(
                                   date: DateFormat('yyyy년 MM월 dd일')
                                       .format(DateTime.now()),
@@ -608,7 +581,6 @@ class _AddRecordModalState extends State<AddRecordModal> {
                                 final viewModel = widget.viewModel;
                                 await viewModel.addRecord(newRecord);
 
-                                // 모달 닫기
                                 Navigator.pop(context);
                               }
                             },
@@ -636,8 +608,6 @@ class _AddRecordModalState extends State<AddRecordModal> {
                 ),
               ),
             ),
-
-            // 상단 아이콘
             Positioned(
               top: -30,
               child: Container(
@@ -665,8 +635,6 @@ class _AddRecordModalState extends State<AddRecordModal> {
                 ),
               ),
             ),
-
-            // 닫기 버튼
             Positioned(
               top: 10,
               right: 10,
@@ -692,7 +660,6 @@ class _AddRecordModalState extends State<AddRecordModal> {
     );
   }
 
-  // 섹션 타이틀 위젯
   Widget _buildSectionTitle(String title, IconData icon) {
     return Row(
       children: [

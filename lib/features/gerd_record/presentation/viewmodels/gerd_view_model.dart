@@ -23,7 +23,6 @@ class GerdViewModel {
   Stream<List<GerdRecord>> get recordsStream => _recordsSubject.stream;
   List<GerdRecord> get currentRecords => _recordsSubject.value;
 
-  // 초기 로딩
   Future<void> loadAllRecords() async {
     final records = await _getAllRecordsUseCase.call(const NoParams());
     _recordsSubject.add(records);
@@ -32,7 +31,6 @@ class GerdViewModel {
   Future<void> addRecord(GerdRecord record) async {
     await _addRecordUseCase.call(AddRecordParams(record));
 
-    // 메모리에서도 동일 날짜 기록 제거 후 새로 추가
     final updated = List<GerdRecord>.from(currentRecords)
       ..removeWhere((r) => r.date == record.date)
       ..add(record);
@@ -42,13 +40,6 @@ class GerdViewModel {
 
     _recordsSubject.add(updated);
   }
-
-  // // 기록 삭제
-  // Future<void> deleteRecord(String key, GerdRecord record) async {
-  //   await _repository.deleteRecord(key);
-  //   final updated = List<GerdRecord>.from(currentRecords)..remove(record);
-  //   _recordsSubject.add(updated);
-  // }
 
   void dispose() {
     _recordsSubject.close();

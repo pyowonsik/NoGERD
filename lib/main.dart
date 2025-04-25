@@ -12,7 +12,7 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(GerdRecordModelAdapter());
 
-  await init(); // 👈 get_it 설정
+  await init();
 
   runApp(const MyApp());
 }

@@ -34,13 +34,6 @@ class _CalendarModalState extends State<CalendarModal> {
 
   @override
   Widget build(BuildContext context) {
-    // final records = widget.viewModel.currentRecords;
-
-    // final recordDates = records.map((record) {
-    //   final parsedDate = DateFormat('yyyy년 MM월 dd일').parse(record.date);
-    //   return DateTime(parsedDate.year, parsedDate.month, parsedDate.day);
-    // }).toSet();
-
     return Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
@@ -158,9 +151,7 @@ class _CalendarModalState extends State<CalendarModal> {
                             viewModel: widget.viewModel,
                           ),
                         );
-                      } catch (e) {
-                        // 기록이 없는 경우 무시
-                      }
+                      } catch (e) {}
                     },
                     calendarStyle: CalendarStyle(
                       selectedDecoration: const BoxDecoration(

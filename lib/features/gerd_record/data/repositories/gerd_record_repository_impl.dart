@@ -20,6 +20,7 @@ class GerdRecordRepositoryImpl implements GerdRecordRepository {
     return models.map((m) => m.toEntity()).toList();
   }
 
+  /** 추후 구현 로직 */
   // @override
   // Future<void> updateRecord(String key, GerdRecord updatedRecord) async {
   //   final model = GerdRecordModel.fromEntity(updatedRecord);

@@ -21,7 +21,6 @@ class MainCharacter extends StatelessWidget {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            // 애니메이션 효과 (실제 앱에서는 AnimatedContainer 사용)
             Container(
               width: 100,
               height: 100,
@@ -35,7 +34,6 @@ class MainCharacter extends StatelessWidget {
                 ),
               ),
             ),
-            // 캐릭터 얼굴
             Container(
               width: 90,
               height: 90,
@@ -52,7 +50,6 @@ class MainCharacter extends StatelessWidget {
                 color: Color(0xFFE3F2FD),
               ),
             ),
-            // 눈
             Positioned(
               top: 40,
               left: 30,
@@ -129,7 +126,6 @@ class MainCharacter extends StatelessWidget {
                 ),
               ),
             ),
-            // 볼
             Positioned(
               top: 55,
               left: 25,
@@ -154,7 +150,6 @@ class MainCharacter extends StatelessWidget {
                 ),
               ),
             ),
-            // 입
             Positioned(
               top: 65,
               left: 0,
@@ -166,7 +161,6 @@ class MainCharacter extends StatelessWidget {
                 ),
               ),
             ),
-            // 위
             Positioned(
               bottom: 5,
               left: 0,
@@ -198,7 +192,6 @@ class MainCharacter extends StatelessWidget {
   }
 }
 
-// 웃는 표정 그리기
 class SmilePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
@@ -219,7 +212,6 @@ class SmilePainter extends CustomPainter {
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
-// 위 그리기
 class StomachPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

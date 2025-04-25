@@ -27,14 +27,12 @@ class RecordDetailModal extends StatelessWidget {
         clipBehavior: Clip.none,
         alignment: Alignment.topCenter,
         children: [
-          // 메인 컨테이너
           Padding(
             padding: const EdgeInsets.fromLTRB(24, 40, 24, 24),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // 타이틀
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -59,7 +57,6 @@ class RecordDetailModal extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
 
-                // 날짜 표시
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
@@ -97,7 +94,6 @@ class RecordDetailModal extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
 
-                // 증상 목록
                 _buildSectionTitle('증상', Icons.healing),
                 const SizedBox(height: 10),
                 Wrap(
@@ -133,7 +129,6 @@ class RecordDetailModal extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
 
-                // 상태 표시
                 _buildSectionTitle('상태', Icons.sentiment_satisfied_alt),
                 const SizedBox(height: 10),
                 Container(
@@ -181,7 +176,6 @@ class RecordDetailModal extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
 
-                // 메모 표시
                 if (record.notes.isNotEmpty) ...[
                   _buildSectionTitle('메모', Icons.note_alt),
                   const SizedBox(height: 10),
@@ -208,7 +202,6 @@ class RecordDetailModal extends StatelessWidget {
 
                 const SizedBox(height: 24),
 
-                // 닫기 버튼
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
@@ -283,8 +276,6 @@ class RecordDetailModal extends StatelessWidget {
               ],
             ),
           ),
-
-          // 상단 아이콘
           Positioned(
             top: -30,
             child: Container(
@@ -312,8 +303,6 @@ class RecordDetailModal extends StatelessWidget {
               ),
             ),
           ),
-
-          // 닫기 버튼
           Positioned(
             top: 10,
             right: 10,
@@ -338,7 +327,6 @@ class RecordDetailModal extends StatelessWidget {
     );
   }
 
-  // 섹션 타이틀 위젯
   Widget _buildSectionTitle(String title, IconData icon) {
     return Row(
       children: [

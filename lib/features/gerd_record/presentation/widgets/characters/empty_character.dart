@@ -10,7 +10,6 @@ class EmptyCharacter extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
         child: Column(
           children: [
-            // 귀여운 일러스트레이션
             Container(
               width: 120,
               height: 120,
@@ -28,7 +27,6 @@ class EmptyCharacter extends StatelessWidget {
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  // 마스코트 변형 - 잠자는 표정
                   Container(
                     width: 80,
                     height: 80,
@@ -37,7 +35,6 @@ class EmptyCharacter extends StatelessWidget {
                       color: Color(0xFFE3F2FD),
                     ),
                   ),
-                  // 눈 (감은 눈)
                   Positioned(
                     top: 40,
                     left: 30,
@@ -62,7 +59,6 @@ class EmptyCharacter extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // 입 (z 표시)
                   Positioned(
                     top: 50,
                     right: 35,
@@ -112,7 +108,6 @@ class EmptyCharacter extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            // 메시지
             Text(
               '아직 기록이 없어요',
               style: TextStyle(

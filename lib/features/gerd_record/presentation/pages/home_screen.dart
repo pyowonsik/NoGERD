@@ -51,14 +51,11 @@ class _HomeScreenState extends State<HomeScreen> {
   // 최근 날짜 기준으로 currentPage 설정
   int _getInitialPage(List<GerdRecord> records) {
     if (records.isEmpty) return 0;
-    // records를 날짜 내림차순으로 정렬
     records.sort((a, b) => b.date.compareTo(a.date));
 
-    // 가장 최근 날짜의 기록을 기준으로 페이지 설정
     final latestRecord = records.first;
     final index = records.indexOf(latestRecord);
 
-    // 해당 기록이 몇 번째 페이지에 있는지 계산
     return (index / recordsPerPage).floor();
   }
 
@@ -69,7 +66,6 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, snapshot) {
         final records = snapshot.data ?? [];
 
-        // 초기 페이지 설정
         if (currentPage == 0 && records.isNotEmpty) {
           currentPage = _getInitialPage(records);
         }

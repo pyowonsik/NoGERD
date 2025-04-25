@@ -7,8 +7,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-        // 그라데이션 배경 적용
-        body: HomeScreen());
+    return const Scaffold(body: HomeScreen());
   }
 }

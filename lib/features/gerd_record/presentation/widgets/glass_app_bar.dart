@@ -16,7 +16,6 @@ class GlassAppBar extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             children: [
-              // 앱 로고
               Container(
                 width: 36,
                 height: 36,
@@ -40,7 +39,6 @@ class GlassAppBar extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: 8),
-              // 앱 타이틀 (그라데이션 텍스트)
               ShaderMask(
                 shaderCallback: (bounds) => const LinearGradient(
                   colors: [Color(0xFF1E88E5), Color(0xFF66BB6A)],
@@ -50,23 +48,8 @@ class GlassAppBar extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: Colors.white, // ShaderMask를 위해 흰색으로 설정
+                    color: Colors.white,
                   ),
-                ),
-              ),
-              const Spacer(),
-              // 설정 버튼
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.settings_outlined,
-                    color: Color(0xFF1E88E5),
-                  ),
-                  onPressed: () {},
                 ),
               ),
             ],
