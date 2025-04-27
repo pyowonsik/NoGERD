@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:no_gerd/apps/app.dart';
 import 'package:no_gerd/features/gerd_record/data/models/gerd_record_model.dart';
 import 'package:no_gerd/injection.dart';
+import 'package:no_gerd/features/gerd_record/presentation/widgets/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '역류성 식도염 해방일지',
+      title: '꾸르꾸웍',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFF7BB4E3),
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const App(),
+      home: const SplashScreen(),
     );
   }
 }
