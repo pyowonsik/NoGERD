@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-// import 'package:flutter_native_timezone/flutter_native_timezone.dart';
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'dart:developer' as developer;
 
 import 'package:hive_flutter/hive_flutter.dart';
@@ -24,8 +24,8 @@ void main() async {
   tz.initializeTimeZones();
 
   // 로컬 시간대 설정
-  // final String timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
-  // tz.setLocalLocation(tz.getLocation(timeZoneName));
+  final String timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
+  tz.setLocalLocation(tz.getLocation(timeZoneName));
 
   const AndroidInitializationSettings initializationSettingsAndroid =
       AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -82,7 +82,7 @@ Future<void> scheduleDailyNotification() async {
 tz.TZDateTime _nextInstanceOfOneThirtyPM() {
   final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
   tz.TZDateTime scheduledDate =
-      tz.TZDateTime(tz.local, now.year, now.month, now.day, 21, 00);
+      tz.TZDateTime(tz.local, now.year, now.month, now.day, 21, 10);
   if (scheduledDate.isBefore(now)) {
     scheduledDate = scheduledDate.add(const Duration(days: 1));
   }
