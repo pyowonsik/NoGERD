@@ -17,8 +17,11 @@ class GlassAppBar extends StatelessWidget {
           child: Row(
             children: [
               // 마스코트 로고
-              Center(
-                child: _buildMascotLogo(),
+              Image.asset(
+                'assets/icon.png',
+                width: 25,
+                height: 25,
+                fit: BoxFit.contain,
               ),
               const SizedBox(width: 8),
               ShaderMask(
