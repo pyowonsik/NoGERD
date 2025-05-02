@@ -1,16 +1,6 @@
-# no_gerd
+## 사용자 지원
 
-A new Flutter project.
+이 앱에 대한 문의사항이 있으신 경우, 아래 이메일로 연락해 주세요:
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+📧 이메일: qqrtyu@gmail.com  
+또는 GitHub 이슈를 통해 문의하세요.
