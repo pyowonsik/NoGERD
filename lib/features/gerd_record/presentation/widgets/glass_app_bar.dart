@@ -29,7 +29,7 @@ class GlassAppBar extends StatelessWidget {
                   colors: [Color(0xFF1E88E5), Color(0xFF66BB6A)],
                 ).createShader(bounds),
                 child: const Text(
-                  '꾸르꾸웍',
+                  '꾸르꾸억',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,

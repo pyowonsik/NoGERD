@@ -96,7 +96,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '꾸르꾸웍',
+      debugShowCheckedModeBanner: false,
+      title: '꾸르꾸억',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFF7BB4E3),
