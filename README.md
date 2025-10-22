@@ -2,8 +2,6 @@
 
 <div align="center">
 
-![App Icon](./readme_source/app_icon.png)
-
 **역류성 식도염 증상 기록 관리 앱**
 
 [![AppStore](https://img.shields.io/badge/App%20Store-0D96F6?style=flat-square&logo=app-store&logoColor=white)](https://apps.apple.com/us/app/꾸르꾸억/id6745237684)
