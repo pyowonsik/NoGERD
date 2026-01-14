@@ -269,10 +269,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   String _formatTime(DateTime dateTime) {
-    final hour = dateTime.hour;
+    final hour = dateTime.hour.toString().padLeft(2, '0');
     final minute = dateTime.minute.toString().padLeft(2, '0');
-    final period = hour < 12 ? '오전' : '오후';
-    final displayHour = hour > 12 ? hour - 12 : hour == 0 ? 12 : hour;
-    return '$period $displayHour:$minute';
+    return '$hour:$minute';
   }
 }

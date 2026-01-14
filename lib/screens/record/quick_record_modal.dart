@@ -11,6 +11,13 @@ import 'package:no_gerd/shared/shared.dart';
 
 const _uuid = Uuid();
 
+/// 24시간제 시간 포맷
+String _formatTime24(TimeOfDay time) {
+  final hour = time.hour.toString().padLeft(2, '0');
+  final minute = time.minute.toString().padLeft(2, '0');
+  return '$hour:$minute';
+}
+
 /// 빠른 기록 모달 (FAB 클릭 시 표시)
 class QuickRecordModal extends StatelessWidget {
   const QuickRecordModal({super.key});
@@ -577,7 +584,7 @@ class _SymptomRecordScreenState extends State<SymptomRecordScreen> {
             const Icon(Icons.access_time_rounded, color: AppTheme.primary),
             const SizedBox(width: 12),
             Text(
-              _selectedTime.format(context),
+              _formatTime24(_selectedTime),
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
@@ -797,7 +804,7 @@ class _MealRecordScreenState extends State<MealRecordScreen> {
                           color: AppTheme.mealColor),
                       const SizedBox(width: 12),
                       Text(
-                        _selectedTime.format(context),
+                        _formatTime24(_selectedTime),
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
@@ -1290,7 +1297,7 @@ class _MedicationRecordScreenState extends State<MedicationRecordScreen> {
                           color: AppTheme.medicationColor),
                       const SizedBox(width: 12),
                       Text(
-                        _selectedTime.format(context),
+                        _formatTime24(_selectedTime),
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,

@@ -17,3 +17,6 @@ export 'widgets/buttons/gradient_button.dart';
 
 // Widgets - Inputs
 export 'widgets/inputs/severity_slider.dart';
+
+// Widgets - Logo
+export 'widgets/logo/app_logo.dart';

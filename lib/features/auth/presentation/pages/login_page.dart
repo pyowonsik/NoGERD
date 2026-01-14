@@ -73,26 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         // 로고 영역
-                        Container(
-                          width: 100,
-                          height: 100,
-                          decoration: BoxDecoration(
-                            gradient: AppTheme.primaryGradient,
-                            borderRadius: BorderRadius.circular(25),
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppTheme.primary.withAlpha(77),
-                                blurRadius: 20,
-                                offset: const Offset(0, 10),
-                              ),
-                            ],
-                          ),
-                          child: const Icon(
-                            Icons.favorite_rounded,
-                            size: 50,
-                            color: Colors.white,
-                          ),
-                        ),
+                        const AppLogo(size: LogoSize.medium),
                         const SizedBox(height: 24),
                         const Text(
                           'NoGERD',

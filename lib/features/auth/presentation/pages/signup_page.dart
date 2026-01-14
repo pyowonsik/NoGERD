@@ -150,23 +150,25 @@ class _SignUpPageState extends State<SignUpPage> {
                         const SizedBox(height: 24),
 
                         // 헤더
-                        const Center(
+                        Center(
                           child: Column(
                             children: [
-                              Text(
+                              const AppLogo(size: LogoSize.small),
+                              const SizedBox(height: 20),
+                              const Text(
                                 '회원가입',
                                 style: TextStyle(
-                                  fontSize: 32,
+                                  fontSize: 28,
                                   fontWeight: FontWeight.bold,
                                   color: AppTheme.textPrimary,
                                 ),
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               Text(
                                 '건강 관리를 시작해보세요',
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: AppTheme.textSecondary,
+                                  color: AppTheme.textSecondary.withAlpha(179),
                                 ),
                               ),
                             ],
