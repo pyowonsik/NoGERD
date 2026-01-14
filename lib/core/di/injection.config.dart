@@ -131,7 +131,7 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i680.AddLifestyleRecordUseCase(gh<_i968.IRecordRepository>()));
     gh.factory<_i202.HomeBloc>(
         () => _i202.HomeBloc(gh<_i968.IRecordRepository>()));
-    gh.factory<_i797.AuthBloc>(() => _i797.AuthBloc(
+    gh.singleton<_i797.AuthBloc>(() => _i797.AuthBloc(
           gh<_i259.SignInUseCase>(),
           gh<_i860.SignUpUseCase>(),
           gh<_i915.SignOutUseCase>(),

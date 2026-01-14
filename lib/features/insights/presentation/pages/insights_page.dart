@@ -3,22 +3,33 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:no_gerd/core/di/injection.dart';
 import 'package:no_gerd/features/insights/presentation/bloc/insights_bloc.dart';
 import 'package:no_gerd/shared/shared.dart';
 
 /// 인사이트 페이지 (BLoC 통합)
-class InsightsPage extends StatelessWidget {
+class InsightsPage extends StatefulWidget {
   /// 생성자
   const InsightsPage({super.key});
 
   @override
+  State<InsightsPage> createState() => _InsightsPageState();
+}
+
+class _InsightsPageState extends State<InsightsPage> {
+  @override
+  void initState() {
+    super.initState();
+    // 페이지 진입 시 한 번만 데이터 로드
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        context.read<InsightsBloc>().add(const InsightsEvent.loadData(7));
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<InsightsBloc>()
-        ..add(const InsightsEvent.loadData(7)),
-      child: const _InsightsPageContent(),
-    );
+    return const _InsightsPageContent();
   }
 }
 

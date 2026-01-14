@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:no_gerd/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:no_gerd/features/auth/presentation/pages/login_page.dart';
-import 'package:no_gerd/screens/main_screen.dart';
 import 'package:no_gerd/shared/shared.dart';
 
-/// 스플래시 스크린 (미니멀 디자인)
+/// 스플래시 스크린
+/// 순수 UI만 표시 (네비게이션 로직은 AppRouteGuard가 처리)
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -24,7 +21,6 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     _setupAnimations();
-    _navigateToNext();
   }
 
   void _setupAnimations() {
@@ -48,29 +44,6 @@ class _SplashScreenState extends State<SplashScreen>
     );
 
     _controller.forward();
-  }
-
-  void _navigateToNext() {
-    Future.delayed(const Duration(milliseconds: 2500), () {
-      if (mounted) {
-        final authState = context.read<AuthBloc>().state;
-
-        final nextScreen = authState.maybeWhen(
-          authenticated: (_) => const MainScreen(),
-          orElse: () => const LoginPage(),
-        );
-
-        Navigator.of(context).pushReplacement(
-          PageRouteBuilder<void>(
-            pageBuilder: (context, animation, secondaryAnimation) => nextScreen,
-            transitionsBuilder: (context, animation, _, child) {
-              return FadeTransition(opacity: animation, child: child);
-            },
-            transitionDuration: const Duration(milliseconds: 400),
-          ),
-        );
-      }
-    });
   }
 
   @override
@@ -130,6 +103,12 @@ class _SplashScreenState extends State<SplashScreen>
                   color: AppTheme.textSecondary.withAlpha(179),
                   fontWeight: FontWeight.w500,
                 ),
+              ),
+              const SizedBox(height: 32),
+
+              // 로딩 인디케이터
+              const CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(AppTheme.primary),
               ),
             ],
           ),

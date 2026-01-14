@@ -41,17 +41,16 @@ class InsightsBloc extends Bloc<InsightsEvent, InsightsState> {
 
     final now = DateTime.now();
 
-    // 건강 점수 계산
-    final healthScoreResult = await _calculateHealthScoreUseCase(now);
+    // 모든 데이터를 병렬로 로딩 (성능 향상)
+    final healthScoreFuture = _calculateHealthScoreUseCase(now);
+    final trendsFuture = _getSymptomTrendsUseCase(event.days);
+    final triggersFuture = _analyzeTriggersUseCase(now);
+    final patternsFuture = _getWeeklyPatternUseCase(const NoParams());
 
-    // 증상 추이 조회
-    final trendsResult = await _getSymptomTrendsUseCase(event.days);
-
-    // 트리거 분석
-    final triggersResult = await _analyzeTriggersUseCase(now);
-
-    // 주간 패턴 조회
-    final patternsResult = await _getWeeklyPatternUseCase(const NoParams());
+    final healthScoreResult = await healthScoreFuture;
+    final trendsResult = await trendsFuture;
+    final triggersResult = await triggersFuture;
+    final patternsResult = await patternsFuture;
 
     // 결과 처리
     healthScoreResult.fold(

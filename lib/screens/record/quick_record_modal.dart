@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
 
 import 'package:no_gerd/features/record/domain/entities/lifestyle_record.dart';
@@ -73,15 +74,7 @@ class QuickRecordModal extends StatelessWidget {
                 gradient: AppTheme.symptomGradient,
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (_) => BlocProvider.value(
-                        value: recordBloc,
-                        child: const SymptomRecordScreen(),
-                      ),
-                    ),
-                  );
+                  context.push('/record/symptom', extra: recordBloc);
                 },
               ),
               const SizedBox(height: 12),
@@ -92,15 +85,7 @@ class QuickRecordModal extends StatelessWidget {
                 gradient: AppTheme.mealGradient,
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (_) => BlocProvider.value(
-                        value: recordBloc,
-                        child: const MealRecordScreen(),
-                      ),
-                    ),
-                  );
+                  context.push('/record/meal', extra: recordBloc);
                 },
               ),
               const SizedBox(height: 12),
@@ -111,15 +96,7 @@ class QuickRecordModal extends StatelessWidget {
                 gradient: AppTheme.medicationGradient,
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (_) => BlocProvider.value(
-                        value: recordBloc,
-                        child: const MedicationRecordScreen(),
-                      ),
-                    ),
-                  );
+                  context.push('/record/medication', extra: recordBloc);
                 },
               ),
               const SizedBox(height: 12),
@@ -130,15 +107,7 @@ class QuickRecordModal extends StatelessWidget {
                 gradient: AppTheme.lifestyleGradient,
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (_) => BlocProvider.value(
-                        value: recordBloc,
-                        child: const LifestyleRecordScreen(),
-                      ),
-                    ),
-                  );
+                  context.push('/record/lifestyle', extra: recordBloc);
                 },
               ),
               const SizedBox(height: 16),

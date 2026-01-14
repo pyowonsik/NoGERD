@@ -10,7 +10,7 @@ import 'package:no_gerd/features/auth/presentation/bloc/auth_event.dart';
 import 'package:no_gerd/features/auth/presentation/bloc/auth_state.dart';
 
 /// Auth BLoC
-@injectable
+@singleton
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(
     this._signInUseCase,

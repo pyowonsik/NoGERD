@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:no_gerd/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:no_gerd/features/auth/presentation/bloc/auth_event.dart';
 import 'package:no_gerd/features/auth/presentation/bloc/auth_state.dart';
-import 'package:no_gerd/screens/main_screen.dart';
 import 'package:no_gerd/shared/shared.dart';
 
 /// 회원가입 페이지
@@ -101,12 +101,7 @@ class _SignUpPageState extends State<SignUpPage> {
             listener: (context, state) {
               state.maybeWhen(
                 authenticated: (_) {
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute<void>(
-                      builder: (_) => const MainScreen(),
-                    ),
-                    (route) => false,
-                  );
+                  context.go('/');
                 },
                 error: (failure) {
                   ScaffoldMessenger.of(context).showSnackBar(

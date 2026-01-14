@@ -6,7 +6,6 @@ import 'package:no_gerd/features/auth/domain/entities/user.dart';
 import 'package:no_gerd/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:no_gerd/features/auth/presentation/bloc/auth_event.dart';
 import 'package:no_gerd/features/auth/presentation/bloc/auth_state.dart';
-import 'package:no_gerd/features/auth/presentation/pages/login_page.dart';
 import 'package:no_gerd/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:no_gerd/features/settings/presentation/widgets/setting_tile.dart';
 import 'package:no_gerd/shared/shared.dart';
@@ -273,10 +272,7 @@ class _SettingsPageContent extends StatelessWidget {
             onPressed: () {
               Navigator.pop(dialogContext);
               context.read<AuthBloc>().add(const AuthEvent.signOut());
-
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (_) => const LoginPage()),
-              );
+              // GoRouter의 redirect가 자동으로 로그인 페이지로 이동
             },
             style: ElevatedButton.styleFrom(backgroundColor: AppTheme.error),
             child: const Text('로그아웃'),

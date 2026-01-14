@@ -1,25 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 
-import 'package:no_gerd/features/calendar/presentation/pages/calendar_page.dart';
-import 'package:no_gerd/features/home/presentation/pages/home_page.dart';
-import 'package:no_gerd/features/insights/presentation/pages/insights_page.dart';
 import 'package:no_gerd/features/record/presentation/bloc/record_bloc.dart';
-import 'package:no_gerd/features/settings/presentation/pages/settings_page.dart';
 import 'package:no_gerd/screens/record/quick_record_modal.dart';
 import 'package:no_gerd/shared/shared.dart';
 
 /// 메인 스크린 (Bottom Navigation 포함)
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+/// StatefulShellRoute와 연동하여 탭 네비게이션 구현
+class MainScreen extends StatelessWidget {
+  const MainScreen({
+    required this.navigationShell,
+    super.key,
+  });
 
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
+  final StatefulNavigationShell navigationShell;
 
-class _MainScreenState extends State<MainScreen> {
-  int _currentIndex = 0;
+  void _onTap(int index) {
+    navigationShell.goBranch(
+      index,
+      initialLocation: index == navigationShell.currentIndex,
+    );
+  }
 
   void _showQuickRecordModal(BuildContext blocContext) {
     final recordBloc = blocContext.read<RecordBloc>();
@@ -40,19 +43,8 @@ class _MainScreenState extends State<MainScreen> {
       create: (_) => GetIt.I<RecordBloc>(),
       child: Builder(
         builder: (blocContext) {
-          // BlocProvider 아래에서 screens를 생성하여 RecordBloc 접근 가능
-          final screens = [
-            const HomePage(),
-            const CalendarPage(),
-            const InsightsPage(),
-            const SettingsPage(),
-          ];
-
           return Scaffold(
-            body: IndexedStack(
-              index: _currentIndex,
-              children: screens,
-            ),
+            body: navigationShell,
             bottomNavigationBar: _buildBottomNavBar(),
             floatingActionButton: CustomFAB(
               onPressed: () => _showQuickRecordModal(blocContext),
@@ -101,9 +93,9 @@ class _MainScreenState extends State<MainScreen> {
 
   Widget _buildNavItem(
       int index, IconData activeIcon, IconData inactiveIcon, String label) {
-    final isSelected = _currentIndex == index;
+    final isSelected = navigationShell.currentIndex == index;
     return GestureDetector(
-      onTap: () => setState(() => _currentIndex = index),
+      onTap: () => _onTap(index),
       behavior: HitTestBehavior.opaque,
       child: SizedBox(
         width: 64,

@@ -7,17 +7,31 @@ import 'package:no_gerd/features/calendar/presentation/bloc/calendar_bloc.dart';
 import 'package:no_gerd/shared/shared.dart';
 
 /// 캘린더 페이지 (BLoC 통합)
-class CalendarPage extends StatelessWidget {
+class CalendarPage extends StatefulWidget {
   /// 생성자
   const CalendarPage({super.key});
 
   @override
+  State<CalendarPage> createState() => _CalendarPageState();
+}
+
+class _CalendarPageState extends State<CalendarPage> {
+  @override
+  void initState() {
+    super.initState();
+    // 페이지 진입 시 한 번만 데이터 로드
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        context
+            .read<CalendarBloc>()
+            .add(CalendarEvent.loadMonth(DateTime.now()));
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<CalendarBloc>()
-        ..add(CalendarEvent.loadMonth(DateTime.now())),
-      child: const _CalendarPageContent(),
-    );
+    return const _CalendarPageContent();
   }
 }
 

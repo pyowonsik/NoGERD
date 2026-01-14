@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:no_gerd/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:no_gerd/features/auth/presentation/bloc/auth_event.dart';
 import 'package:no_gerd/features/auth/presentation/bloc/auth_state.dart';
-import 'package:no_gerd/features/auth/presentation/pages/login_page.dart';
 import 'package:no_gerd/shared/shared.dart';
 
 /// 이메일 인증 대기 페이지
@@ -35,10 +35,7 @@ class EmailVerificationPage extends StatelessWidget {
                       ),
                     ),
                   );
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute<void>(builder: (_) => const LoginPage()),
-                    (route) => false,
-                  );
+                  context.go('/login');
                 },
                 error: (failure) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -169,12 +166,7 @@ class EmailVerificationPage extends StatelessWidget {
                     // 로그인으로 돌아가기
                     TextButton(
                       onPressed: () {
-                        Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute<void>(
-                            builder: (_) => const LoginPage(),
-                          ),
-                          (route) => false,
-                        );
+                        context.go('/login');
                       },
                       child: Text(
                         '로그인 화면으로 돌아가기',

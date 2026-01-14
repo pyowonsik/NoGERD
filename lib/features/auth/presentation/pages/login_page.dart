@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:no_gerd/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:no_gerd/features/auth/presentation/bloc/auth_event.dart';
 import 'package:no_gerd/features/auth/presentation/bloc/auth_state.dart';
-import 'package:no_gerd/features/auth/presentation/pages/signup_page.dart';
-import 'package:no_gerd/screens/main_screen.dart';
 import 'package:no_gerd/shared/shared.dart';
 
 /// 로그인 페이지
@@ -37,11 +36,7 @@ class _LoginPageState extends State<LoginPage> {
             listener: (context, state) {
               state.maybeWhen(
                 authenticated: (user) {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute<void>(
-                      builder: (_) => const MainScreen(),
-                    ),
-                  );
+                  context.go('/');
                 },
                 error: (failure) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -356,9 +351,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _goToSignUp() {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(builder: (_) => const SignUpPage()),
-    );
+    context.push('/signup');
   }
 
   @override

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:no_gerd/core/di/injection.dart';
 import 'package:no_gerd/features/home/presentation/bloc/home_bloc.dart';
 import 'package:no_gerd/features/record/presentation/bloc/record_bloc.dart';
 import 'package:no_gerd/shared/shared.dart';
@@ -13,24 +12,37 @@ import '../widgets/recent_records_section.dart';
 import '../widgets/today_summary_section.dart';
 
 /// 홈 화면 (BLoC 적용)
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   /// 생성자
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    // 페이지 진입 시 한 번만 데이터 로드
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        context.read<HomeBloc>().add(const HomeEvent.started());
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<HomeBloc>()..add(const HomeEvent.started()),
-      child: BlocListener<RecordBloc, RecordState>(
-        listener: (context, state) {
-          // RecordBloc에서 성공 메시지가 있으면 HomeBloc을 새로고침
-          state.successMessage.fold(
-            () {},
-            (_) => context.read<HomeBloc>().add(const HomeEvent.refreshed()),
-          );
-        },
-        child: const _HomePageContent(),
-      ),
+    return BlocListener<RecordBloc, RecordState>(
+      listener: (context, state) {
+        // RecordBloc에서 성공 메시지가 있으면 HomeBloc을 새로고침
+        state.successMessage.fold(
+          () {},
+          (_) => context.read<HomeBloc>().add(const HomeEvent.refreshed()),
+        );
+      },
+      child: const _HomePageContent(),
     );
   }
 }
