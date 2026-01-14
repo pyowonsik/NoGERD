@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
 import 'package:no_gerd/features/calendar/presentation/pages/calendar_page.dart';
 import 'package:no_gerd/features/home/presentation/pages/home_page.dart';
 import 'package:no_gerd/features/insights/presentation/pages/insights_page.dart';
+import 'package:no_gerd/features/record/presentation/bloc/record_bloc.dart';
 import 'package:no_gerd/features/settings/presentation/pages/settings_page.dart';
 import 'package:no_gerd/screens/record/quick_record_modal.dart';
 import 'package:no_gerd/shared/shared.dart';
@@ -18,35 +21,47 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
-  final List<Widget> _screens = [
-    const HomePage(),
-    const CalendarPage(),
-    const InsightsPage(),
-    const SettingsPage(),
-  ];
-
-  void _showQuickRecordModal() {
-    showModalBottomSheet(
-      context: context,
+  void _showQuickRecordModal(BuildContext blocContext) {
+    final recordBloc = blocContext.read<RecordBloc>();
+    showModalBottomSheet<void>(
+      context: blocContext,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => const QuickRecordModal(),
+      builder: (_) => BlocProvider.value(
+        value: recordBloc,
+        child: const QuickRecordModal(),
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _screens,
+    return BlocProvider(
+      create: (_) => GetIt.I<RecordBloc>(),
+      child: Builder(
+        builder: (blocContext) {
+          // BlocProvider 아래에서 screens를 생성하여 RecordBloc 접근 가능
+          final screens = [
+            const HomePage(),
+            const CalendarPage(),
+            const InsightsPage(),
+            const SettingsPage(),
+          ];
+
+          return Scaffold(
+            body: IndexedStack(
+              index: _currentIndex,
+              children: screens,
+            ),
+            bottomNavigationBar: _buildBottomNavBar(),
+            floatingActionButton: CustomFAB(
+              onPressed: () => _showQuickRecordModal(blocContext),
+            ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+          );
+        },
       ),
-      bottomNavigationBar: _buildBottomNavBar(),
-      floatingActionButton: CustomFAB(
-        onPressed: _showQuickRecordModal,
-        icon: Icons.add,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

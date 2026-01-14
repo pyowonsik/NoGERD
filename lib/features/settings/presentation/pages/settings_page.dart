@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:no_gerd/core/di/injection.dart';
+import 'package:no_gerd/features/auth/domain/entities/user.dart';
+import 'package:no_gerd/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:no_gerd/features/auth/presentation/bloc/auth_event.dart';
+import 'package:no_gerd/features/auth/presentation/bloc/auth_state.dart';
+import 'package:no_gerd/features/auth/presentation/pages/login_page.dart';
 import 'package:no_gerd/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:no_gerd/features/settings/presentation/widgets/setting_tile.dart';
 import 'package:no_gerd/shared/shared.dart';
@@ -147,52 +152,134 @@ class _SettingsPageContent extends StatelessWidget {
   }
 
   Widget _buildProfileSection(BuildContext context) {
-    return GlassCard(
-      child: Row(
-        children: [
-          Container(
-            width: 64,
-            height: 64,
-            decoration: BoxDecoration(
-              gradient: AppTheme.primaryGradient,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: const Icon(
-              Icons.person_rounded,
-              color: Colors.white,
-              size: 32,
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, authState) {
+        return authState.maybeWhen(
+          authenticated: (User user) => GlassCard(
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      width: 64,
+                      height: 64,
+                      decoration: BoxDecoration(
+                        gradient: AppTheme.primaryGradient,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: const Icon(
+                        Icons.person_rounded,
+                        color: Colors.white,
+                        size: 32,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            user.email.split('@').first,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: AppTheme.textPrimary,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            user.email,
+                            style: const TextStyle(
+                              fontSize: 13,
+                              color: AppTheme.textSecondary,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                GradientButton(
+                  text: '로그아웃',
+                  icon: Icons.logout_rounded,
+                  onPressed: () => _handleLogout(context),
+                ),
+              ],
             ),
           ),
-          const SizedBox(width: 16),
-          const Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          orElse: () => GlassCard(
+            child: Row(
               children: [
-                Text(
-                  '사용자',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: AppTheme.textPrimary,
+                Container(
+                  width: 64,
+                  height: 64,
+                  decoration: BoxDecoration(
+                    gradient: AppTheme.primaryGradient,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: const Icon(
+                    Icons.person_rounded,
+                    color: Colors.white,
+                    size: 32,
                   ),
                 ),
-                SizedBox(height: 4),
-                Text(
-                  '건강 관리 중 • 45일째',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: AppTheme.textSecondary,
+                const SizedBox(width: 16),
+                const Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '로그인 필요',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: AppTheme.textPrimary,
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        '로그인하여 데이터를 동기화하세요',
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: AppTheme.textSecondary,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
-          IconButton(
-            icon: const Icon(Icons.edit_rounded),
-            color: AppTheme.primary,
+        );
+      },
+    );
+  }
+
+  void _handleLogout(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Text('로그아웃'),
+        content: const Text('로그아웃하시겠습니까?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('취소'),
+          ),
+          ElevatedButton(
             onPressed: () {
-              // 프로필 편집
+              Navigator.pop(dialogContext);
+              context.read<AuthBloc>().add(const AuthEvent.signOut());
+
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (_) => const LoginPage()),
+              );
             },
+            style: ElevatedButton.styleFrom(backgroundColor: AppTheme.error),
+            child: const Text('로그아웃'),
           ),
         ],
       ),

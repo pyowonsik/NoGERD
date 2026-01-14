@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:no_gerd/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:no_gerd/features/auth/presentation/pages/login_page.dart';
 import 'package:no_gerd/screens/main_screen.dart';
 import 'package:no_gerd/shared/shared.dart';
 
@@ -99,10 +102,16 @@ class _SplashScreenState extends State<SplashScreen>
   void _navigateToHome() {
     Future.delayed(const Duration(milliseconds: 2800), () {
       if (mounted) {
+        final authState = context.read<AuthBloc>().state;
+
+        final nextScreen = authState.maybeWhen(
+          authenticated: (_) => const MainScreen(),
+          orElse: () => const LoginPage(),
+        );
+
         Navigator.of(context).pushReplacement(
           PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) =>
-                const MainScreen(),
+            pageBuilder: (context, animation, secondaryAnimation) => nextScreen,
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
               return FadeTransition(

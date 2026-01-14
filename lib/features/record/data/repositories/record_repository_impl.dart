@@ -11,7 +11,10 @@ import 'package:no_gerd/features/record/domain/repositories/record_repository.da
 /// Record Repository 구현
 ///
 /// 현재는 인메모리 저장소를 사용하며, 추후 Hive 등으로 교체 가능
-@LazySingleton(as: IRecordRepository)
+///
+/// NOTE: Supabase 백엔드 통합으로 인해 비활성화됨
+/// SupabaseRecordRepositoryImpl이 대신 사용됨
+// @LazySingleton(as: IRecordRepository)
 class RecordRepositoryImpl implements IRecordRepository {
   /// 증상 기록 저장소
   final List<SymptomRecord> _symptomRecords = [];

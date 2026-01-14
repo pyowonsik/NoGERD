@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:no_gerd/core/di/injection.dart';
+import 'package:no_gerd/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:no_gerd/features/auth/presentation/bloc/auth_event.dart';
 import 'package:no_gerd/features/calendar/presentation/bloc/calendar_bloc.dart';
 import 'package:no_gerd/features/home/presentation/bloc/home_bloc.dart';
 import 'package:no_gerd/features/insights/presentation/bloc/insights_bloc.dart';
@@ -20,6 +22,12 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        // Auth Feature BLoC
+        BlocProvider<AuthBloc>(
+          create: (_) => getIt<AuthBloc>()
+            ..add(const AuthEvent.checkStatus()),
+        ),
+
         // Home Feature BLoC
         BlocProvider<HomeBloc>(
           create: (_) => getIt<HomeBloc>(),

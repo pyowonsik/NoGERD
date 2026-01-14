@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:no_gerd/core/di/injection.dart';
 import 'package:no_gerd/features/home/presentation/bloc/home_bloc.dart';
+import 'package:no_gerd/features/record/presentation/bloc/record_bloc.dart';
 import 'package:no_gerd/shared/shared.dart';
 
 import '../widgets/health_score_card.dart';
@@ -20,7 +21,16 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => getIt<HomeBloc>()..add(const HomeEvent.started()),
-      child: const _HomePageContent(),
+      child: BlocListener<RecordBloc, RecordState>(
+        listener: (context, state) {
+          // RecordBloc에서 성공 메시지가 있으면 HomeBloc을 새로고침
+          state.successMessage.fold(
+            () {},
+            (_) => context.read<HomeBloc>().add(const HomeEvent.refreshed()),
+          );
+        },
+        child: const _HomePageContent(),
+      ),
     );
   }
 }
