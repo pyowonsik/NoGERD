@@ -58,7 +58,14 @@ class _AppState extends State<App> {
 
         // Calendar Feature BLoC
         BlocProvider<CalendarBloc>(
-          create: (_) => getIt<CalendarBloc>(),
+          create: (_) {
+            print('🔥 [CalendarBloc] BLoC 생성 시작');
+            final bloc = getIt<CalendarBloc>();
+            print('🔥 [CalendarBloc] loadMonth 이벤트 추가');
+            bloc.add(CalendarEvent.loadMonth(DateTime.now()));
+            return bloc;
+          },
+          lazy: false,
         ),
 
         // Insights Feature BLoC

@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:no_gerd/features/home/domain/models/recent_record.dart';
+import 'package:no_gerd/features/home/presentation/widgets/all_records_modal.dart';
 import 'package:no_gerd/shared/shared.dart';
 
 /// 최근 기록 섹션
 class RecentRecordsSection extends StatelessWidget {
-  /// 최근 기록 데이터
+  /// 최근 기록 데이터 (홈 화면용, 최대 5개)
   final List<RecentRecord> records;
+
+  /// 전체 기록 데이터 (전체보기 모달용, 최대 20개)
+  final List<RecentRecord> allRecords;
 
   /// 생성자
   const RecentRecordsSection({
     required this.records,
+    required this.allRecords,
     super.key,
   });
 
@@ -31,14 +37,29 @@ class RecentRecordsSection extends StatelessWidget {
               ),
             ),
             TextButton(
-              onPressed: () {
-                // TODO: 전체보기 화면으로 이동
-              },
-              child: const Text(
+              onPressed: allRecords.length > 5
+                  ? () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (context) => DraggableScrollableSheet(
+                          initialChildSize: 0.9,
+                          minChildSize: 0.5,
+                          maxChildSize: 0.95,
+                          builder: (context, scrollController) =>
+                              AllRecordsModal(records: allRecords),
+                        ),
+                      );
+                    }
+                  : null,
+              child: Text(
                 '전체보기',
                 style: TextStyle(
                   fontSize: 14,
-                  color: AppTheme.primary,
+                  color: allRecords.length > 5
+                      ? AppTheme.primary
+                      : AppTheme.textTertiary,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -86,7 +107,9 @@ class _RecentRecordItem extends StatelessWidget {
     return GlassCard(
       padding: const EdgeInsets.all(14),
       onTap: () {
-        // TODO: 상세보기 화면으로 이동
+        if (data.originalEntity != null) {
+          context.push('/record/detail', extra: data.originalEntity);
+        }
       },
       child: Row(
         children: [

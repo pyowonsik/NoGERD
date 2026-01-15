@@ -5,6 +5,7 @@ import 'package:no_gerd/features/record/domain/entities/lifestyle_record.dart';
 import 'package:no_gerd/features/record/domain/entities/meal_record.dart';
 import 'package:no_gerd/features/record/domain/entities/medication_record.dart';
 import 'package:no_gerd/features/record/domain/entities/symptom_record.dart';
+import 'package:no_gerd/shared/constants/gerd_constants.dart';
 
 /// Record Repository Interface
 ///
@@ -31,11 +32,20 @@ abstract class IRecordRepository {
   /// 특정 날짜의 식사 기록 조회
   Future<Either<Failure, List<MealRecord>>> getMealRecords(DateTime date);
 
+  /// 특정 날짜 + 식사 타입의 단일 기록 조회 (UPSERT용)
+  Future<Either<Failure, MealRecord?>> getMealRecordByDateAndType(
+    DateTime date,
+    MealType mealType,
+  );
+
   /// 식사 기록 추가
   Future<Either<Failure, Unit>> addMealRecord(MealRecord record);
 
   /// 식사 기록 수정
   Future<Either<Failure, Unit>> updateMealRecord(MealRecord record);
+
+  /// 식사 기록 UPSERT (있으면 수정, 없으면 추가)
+  Future<Either<Failure, Unit>> upsertMealRecord(MealRecord record);
 
   /// 식사 기록 삭제
   Future<Either<Failure, Unit>> deleteMealRecord(String id);
@@ -63,11 +73,20 @@ abstract class IRecordRepository {
     DateTime date,
   );
 
+  /// 특정 날짜 + 생활습관 타입의 단일 기록 조회 (UPSERT용)
+  Future<Either<Failure, LifestyleRecord?>> getLifestyleRecordByDateAndType(
+    DateTime date,
+    LifestyleType lifestyleType,
+  );
+
   /// 생활습관 기록 추가
   Future<Either<Failure, Unit>> addLifestyleRecord(LifestyleRecord record);
 
   /// 생활습관 기록 수정
   Future<Either<Failure, Unit>> updateLifestyleRecord(LifestyleRecord record);
+
+  /// 생활습관 기록 UPSERT (있으면 수정, 없으면 추가)
+  Future<Either<Failure, Unit>> upsertLifestyleRecord(LifestyleRecord record);
 
   /// 생활습관 기록 삭제
   Future<Either<Failure, Unit>> deleteLifestyleRecord(String id);

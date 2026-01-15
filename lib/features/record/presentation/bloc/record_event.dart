@@ -28,4 +28,27 @@ class RecordEvent with _$RecordEvent {
     required String id,
     required RecordType recordType,
   }) = RecordEventDeleteRecord;
+
+  /// 식사 기록 조회 (날짜 + MealType) - UPSERT용
+  const factory RecordEvent.loadMealRecord({
+    required DateTime date,
+    required MealType mealType,
+  }) = RecordEventLoadMealRecord;
+
+  /// 식사 기록 UPSERT (있으면 수정, 없으면 추가)
+  const factory RecordEvent.upsertMealRecord(MealRecord record) =
+      RecordEventUpsertMealRecord;
+
+  /// 생활습관 기록 조회 (날짜 + LifestyleType) - UPSERT용
+  const factory RecordEvent.loadLifestyleRecord({
+    required DateTime date,
+    required LifestyleType lifestyleType,
+  }) = RecordEventLoadLifestyleRecord;
+
+  /// 생활습관 기록 UPSERT (있으면 수정, 없으면 추가)
+  const factory RecordEvent.upsertLifestyleRecord(LifestyleRecord record) =
+      RecordEventUpsertLifestyleRecord;
+
+  /// 현재 편집 중인 기록 초기화
+  const factory RecordEvent.clearCurrentRecord() = RecordEventClearCurrentRecord;
 }

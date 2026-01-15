@@ -12,8 +12,13 @@ abstract class RecordRemoteDataSource {
 
   // Meal Records
   Future<List<MealRecordModel>> getMealRecords(DateTime date);
+  Future<MealRecordModel?> getMealRecordByDateAndType(
+    DateTime date,
+    String mealType,
+  );
   Future<void> addMealRecord(MealRecordModel record);
   Future<void> updateMealRecord(MealRecordModel record);
+  Future<void> upsertMealRecord(MealRecordModel record);
   Future<void> deleteMealRecord(String id);
 
   // Medication Records
@@ -24,8 +29,13 @@ abstract class RecordRemoteDataSource {
 
   // Lifestyle Records
   Future<List<LifestyleRecordModel>> getLifestyleRecords(DateTime date);
+  Future<LifestyleRecordModel?> getLifestyleRecordByDateAndType(
+    DateTime date,
+    String lifestyleType,
+  );
   Future<void> addLifestyleRecord(LifestyleRecordModel record);
   Future<void> updateLifestyleRecord(LifestyleRecordModel record);
+  Future<void> upsertLifestyleRecord(LifestyleRecordModel record);
   Future<void> deleteLifestyleRecord(String id);
 }
 

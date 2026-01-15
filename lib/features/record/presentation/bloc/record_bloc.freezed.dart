@@ -24,6 +24,12 @@ mixin _$RecordEvent {
     required TResult Function(LifestyleRecord record) addLifestyleRecord,
     required TResult Function(DateTime date) loadRecords,
     required TResult Function(String id, RecordType recordType) deleteRecord,
+    required TResult Function(DateTime date, MealType mealType) loadMealRecord,
+    required TResult Function(MealRecord record) upsertMealRecord,
+    required TResult Function(DateTime date, LifestyleType lifestyleType)
+        loadLifestyleRecord,
+    required TResult Function(LifestyleRecord record) upsertLifestyleRecord,
+    required TResult Function() clearCurrentRecord,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -34,6 +40,12 @@ mixin _$RecordEvent {
     TResult? Function(LifestyleRecord record)? addLifestyleRecord,
     TResult? Function(DateTime date)? loadRecords,
     TResult? Function(String id, RecordType recordType)? deleteRecord,
+    TResult? Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult? Function(MealRecord record)? upsertMealRecord,
+    TResult? Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult? Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult? Function()? clearCurrentRecord,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -44,6 +56,12 @@ mixin _$RecordEvent {
     TResult Function(LifestyleRecord record)? addLifestyleRecord,
     TResult Function(DateTime date)? loadRecords,
     TResult Function(String id, RecordType recordType)? deleteRecord,
+    TResult Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult Function(MealRecord record)? upsertMealRecord,
+    TResult Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult Function()? clearCurrentRecord,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -58,6 +76,15 @@ mixin _$RecordEvent {
         addLifestyleRecord,
     required TResult Function(RecordEventLoadRecords value) loadRecords,
     required TResult Function(RecordEventDeleteRecord value) deleteRecord,
+    required TResult Function(RecordEventLoadMealRecord value) loadMealRecord,
+    required TResult Function(RecordEventUpsertMealRecord value)
+        upsertMealRecord,
+    required TResult Function(RecordEventLoadLifestyleRecord value)
+        loadLifestyleRecord,
+    required TResult Function(RecordEventUpsertLifestyleRecord value)
+        upsertLifestyleRecord,
+    required TResult Function(RecordEventClearCurrentRecord value)
+        clearCurrentRecord,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -69,6 +96,13 @@ mixin _$RecordEvent {
     TResult? Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
     TResult? Function(RecordEventLoadRecords value)? loadRecords,
     TResult? Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult? Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult? Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult? Function(RecordEventLoadLifestyleRecord value)?
+        loadLifestyleRecord,
+    TResult? Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult? Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -79,6 +113,12 @@ mixin _$RecordEvent {
     TResult Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
     TResult Function(RecordEventLoadRecords value)? loadRecords,
     TResult Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult Function(RecordEventLoadLifestyleRecord value)? loadLifestyleRecord,
+    TResult Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -185,6 +225,12 @@ class _$RecordEventAddSymptomRecordImpl implements RecordEventAddSymptomRecord {
     required TResult Function(LifestyleRecord record) addLifestyleRecord,
     required TResult Function(DateTime date) loadRecords,
     required TResult Function(String id, RecordType recordType) deleteRecord,
+    required TResult Function(DateTime date, MealType mealType) loadMealRecord,
+    required TResult Function(MealRecord record) upsertMealRecord,
+    required TResult Function(DateTime date, LifestyleType lifestyleType)
+        loadLifestyleRecord,
+    required TResult Function(LifestyleRecord record) upsertLifestyleRecord,
+    required TResult Function() clearCurrentRecord,
   }) {
     return addSymptomRecord(record);
   }
@@ -198,6 +244,12 @@ class _$RecordEventAddSymptomRecordImpl implements RecordEventAddSymptomRecord {
     TResult? Function(LifestyleRecord record)? addLifestyleRecord,
     TResult? Function(DateTime date)? loadRecords,
     TResult? Function(String id, RecordType recordType)? deleteRecord,
+    TResult? Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult? Function(MealRecord record)? upsertMealRecord,
+    TResult? Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult? Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult? Function()? clearCurrentRecord,
   }) {
     return addSymptomRecord?.call(record);
   }
@@ -211,6 +263,12 @@ class _$RecordEventAddSymptomRecordImpl implements RecordEventAddSymptomRecord {
     TResult Function(LifestyleRecord record)? addLifestyleRecord,
     TResult Function(DateTime date)? loadRecords,
     TResult Function(String id, RecordType recordType)? deleteRecord,
+    TResult Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult Function(MealRecord record)? upsertMealRecord,
+    TResult Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult Function()? clearCurrentRecord,
     required TResult orElse(),
   }) {
     if (addSymptomRecord != null) {
@@ -231,6 +289,15 @@ class _$RecordEventAddSymptomRecordImpl implements RecordEventAddSymptomRecord {
         addLifestyleRecord,
     required TResult Function(RecordEventLoadRecords value) loadRecords,
     required TResult Function(RecordEventDeleteRecord value) deleteRecord,
+    required TResult Function(RecordEventLoadMealRecord value) loadMealRecord,
+    required TResult Function(RecordEventUpsertMealRecord value)
+        upsertMealRecord,
+    required TResult Function(RecordEventLoadLifestyleRecord value)
+        loadLifestyleRecord,
+    required TResult Function(RecordEventUpsertLifestyleRecord value)
+        upsertLifestyleRecord,
+    required TResult Function(RecordEventClearCurrentRecord value)
+        clearCurrentRecord,
   }) {
     return addSymptomRecord(this);
   }
@@ -245,6 +312,13 @@ class _$RecordEventAddSymptomRecordImpl implements RecordEventAddSymptomRecord {
     TResult? Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
     TResult? Function(RecordEventLoadRecords value)? loadRecords,
     TResult? Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult? Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult? Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult? Function(RecordEventLoadLifestyleRecord value)?
+        loadLifestyleRecord,
+    TResult? Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult? Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
   }) {
     return addSymptomRecord?.call(this);
   }
@@ -258,6 +332,12 @@ class _$RecordEventAddSymptomRecordImpl implements RecordEventAddSymptomRecord {
     TResult Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
     TResult Function(RecordEventLoadRecords value)? loadRecords,
     TResult Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult Function(RecordEventLoadLifestyleRecord value)? loadLifestyleRecord,
+    TResult Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
     required TResult orElse(),
   }) {
     if (addSymptomRecord != null) {
@@ -360,6 +440,12 @@ class _$RecordEventAddMealRecordImpl implements RecordEventAddMealRecord {
     required TResult Function(LifestyleRecord record) addLifestyleRecord,
     required TResult Function(DateTime date) loadRecords,
     required TResult Function(String id, RecordType recordType) deleteRecord,
+    required TResult Function(DateTime date, MealType mealType) loadMealRecord,
+    required TResult Function(MealRecord record) upsertMealRecord,
+    required TResult Function(DateTime date, LifestyleType lifestyleType)
+        loadLifestyleRecord,
+    required TResult Function(LifestyleRecord record) upsertLifestyleRecord,
+    required TResult Function() clearCurrentRecord,
   }) {
     return addMealRecord(record);
   }
@@ -373,6 +459,12 @@ class _$RecordEventAddMealRecordImpl implements RecordEventAddMealRecord {
     TResult? Function(LifestyleRecord record)? addLifestyleRecord,
     TResult? Function(DateTime date)? loadRecords,
     TResult? Function(String id, RecordType recordType)? deleteRecord,
+    TResult? Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult? Function(MealRecord record)? upsertMealRecord,
+    TResult? Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult? Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult? Function()? clearCurrentRecord,
   }) {
     return addMealRecord?.call(record);
   }
@@ -386,6 +478,12 @@ class _$RecordEventAddMealRecordImpl implements RecordEventAddMealRecord {
     TResult Function(LifestyleRecord record)? addLifestyleRecord,
     TResult Function(DateTime date)? loadRecords,
     TResult Function(String id, RecordType recordType)? deleteRecord,
+    TResult Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult Function(MealRecord record)? upsertMealRecord,
+    TResult Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult Function()? clearCurrentRecord,
     required TResult orElse(),
   }) {
     if (addMealRecord != null) {
@@ -406,6 +504,15 @@ class _$RecordEventAddMealRecordImpl implements RecordEventAddMealRecord {
         addLifestyleRecord,
     required TResult Function(RecordEventLoadRecords value) loadRecords,
     required TResult Function(RecordEventDeleteRecord value) deleteRecord,
+    required TResult Function(RecordEventLoadMealRecord value) loadMealRecord,
+    required TResult Function(RecordEventUpsertMealRecord value)
+        upsertMealRecord,
+    required TResult Function(RecordEventLoadLifestyleRecord value)
+        loadLifestyleRecord,
+    required TResult Function(RecordEventUpsertLifestyleRecord value)
+        upsertLifestyleRecord,
+    required TResult Function(RecordEventClearCurrentRecord value)
+        clearCurrentRecord,
   }) {
     return addMealRecord(this);
   }
@@ -420,6 +527,13 @@ class _$RecordEventAddMealRecordImpl implements RecordEventAddMealRecord {
     TResult? Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
     TResult? Function(RecordEventLoadRecords value)? loadRecords,
     TResult? Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult? Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult? Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult? Function(RecordEventLoadLifestyleRecord value)?
+        loadLifestyleRecord,
+    TResult? Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult? Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
   }) {
     return addMealRecord?.call(this);
   }
@@ -433,6 +547,12 @@ class _$RecordEventAddMealRecordImpl implements RecordEventAddMealRecord {
     TResult Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
     TResult Function(RecordEventLoadRecords value)? loadRecords,
     TResult Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult Function(RecordEventLoadLifestyleRecord value)? loadLifestyleRecord,
+    TResult Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
     required TResult orElse(),
   }) {
     if (addMealRecord != null) {
@@ -538,6 +658,12 @@ class _$RecordEventAddMedicationRecordImpl
     required TResult Function(LifestyleRecord record) addLifestyleRecord,
     required TResult Function(DateTime date) loadRecords,
     required TResult Function(String id, RecordType recordType) deleteRecord,
+    required TResult Function(DateTime date, MealType mealType) loadMealRecord,
+    required TResult Function(MealRecord record) upsertMealRecord,
+    required TResult Function(DateTime date, LifestyleType lifestyleType)
+        loadLifestyleRecord,
+    required TResult Function(LifestyleRecord record) upsertLifestyleRecord,
+    required TResult Function() clearCurrentRecord,
   }) {
     return addMedicationRecord(record);
   }
@@ -551,6 +677,12 @@ class _$RecordEventAddMedicationRecordImpl
     TResult? Function(LifestyleRecord record)? addLifestyleRecord,
     TResult? Function(DateTime date)? loadRecords,
     TResult? Function(String id, RecordType recordType)? deleteRecord,
+    TResult? Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult? Function(MealRecord record)? upsertMealRecord,
+    TResult? Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult? Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult? Function()? clearCurrentRecord,
   }) {
     return addMedicationRecord?.call(record);
   }
@@ -564,6 +696,12 @@ class _$RecordEventAddMedicationRecordImpl
     TResult Function(LifestyleRecord record)? addLifestyleRecord,
     TResult Function(DateTime date)? loadRecords,
     TResult Function(String id, RecordType recordType)? deleteRecord,
+    TResult Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult Function(MealRecord record)? upsertMealRecord,
+    TResult Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult Function()? clearCurrentRecord,
     required TResult orElse(),
   }) {
     if (addMedicationRecord != null) {
@@ -584,6 +722,15 @@ class _$RecordEventAddMedicationRecordImpl
         addLifestyleRecord,
     required TResult Function(RecordEventLoadRecords value) loadRecords,
     required TResult Function(RecordEventDeleteRecord value) deleteRecord,
+    required TResult Function(RecordEventLoadMealRecord value) loadMealRecord,
+    required TResult Function(RecordEventUpsertMealRecord value)
+        upsertMealRecord,
+    required TResult Function(RecordEventLoadLifestyleRecord value)
+        loadLifestyleRecord,
+    required TResult Function(RecordEventUpsertLifestyleRecord value)
+        upsertLifestyleRecord,
+    required TResult Function(RecordEventClearCurrentRecord value)
+        clearCurrentRecord,
   }) {
     return addMedicationRecord(this);
   }
@@ -598,6 +745,13 @@ class _$RecordEventAddMedicationRecordImpl
     TResult? Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
     TResult? Function(RecordEventLoadRecords value)? loadRecords,
     TResult? Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult? Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult? Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult? Function(RecordEventLoadLifestyleRecord value)?
+        loadLifestyleRecord,
+    TResult? Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult? Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
   }) {
     return addMedicationRecord?.call(this);
   }
@@ -611,6 +765,12 @@ class _$RecordEventAddMedicationRecordImpl
     TResult Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
     TResult Function(RecordEventLoadRecords value)? loadRecords,
     TResult Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult Function(RecordEventLoadLifestyleRecord value)? loadLifestyleRecord,
+    TResult Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
     required TResult orElse(),
   }) {
     if (addMedicationRecord != null) {
@@ -716,6 +876,12 @@ class _$RecordEventAddLifestyleRecordImpl
     required TResult Function(LifestyleRecord record) addLifestyleRecord,
     required TResult Function(DateTime date) loadRecords,
     required TResult Function(String id, RecordType recordType) deleteRecord,
+    required TResult Function(DateTime date, MealType mealType) loadMealRecord,
+    required TResult Function(MealRecord record) upsertMealRecord,
+    required TResult Function(DateTime date, LifestyleType lifestyleType)
+        loadLifestyleRecord,
+    required TResult Function(LifestyleRecord record) upsertLifestyleRecord,
+    required TResult Function() clearCurrentRecord,
   }) {
     return addLifestyleRecord(record);
   }
@@ -729,6 +895,12 @@ class _$RecordEventAddLifestyleRecordImpl
     TResult? Function(LifestyleRecord record)? addLifestyleRecord,
     TResult? Function(DateTime date)? loadRecords,
     TResult? Function(String id, RecordType recordType)? deleteRecord,
+    TResult? Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult? Function(MealRecord record)? upsertMealRecord,
+    TResult? Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult? Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult? Function()? clearCurrentRecord,
   }) {
     return addLifestyleRecord?.call(record);
   }
@@ -742,6 +914,12 @@ class _$RecordEventAddLifestyleRecordImpl
     TResult Function(LifestyleRecord record)? addLifestyleRecord,
     TResult Function(DateTime date)? loadRecords,
     TResult Function(String id, RecordType recordType)? deleteRecord,
+    TResult Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult Function(MealRecord record)? upsertMealRecord,
+    TResult Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult Function()? clearCurrentRecord,
     required TResult orElse(),
   }) {
     if (addLifestyleRecord != null) {
@@ -762,6 +940,15 @@ class _$RecordEventAddLifestyleRecordImpl
         addLifestyleRecord,
     required TResult Function(RecordEventLoadRecords value) loadRecords,
     required TResult Function(RecordEventDeleteRecord value) deleteRecord,
+    required TResult Function(RecordEventLoadMealRecord value) loadMealRecord,
+    required TResult Function(RecordEventUpsertMealRecord value)
+        upsertMealRecord,
+    required TResult Function(RecordEventLoadLifestyleRecord value)
+        loadLifestyleRecord,
+    required TResult Function(RecordEventUpsertLifestyleRecord value)
+        upsertLifestyleRecord,
+    required TResult Function(RecordEventClearCurrentRecord value)
+        clearCurrentRecord,
   }) {
     return addLifestyleRecord(this);
   }
@@ -776,6 +963,13 @@ class _$RecordEventAddLifestyleRecordImpl
     TResult? Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
     TResult? Function(RecordEventLoadRecords value)? loadRecords,
     TResult? Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult? Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult? Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult? Function(RecordEventLoadLifestyleRecord value)?
+        loadLifestyleRecord,
+    TResult? Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult? Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
   }) {
     return addLifestyleRecord?.call(this);
   }
@@ -789,6 +983,12 @@ class _$RecordEventAddLifestyleRecordImpl
     TResult Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
     TResult Function(RecordEventLoadRecords value)? loadRecords,
     TResult Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult Function(RecordEventLoadLifestyleRecord value)? loadLifestyleRecord,
+    TResult Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
     required TResult orElse(),
   }) {
     if (addLifestyleRecord != null) {
@@ -882,6 +1082,12 @@ class _$RecordEventLoadRecordsImpl implements RecordEventLoadRecords {
     required TResult Function(LifestyleRecord record) addLifestyleRecord,
     required TResult Function(DateTime date) loadRecords,
     required TResult Function(String id, RecordType recordType) deleteRecord,
+    required TResult Function(DateTime date, MealType mealType) loadMealRecord,
+    required TResult Function(MealRecord record) upsertMealRecord,
+    required TResult Function(DateTime date, LifestyleType lifestyleType)
+        loadLifestyleRecord,
+    required TResult Function(LifestyleRecord record) upsertLifestyleRecord,
+    required TResult Function() clearCurrentRecord,
   }) {
     return loadRecords(date);
   }
@@ -895,6 +1101,12 @@ class _$RecordEventLoadRecordsImpl implements RecordEventLoadRecords {
     TResult? Function(LifestyleRecord record)? addLifestyleRecord,
     TResult? Function(DateTime date)? loadRecords,
     TResult? Function(String id, RecordType recordType)? deleteRecord,
+    TResult? Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult? Function(MealRecord record)? upsertMealRecord,
+    TResult? Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult? Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult? Function()? clearCurrentRecord,
   }) {
     return loadRecords?.call(date);
   }
@@ -908,6 +1120,12 @@ class _$RecordEventLoadRecordsImpl implements RecordEventLoadRecords {
     TResult Function(LifestyleRecord record)? addLifestyleRecord,
     TResult Function(DateTime date)? loadRecords,
     TResult Function(String id, RecordType recordType)? deleteRecord,
+    TResult Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult Function(MealRecord record)? upsertMealRecord,
+    TResult Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult Function()? clearCurrentRecord,
     required TResult orElse(),
   }) {
     if (loadRecords != null) {
@@ -928,6 +1146,15 @@ class _$RecordEventLoadRecordsImpl implements RecordEventLoadRecords {
         addLifestyleRecord,
     required TResult Function(RecordEventLoadRecords value) loadRecords,
     required TResult Function(RecordEventDeleteRecord value) deleteRecord,
+    required TResult Function(RecordEventLoadMealRecord value) loadMealRecord,
+    required TResult Function(RecordEventUpsertMealRecord value)
+        upsertMealRecord,
+    required TResult Function(RecordEventLoadLifestyleRecord value)
+        loadLifestyleRecord,
+    required TResult Function(RecordEventUpsertLifestyleRecord value)
+        upsertLifestyleRecord,
+    required TResult Function(RecordEventClearCurrentRecord value)
+        clearCurrentRecord,
   }) {
     return loadRecords(this);
   }
@@ -942,6 +1169,13 @@ class _$RecordEventLoadRecordsImpl implements RecordEventLoadRecords {
     TResult? Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
     TResult? Function(RecordEventLoadRecords value)? loadRecords,
     TResult? Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult? Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult? Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult? Function(RecordEventLoadLifestyleRecord value)?
+        loadLifestyleRecord,
+    TResult? Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult? Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
   }) {
     return loadRecords?.call(this);
   }
@@ -955,6 +1189,12 @@ class _$RecordEventLoadRecordsImpl implements RecordEventLoadRecords {
     TResult Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
     TResult Function(RecordEventLoadRecords value)? loadRecords,
     TResult Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult Function(RecordEventLoadLifestyleRecord value)? loadLifestyleRecord,
+    TResult Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
     required TResult orElse(),
   }) {
     if (loadRecords != null) {
@@ -1057,6 +1297,12 @@ class _$RecordEventDeleteRecordImpl implements RecordEventDeleteRecord {
     required TResult Function(LifestyleRecord record) addLifestyleRecord,
     required TResult Function(DateTime date) loadRecords,
     required TResult Function(String id, RecordType recordType) deleteRecord,
+    required TResult Function(DateTime date, MealType mealType) loadMealRecord,
+    required TResult Function(MealRecord record) upsertMealRecord,
+    required TResult Function(DateTime date, LifestyleType lifestyleType)
+        loadLifestyleRecord,
+    required TResult Function(LifestyleRecord record) upsertLifestyleRecord,
+    required TResult Function() clearCurrentRecord,
   }) {
     return deleteRecord(id, recordType);
   }
@@ -1070,6 +1316,12 @@ class _$RecordEventDeleteRecordImpl implements RecordEventDeleteRecord {
     TResult? Function(LifestyleRecord record)? addLifestyleRecord,
     TResult? Function(DateTime date)? loadRecords,
     TResult? Function(String id, RecordType recordType)? deleteRecord,
+    TResult? Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult? Function(MealRecord record)? upsertMealRecord,
+    TResult? Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult? Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult? Function()? clearCurrentRecord,
   }) {
     return deleteRecord?.call(id, recordType);
   }
@@ -1083,6 +1335,12 @@ class _$RecordEventDeleteRecordImpl implements RecordEventDeleteRecord {
     TResult Function(LifestyleRecord record)? addLifestyleRecord,
     TResult Function(DateTime date)? loadRecords,
     TResult Function(String id, RecordType recordType)? deleteRecord,
+    TResult Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult Function(MealRecord record)? upsertMealRecord,
+    TResult Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult Function()? clearCurrentRecord,
     required TResult orElse(),
   }) {
     if (deleteRecord != null) {
@@ -1103,6 +1361,15 @@ class _$RecordEventDeleteRecordImpl implements RecordEventDeleteRecord {
         addLifestyleRecord,
     required TResult Function(RecordEventLoadRecords value) loadRecords,
     required TResult Function(RecordEventDeleteRecord value) deleteRecord,
+    required TResult Function(RecordEventLoadMealRecord value) loadMealRecord,
+    required TResult Function(RecordEventUpsertMealRecord value)
+        upsertMealRecord,
+    required TResult Function(RecordEventLoadLifestyleRecord value)
+        loadLifestyleRecord,
+    required TResult Function(RecordEventUpsertLifestyleRecord value)
+        upsertLifestyleRecord,
+    required TResult Function(RecordEventClearCurrentRecord value)
+        clearCurrentRecord,
   }) {
     return deleteRecord(this);
   }
@@ -1117,6 +1384,13 @@ class _$RecordEventDeleteRecordImpl implements RecordEventDeleteRecord {
     TResult? Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
     TResult? Function(RecordEventLoadRecords value)? loadRecords,
     TResult? Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult? Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult? Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult? Function(RecordEventLoadLifestyleRecord value)?
+        loadLifestyleRecord,
+    TResult? Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult? Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
   }) {
     return deleteRecord?.call(this);
   }
@@ -1130,6 +1404,12 @@ class _$RecordEventDeleteRecordImpl implements RecordEventDeleteRecord {
     TResult Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
     TResult Function(RecordEventLoadRecords value)? loadRecords,
     TResult Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult Function(RecordEventLoadLifestyleRecord value)? loadLifestyleRecord,
+    TResult Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
     required TResult orElse(),
   }) {
     if (deleteRecord != null) {
@@ -1152,6 +1432,1054 @@ abstract class RecordEventDeleteRecord implements RecordEvent {
 }
 
 /// @nodoc
+abstract class _$$RecordEventLoadMealRecordImplCopyWith<$Res> {
+  factory _$$RecordEventLoadMealRecordImplCopyWith(
+          _$RecordEventLoadMealRecordImpl value,
+          $Res Function(_$RecordEventLoadMealRecordImpl) then) =
+      __$$RecordEventLoadMealRecordImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({DateTime date, MealType mealType});
+}
+
+/// @nodoc
+class __$$RecordEventLoadMealRecordImplCopyWithImpl<$Res>
+    extends _$RecordEventCopyWithImpl<$Res, _$RecordEventLoadMealRecordImpl>
+    implements _$$RecordEventLoadMealRecordImplCopyWith<$Res> {
+  __$$RecordEventLoadMealRecordImplCopyWithImpl(
+      _$RecordEventLoadMealRecordImpl _value,
+      $Res Function(_$RecordEventLoadMealRecordImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? date = null,
+    Object? mealType = null,
+  }) {
+    return _then(_$RecordEventLoadMealRecordImpl(
+      date: null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      mealType: null == mealType
+          ? _value.mealType
+          : mealType // ignore: cast_nullable_to_non_nullable
+              as MealType,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RecordEventLoadMealRecordImpl implements RecordEventLoadMealRecord {
+  const _$RecordEventLoadMealRecordImpl(
+      {required this.date, required this.mealType});
+
+  @override
+  final DateTime date;
+  @override
+  final MealType mealType;
+
+  @override
+  String toString() {
+    return 'RecordEvent.loadMealRecord(date: $date, mealType: $mealType)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RecordEventLoadMealRecordImpl &&
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.mealType, mealType) ||
+                other.mealType == mealType));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, date, mealType);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RecordEventLoadMealRecordImplCopyWith<_$RecordEventLoadMealRecordImpl>
+      get copyWith => __$$RecordEventLoadMealRecordImplCopyWithImpl<
+          _$RecordEventLoadMealRecordImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SymptomRecord record) addSymptomRecord,
+    required TResult Function(MealRecord record) addMealRecord,
+    required TResult Function(MedicationRecord record) addMedicationRecord,
+    required TResult Function(LifestyleRecord record) addLifestyleRecord,
+    required TResult Function(DateTime date) loadRecords,
+    required TResult Function(String id, RecordType recordType) deleteRecord,
+    required TResult Function(DateTime date, MealType mealType) loadMealRecord,
+    required TResult Function(MealRecord record) upsertMealRecord,
+    required TResult Function(DateTime date, LifestyleType lifestyleType)
+        loadLifestyleRecord,
+    required TResult Function(LifestyleRecord record) upsertLifestyleRecord,
+    required TResult Function() clearCurrentRecord,
+  }) {
+    return loadMealRecord(date, mealType);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SymptomRecord record)? addSymptomRecord,
+    TResult? Function(MealRecord record)? addMealRecord,
+    TResult? Function(MedicationRecord record)? addMedicationRecord,
+    TResult? Function(LifestyleRecord record)? addLifestyleRecord,
+    TResult? Function(DateTime date)? loadRecords,
+    TResult? Function(String id, RecordType recordType)? deleteRecord,
+    TResult? Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult? Function(MealRecord record)? upsertMealRecord,
+    TResult? Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult? Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult? Function()? clearCurrentRecord,
+  }) {
+    return loadMealRecord?.call(date, mealType);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SymptomRecord record)? addSymptomRecord,
+    TResult Function(MealRecord record)? addMealRecord,
+    TResult Function(MedicationRecord record)? addMedicationRecord,
+    TResult Function(LifestyleRecord record)? addLifestyleRecord,
+    TResult Function(DateTime date)? loadRecords,
+    TResult Function(String id, RecordType recordType)? deleteRecord,
+    TResult Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult Function(MealRecord record)? upsertMealRecord,
+    TResult Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult Function()? clearCurrentRecord,
+    required TResult orElse(),
+  }) {
+    if (loadMealRecord != null) {
+      return loadMealRecord(date, mealType);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(RecordEventAddSymptomRecord value)
+        addSymptomRecord,
+    required TResult Function(RecordEventAddMealRecord value) addMealRecord,
+    required TResult Function(RecordEventAddMedicationRecord value)
+        addMedicationRecord,
+    required TResult Function(RecordEventAddLifestyleRecord value)
+        addLifestyleRecord,
+    required TResult Function(RecordEventLoadRecords value) loadRecords,
+    required TResult Function(RecordEventDeleteRecord value) deleteRecord,
+    required TResult Function(RecordEventLoadMealRecord value) loadMealRecord,
+    required TResult Function(RecordEventUpsertMealRecord value)
+        upsertMealRecord,
+    required TResult Function(RecordEventLoadLifestyleRecord value)
+        loadLifestyleRecord,
+    required TResult Function(RecordEventUpsertLifestyleRecord value)
+        upsertLifestyleRecord,
+    required TResult Function(RecordEventClearCurrentRecord value)
+        clearCurrentRecord,
+  }) {
+    return loadMealRecord(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(RecordEventAddSymptomRecord value)? addSymptomRecord,
+    TResult? Function(RecordEventAddMealRecord value)? addMealRecord,
+    TResult? Function(RecordEventAddMedicationRecord value)?
+        addMedicationRecord,
+    TResult? Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
+    TResult? Function(RecordEventLoadRecords value)? loadRecords,
+    TResult? Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult? Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult? Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult? Function(RecordEventLoadLifestyleRecord value)?
+        loadLifestyleRecord,
+    TResult? Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult? Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
+  }) {
+    return loadMealRecord?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RecordEventAddSymptomRecord value)? addSymptomRecord,
+    TResult Function(RecordEventAddMealRecord value)? addMealRecord,
+    TResult Function(RecordEventAddMedicationRecord value)? addMedicationRecord,
+    TResult Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
+    TResult Function(RecordEventLoadRecords value)? loadRecords,
+    TResult Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult Function(RecordEventLoadLifestyleRecord value)? loadLifestyleRecord,
+    TResult Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
+    required TResult orElse(),
+  }) {
+    if (loadMealRecord != null) {
+      return loadMealRecord(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RecordEventLoadMealRecord implements RecordEvent {
+  const factory RecordEventLoadMealRecord(
+      {required final DateTime date,
+      required final MealType mealType}) = _$RecordEventLoadMealRecordImpl;
+
+  DateTime get date;
+  MealType get mealType;
+  @JsonKey(ignore: true)
+  _$$RecordEventLoadMealRecordImplCopyWith<_$RecordEventLoadMealRecordImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RecordEventUpsertMealRecordImplCopyWith<$Res> {
+  factory _$$RecordEventUpsertMealRecordImplCopyWith(
+          _$RecordEventUpsertMealRecordImpl value,
+          $Res Function(_$RecordEventUpsertMealRecordImpl) then) =
+      __$$RecordEventUpsertMealRecordImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({MealRecord record});
+
+  $MealRecordCopyWith<$Res> get record;
+}
+
+/// @nodoc
+class __$$RecordEventUpsertMealRecordImplCopyWithImpl<$Res>
+    extends _$RecordEventCopyWithImpl<$Res, _$RecordEventUpsertMealRecordImpl>
+    implements _$$RecordEventUpsertMealRecordImplCopyWith<$Res> {
+  __$$RecordEventUpsertMealRecordImplCopyWithImpl(
+      _$RecordEventUpsertMealRecordImpl _value,
+      $Res Function(_$RecordEventUpsertMealRecordImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? record = null,
+  }) {
+    return _then(_$RecordEventUpsertMealRecordImpl(
+      null == record
+          ? _value.record
+          : record // ignore: cast_nullable_to_non_nullable
+              as MealRecord,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MealRecordCopyWith<$Res> get record {
+    return $MealRecordCopyWith<$Res>(_value.record, (value) {
+      return _then(_value.copyWith(record: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$RecordEventUpsertMealRecordImpl implements RecordEventUpsertMealRecord {
+  const _$RecordEventUpsertMealRecordImpl(this.record);
+
+  @override
+  final MealRecord record;
+
+  @override
+  String toString() {
+    return 'RecordEvent.upsertMealRecord(record: $record)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RecordEventUpsertMealRecordImpl &&
+            (identical(other.record, record) || other.record == record));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, record);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RecordEventUpsertMealRecordImplCopyWith<_$RecordEventUpsertMealRecordImpl>
+      get copyWith => __$$RecordEventUpsertMealRecordImplCopyWithImpl<
+          _$RecordEventUpsertMealRecordImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SymptomRecord record) addSymptomRecord,
+    required TResult Function(MealRecord record) addMealRecord,
+    required TResult Function(MedicationRecord record) addMedicationRecord,
+    required TResult Function(LifestyleRecord record) addLifestyleRecord,
+    required TResult Function(DateTime date) loadRecords,
+    required TResult Function(String id, RecordType recordType) deleteRecord,
+    required TResult Function(DateTime date, MealType mealType) loadMealRecord,
+    required TResult Function(MealRecord record) upsertMealRecord,
+    required TResult Function(DateTime date, LifestyleType lifestyleType)
+        loadLifestyleRecord,
+    required TResult Function(LifestyleRecord record) upsertLifestyleRecord,
+    required TResult Function() clearCurrentRecord,
+  }) {
+    return upsertMealRecord(record);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SymptomRecord record)? addSymptomRecord,
+    TResult? Function(MealRecord record)? addMealRecord,
+    TResult? Function(MedicationRecord record)? addMedicationRecord,
+    TResult? Function(LifestyleRecord record)? addLifestyleRecord,
+    TResult? Function(DateTime date)? loadRecords,
+    TResult? Function(String id, RecordType recordType)? deleteRecord,
+    TResult? Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult? Function(MealRecord record)? upsertMealRecord,
+    TResult? Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult? Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult? Function()? clearCurrentRecord,
+  }) {
+    return upsertMealRecord?.call(record);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SymptomRecord record)? addSymptomRecord,
+    TResult Function(MealRecord record)? addMealRecord,
+    TResult Function(MedicationRecord record)? addMedicationRecord,
+    TResult Function(LifestyleRecord record)? addLifestyleRecord,
+    TResult Function(DateTime date)? loadRecords,
+    TResult Function(String id, RecordType recordType)? deleteRecord,
+    TResult Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult Function(MealRecord record)? upsertMealRecord,
+    TResult Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult Function()? clearCurrentRecord,
+    required TResult orElse(),
+  }) {
+    if (upsertMealRecord != null) {
+      return upsertMealRecord(record);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(RecordEventAddSymptomRecord value)
+        addSymptomRecord,
+    required TResult Function(RecordEventAddMealRecord value) addMealRecord,
+    required TResult Function(RecordEventAddMedicationRecord value)
+        addMedicationRecord,
+    required TResult Function(RecordEventAddLifestyleRecord value)
+        addLifestyleRecord,
+    required TResult Function(RecordEventLoadRecords value) loadRecords,
+    required TResult Function(RecordEventDeleteRecord value) deleteRecord,
+    required TResult Function(RecordEventLoadMealRecord value) loadMealRecord,
+    required TResult Function(RecordEventUpsertMealRecord value)
+        upsertMealRecord,
+    required TResult Function(RecordEventLoadLifestyleRecord value)
+        loadLifestyleRecord,
+    required TResult Function(RecordEventUpsertLifestyleRecord value)
+        upsertLifestyleRecord,
+    required TResult Function(RecordEventClearCurrentRecord value)
+        clearCurrentRecord,
+  }) {
+    return upsertMealRecord(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(RecordEventAddSymptomRecord value)? addSymptomRecord,
+    TResult? Function(RecordEventAddMealRecord value)? addMealRecord,
+    TResult? Function(RecordEventAddMedicationRecord value)?
+        addMedicationRecord,
+    TResult? Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
+    TResult? Function(RecordEventLoadRecords value)? loadRecords,
+    TResult? Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult? Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult? Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult? Function(RecordEventLoadLifestyleRecord value)?
+        loadLifestyleRecord,
+    TResult? Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult? Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
+  }) {
+    return upsertMealRecord?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RecordEventAddSymptomRecord value)? addSymptomRecord,
+    TResult Function(RecordEventAddMealRecord value)? addMealRecord,
+    TResult Function(RecordEventAddMedicationRecord value)? addMedicationRecord,
+    TResult Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
+    TResult Function(RecordEventLoadRecords value)? loadRecords,
+    TResult Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult Function(RecordEventLoadLifestyleRecord value)? loadLifestyleRecord,
+    TResult Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
+    required TResult orElse(),
+  }) {
+    if (upsertMealRecord != null) {
+      return upsertMealRecord(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RecordEventUpsertMealRecord implements RecordEvent {
+  const factory RecordEventUpsertMealRecord(final MealRecord record) =
+      _$RecordEventUpsertMealRecordImpl;
+
+  MealRecord get record;
+  @JsonKey(ignore: true)
+  _$$RecordEventUpsertMealRecordImplCopyWith<_$RecordEventUpsertMealRecordImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RecordEventLoadLifestyleRecordImplCopyWith<$Res> {
+  factory _$$RecordEventLoadLifestyleRecordImplCopyWith(
+          _$RecordEventLoadLifestyleRecordImpl value,
+          $Res Function(_$RecordEventLoadLifestyleRecordImpl) then) =
+      __$$RecordEventLoadLifestyleRecordImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({DateTime date, LifestyleType lifestyleType});
+}
+
+/// @nodoc
+class __$$RecordEventLoadLifestyleRecordImplCopyWithImpl<$Res>
+    extends _$RecordEventCopyWithImpl<$Res,
+        _$RecordEventLoadLifestyleRecordImpl>
+    implements _$$RecordEventLoadLifestyleRecordImplCopyWith<$Res> {
+  __$$RecordEventLoadLifestyleRecordImplCopyWithImpl(
+      _$RecordEventLoadLifestyleRecordImpl _value,
+      $Res Function(_$RecordEventLoadLifestyleRecordImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? date = null,
+    Object? lifestyleType = null,
+  }) {
+    return _then(_$RecordEventLoadLifestyleRecordImpl(
+      date: null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      lifestyleType: null == lifestyleType
+          ? _value.lifestyleType
+          : lifestyleType // ignore: cast_nullable_to_non_nullable
+              as LifestyleType,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RecordEventLoadLifestyleRecordImpl
+    implements RecordEventLoadLifestyleRecord {
+  const _$RecordEventLoadLifestyleRecordImpl(
+      {required this.date, required this.lifestyleType});
+
+  @override
+  final DateTime date;
+  @override
+  final LifestyleType lifestyleType;
+
+  @override
+  String toString() {
+    return 'RecordEvent.loadLifestyleRecord(date: $date, lifestyleType: $lifestyleType)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RecordEventLoadLifestyleRecordImpl &&
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.lifestyleType, lifestyleType) ||
+                other.lifestyleType == lifestyleType));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, date, lifestyleType);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RecordEventLoadLifestyleRecordImplCopyWith<
+          _$RecordEventLoadLifestyleRecordImpl>
+      get copyWith => __$$RecordEventLoadLifestyleRecordImplCopyWithImpl<
+          _$RecordEventLoadLifestyleRecordImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SymptomRecord record) addSymptomRecord,
+    required TResult Function(MealRecord record) addMealRecord,
+    required TResult Function(MedicationRecord record) addMedicationRecord,
+    required TResult Function(LifestyleRecord record) addLifestyleRecord,
+    required TResult Function(DateTime date) loadRecords,
+    required TResult Function(String id, RecordType recordType) deleteRecord,
+    required TResult Function(DateTime date, MealType mealType) loadMealRecord,
+    required TResult Function(MealRecord record) upsertMealRecord,
+    required TResult Function(DateTime date, LifestyleType lifestyleType)
+        loadLifestyleRecord,
+    required TResult Function(LifestyleRecord record) upsertLifestyleRecord,
+    required TResult Function() clearCurrentRecord,
+  }) {
+    return loadLifestyleRecord(date, lifestyleType);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SymptomRecord record)? addSymptomRecord,
+    TResult? Function(MealRecord record)? addMealRecord,
+    TResult? Function(MedicationRecord record)? addMedicationRecord,
+    TResult? Function(LifestyleRecord record)? addLifestyleRecord,
+    TResult? Function(DateTime date)? loadRecords,
+    TResult? Function(String id, RecordType recordType)? deleteRecord,
+    TResult? Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult? Function(MealRecord record)? upsertMealRecord,
+    TResult? Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult? Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult? Function()? clearCurrentRecord,
+  }) {
+    return loadLifestyleRecord?.call(date, lifestyleType);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SymptomRecord record)? addSymptomRecord,
+    TResult Function(MealRecord record)? addMealRecord,
+    TResult Function(MedicationRecord record)? addMedicationRecord,
+    TResult Function(LifestyleRecord record)? addLifestyleRecord,
+    TResult Function(DateTime date)? loadRecords,
+    TResult Function(String id, RecordType recordType)? deleteRecord,
+    TResult Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult Function(MealRecord record)? upsertMealRecord,
+    TResult Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult Function()? clearCurrentRecord,
+    required TResult orElse(),
+  }) {
+    if (loadLifestyleRecord != null) {
+      return loadLifestyleRecord(date, lifestyleType);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(RecordEventAddSymptomRecord value)
+        addSymptomRecord,
+    required TResult Function(RecordEventAddMealRecord value) addMealRecord,
+    required TResult Function(RecordEventAddMedicationRecord value)
+        addMedicationRecord,
+    required TResult Function(RecordEventAddLifestyleRecord value)
+        addLifestyleRecord,
+    required TResult Function(RecordEventLoadRecords value) loadRecords,
+    required TResult Function(RecordEventDeleteRecord value) deleteRecord,
+    required TResult Function(RecordEventLoadMealRecord value) loadMealRecord,
+    required TResult Function(RecordEventUpsertMealRecord value)
+        upsertMealRecord,
+    required TResult Function(RecordEventLoadLifestyleRecord value)
+        loadLifestyleRecord,
+    required TResult Function(RecordEventUpsertLifestyleRecord value)
+        upsertLifestyleRecord,
+    required TResult Function(RecordEventClearCurrentRecord value)
+        clearCurrentRecord,
+  }) {
+    return loadLifestyleRecord(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(RecordEventAddSymptomRecord value)? addSymptomRecord,
+    TResult? Function(RecordEventAddMealRecord value)? addMealRecord,
+    TResult? Function(RecordEventAddMedicationRecord value)?
+        addMedicationRecord,
+    TResult? Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
+    TResult? Function(RecordEventLoadRecords value)? loadRecords,
+    TResult? Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult? Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult? Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult? Function(RecordEventLoadLifestyleRecord value)?
+        loadLifestyleRecord,
+    TResult? Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult? Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
+  }) {
+    return loadLifestyleRecord?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RecordEventAddSymptomRecord value)? addSymptomRecord,
+    TResult Function(RecordEventAddMealRecord value)? addMealRecord,
+    TResult Function(RecordEventAddMedicationRecord value)? addMedicationRecord,
+    TResult Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
+    TResult Function(RecordEventLoadRecords value)? loadRecords,
+    TResult Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult Function(RecordEventLoadLifestyleRecord value)? loadLifestyleRecord,
+    TResult Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
+    required TResult orElse(),
+  }) {
+    if (loadLifestyleRecord != null) {
+      return loadLifestyleRecord(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RecordEventLoadLifestyleRecord implements RecordEvent {
+  const factory RecordEventLoadLifestyleRecord(
+          {required final DateTime date,
+          required final LifestyleType lifestyleType}) =
+      _$RecordEventLoadLifestyleRecordImpl;
+
+  DateTime get date;
+  LifestyleType get lifestyleType;
+  @JsonKey(ignore: true)
+  _$$RecordEventLoadLifestyleRecordImplCopyWith<
+          _$RecordEventLoadLifestyleRecordImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RecordEventUpsertLifestyleRecordImplCopyWith<$Res> {
+  factory _$$RecordEventUpsertLifestyleRecordImplCopyWith(
+          _$RecordEventUpsertLifestyleRecordImpl value,
+          $Res Function(_$RecordEventUpsertLifestyleRecordImpl) then) =
+      __$$RecordEventUpsertLifestyleRecordImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({LifestyleRecord record});
+
+  $LifestyleRecordCopyWith<$Res> get record;
+}
+
+/// @nodoc
+class __$$RecordEventUpsertLifestyleRecordImplCopyWithImpl<$Res>
+    extends _$RecordEventCopyWithImpl<$Res,
+        _$RecordEventUpsertLifestyleRecordImpl>
+    implements _$$RecordEventUpsertLifestyleRecordImplCopyWith<$Res> {
+  __$$RecordEventUpsertLifestyleRecordImplCopyWithImpl(
+      _$RecordEventUpsertLifestyleRecordImpl _value,
+      $Res Function(_$RecordEventUpsertLifestyleRecordImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? record = null,
+  }) {
+    return _then(_$RecordEventUpsertLifestyleRecordImpl(
+      null == record
+          ? _value.record
+          : record // ignore: cast_nullable_to_non_nullable
+              as LifestyleRecord,
+    ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LifestyleRecordCopyWith<$Res> get record {
+    return $LifestyleRecordCopyWith<$Res>(_value.record, (value) {
+      return _then(_value.copyWith(record: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$RecordEventUpsertLifestyleRecordImpl
+    implements RecordEventUpsertLifestyleRecord {
+  const _$RecordEventUpsertLifestyleRecordImpl(this.record);
+
+  @override
+  final LifestyleRecord record;
+
+  @override
+  String toString() {
+    return 'RecordEvent.upsertLifestyleRecord(record: $record)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RecordEventUpsertLifestyleRecordImpl &&
+            (identical(other.record, record) || other.record == record));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, record);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RecordEventUpsertLifestyleRecordImplCopyWith<
+          _$RecordEventUpsertLifestyleRecordImpl>
+      get copyWith => __$$RecordEventUpsertLifestyleRecordImplCopyWithImpl<
+          _$RecordEventUpsertLifestyleRecordImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SymptomRecord record) addSymptomRecord,
+    required TResult Function(MealRecord record) addMealRecord,
+    required TResult Function(MedicationRecord record) addMedicationRecord,
+    required TResult Function(LifestyleRecord record) addLifestyleRecord,
+    required TResult Function(DateTime date) loadRecords,
+    required TResult Function(String id, RecordType recordType) deleteRecord,
+    required TResult Function(DateTime date, MealType mealType) loadMealRecord,
+    required TResult Function(MealRecord record) upsertMealRecord,
+    required TResult Function(DateTime date, LifestyleType lifestyleType)
+        loadLifestyleRecord,
+    required TResult Function(LifestyleRecord record) upsertLifestyleRecord,
+    required TResult Function() clearCurrentRecord,
+  }) {
+    return upsertLifestyleRecord(record);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SymptomRecord record)? addSymptomRecord,
+    TResult? Function(MealRecord record)? addMealRecord,
+    TResult? Function(MedicationRecord record)? addMedicationRecord,
+    TResult? Function(LifestyleRecord record)? addLifestyleRecord,
+    TResult? Function(DateTime date)? loadRecords,
+    TResult? Function(String id, RecordType recordType)? deleteRecord,
+    TResult? Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult? Function(MealRecord record)? upsertMealRecord,
+    TResult? Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult? Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult? Function()? clearCurrentRecord,
+  }) {
+    return upsertLifestyleRecord?.call(record);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SymptomRecord record)? addSymptomRecord,
+    TResult Function(MealRecord record)? addMealRecord,
+    TResult Function(MedicationRecord record)? addMedicationRecord,
+    TResult Function(LifestyleRecord record)? addLifestyleRecord,
+    TResult Function(DateTime date)? loadRecords,
+    TResult Function(String id, RecordType recordType)? deleteRecord,
+    TResult Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult Function(MealRecord record)? upsertMealRecord,
+    TResult Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult Function()? clearCurrentRecord,
+    required TResult orElse(),
+  }) {
+    if (upsertLifestyleRecord != null) {
+      return upsertLifestyleRecord(record);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(RecordEventAddSymptomRecord value)
+        addSymptomRecord,
+    required TResult Function(RecordEventAddMealRecord value) addMealRecord,
+    required TResult Function(RecordEventAddMedicationRecord value)
+        addMedicationRecord,
+    required TResult Function(RecordEventAddLifestyleRecord value)
+        addLifestyleRecord,
+    required TResult Function(RecordEventLoadRecords value) loadRecords,
+    required TResult Function(RecordEventDeleteRecord value) deleteRecord,
+    required TResult Function(RecordEventLoadMealRecord value) loadMealRecord,
+    required TResult Function(RecordEventUpsertMealRecord value)
+        upsertMealRecord,
+    required TResult Function(RecordEventLoadLifestyleRecord value)
+        loadLifestyleRecord,
+    required TResult Function(RecordEventUpsertLifestyleRecord value)
+        upsertLifestyleRecord,
+    required TResult Function(RecordEventClearCurrentRecord value)
+        clearCurrentRecord,
+  }) {
+    return upsertLifestyleRecord(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(RecordEventAddSymptomRecord value)? addSymptomRecord,
+    TResult? Function(RecordEventAddMealRecord value)? addMealRecord,
+    TResult? Function(RecordEventAddMedicationRecord value)?
+        addMedicationRecord,
+    TResult? Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
+    TResult? Function(RecordEventLoadRecords value)? loadRecords,
+    TResult? Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult? Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult? Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult? Function(RecordEventLoadLifestyleRecord value)?
+        loadLifestyleRecord,
+    TResult? Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult? Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
+  }) {
+    return upsertLifestyleRecord?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RecordEventAddSymptomRecord value)? addSymptomRecord,
+    TResult Function(RecordEventAddMealRecord value)? addMealRecord,
+    TResult Function(RecordEventAddMedicationRecord value)? addMedicationRecord,
+    TResult Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
+    TResult Function(RecordEventLoadRecords value)? loadRecords,
+    TResult Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult Function(RecordEventLoadLifestyleRecord value)? loadLifestyleRecord,
+    TResult Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
+    required TResult orElse(),
+  }) {
+    if (upsertLifestyleRecord != null) {
+      return upsertLifestyleRecord(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RecordEventUpsertLifestyleRecord implements RecordEvent {
+  const factory RecordEventUpsertLifestyleRecord(final LifestyleRecord record) =
+      _$RecordEventUpsertLifestyleRecordImpl;
+
+  LifestyleRecord get record;
+  @JsonKey(ignore: true)
+  _$$RecordEventUpsertLifestyleRecordImplCopyWith<
+          _$RecordEventUpsertLifestyleRecordImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RecordEventClearCurrentRecordImplCopyWith<$Res> {
+  factory _$$RecordEventClearCurrentRecordImplCopyWith(
+          _$RecordEventClearCurrentRecordImpl value,
+          $Res Function(_$RecordEventClearCurrentRecordImpl) then) =
+      __$$RecordEventClearCurrentRecordImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$RecordEventClearCurrentRecordImplCopyWithImpl<$Res>
+    extends _$RecordEventCopyWithImpl<$Res, _$RecordEventClearCurrentRecordImpl>
+    implements _$$RecordEventClearCurrentRecordImplCopyWith<$Res> {
+  __$$RecordEventClearCurrentRecordImplCopyWithImpl(
+      _$RecordEventClearCurrentRecordImpl _value,
+      $Res Function(_$RecordEventClearCurrentRecordImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$RecordEventClearCurrentRecordImpl
+    implements RecordEventClearCurrentRecord {
+  const _$RecordEventClearCurrentRecordImpl();
+
+  @override
+  String toString() {
+    return 'RecordEvent.clearCurrentRecord()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RecordEventClearCurrentRecordImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(SymptomRecord record) addSymptomRecord,
+    required TResult Function(MealRecord record) addMealRecord,
+    required TResult Function(MedicationRecord record) addMedicationRecord,
+    required TResult Function(LifestyleRecord record) addLifestyleRecord,
+    required TResult Function(DateTime date) loadRecords,
+    required TResult Function(String id, RecordType recordType) deleteRecord,
+    required TResult Function(DateTime date, MealType mealType) loadMealRecord,
+    required TResult Function(MealRecord record) upsertMealRecord,
+    required TResult Function(DateTime date, LifestyleType lifestyleType)
+        loadLifestyleRecord,
+    required TResult Function(LifestyleRecord record) upsertLifestyleRecord,
+    required TResult Function() clearCurrentRecord,
+  }) {
+    return clearCurrentRecord();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(SymptomRecord record)? addSymptomRecord,
+    TResult? Function(MealRecord record)? addMealRecord,
+    TResult? Function(MedicationRecord record)? addMedicationRecord,
+    TResult? Function(LifestyleRecord record)? addLifestyleRecord,
+    TResult? Function(DateTime date)? loadRecords,
+    TResult? Function(String id, RecordType recordType)? deleteRecord,
+    TResult? Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult? Function(MealRecord record)? upsertMealRecord,
+    TResult? Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult? Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult? Function()? clearCurrentRecord,
+  }) {
+    return clearCurrentRecord?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(SymptomRecord record)? addSymptomRecord,
+    TResult Function(MealRecord record)? addMealRecord,
+    TResult Function(MedicationRecord record)? addMedicationRecord,
+    TResult Function(LifestyleRecord record)? addLifestyleRecord,
+    TResult Function(DateTime date)? loadRecords,
+    TResult Function(String id, RecordType recordType)? deleteRecord,
+    TResult Function(DateTime date, MealType mealType)? loadMealRecord,
+    TResult Function(MealRecord record)? upsertMealRecord,
+    TResult Function(DateTime date, LifestyleType lifestyleType)?
+        loadLifestyleRecord,
+    TResult Function(LifestyleRecord record)? upsertLifestyleRecord,
+    TResult Function()? clearCurrentRecord,
+    required TResult orElse(),
+  }) {
+    if (clearCurrentRecord != null) {
+      return clearCurrentRecord();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(RecordEventAddSymptomRecord value)
+        addSymptomRecord,
+    required TResult Function(RecordEventAddMealRecord value) addMealRecord,
+    required TResult Function(RecordEventAddMedicationRecord value)
+        addMedicationRecord,
+    required TResult Function(RecordEventAddLifestyleRecord value)
+        addLifestyleRecord,
+    required TResult Function(RecordEventLoadRecords value) loadRecords,
+    required TResult Function(RecordEventDeleteRecord value) deleteRecord,
+    required TResult Function(RecordEventLoadMealRecord value) loadMealRecord,
+    required TResult Function(RecordEventUpsertMealRecord value)
+        upsertMealRecord,
+    required TResult Function(RecordEventLoadLifestyleRecord value)
+        loadLifestyleRecord,
+    required TResult Function(RecordEventUpsertLifestyleRecord value)
+        upsertLifestyleRecord,
+    required TResult Function(RecordEventClearCurrentRecord value)
+        clearCurrentRecord,
+  }) {
+    return clearCurrentRecord(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(RecordEventAddSymptomRecord value)? addSymptomRecord,
+    TResult? Function(RecordEventAddMealRecord value)? addMealRecord,
+    TResult? Function(RecordEventAddMedicationRecord value)?
+        addMedicationRecord,
+    TResult? Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
+    TResult? Function(RecordEventLoadRecords value)? loadRecords,
+    TResult? Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult? Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult? Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult? Function(RecordEventLoadLifestyleRecord value)?
+        loadLifestyleRecord,
+    TResult? Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult? Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
+  }) {
+    return clearCurrentRecord?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(RecordEventAddSymptomRecord value)? addSymptomRecord,
+    TResult Function(RecordEventAddMealRecord value)? addMealRecord,
+    TResult Function(RecordEventAddMedicationRecord value)? addMedicationRecord,
+    TResult Function(RecordEventAddLifestyleRecord value)? addLifestyleRecord,
+    TResult Function(RecordEventLoadRecords value)? loadRecords,
+    TResult Function(RecordEventDeleteRecord value)? deleteRecord,
+    TResult Function(RecordEventLoadMealRecord value)? loadMealRecord,
+    TResult Function(RecordEventUpsertMealRecord value)? upsertMealRecord,
+    TResult Function(RecordEventLoadLifestyleRecord value)? loadLifestyleRecord,
+    TResult Function(RecordEventUpsertLifestyleRecord value)?
+        upsertLifestyleRecord,
+    TResult Function(RecordEventClearCurrentRecord value)? clearCurrentRecord,
+    required TResult orElse(),
+  }) {
+    if (clearCurrentRecord != null) {
+      return clearCurrentRecord(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class RecordEventClearCurrentRecord implements RecordEvent {
+  const factory RecordEventClearCurrentRecord() =
+      _$RecordEventClearCurrentRecordImpl;
+}
+
+/// @nodoc
 mixin _$RecordState {
   /// 로딩 상태
   bool get isLoading => throw _privateConstructorUsedError;
@@ -1169,6 +2497,16 @@ mixin _$RecordState {
   /// 생활습관 기록 목록
   List<LifestyleRecord> get lifestyleRecords =>
       throw _privateConstructorUsedError;
+
+  /// 현재 편집 중인 식사 기록 (UPSERT용)
+  MealRecord? get currentMealRecord => throw _privateConstructorUsedError;
+
+  /// 현재 편집 중인 생활습관 기록 (UPSERT용)
+  LifestyleRecord? get currentLifestyleRecord =>
+      throw _privateConstructorUsedError;
+
+  /// 편집 모드 여부 (기존 기록 수정 중)
+  bool get isEditMode => throw _privateConstructorUsedError;
 
   /// 에러
   Option<Failure> get failure => throw _privateConstructorUsedError;
@@ -1193,8 +2531,14 @@ abstract class $RecordStateCopyWith<$Res> {
       List<MealRecord> mealRecords,
       List<MedicationRecord> medicationRecords,
       List<LifestyleRecord> lifestyleRecords,
+      MealRecord? currentMealRecord,
+      LifestyleRecord? currentLifestyleRecord,
+      bool isEditMode,
       Option<Failure> failure,
       Option<String> successMessage});
+
+  $MealRecordCopyWith<$Res>? get currentMealRecord;
+  $LifestyleRecordCopyWith<$Res>? get currentLifestyleRecord;
 }
 
 /// @nodoc
@@ -1215,6 +2559,9 @@ class _$RecordStateCopyWithImpl<$Res, $Val extends RecordState>
     Object? mealRecords = null,
     Object? medicationRecords = null,
     Object? lifestyleRecords = null,
+    Object? currentMealRecord = freezed,
+    Object? currentLifestyleRecord = freezed,
+    Object? isEditMode = null,
     Object? failure = null,
     Object? successMessage = null,
   }) {
@@ -1239,6 +2586,18 @@ class _$RecordStateCopyWithImpl<$Res, $Val extends RecordState>
           ? _value.lifestyleRecords
           : lifestyleRecords // ignore: cast_nullable_to_non_nullable
               as List<LifestyleRecord>,
+      currentMealRecord: freezed == currentMealRecord
+          ? _value.currentMealRecord
+          : currentMealRecord // ignore: cast_nullable_to_non_nullable
+              as MealRecord?,
+      currentLifestyleRecord: freezed == currentLifestyleRecord
+          ? _value.currentLifestyleRecord
+          : currentLifestyleRecord // ignore: cast_nullable_to_non_nullable
+              as LifestyleRecord?,
+      isEditMode: null == isEditMode
+          ? _value.isEditMode
+          : isEditMode // ignore: cast_nullable_to_non_nullable
+              as bool,
       failure: null == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
@@ -1248,6 +2607,31 @@ class _$RecordStateCopyWithImpl<$Res, $Val extends RecordState>
           : successMessage // ignore: cast_nullable_to_non_nullable
               as Option<String>,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $MealRecordCopyWith<$Res>? get currentMealRecord {
+    if (_value.currentMealRecord == null) {
+      return null;
+    }
+
+    return $MealRecordCopyWith<$Res>(_value.currentMealRecord!, (value) {
+      return _then(_value.copyWith(currentMealRecord: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $LifestyleRecordCopyWith<$Res>? get currentLifestyleRecord {
+    if (_value.currentLifestyleRecord == null) {
+      return null;
+    }
+
+    return $LifestyleRecordCopyWith<$Res>(_value.currentLifestyleRecord!,
+        (value) {
+      return _then(_value.copyWith(currentLifestyleRecord: value) as $Val);
+    });
   }
 }
 
@@ -1265,8 +2649,16 @@ abstract class _$$RecordStateImplCopyWith<$Res>
       List<MealRecord> mealRecords,
       List<MedicationRecord> medicationRecords,
       List<LifestyleRecord> lifestyleRecords,
+      MealRecord? currentMealRecord,
+      LifestyleRecord? currentLifestyleRecord,
+      bool isEditMode,
       Option<Failure> failure,
       Option<String> successMessage});
+
+  @override
+  $MealRecordCopyWith<$Res>? get currentMealRecord;
+  @override
+  $LifestyleRecordCopyWith<$Res>? get currentLifestyleRecord;
 }
 
 /// @nodoc
@@ -1285,6 +2677,9 @@ class __$$RecordStateImplCopyWithImpl<$Res>
     Object? mealRecords = null,
     Object? medicationRecords = null,
     Object? lifestyleRecords = null,
+    Object? currentMealRecord = freezed,
+    Object? currentLifestyleRecord = freezed,
+    Object? isEditMode = null,
     Object? failure = null,
     Object? successMessage = null,
   }) {
@@ -1309,6 +2704,18 @@ class __$$RecordStateImplCopyWithImpl<$Res>
           ? _value._lifestyleRecords
           : lifestyleRecords // ignore: cast_nullable_to_non_nullable
               as List<LifestyleRecord>,
+      currentMealRecord: freezed == currentMealRecord
+          ? _value.currentMealRecord
+          : currentMealRecord // ignore: cast_nullable_to_non_nullable
+              as MealRecord?,
+      currentLifestyleRecord: freezed == currentLifestyleRecord
+          ? _value.currentLifestyleRecord
+          : currentLifestyleRecord // ignore: cast_nullable_to_non_nullable
+              as LifestyleRecord?,
+      isEditMode: null == isEditMode
+          ? _value.isEditMode
+          : isEditMode // ignore: cast_nullable_to_non_nullable
+              as bool,
       failure: null == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
@@ -1330,6 +2737,9 @@ class _$RecordStateImpl implements _RecordState {
       required final List<MealRecord> mealRecords,
       required final List<MedicationRecord> medicationRecords,
       required final List<LifestyleRecord> lifestyleRecords,
+      this.currentMealRecord,
+      this.currentLifestyleRecord,
+      this.isEditMode = false,
       required this.failure,
       required this.successMessage})
       : _symptomRecords = symptomRecords,
@@ -1387,6 +2797,19 @@ class _$RecordStateImpl implements _RecordState {
     return EqualUnmodifiableListView(_lifestyleRecords);
   }
 
+  /// 현재 편집 중인 식사 기록 (UPSERT용)
+  @override
+  final MealRecord? currentMealRecord;
+
+  /// 현재 편집 중인 생활습관 기록 (UPSERT용)
+  @override
+  final LifestyleRecord? currentLifestyleRecord;
+
+  /// 편집 모드 여부 (기존 기록 수정 중)
+  @override
+  @JsonKey()
+  final bool isEditMode;
+
   /// 에러
   @override
   final Option<Failure> failure;
@@ -1397,7 +2820,7 @@ class _$RecordStateImpl implements _RecordState {
 
   @override
   String toString() {
-    return 'RecordState(isLoading: $isLoading, symptomRecords: $symptomRecords, mealRecords: $mealRecords, medicationRecords: $medicationRecords, lifestyleRecords: $lifestyleRecords, failure: $failure, successMessage: $successMessage)';
+    return 'RecordState(isLoading: $isLoading, symptomRecords: $symptomRecords, mealRecords: $mealRecords, medicationRecords: $medicationRecords, lifestyleRecords: $lifestyleRecords, currentMealRecord: $currentMealRecord, currentLifestyleRecord: $currentLifestyleRecord, isEditMode: $isEditMode, failure: $failure, successMessage: $successMessage)';
   }
 
   @override
@@ -1415,6 +2838,12 @@ class _$RecordStateImpl implements _RecordState {
                 .equals(other._medicationRecords, _medicationRecords) &&
             const DeepCollectionEquality()
                 .equals(other._lifestyleRecords, _lifestyleRecords) &&
+            (identical(other.currentMealRecord, currentMealRecord) ||
+                other.currentMealRecord == currentMealRecord) &&
+            (identical(other.currentLifestyleRecord, currentLifestyleRecord) ||
+                other.currentLifestyleRecord == currentLifestyleRecord) &&
+            (identical(other.isEditMode, isEditMode) ||
+                other.isEditMode == isEditMode) &&
             (identical(other.failure, failure) || other.failure == failure) &&
             (identical(other.successMessage, successMessage) ||
                 other.successMessage == successMessage));
@@ -1428,6 +2857,9 @@ class _$RecordStateImpl implements _RecordState {
       const DeepCollectionEquality().hash(_mealRecords),
       const DeepCollectionEquality().hash(_medicationRecords),
       const DeepCollectionEquality().hash(_lifestyleRecords),
+      currentMealRecord,
+      currentLifestyleRecord,
+      isEditMode,
       failure,
       successMessage);
 
@@ -1445,6 +2877,9 @@ abstract class _RecordState implements RecordState {
       required final List<MealRecord> mealRecords,
       required final List<MedicationRecord> medicationRecords,
       required final List<LifestyleRecord> lifestyleRecords,
+      final MealRecord? currentMealRecord,
+      final LifestyleRecord? currentLifestyleRecord,
+      final bool isEditMode,
       required final Option<Failure> failure,
       required final Option<String> successMessage}) = _$RecordStateImpl;
 
@@ -1468,6 +2903,18 @@ abstract class _RecordState implements RecordState {
 
   /// 생활습관 기록 목록
   List<LifestyleRecord> get lifestyleRecords;
+  @override
+
+  /// 현재 편집 중인 식사 기록 (UPSERT용)
+  MealRecord? get currentMealRecord;
+  @override
+
+  /// 현재 편집 중인 생활습관 기록 (UPSERT용)
+  LifestyleRecord? get currentLifestyleRecord;
+  @override
+
+  /// 편집 모드 여부 (기존 기록 수정 중)
+  bool get isEditMode;
   @override
 
   /// 에러

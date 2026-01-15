@@ -17,8 +17,11 @@ class HomeState with _$HomeState {
     /// 오늘의 요약
     required List<RecordSummary> todaySummary,
 
-    /// 최근 기록
+    /// 최근 기록 (홈 화면 표시용, 최대 5개)
     required List<RecentRecord> recentRecords,
+
+    /// 전체 최근 기록 (전체보기 모달용, 최대 20개)
+    required List<RecentRecord> allRecentRecords,
 
     /// 에러
     required Option<Failure> failure,
@@ -31,6 +34,7 @@ class HomeState with _$HomeState {
         previousScore: 0,
         todaySummary: [],
         recentRecords: [],
+        allRecentRecords: [],
         failure: none(),
       );
 }

@@ -5,13 +5,16 @@ import 'package:no_gerd/features/auth/presentation/pages/email_verification_page
 import 'package:no_gerd/features/auth/presentation/pages/login_page.dart';
 import 'package:no_gerd/features/auth/presentation/pages/signup_page.dart';
 import 'package:no_gerd/features/calendar/presentation/pages/calendar_page.dart';
-import 'package:no_gerd/features/home/presentation/pages/home_page.dart';
-import 'package:no_gerd/features/insights/presentation/pages/insights_page.dart';
+import 'package:no_gerd/features/home/presentation/pages/home_page_v2.dart';
+import 'package:no_gerd/features/insights/presentation/pages/insights_page_v2.dart';
 import 'package:no_gerd/features/record/presentation/bloc/record_bloc.dart';
 import 'package:no_gerd/features/settings/presentation/pages/settings_page.dart';
 import 'package:no_gerd/screens/main_screen.dart';
 import 'package:no_gerd/screens/record/quick_record_modal.dart';
 import 'package:no_gerd/screens/splash/splash_screen.dart';
+import 'package:no_gerd/shared/constants/gerd_constants.dart';
+import 'package:no_gerd/features/settings/presentation/pages/alarm_settings_page.dart';
+import 'package:no_gerd/features/record/presentation/pages/record_detail_page.dart';
 
 /// 앱의 모든 라우트를 정의하는 클래스
 abstract final class AppRoutes {
@@ -22,6 +25,8 @@ abstract final class AppRoutes {
       GlobalKey<NavigatorState>(debugLabel: 'home_tab');
   static final GlobalKey<NavigatorState> calendarTabNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: 'calendar_tab');
+  static final GlobalKey<NavigatorState> alarmTabNavigatorKey =
+      GlobalKey<NavigatorState>(debugLabel: 'alarm_tab');
   static final GlobalKey<NavigatorState> insightsTabNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: 'insights_tab');
   static final GlobalKey<NavigatorState> settingsTabNavigatorKey =
@@ -73,22 +78,43 @@ abstract final class AppRoutes {
           path: '/record/meal',
           name: 'meal-record',
           builder: (context, state) {
-            final recordBloc = state.extra! as RecordBloc;
-            return BlocProvider.value(
-              value: recordBloc,
-              child: const MealRecordScreen(),
-            );
+            final extra = state.extra;
+            // extra가 Map이면 bloc과 mealType 추출, 아니면 단순 RecordBloc
+            if (extra is Map<String, dynamic>) {
+              final recordBloc = extra['bloc'] as RecordBloc;
+              final mealType = extra['mealType'] as MealType?;
+              return BlocProvider.value(
+                value: recordBloc,
+                child: MealRecordScreen(initialMealType: mealType),
+              );
+            } else {
+              final recordBloc = extra! as RecordBloc;
+              return BlocProvider.value(
+                value: recordBloc,
+                child: const MealRecordScreen(),
+              );
+            }
           },
         ),
         GoRoute(
           path: '/record/medication',
           name: 'medication-record',
           builder: (context, state) {
-            final recordBloc = state.extra! as RecordBloc;
-            return BlocProvider.value(
-              value: recordBloc,
-              child: const MedicationRecordScreen(),
-            );
+            final extra = state.extra;
+            if (extra is Map<String, dynamic>) {
+              final recordBloc = extra['bloc'] as RecordBloc;
+              final notTaking = extra['notTaking'] as bool? ?? false;
+              return BlocProvider.value(
+                value: recordBloc,
+                child: MedicationRecordScreen(initialNotTaking: notTaking),
+              );
+            } else {
+              final recordBloc = extra! as RecordBloc;
+              return BlocProvider.value(
+                value: recordBloc,
+                child: const MedicationRecordScreen(),
+              );
+            }
           },
         ),
         GoRoute(
@@ -102,6 +128,15 @@ abstract final class AppRoutes {
             );
           },
         ),
+        GoRoute(
+          path: '/record/detail',
+          name: 'record-detail',
+          builder: (context, state) {
+            final record = state.extra!;
+            return RecordDetailPage(record: record);
+          },
+        ),
+
       ];
 
   /// StatefulShellRoute: 탭 기반 네비게이션 (IndexedStack 사용)
@@ -117,7 +152,7 @@ abstract final class AppRoutes {
           GoRoute(
             path: '/',
             name: 'home',
-            builder: (context, state) => const HomePage(),
+            builder: (context, state) => const HomePageV2(),
           ),
         ],
       ),
@@ -134,19 +169,31 @@ abstract final class AppRoutes {
         ],
       ),
 
-      // 분석 탭 (인덱스 2)
+      // 알림 탭 (인덱스 2)
+      StatefulShellBranch(
+        navigatorKey: alarmTabNavigatorKey,
+        routes: [
+          GoRoute(
+            path: '/alarm',
+            name: 'alarm',
+            builder: (context, state) => const AlarmSettingsPage(),
+          ),
+        ],
+      ),
+
+      // 분석 탭 (인덱스 3)
       StatefulShellBranch(
         navigatorKey: insightsTabNavigatorKey,
         routes: [
           GoRoute(
             path: '/insights',
             name: 'insights',
-            builder: (context, state) => const InsightsPage(),
+            builder: (context, state) => const InsightsPageV2(),
           ),
         ],
       ),
 
-      // 설정 탭 (인덱스 3)
+      // 설정 탭 (인덱스 4)
       StatefulShellBranch(
         navigatorKey: settingsTabNavigatorKey,
         routes: [

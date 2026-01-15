@@ -31,6 +31,12 @@ import '../../features/insights/domain/usecases/analyze_triggers_usecase.dart'
     as _i152;
 import '../../features/insights/domain/usecases/calculate_health_score_usecase.dart'
     as _i382;
+import '../../features/insights/domain/usecases/get_lifestyle_impact_usecase.dart'
+    as _i588;
+import '../../features/insights/domain/usecases/get_meal_symptom_correlation_usecase.dart'
+    as _i102;
+import '../../features/insights/domain/usecases/get_symptom_distribution_usecase.dart'
+    as _i84;
 import '../../features/insights/domain/usecases/get_symptom_trends_usecase.dart'
     as _i106;
 import '../../features/insights/domain/usecases/get_weekly_pattern_usecase.dart'
@@ -52,8 +58,16 @@ import '../../features/record/domain/usecases/add_medication_record_usecase.dart
     as _i893;
 import '../../features/record/domain/usecases/add_symptom_record_usecase.dart'
     as _i857;
+import '../../features/record/domain/usecases/get_lifestyle_record_by_date_type_usecase.dart'
+    as _i373;
+import '../../features/record/domain/usecases/get_meal_record_by_date_type_usecase.dart'
+    as _i374;
 import '../../features/record/domain/usecases/get_records_usecase.dart'
     as _i580;
+import '../../features/record/domain/usecases/upsert_lifestyle_record_usecase.dart'
+    as _i146;
+import '../../features/record/domain/usecases/upsert_meal_record_usecase.dart'
+    as _i674;
 import '../../features/record/presentation/bloc/record_bloc.dart' as _i7;
 import '../../features/settings/domain/usecases/backup_data_usecase.dart'
     as _i597;
@@ -121,14 +135,49 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i86.GetRecordsForMonthUseCase(gh<_i968.IRecordRepository>()));
     gh.factory<_i580.GetAllRecordsUseCase>(
         () => _i580.GetAllRecordsUseCase(gh<_i968.IRecordRepository>()));
+    gh.factory<_i674.UpsertMealRecordUseCase>(
+        () => _i674.UpsertMealRecordUseCase(gh<_i968.IRecordRepository>()));
     gh.factory<_i857.AddSymptomRecordUseCase>(
         () => _i857.AddSymptomRecordUseCase(gh<_i968.IRecordRepository>()));
     gh.factory<_i675.AddMealRecordUseCase>(
         () => _i675.AddMealRecordUseCase(gh<_i968.IRecordRepository>()));
     gh.factory<_i893.AddMedicationRecordUseCase>(
         () => _i893.AddMedicationRecordUseCase(gh<_i968.IRecordRepository>()));
+    gh.factory<_i146.UpsertLifestyleRecordUseCase>(() =>
+        _i146.UpsertLifestyleRecordUseCase(gh<_i968.IRecordRepository>()));
+    gh.factory<_i373.GetLifestyleRecordByDateAndTypeUseCase>(() =>
+        _i373.GetLifestyleRecordByDateAndTypeUseCase(
+            gh<_i968.IRecordRepository>()));
+    gh.factory<_i374.GetMealRecordByDateAndTypeUseCase>(() =>
+        _i374.GetMealRecordByDateAndTypeUseCase(gh<_i968.IRecordRepository>()));
     gh.factory<_i680.AddLifestyleRecordUseCase>(
         () => _i680.AddLifestyleRecordUseCase(gh<_i968.IRecordRepository>()));
+    gh.factory<_i588.GetLifestyleImpactUseCase>(
+        () => _i588.GetLifestyleImpactUseCase(gh<_i968.IRecordRepository>()));
+    gh.factory<_i84.GetSymptomDistributionUseCase>(() =>
+        _i84.GetSymptomDistributionUseCase(gh<_i968.IRecordRepository>()));
+    gh.factory<_i102.GetMealSymptomCorrelationUseCase>(() =>
+        _i102.GetMealSymptomCorrelationUseCase(gh<_i968.IRecordRepository>()));
+    gh.factory<_i658.InsightsBloc>(() => _i658.InsightsBloc(
+          gh<_i382.CalculateHealthScoreUseCase>(),
+          gh<_i152.AnalyzeTriggersUseCase>(),
+          gh<_i106.GetSymptomTrendsUseCase>(),
+          gh<_i1039.GetWeeklyPatternUseCase>(),
+          gh<_i84.GetSymptomDistributionUseCase>(),
+          gh<_i102.GetMealSymptomCorrelationUseCase>(),
+          gh<_i588.GetLifestyleImpactUseCase>(),
+        ));
+    gh.factory<_i7.RecordBloc>(() => _i7.RecordBloc(
+          gh<_i857.AddSymptomRecordUseCase>(),
+          gh<_i675.AddMealRecordUseCase>(),
+          gh<_i893.AddMedicationRecordUseCase>(),
+          gh<_i680.AddLifestyleRecordUseCase>(),
+          gh<_i580.GetAllRecordsUseCase>(),
+          gh<_i374.GetMealRecordByDateAndTypeUseCase>(),
+          gh<_i674.UpsertMealRecordUseCase>(),
+          gh<_i373.GetLifestyleRecordByDateAndTypeUseCase>(),
+          gh<_i146.UpsertLifestyleRecordUseCase>(),
+        ));
     gh.factory<_i202.HomeBloc>(
         () => _i202.HomeBloc(gh<_i968.IRecordRepository>()));
     gh.singleton<_i797.AuthBloc>(() => _i797.AuthBloc(
@@ -137,21 +186,8 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i915.SignOutUseCase>(),
           gh<_i17.GetCurrentUserUseCase>(),
         ));
-    gh.factory<_i7.RecordBloc>(() => _i7.RecordBloc(
-          gh<_i857.AddSymptomRecordUseCase>(),
-          gh<_i675.AddMealRecordUseCase>(),
-          gh<_i893.AddMedicationRecordUseCase>(),
-          gh<_i680.AddLifestyleRecordUseCase>(),
-          gh<_i580.GetAllRecordsUseCase>(),
-        ));
     gh.factory<_i1021.CalendarBloc>(
         () => _i1021.CalendarBloc(gh<_i86.GetRecordsForMonthUseCase>()));
-    gh.factory<_i658.InsightsBloc>(() => _i658.InsightsBloc(
-          gh<_i382.CalculateHealthScoreUseCase>(),
-          gh<_i152.AnalyzeTriggersUseCase>(),
-          gh<_i106.GetSymptomTrendsUseCase>(),
-          gh<_i1039.GetWeeklyPatternUseCase>(),
-        ));
     return this;
   }
 }

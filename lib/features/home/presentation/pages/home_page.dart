@@ -114,7 +114,7 @@ class _HomePageContent extends StatelessWidget {
                           const SizedBox(height: 24),
 
                           // 최근 기록 섹션
-                          RecentRecordsSection(records: state.recentRecords),
+                          // RecentRecordsSection(records: state.recentRecords),
 
                           const SizedBox(height: 24),
 

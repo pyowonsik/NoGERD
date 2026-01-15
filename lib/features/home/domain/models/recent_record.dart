@@ -21,6 +21,9 @@ class RecentRecord with _$RecentRecord {
 
     /// 색상 값 (ARGB)
     required int colorValue,
+
+    /// 원본 엔티티 (상세보기에 사용)
+    dynamic originalEntity,
   }) = _RecentRecord;
 
   /// 초기값
@@ -30,5 +33,6 @@ class RecentRecord with _$RecentRecord {
         time: '',
         emoji: '',
         colorValue: 0,
+        originalEntity: null,
       );
 }

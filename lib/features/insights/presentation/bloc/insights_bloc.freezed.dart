@@ -337,6 +337,18 @@ mixin _$InsightsState {
   /// 주간 패턴 데이터
   List<WeeklyPattern> get weeklyPatterns => throw _privateConstructorUsedError;
 
+  /// 증상 분포 데이터
+  List<SymptomDistribution> get symptomDistribution =>
+      throw _privateConstructorUsedError;
+
+  /// 식사-증상 연관성 데이터
+  List<MealSymptomCorrelation> get mealSymptomCorrelation =>
+      throw _privateConstructorUsedError;
+
+  /// 생활습관 영향 데이터
+  List<LifestyleImpact> get lifestyleImpacts =>
+      throw _privateConstructorUsedError;
+
   /// 에러
   Option<Failure> get failure => throw _privateConstructorUsedError;
 
@@ -359,6 +371,9 @@ abstract class $InsightsStateCopyWith<$Res> {
       List<SymptomTrend> symptomTrends,
       List<TriggerAnalysis> triggerAnalysis,
       List<WeeklyPattern> weeklyPatterns,
+      List<SymptomDistribution> symptomDistribution,
+      List<MealSymptomCorrelation> mealSymptomCorrelation,
+      List<LifestyleImpact> lifestyleImpacts,
       Option<Failure> failure});
 }
 
@@ -382,6 +397,9 @@ class _$InsightsStateCopyWithImpl<$Res, $Val extends InsightsState>
     Object? symptomTrends = null,
     Object? triggerAnalysis = null,
     Object? weeklyPatterns = null,
+    Object? symptomDistribution = null,
+    Object? mealSymptomCorrelation = null,
+    Object? lifestyleImpacts = null,
     Object? failure = null,
   }) {
     return _then(_value.copyWith(
@@ -413,6 +431,18 @@ class _$InsightsStateCopyWithImpl<$Res, $Val extends InsightsState>
           ? _value.weeklyPatterns
           : weeklyPatterns // ignore: cast_nullable_to_non_nullable
               as List<WeeklyPattern>,
+      symptomDistribution: null == symptomDistribution
+          ? _value.symptomDistribution
+          : symptomDistribution // ignore: cast_nullable_to_non_nullable
+              as List<SymptomDistribution>,
+      mealSymptomCorrelation: null == mealSymptomCorrelation
+          ? _value.mealSymptomCorrelation
+          : mealSymptomCorrelation // ignore: cast_nullable_to_non_nullable
+              as List<MealSymptomCorrelation>,
+      lifestyleImpacts: null == lifestyleImpacts
+          ? _value.lifestyleImpacts
+          : lifestyleImpacts // ignore: cast_nullable_to_non_nullable
+              as List<LifestyleImpact>,
       failure: null == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
@@ -437,6 +467,9 @@ abstract class _$$InsightsStateImplCopyWith<$Res>
       List<SymptomTrend> symptomTrends,
       List<TriggerAnalysis> triggerAnalysis,
       List<WeeklyPattern> weeklyPatterns,
+      List<SymptomDistribution> symptomDistribution,
+      List<MealSymptomCorrelation> mealSymptomCorrelation,
+      List<LifestyleImpact> lifestyleImpacts,
       Option<Failure> failure});
 }
 
@@ -458,6 +491,9 @@ class __$$InsightsStateImplCopyWithImpl<$Res>
     Object? symptomTrends = null,
     Object? triggerAnalysis = null,
     Object? weeklyPatterns = null,
+    Object? symptomDistribution = null,
+    Object? mealSymptomCorrelation = null,
+    Object? lifestyleImpacts = null,
     Object? failure = null,
   }) {
     return _then(_$InsightsStateImpl(
@@ -489,6 +525,18 @@ class __$$InsightsStateImplCopyWithImpl<$Res>
           ? _value._weeklyPatterns
           : weeklyPatterns // ignore: cast_nullable_to_non_nullable
               as List<WeeklyPattern>,
+      symptomDistribution: null == symptomDistribution
+          ? _value._symptomDistribution
+          : symptomDistribution // ignore: cast_nullable_to_non_nullable
+              as List<SymptomDistribution>,
+      mealSymptomCorrelation: null == mealSymptomCorrelation
+          ? _value._mealSymptomCorrelation
+          : mealSymptomCorrelation // ignore: cast_nullable_to_non_nullable
+              as List<MealSymptomCorrelation>,
+      lifestyleImpacts: null == lifestyleImpacts
+          ? _value._lifestyleImpacts
+          : lifestyleImpacts // ignore: cast_nullable_to_non_nullable
+              as List<LifestyleImpact>,
       failure: null == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
@@ -508,10 +556,16 @@ class _$InsightsStateImpl implements _InsightsState {
       required final List<SymptomTrend> symptomTrends,
       required final List<TriggerAnalysis> triggerAnalysis,
       required final List<WeeklyPattern> weeklyPatterns,
+      required final List<SymptomDistribution> symptomDistribution,
+      required final List<MealSymptomCorrelation> mealSymptomCorrelation,
+      required final List<LifestyleImpact> lifestyleImpacts,
       required this.failure})
       : _symptomTrends = symptomTrends,
         _triggerAnalysis = triggerAnalysis,
-        _weeklyPatterns = weeklyPatterns;
+        _weeklyPatterns = weeklyPatterns,
+        _symptomDistribution = symptomDistribution,
+        _mealSymptomCorrelation = mealSymptomCorrelation,
+        _lifestyleImpacts = lifestyleImpacts;
 
   /// 로딩 상태
   @override
@@ -562,13 +616,49 @@ class _$InsightsStateImpl implements _InsightsState {
     return EqualUnmodifiableListView(_weeklyPatterns);
   }
 
+  /// 증상 분포 데이터
+  final List<SymptomDistribution> _symptomDistribution;
+
+  /// 증상 분포 데이터
+  @override
+  List<SymptomDistribution> get symptomDistribution {
+    if (_symptomDistribution is EqualUnmodifiableListView)
+      return _symptomDistribution;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_symptomDistribution);
+  }
+
+  /// 식사-증상 연관성 데이터
+  final List<MealSymptomCorrelation> _mealSymptomCorrelation;
+
+  /// 식사-증상 연관성 데이터
+  @override
+  List<MealSymptomCorrelation> get mealSymptomCorrelation {
+    if (_mealSymptomCorrelation is EqualUnmodifiableListView)
+      return _mealSymptomCorrelation;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_mealSymptomCorrelation);
+  }
+
+  /// 생활습관 영향 데이터
+  final List<LifestyleImpact> _lifestyleImpacts;
+
+  /// 생활습관 영향 데이터
+  @override
+  List<LifestyleImpact> get lifestyleImpacts {
+    if (_lifestyleImpacts is EqualUnmodifiableListView)
+      return _lifestyleImpacts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_lifestyleImpacts);
+  }
+
   /// 에러
   @override
   final Option<Failure> failure;
 
   @override
   String toString() {
-    return 'InsightsState(isLoading: $isLoading, selectedDays: $selectedDays, healthScore: $healthScore, previousHealthScore: $previousHealthScore, symptomTrends: $symptomTrends, triggerAnalysis: $triggerAnalysis, weeklyPatterns: $weeklyPatterns, failure: $failure)';
+    return 'InsightsState(isLoading: $isLoading, selectedDays: $selectedDays, healthScore: $healthScore, previousHealthScore: $previousHealthScore, symptomTrends: $symptomTrends, triggerAnalysis: $triggerAnalysis, weeklyPatterns: $weeklyPatterns, symptomDistribution: $symptomDistribution, mealSymptomCorrelation: $mealSymptomCorrelation, lifestyleImpacts: $lifestyleImpacts, failure: $failure)';
   }
 
   @override
@@ -590,6 +680,12 @@ class _$InsightsStateImpl implements _InsightsState {
                 .equals(other._triggerAnalysis, _triggerAnalysis) &&
             const DeepCollectionEquality()
                 .equals(other._weeklyPatterns, _weeklyPatterns) &&
+            const DeepCollectionEquality()
+                .equals(other._symptomDistribution, _symptomDistribution) &&
+            const DeepCollectionEquality().equals(
+                other._mealSymptomCorrelation, _mealSymptomCorrelation) &&
+            const DeepCollectionEquality()
+                .equals(other._lifestyleImpacts, _lifestyleImpacts) &&
             (identical(other.failure, failure) || other.failure == failure));
   }
 
@@ -603,6 +699,9 @@ class _$InsightsStateImpl implements _InsightsState {
       const DeepCollectionEquality().hash(_symptomTrends),
       const DeepCollectionEquality().hash(_triggerAnalysis),
       const DeepCollectionEquality().hash(_weeklyPatterns),
+      const DeepCollectionEquality().hash(_symptomDistribution),
+      const DeepCollectionEquality().hash(_mealSymptomCorrelation),
+      const DeepCollectionEquality().hash(_lifestyleImpacts),
       failure);
 
   @JsonKey(ignore: true)
@@ -621,6 +720,9 @@ abstract class _InsightsState implements InsightsState {
       required final List<SymptomTrend> symptomTrends,
       required final List<TriggerAnalysis> triggerAnalysis,
       required final List<WeeklyPattern> weeklyPatterns,
+      required final List<SymptomDistribution> symptomDistribution,
+      required final List<MealSymptomCorrelation> mealSymptomCorrelation,
+      required final List<LifestyleImpact> lifestyleImpacts,
       required final Option<Failure> failure}) = _$InsightsStateImpl;
 
   @override
@@ -651,6 +753,18 @@ abstract class _InsightsState implements InsightsState {
 
   /// 주간 패턴 데이터
   List<WeeklyPattern> get weeklyPatterns;
+  @override
+
+  /// 증상 분포 데이터
+  List<SymptomDistribution> get symptomDistribution;
+  @override
+
+  /// 식사-증상 연관성 데이터
+  List<MealSymptomCorrelation> get mealSymptomCorrelation;
+  @override
+
+  /// 생활습관 영향 데이터
+  List<LifestyleImpact> get lifestyleImpacts;
   @override
 
   /// 에러

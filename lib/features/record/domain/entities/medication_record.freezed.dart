@@ -22,14 +22,18 @@ mixin _$MedicationRecord {
   /// 기록 시간
   DateTime get recordedAt => throw _privateConstructorUsedError;
 
-  /// 약물 종류
-  MedicationType get medicationType => throw _privateConstructorUsedError;
+  /// 약물 복용 여부 (true: 복용함, false: 복용 안함)
+  bool get isTaken => throw _privateConstructorUsedError;
 
-  /// 약물 이름
-  String get medicationName => throw _privateConstructorUsedError;
+  /// 약물 종류 목록 (복용 안함일 경우 null, 여러 종류 선택 가능)
+  List<MedicationType>? get medicationTypes =>
+      throw _privateConstructorUsedError;
 
-  /// 용량
-  String get dosage => throw _privateConstructorUsedError;
+  /// 약물 이름 (복용 안함일 경우 null)
+  String? get medicationName => throw _privateConstructorUsedError;
+
+  /// 용량 (복용 안함일 경우 null)
+  String? get dosage => throw _privateConstructorUsedError;
 
   /// 복용 목적
   String? get purpose => throw _privateConstructorUsedError;
@@ -60,9 +64,10 @@ abstract class $MedicationRecordCopyWith<$Res> {
   $Res call(
       {String id,
       DateTime recordedAt,
-      MedicationType medicationType,
-      String medicationName,
-      String dosage,
+      bool isTaken,
+      List<MedicationType>? medicationTypes,
+      String? medicationName,
+      String? dosage,
       String? purpose,
       int? effectiveness,
       String? notes,
@@ -85,9 +90,10 @@ class _$MedicationRecordCopyWithImpl<$Res, $Val extends MedicationRecord>
   $Res call({
     Object? id = null,
     Object? recordedAt = null,
-    Object? medicationType = null,
-    Object? medicationName = null,
-    Object? dosage = null,
+    Object? isTaken = null,
+    Object? medicationTypes = freezed,
+    Object? medicationName = freezed,
+    Object? dosage = freezed,
     Object? purpose = freezed,
     Object? effectiveness = freezed,
     Object? notes = freezed,
@@ -103,18 +109,22 @@ class _$MedicationRecordCopyWithImpl<$Res, $Val extends MedicationRecord>
           ? _value.recordedAt
           : recordedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      medicationType: null == medicationType
-          ? _value.medicationType
-          : medicationType // ignore: cast_nullable_to_non_nullable
-              as MedicationType,
-      medicationName: null == medicationName
+      isTaken: null == isTaken
+          ? _value.isTaken
+          : isTaken // ignore: cast_nullable_to_non_nullable
+              as bool,
+      medicationTypes: freezed == medicationTypes
+          ? _value.medicationTypes
+          : medicationTypes // ignore: cast_nullable_to_non_nullable
+              as List<MedicationType>?,
+      medicationName: freezed == medicationName
           ? _value.medicationName
           : medicationName // ignore: cast_nullable_to_non_nullable
-              as String,
-      dosage: null == dosage
+              as String?,
+      dosage: freezed == dosage
           ? _value.dosage
           : dosage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       purpose: freezed == purpose
           ? _value.purpose
           : purpose // ignore: cast_nullable_to_non_nullable
@@ -150,9 +160,10 @@ abstract class _$$MedicationRecordImplCopyWith<$Res>
   $Res call(
       {String id,
       DateTime recordedAt,
-      MedicationType medicationType,
-      String medicationName,
-      String dosage,
+      bool isTaken,
+      List<MedicationType>? medicationTypes,
+      String? medicationName,
+      String? dosage,
       String? purpose,
       int? effectiveness,
       String? notes,
@@ -173,9 +184,10 @@ class __$$MedicationRecordImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? recordedAt = null,
-    Object? medicationType = null,
-    Object? medicationName = null,
-    Object? dosage = null,
+    Object? isTaken = null,
+    Object? medicationTypes = freezed,
+    Object? medicationName = freezed,
+    Object? dosage = freezed,
     Object? purpose = freezed,
     Object? effectiveness = freezed,
     Object? notes = freezed,
@@ -191,18 +203,22 @@ class __$$MedicationRecordImplCopyWithImpl<$Res>
           ? _value.recordedAt
           : recordedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      medicationType: null == medicationType
-          ? _value.medicationType
-          : medicationType // ignore: cast_nullable_to_non_nullable
-              as MedicationType,
-      medicationName: null == medicationName
+      isTaken: null == isTaken
+          ? _value.isTaken
+          : isTaken // ignore: cast_nullable_to_non_nullable
+              as bool,
+      medicationTypes: freezed == medicationTypes
+          ? _value._medicationTypes
+          : medicationTypes // ignore: cast_nullable_to_non_nullable
+              as List<MedicationType>?,
+      medicationName: freezed == medicationName
           ? _value.medicationName
           : medicationName // ignore: cast_nullable_to_non_nullable
-              as String,
-      dosage: null == dosage
+              as String?,
+      dosage: freezed == dosage
           ? _value.dosage
           : dosage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       purpose: freezed == purpose
           ? _value.purpose
           : purpose // ignore: cast_nullable_to_non_nullable
@@ -233,14 +249,16 @@ class _$MedicationRecordImpl implements _MedicationRecord {
   const _$MedicationRecordImpl(
       {required this.id,
       required this.recordedAt,
-      required this.medicationType,
-      required this.medicationName,
-      required this.dosage,
+      this.isTaken = true,
+      final List<MedicationType>? medicationTypes,
+      this.medicationName,
+      this.dosage,
       this.purpose,
       this.effectiveness,
       this.notes,
       required this.createdAt,
-      this.updatedAt});
+      this.updatedAt})
+      : _medicationTypes = medicationTypes;
 
   /// 고유 ID
   @override
@@ -250,17 +268,31 @@ class _$MedicationRecordImpl implements _MedicationRecord {
   @override
   final DateTime recordedAt;
 
-  /// 약물 종류
+  /// 약물 복용 여부 (true: 복용함, false: 복용 안함)
   @override
-  final MedicationType medicationType;
+  @JsonKey()
+  final bool isTaken;
 
-  /// 약물 이름
-  @override
-  final String medicationName;
+  /// 약물 종류 목록 (복용 안함일 경우 null, 여러 종류 선택 가능)
+  final List<MedicationType>? _medicationTypes;
 
-  /// 용량
+  /// 약물 종류 목록 (복용 안함일 경우 null, 여러 종류 선택 가능)
   @override
-  final String dosage;
+  List<MedicationType>? get medicationTypes {
+    final value = _medicationTypes;
+    if (value == null) return null;
+    if (_medicationTypes is EqualUnmodifiableListView) return _medicationTypes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  /// 약물 이름 (복용 안함일 경우 null)
+  @override
+  final String? medicationName;
+
+  /// 용량 (복용 안함일 경우 null)
+  @override
+  final String? dosage;
 
   /// 복용 목적
   @override
@@ -284,7 +316,7 @@ class _$MedicationRecordImpl implements _MedicationRecord {
 
   @override
   String toString() {
-    return 'MedicationRecord(id: $id, recordedAt: $recordedAt, medicationType: $medicationType, medicationName: $medicationName, dosage: $dosage, purpose: $purpose, effectiveness: $effectiveness, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'MedicationRecord(id: $id, recordedAt: $recordedAt, isTaken: $isTaken, medicationTypes: $medicationTypes, medicationName: $medicationName, dosage: $dosage, purpose: $purpose, effectiveness: $effectiveness, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -295,8 +327,9 @@ class _$MedicationRecordImpl implements _MedicationRecord {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.recordedAt, recordedAt) ||
                 other.recordedAt == recordedAt) &&
-            (identical(other.medicationType, medicationType) ||
-                other.medicationType == medicationType) &&
+            (identical(other.isTaken, isTaken) || other.isTaken == isTaken) &&
+            const DeepCollectionEquality()
+                .equals(other._medicationTypes, _medicationTypes) &&
             (identical(other.medicationName, medicationName) ||
                 other.medicationName == medicationName) &&
             (identical(other.dosage, dosage) || other.dosage == dosage) &&
@@ -315,7 +348,8 @@ class _$MedicationRecordImpl implements _MedicationRecord {
       runtimeType,
       id,
       recordedAt,
-      medicationType,
+      isTaken,
+      const DeepCollectionEquality().hash(_medicationTypes),
       medicationName,
       dosage,
       purpose,
@@ -336,9 +370,10 @@ abstract class _MedicationRecord implements MedicationRecord {
   const factory _MedicationRecord(
       {required final String id,
       required final DateTime recordedAt,
-      required final MedicationType medicationType,
-      required final String medicationName,
-      required final String dosage,
+      final bool isTaken,
+      final List<MedicationType>? medicationTypes,
+      final String? medicationName,
+      final String? dosage,
       final String? purpose,
       final int? effectiveness,
       final String? notes,
@@ -355,16 +390,20 @@ abstract class _MedicationRecord implements MedicationRecord {
   DateTime get recordedAt;
   @override
 
-  /// 약물 종류
-  MedicationType get medicationType;
+  /// 약물 복용 여부 (true: 복용함, false: 복용 안함)
+  bool get isTaken;
   @override
 
-  /// 약물 이름
-  String get medicationName;
+  /// 약물 종류 목록 (복용 안함일 경우 null, 여러 종류 선택 가능)
+  List<MedicationType>? get medicationTypes;
   @override
 
-  /// 용량
-  String get dosage;
+  /// 약물 이름 (복용 안함일 경우 null)
+  String? get medicationName;
+  @override
+
+  /// 용량 (복용 안함일 경우 null)
+  String? get dosage;
   @override
 
   /// 복용 목적

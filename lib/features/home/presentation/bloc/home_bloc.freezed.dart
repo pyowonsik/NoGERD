@@ -451,8 +451,11 @@ mixin _$HomeState {
   /// 오늘의 요약
   List<RecordSummary> get todaySummary => throw _privateConstructorUsedError;
 
-  /// 최근 기록
+  /// 최근 기록 (홈 화면 표시용, 최대 5개)
   List<RecentRecord> get recentRecords => throw _privateConstructorUsedError;
+
+  /// 전체 최근 기록 (전체보기 모달용, 최대 20개)
+  List<RecentRecord> get allRecentRecords => throw _privateConstructorUsedError;
 
   /// 에러
   Option<Failure> get failure => throw _privateConstructorUsedError;
@@ -473,6 +476,7 @@ abstract class $HomeStateCopyWith<$Res> {
       int previousScore,
       List<RecordSummary> todaySummary,
       List<RecentRecord> recentRecords,
+      List<RecentRecord> allRecentRecords,
       Option<Failure> failure});
 }
 
@@ -494,6 +498,7 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
     Object? previousScore = null,
     Object? todaySummary = null,
     Object? recentRecords = null,
+    Object? allRecentRecords = null,
     Object? failure = null,
   }) {
     return _then(_value.copyWith(
@@ -517,6 +522,10 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
           ? _value.recentRecords
           : recentRecords // ignore: cast_nullable_to_non_nullable
               as List<RecentRecord>,
+      allRecentRecords: null == allRecentRecords
+          ? _value.allRecentRecords
+          : allRecentRecords // ignore: cast_nullable_to_non_nullable
+              as List<RecentRecord>,
       failure: null == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
@@ -539,6 +548,7 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       int previousScore,
       List<RecordSummary> todaySummary,
       List<RecentRecord> recentRecords,
+      List<RecentRecord> allRecentRecords,
       Option<Failure> failure});
 }
 
@@ -558,6 +568,7 @@ class __$$HomeStateImplCopyWithImpl<$Res>
     Object? previousScore = null,
     Object? todaySummary = null,
     Object? recentRecords = null,
+    Object? allRecentRecords = null,
     Object? failure = null,
   }) {
     return _then(_$HomeStateImpl(
@@ -581,6 +592,10 @@ class __$$HomeStateImplCopyWithImpl<$Res>
           ? _value._recentRecords
           : recentRecords // ignore: cast_nullable_to_non_nullable
               as List<RecentRecord>,
+      allRecentRecords: null == allRecentRecords
+          ? _value._allRecentRecords
+          : allRecentRecords // ignore: cast_nullable_to_non_nullable
+              as List<RecentRecord>,
       failure: null == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
@@ -598,9 +613,11 @@ class _$HomeStateImpl implements _HomeState {
       required this.previousScore,
       required final List<RecordSummary> todaySummary,
       required final List<RecentRecord> recentRecords,
+      required final List<RecentRecord> allRecentRecords,
       required this.failure})
       : _todaySummary = todaySummary,
-        _recentRecords = recentRecords;
+        _recentRecords = recentRecords,
+        _allRecentRecords = allRecentRecords;
 
   /// 로딩 중 여부
   @override
@@ -625,15 +642,27 @@ class _$HomeStateImpl implements _HomeState {
     return EqualUnmodifiableListView(_todaySummary);
   }
 
-  /// 최근 기록
+  /// 최근 기록 (홈 화면 표시용, 최대 5개)
   final List<RecentRecord> _recentRecords;
 
-  /// 최근 기록
+  /// 최근 기록 (홈 화면 표시용, 최대 5개)
   @override
   List<RecentRecord> get recentRecords {
     if (_recentRecords is EqualUnmodifiableListView) return _recentRecords;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_recentRecords);
+  }
+
+  /// 전체 최근 기록 (전체보기 모달용, 최대 20개)
+  final List<RecentRecord> _allRecentRecords;
+
+  /// 전체 최근 기록 (전체보기 모달용, 최대 20개)
+  @override
+  List<RecentRecord> get allRecentRecords {
+    if (_allRecentRecords is EqualUnmodifiableListView)
+      return _allRecentRecords;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_allRecentRecords);
   }
 
   /// 에러
@@ -642,7 +671,7 @@ class _$HomeStateImpl implements _HomeState {
 
   @override
   String toString() {
-    return 'HomeState(isLoading: $isLoading, healthScore: $healthScore, previousScore: $previousScore, todaySummary: $todaySummary, recentRecords: $recentRecords, failure: $failure)';
+    return 'HomeState(isLoading: $isLoading, healthScore: $healthScore, previousScore: $previousScore, todaySummary: $todaySummary, recentRecords: $recentRecords, allRecentRecords: $allRecentRecords, failure: $failure)';
   }
 
   @override
@@ -660,6 +689,8 @@ class _$HomeStateImpl implements _HomeState {
                 .equals(other._todaySummary, _todaySummary) &&
             const DeepCollectionEquality()
                 .equals(other._recentRecords, _recentRecords) &&
+            const DeepCollectionEquality()
+                .equals(other._allRecentRecords, _allRecentRecords) &&
             (identical(other.failure, failure) || other.failure == failure));
   }
 
@@ -671,6 +702,7 @@ class _$HomeStateImpl implements _HomeState {
       previousScore,
       const DeepCollectionEquality().hash(_todaySummary),
       const DeepCollectionEquality().hash(_recentRecords),
+      const DeepCollectionEquality().hash(_allRecentRecords),
       failure);
 
   @JsonKey(ignore: true)
@@ -687,6 +719,7 @@ abstract class _HomeState implements HomeState {
       required final int previousScore,
       required final List<RecordSummary> todaySummary,
       required final List<RecentRecord> recentRecords,
+      required final List<RecentRecord> allRecentRecords,
       required final Option<Failure> failure}) = _$HomeStateImpl;
 
   @override
@@ -707,8 +740,12 @@ abstract class _HomeState implements HomeState {
   List<RecordSummary> get todaySummary;
   @override
 
-  /// 최근 기록
+  /// 최근 기록 (홈 화면 표시용, 최대 5개)
   List<RecentRecord> get recentRecords;
+  @override
+
+  /// 전체 최근 기록 (전체보기 모달용, 최대 20개)
+  List<RecentRecord> get allRecentRecords;
   @override
 
   /// 에러

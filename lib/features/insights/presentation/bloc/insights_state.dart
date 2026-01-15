@@ -26,6 +26,15 @@ class InsightsState with _$InsightsState {
     /// 주간 패턴 데이터
     required List<WeeklyPattern> weeklyPatterns,
 
+    /// 증상 분포 데이터
+    required List<SymptomDistribution> symptomDistribution,
+
+    /// 식사-증상 연관성 데이터
+    required List<MealSymptomCorrelation> mealSymptomCorrelation,
+
+    /// 생활습관 영향 데이터
+    required List<LifestyleImpact> lifestyleImpacts,
+
     /// 에러
     required Option<Failure> failure,
   }) = _InsightsState;
@@ -39,6 +48,9 @@ class InsightsState with _$InsightsState {
         symptomTrends: [],
         triggerAnalysis: [],
         weeklyPatterns: [],
+        symptomDistribution: [],
+        mealSymptomCorrelation: [],
+        lifestyleImpacts: [],
         failure: none(),
       );
 }

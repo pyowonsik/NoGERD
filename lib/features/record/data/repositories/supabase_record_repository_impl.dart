@@ -12,6 +12,7 @@ import 'package:no_gerd/features/record/domain/entities/meal_record.dart';
 import 'package:no_gerd/features/record/domain/entities/medication_record.dart';
 import 'package:no_gerd/features/record/domain/entities/symptom_record.dart';
 import 'package:no_gerd/features/record/domain/repositories/record_repository.dart';
+import 'package:no_gerd/shared/constants/gerd_constants.dart';
 
 @LazySingleton(as: IRecordRepository)
 class SupabaseRecordRepositoryImpl implements IRecordRepository {
@@ -177,6 +178,47 @@ class SupabaseRecordRepositoryImpl implements IRecordRepository {
     }
   }
 
+  @override
+  Future<Either<Failure, MealRecord?>> getMealRecordByDateAndType(
+    DateTime date,
+    MealType mealType,
+  ) async {
+    try {
+      final userId = _getCurrentUserId();
+      if (userId == null) {
+        return Left(Failure.permission('로그인이 필요합니다'));
+      }
+
+      final model = await _remoteDataSource.getMealRecordByDateAndType(
+        date,
+        mealType.name,
+      );
+      return Right(model?.toEntity());
+    } on RecordDataSourceException catch (e) {
+      return Left(Failure.database(e.message));
+    } catch (e) {
+      return Left(Failure.unexpected(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> upsertMealRecord(MealRecord record) async {
+    try {
+      final userId = _getCurrentUserId();
+      if (userId == null) {
+        return Left(Failure.permission('로그인이 필요합니다'));
+      }
+
+      final model = MealRecordModel.fromEntity(record, userId);
+      await _remoteDataSource.upsertMealRecord(model);
+      return const Right(unit);
+    } on RecordDataSourceException catch (e) {
+      return Left(Failure.database(e.message));
+    } catch (e) {
+      return Left(Failure.unexpected(e.toString()));
+    }
+  }
+
   // ========== Medication Records ==========
 
   @override
@@ -325,6 +367,49 @@ class SupabaseRecordRepositoryImpl implements IRecordRepository {
       }
 
       await _remoteDataSource.deleteLifestyleRecord(id);
+      return const Right(unit);
+    } on RecordDataSourceException catch (e) {
+      return Left(Failure.database(e.message));
+    } catch (e) {
+      return Left(Failure.unexpected(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, LifestyleRecord?>> getLifestyleRecordByDateAndType(
+    DateTime date,
+    LifestyleType lifestyleType,
+  ) async {
+    try {
+      final userId = _getCurrentUserId();
+      if (userId == null) {
+        return Left(Failure.permission('로그인이 필요합니다'));
+      }
+
+      final model = await _remoteDataSource.getLifestyleRecordByDateAndType(
+        date,
+        lifestyleType.name,
+      );
+      return Right(model?.toEntity());
+    } on RecordDataSourceException catch (e) {
+      return Left(Failure.database(e.message));
+    } catch (e) {
+      return Left(Failure.unexpected(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> upsertLifestyleRecord(
+    LifestyleRecord record,
+  ) async {
+    try {
+      final userId = _getCurrentUserId();
+      if (userId == null) {
+        return Left(Failure.permission('로그인이 필요합니다'));
+      }
+
+      final model = LifestyleRecordModel.fromEntity(record, userId);
+      await _remoteDataSource.upsertLifestyleRecord(model);
       return const Right(unit);
     } on RecordDataSourceException catch (e) {
       return Left(Failure.database(e.message));

@@ -60,12 +60,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           medications,
           lifestyles,
         );
-        final recentRecords = _generateRecentRecords(
+        final allRecords = _generateRecentRecords(
           symptoms,
           meals,
           medications,
           lifestyles,
+          limit: 20,
         );
+        final recentRecords = allRecords.take(5).toList();
 
         emit(
           state.copyWith(
@@ -74,6 +76,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             previousScore: state.healthScore,
             todaySummary: todaySummary,
             recentRecords: recentRecords,
+            allRecentRecords: allRecords,
           ),
         );
       },
@@ -122,19 +125,19 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         : symptoms.map((s) => s.severity).reduce((a, b) => a + b) ~/
             symptoms.length;
 
-    final sleepRecord = lifestyles.firstWhere(
-      (l) => l.lifestyleType == LifestyleType.sleep,
-      orElse: () => LifestyleRecord(
-        id: '',
-        recordedAt: DateTime.now(),
-        lifestyleType: LifestyleType.sleep,
-        details: {'sleep_hours': 0.0},
-        createdAt: DateTime.now(),
-      ),
-    );
+    // 통합 생활습관 기록에서 수면 정보 추출
+    final lifestyleRecord = lifestyles.isNotEmpty
+        ? lifestyles.first
+        : LifestyleRecord(
+            id: '',
+            recordedAt: DateTime.now(),
+            lifestyleType: LifestyleType.sleep,
+            details: {'sleep_hours': 0.0},
+            createdAt: DateTime.now(),
+          );
 
     // sleep_hours는 double 타입으로 저장됨
-    final sleepHoursValue = sleepRecord.details['sleep_hours'];
+    final sleepHoursValue = lifestyleRecord.details['sleep_hours'];
     final sleepHours = sleepHoursValue is num ? sleepHoursValue.round() : 0;
 
     return [
@@ -181,8 +184,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     List<SymptomRecord> symptoms,
     List<MealRecord> meals,
     List<MedicationRecord> medications,
-    List<LifestyleRecord> lifestyles,
-  ) {
+    List<LifestyleRecord> lifestyles, {
+    int limit = 20,
+  }) {
     final List<RecentRecord> records = [];
 
     for (final symptom in symptoms) {
@@ -193,6 +197,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           time: _formatTime(symptom.recordedAt),
           emoji: symptom.symptoms.first.emoji,
           colorValue: RecordType.symptom.color.value,
+          originalEntity: symptom,
         ),
       );
     }
@@ -205,67 +210,65 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           time: _formatTime(meal.recordedAt),
           emoji: meal.mealType.emoji,
           colorValue: RecordType.meal.color.value,
+          originalEntity: meal,
         ),
       );
     }
 
     for (final medication in medications) {
+      final types = medication.medicationTypes;
+      final typeEmoji = types != null && types.isNotEmpty
+          ? types.first.emoji
+          : '💊';
+
       records.add(
         RecentRecord(
-          title: medication.medicationName,
-          subtitle: medication.dosage,
+          title: medication.isTaken
+              ? (medication.medicationName ?? '약물')
+              : '약물 복용 안함',
+          subtitle: medication.isTaken
+              ? (medication.dosage ?? '')
+              : '복용하지 않음',
           time: _formatTime(medication.recordedAt),
-          emoji: medication.medicationType.emoji,
+          emoji: medication.isTaken ? typeEmoji : '🚫',
           colorValue: RecordType.medication.color.value,
+          originalEntity: medication,
         ),
       );
     }
 
     for (final lifestyle in lifestyles) {
-      String title;
-      String subtitle;
-      String emoji;
+      // 통합 생활습관 기록: 수면, 스트레스, 운동 정보를 모두 포함
+      final hours = lifestyle.details['sleep_hours'];
+      final level = lifestyle.details['stress_level'];
+      final exercised = lifestyle.details['exercised'] == true;
 
-      switch (lifestyle.lifestyleType) {
-        case LifestyleType.sleep:
-          final hours = lifestyle.details['sleep_hours'];
-          title = '수면';
-          subtitle = hours is num ? '${hours.toStringAsFixed(1)}시간' : '기록됨';
-          emoji = '😴';
-        case LifestyleType.stress:
-          final level = lifestyle.details['stress_level'];
-          title = '스트레스';
-          subtitle = level is num ? '레벨 $level/10' : '기록됨';
-          emoji = level is num && level > 6 ? '😰' : '😌';
-        case LifestyleType.exercise:
-          final exercised = lifestyle.details['exercised'] == true;
-          title = '운동';
-          subtitle = exercised ? '운동함' : '운동 안함';
-          emoji = '🏃';
-        case LifestyleType.smoking:
-          final smoked = lifestyle.details['smoked'] == true;
-          title = '흡연';
-          subtitle = smoked ? '흡연함' : '금연';
-          emoji = '🚬';
-        case LifestyleType.posture:
-          title = '자세';
-          subtitle = lifestyle.details['posture'] as String? ?? '기록됨';
-          emoji = '🧘';
+      // subtitle에 주요 정보 요약
+      final subtitleParts = <String>[];
+      if (hours is num) {
+        subtitleParts.add('수면 ${hours.toStringAsFixed(1)}h');
+      }
+      if (level is num) {
+        subtitleParts.add('스트레스 $level');
+      }
+      if (exercised) {
+        subtitleParts.add('운동함');
       }
 
       records.add(
         RecentRecord(
-          title: title,
-          subtitle: subtitle,
+          title: '생활습관',
+          subtitle: subtitleParts.isEmpty ? '기록됨' : subtitleParts.join(' · '),
           time: _formatTime(lifestyle.recordedAt),
-          emoji: emoji,
+          emoji: '🏃',
           colorValue: RecordType.lifestyle.color.value,
+          originalEntity: lifestyle,
         ),
       );
     }
 
     records.sort((a, b) => b.time.compareTo(a.time));
-    return records.take(5).toList();
+    return records.take(limit).toList();
   }
 
   String _formatTime(DateTime dateTime) {

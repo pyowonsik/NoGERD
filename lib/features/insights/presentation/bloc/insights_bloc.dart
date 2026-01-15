@@ -7,6 +7,9 @@ import 'package:no_gerd/core/error/failures.dart';
 import 'package:no_gerd/core/usecase/usecase.dart';
 import 'package:no_gerd/features/insights/domain/usecases/analyze_triggers_usecase.dart';
 import 'package:no_gerd/features/insights/domain/usecases/calculate_health_score_usecase.dart';
+import 'package:no_gerd/features/insights/domain/usecases/get_lifestyle_impact_usecase.dart';
+import 'package:no_gerd/features/insights/domain/usecases/get_meal_symptom_correlation_usecase.dart';
+import 'package:no_gerd/features/insights/domain/usecases/get_symptom_distribution_usecase.dart';
 import 'package:no_gerd/features/insights/domain/usecases/get_symptom_trends_usecase.dart';
 import 'package:no_gerd/features/insights/domain/usecases/get_weekly_pattern_usecase.dart';
 
@@ -23,6 +26,9 @@ class InsightsBloc extends Bloc<InsightsEvent, InsightsState> {
     this._analyzeTriggersUseCase,
     this._getSymptomTrendsUseCase,
     this._getWeeklyPatternUseCase,
+    this._getSymptomDistributionUseCase,
+    this._getMealSymptomCorrelationUseCase,
+    this._getLifestyleImpactUseCase,
   ) : super(InsightsState.initial()) {
     on<InsightsEventLoadData>(_onLoadData);
     on<InsightsEventRefresh>(_onRefresh);
@@ -32,6 +38,9 @@ class InsightsBloc extends Bloc<InsightsEvent, InsightsState> {
   final AnalyzeTriggersUseCase _analyzeTriggersUseCase;
   final GetSymptomTrendsUseCase _getSymptomTrendsUseCase;
   final GetWeeklyPatternUseCase _getWeeklyPatternUseCase;
+  final GetSymptomDistributionUseCase _getSymptomDistributionUseCase;
+  final GetMealSymptomCorrelationUseCase _getMealSymptomCorrelationUseCase;
+  final GetLifestyleImpactUseCase _getLifestyleImpactUseCase;
 
   Future<void> _onLoadData(
     InsightsEventLoadData event,
@@ -46,11 +55,17 @@ class InsightsBloc extends Bloc<InsightsEvent, InsightsState> {
     final trendsFuture = _getSymptomTrendsUseCase(event.days);
     final triggersFuture = _analyzeTriggersUseCase(now);
     final patternsFuture = _getWeeklyPatternUseCase(const NoParams());
+    final distributionFuture = _getSymptomDistributionUseCase(event.days);
+    final correlationFuture = _getMealSymptomCorrelationUseCase(event.days);
+    final lifestyleFuture = _getLifestyleImpactUseCase(event.days);
 
     final healthScoreResult = await healthScoreFuture;
     final trendsResult = await trendsFuture;
     final triggersResult = await triggersFuture;
     final patternsResult = await patternsFuture;
+    final distributionResult = await distributionFuture;
+    final correlationResult = await correlationFuture;
+    final lifestyleResult = await lifestyleFuture;
 
     // 결과 처리
     healthScoreResult.fold(
@@ -76,6 +91,22 @@ class InsightsBloc extends Bloc<InsightsEvent, InsightsState> {
     patternsResult.fold(
       (failure) => null,
       (patterns) => emit(state.copyWith(weeklyPatterns: patterns)),
+    );
+
+    distributionResult.fold(
+      (failure) => null,
+      (distribution) => emit(state.copyWith(symptomDistribution: distribution)),
+    );
+
+    correlationResult.fold(
+      (failure) => null,
+      (correlation) =>
+          emit(state.copyWith(mealSymptomCorrelation: correlation)),
+    );
+
+    lifestyleResult.fold(
+      (failure) => null,
+      (lifestyle) => emit(state.copyWith(lifestyleImpacts: lifestyle)),
     );
 
     emit(state.copyWith(isLoading: false));

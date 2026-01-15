@@ -26,11 +26,13 @@ mixin _$MedicationRecordModel {
   String get userId => throw _privateConstructorUsedError;
   @JsonKey(name: 'record_datetime')
   DateTime get recordedAt => throw _privateConstructorUsedError;
-  @JsonKey(name: 'medication_type')
-  String get medicationType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_taken')
+  bool get isTaken => throw _privateConstructorUsedError;
+  @JsonKey(name: 'medication_types')
+  List<String>? get medicationTypes => throw _privateConstructorUsedError;
   @JsonKey(name: 'medication_name')
-  String get medicationName => throw _privateConstructorUsedError;
-  String get dosage => throw _privateConstructorUsedError;
+  String? get medicationName => throw _privateConstructorUsedError;
+  String? get dosage => throw _privateConstructorUsedError;
   String? get purpose => throw _privateConstructorUsedError;
   int? get effectiveness => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
@@ -55,9 +57,10 @@ abstract class $MedicationRecordModelCopyWith<$Res> {
       {String id,
       @JsonKey(name: 'user_id') String userId,
       @JsonKey(name: 'record_datetime') DateTime recordedAt,
-      @JsonKey(name: 'medication_type') String medicationType,
-      @JsonKey(name: 'medication_name') String medicationName,
-      String dosage,
+      @JsonKey(name: 'is_taken') bool isTaken,
+      @JsonKey(name: 'medication_types') List<String>? medicationTypes,
+      @JsonKey(name: 'medication_name') String? medicationName,
+      String? dosage,
       String? purpose,
       int? effectiveness,
       String? notes,
@@ -82,9 +85,10 @@ class _$MedicationRecordModelCopyWithImpl<$Res,
     Object? id = null,
     Object? userId = null,
     Object? recordedAt = null,
-    Object? medicationType = null,
-    Object? medicationName = null,
-    Object? dosage = null,
+    Object? isTaken = null,
+    Object? medicationTypes = freezed,
+    Object? medicationName = freezed,
+    Object? dosage = freezed,
     Object? purpose = freezed,
     Object? effectiveness = freezed,
     Object? notes = freezed,
@@ -104,18 +108,22 @@ class _$MedicationRecordModelCopyWithImpl<$Res,
           ? _value.recordedAt
           : recordedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      medicationType: null == medicationType
-          ? _value.medicationType
-          : medicationType // ignore: cast_nullable_to_non_nullable
-              as String,
-      medicationName: null == medicationName
+      isTaken: null == isTaken
+          ? _value.isTaken
+          : isTaken // ignore: cast_nullable_to_non_nullable
+              as bool,
+      medicationTypes: freezed == medicationTypes
+          ? _value.medicationTypes
+          : medicationTypes // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      medicationName: freezed == medicationName
           ? _value.medicationName
           : medicationName // ignore: cast_nullable_to_non_nullable
-              as String,
-      dosage: null == dosage
+              as String?,
+      dosage: freezed == dosage
           ? _value.dosage
           : dosage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       purpose: freezed == purpose
           ? _value.purpose
           : purpose // ignore: cast_nullable_to_non_nullable
@@ -153,9 +161,10 @@ abstract class _$$MedicationRecordModelImplCopyWith<$Res>
       {String id,
       @JsonKey(name: 'user_id') String userId,
       @JsonKey(name: 'record_datetime') DateTime recordedAt,
-      @JsonKey(name: 'medication_type') String medicationType,
-      @JsonKey(name: 'medication_name') String medicationName,
-      String dosage,
+      @JsonKey(name: 'is_taken') bool isTaken,
+      @JsonKey(name: 'medication_types') List<String>? medicationTypes,
+      @JsonKey(name: 'medication_name') String? medicationName,
+      String? dosage,
       String? purpose,
       int? effectiveness,
       String? notes,
@@ -178,9 +187,10 @@ class __$$MedicationRecordModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? userId = null,
     Object? recordedAt = null,
-    Object? medicationType = null,
-    Object? medicationName = null,
-    Object? dosage = null,
+    Object? isTaken = null,
+    Object? medicationTypes = freezed,
+    Object? medicationName = freezed,
+    Object? dosage = freezed,
     Object? purpose = freezed,
     Object? effectiveness = freezed,
     Object? notes = freezed,
@@ -200,18 +210,22 @@ class __$$MedicationRecordModelImplCopyWithImpl<$Res>
           ? _value.recordedAt
           : recordedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      medicationType: null == medicationType
-          ? _value.medicationType
-          : medicationType // ignore: cast_nullable_to_non_nullable
-              as String,
-      medicationName: null == medicationName
+      isTaken: null == isTaken
+          ? _value.isTaken
+          : isTaken // ignore: cast_nullable_to_non_nullable
+              as bool,
+      medicationTypes: freezed == medicationTypes
+          ? _value._medicationTypes
+          : medicationTypes // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      medicationName: freezed == medicationName
           ? _value.medicationName
           : medicationName // ignore: cast_nullable_to_non_nullable
-              as String,
-      dosage: null == dosage
+              as String?,
+      dosage: freezed == dosage
           ? _value.dosage
           : dosage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       purpose: freezed == purpose
           ? _value.purpose
           : purpose // ignore: cast_nullable_to_non_nullable
@@ -243,15 +257,17 @@ class _$MedicationRecordModelImpl extends _MedicationRecordModel {
       {required this.id,
       @JsonKey(name: 'user_id') required this.userId,
       @JsonKey(name: 'record_datetime') required this.recordedAt,
-      @JsonKey(name: 'medication_type') required this.medicationType,
-      @JsonKey(name: 'medication_name') required this.medicationName,
-      required this.dosage,
+      @JsonKey(name: 'is_taken') this.isTaken = true,
+      @JsonKey(name: 'medication_types') final List<String>? medicationTypes,
+      @JsonKey(name: 'medication_name') this.medicationName,
+      this.dosage,
       this.purpose,
       this.effectiveness,
       this.notes,
       @JsonKey(name: 'created_at') required this.createdAt,
       @JsonKey(name: 'updated_at') this.updatedAt})
-      : super._();
+      : _medicationTypes = medicationTypes,
+        super._();
 
   factory _$MedicationRecordModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$MedicationRecordModelImplFromJson(json);
@@ -265,13 +281,24 @@ class _$MedicationRecordModelImpl extends _MedicationRecordModel {
   @JsonKey(name: 'record_datetime')
   final DateTime recordedAt;
   @override
-  @JsonKey(name: 'medication_type')
-  final String medicationType;
+  @JsonKey(name: 'is_taken')
+  final bool isTaken;
+  final List<String>? _medicationTypes;
+  @override
+  @JsonKey(name: 'medication_types')
+  List<String>? get medicationTypes {
+    final value = _medicationTypes;
+    if (value == null) return null;
+    if (_medicationTypes is EqualUnmodifiableListView) return _medicationTypes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   @JsonKey(name: 'medication_name')
-  final String medicationName;
+  final String? medicationName;
   @override
-  final String dosage;
+  final String? dosage;
   @override
   final String? purpose;
   @override
@@ -287,7 +314,7 @@ class _$MedicationRecordModelImpl extends _MedicationRecordModel {
 
   @override
   String toString() {
-    return 'MedicationRecordModel(id: $id, userId: $userId, recordedAt: $recordedAt, medicationType: $medicationType, medicationName: $medicationName, dosage: $dosage, purpose: $purpose, effectiveness: $effectiveness, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'MedicationRecordModel(id: $id, userId: $userId, recordedAt: $recordedAt, isTaken: $isTaken, medicationTypes: $medicationTypes, medicationName: $medicationName, dosage: $dosage, purpose: $purpose, effectiveness: $effectiveness, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -299,8 +326,9 @@ class _$MedicationRecordModelImpl extends _MedicationRecordModel {
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.recordedAt, recordedAt) ||
                 other.recordedAt == recordedAt) &&
-            (identical(other.medicationType, medicationType) ||
-                other.medicationType == medicationType) &&
+            (identical(other.isTaken, isTaken) || other.isTaken == isTaken) &&
+            const DeepCollectionEquality()
+                .equals(other._medicationTypes, _medicationTypes) &&
             (identical(other.medicationName, medicationName) ||
                 other.medicationName == medicationName) &&
             (identical(other.dosage, dosage) || other.dosage == dosage) &&
@@ -321,7 +349,8 @@ class _$MedicationRecordModelImpl extends _MedicationRecordModel {
       id,
       userId,
       recordedAt,
-      medicationType,
+      isTaken,
+      const DeepCollectionEquality().hash(_medicationTypes),
       medicationName,
       dosage,
       purpose,
@@ -350,9 +379,10 @@ abstract class _MedicationRecordModel extends MedicationRecordModel {
       {required final String id,
       @JsonKey(name: 'user_id') required final String userId,
       @JsonKey(name: 'record_datetime') required final DateTime recordedAt,
-      @JsonKey(name: 'medication_type') required final String medicationType,
-      @JsonKey(name: 'medication_name') required final String medicationName,
-      required final String dosage,
+      @JsonKey(name: 'is_taken') final bool isTaken,
+      @JsonKey(name: 'medication_types') final List<String>? medicationTypes,
+      @JsonKey(name: 'medication_name') final String? medicationName,
+      final String? dosage,
       final String? purpose,
       final int? effectiveness,
       final String? notes,
@@ -373,13 +403,16 @@ abstract class _MedicationRecordModel extends MedicationRecordModel {
   @JsonKey(name: 'record_datetime')
   DateTime get recordedAt;
   @override
-  @JsonKey(name: 'medication_type')
-  String get medicationType;
+  @JsonKey(name: 'is_taken')
+  bool get isTaken;
+  @override
+  @JsonKey(name: 'medication_types')
+  List<String>? get medicationTypes;
   @override
   @JsonKey(name: 'medication_name')
-  String get medicationName;
+  String? get medicationName;
   @override
-  String get dosage;
+  String? get dosage;
   @override
   String? get purpose;
   @override

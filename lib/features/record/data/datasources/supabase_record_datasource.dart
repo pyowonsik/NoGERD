@@ -184,6 +184,52 @@ class SupabaseRecordDataSource implements RecordRemoteDataSource {
   }
 
   @override
+  Future<MealRecordModel?> getMealRecordByDateAndType(
+    DateTime date,
+    String mealType,
+  ) async {
+    try {
+      final startOfDay = DateTime(date.year, date.month, date.day);
+      final endOfDay = startOfDay.add(const Duration(days: 1));
+
+      _log('getMealRecordByDateAndType: date=$date, mealType=$mealType');
+
+      final response = await _supabase
+          .from('meal_records')
+          .select()
+          .gte('record_datetime', startOfDay.toIso8601String())
+          .lt('record_datetime', endOfDay.toIso8601String())
+          .eq('meal_type', mealType)
+          .maybeSingle();
+
+      _log('getMealRecordByDateAndType response: $response');
+
+      if (response == null) return null;
+      return MealRecordModel.fromJson(response);
+    } catch (e, st) {
+      _log('getMealRecordByDateAndType failed', error: e);
+      _log('Stack trace: $st');
+      throw RecordDataSourceException('식사 기록 조회 실패: $e');
+    }
+  }
+
+  @override
+  Future<void> upsertMealRecord(MealRecordModel record) async {
+    try {
+      final json = record.toJson();
+      _log('upsertMealRecord: $json');
+
+      await _supabase.from('meal_records').upsert(json);
+
+      _log('upsertMealRecord success');
+    } catch (e, st) {
+      _log('upsertMealRecord failed', error: e);
+      _log('Stack trace: $st');
+      throw RecordDataSourceException('식사 기록 저장 실패: $e');
+    }
+  }
+
+  @override
   Future<List<MedicationRecordModel>> getMedicationRecords(DateTime date) async {
     try {
       final startOfDay = DateTime(date.year, date.month, date.day);
@@ -334,6 +380,54 @@ class SupabaseRecordDataSource implements RecordRemoteDataSource {
       _log('deleteLifestyleRecord failed', error: e);
       _log('Stack trace: $st');
       throw RecordDataSourceException('생활습관 기록 삭제 실패: $e');
+    }
+  }
+
+  @override
+  Future<LifestyleRecordModel?> getLifestyleRecordByDateAndType(
+    DateTime date,
+    String lifestyleType,
+  ) async {
+    try {
+      final startOfDay = DateTime(date.year, date.month, date.day);
+      final endOfDay = startOfDay.add(const Duration(days: 1));
+
+      _log(
+        'getLifestyleRecordByDateAndType: date=$date, type=$lifestyleType',
+      );
+
+      final response = await _supabase
+          .from('lifestyle_records')
+          .select()
+          .gte('record_datetime', startOfDay.toIso8601String())
+          .lt('record_datetime', endOfDay.toIso8601String())
+          .eq('lifestyle_type', lifestyleType)
+          .maybeSingle();
+
+      _log('getLifestyleRecordByDateAndType response: $response');
+
+      if (response == null) return null;
+      return LifestyleRecordModel.fromJson(response);
+    } catch (e, st) {
+      _log('getLifestyleRecordByDateAndType failed', error: e);
+      _log('Stack trace: $st');
+      throw RecordDataSourceException('생활습관 기록 조회 실패: $e');
+    }
+  }
+
+  @override
+  Future<void> upsertLifestyleRecord(LifestyleRecordModel record) async {
+    try {
+      final json = record.toJson();
+      _log('upsertLifestyleRecord: $json');
+
+      await _supabase.from('lifestyle_records').upsert(json);
+
+      _log('upsertLifestyleRecord success');
+    } catch (e, st) {
+      _log('upsertLifestyleRecord failed', error: e);
+      _log('Stack trace: $st');
+      throw RecordDataSourceException('생활습관 기록 저장 실패: $e');
     }
   }
 }

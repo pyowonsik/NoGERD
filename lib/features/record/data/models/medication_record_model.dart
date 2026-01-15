@@ -11,9 +11,10 @@ class MedicationRecordModel with _$MedicationRecordModel {
     required String id,
     @JsonKey(name: 'user_id') required String userId,
     @JsonKey(name: 'record_datetime') required DateTime recordedAt,
-    @JsonKey(name: 'medication_type') required String medicationType,
-    @JsonKey(name: 'medication_name') required String medicationName,
-    required String dosage,
+    @JsonKey(name: 'is_taken') @Default(true) bool isTaken,
+    @JsonKey(name: 'medication_types') List<String>? medicationTypes,
+    @JsonKey(name: 'medication_name') String? medicationName,
+    String? dosage,
     String? purpose,
     int? effectiveness,
     String? notes,
@@ -30,10 +31,13 @@ class MedicationRecordModel with _$MedicationRecordModel {
     return MedicationRecord(
       id: id,
       recordedAt: recordedAt,
-      medicationType: MedicationType.values.firstWhere(
-        (e) => e.name == medicationType,
-        orElse: () => MedicationType.ppi,
-      ),
+      isTaken: isTaken,
+      medicationTypes: medicationTypes
+          ?.map((typeString) => MedicationType.values.firstWhere(
+                (e) => e.name == typeString,
+                orElse: () => MedicationType.ppi,
+              ))
+          .toList(),
       medicationName: medicationName,
       dosage: dosage,
       purpose: purpose,
@@ -52,7 +56,9 @@ class MedicationRecordModel with _$MedicationRecordModel {
       id: entity.id,
       userId: userId,
       recordedAt: entity.recordedAt,
-      medicationType: entity.medicationType.name,
+      isTaken: entity.isTaken,
+      medicationTypes:
+          entity.medicationTypes?.map((type) => type.name).toList(),
       medicationName: entity.medicationName,
       dosage: entity.dosage,
       purpose: entity.purpose,

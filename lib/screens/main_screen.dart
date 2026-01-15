@@ -4,7 +4,6 @@ import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:no_gerd/features/record/presentation/bloc/record_bloc.dart';
-import 'package:no_gerd/screens/record/quick_record_modal.dart';
 import 'package:no_gerd/shared/shared.dart';
 
 /// 메인 스크린 (Bottom Navigation 포함)
@@ -24,35 +23,13 @@ class MainScreen extends StatelessWidget {
     );
   }
 
-  void _showQuickRecordModal(BuildContext blocContext) {
-    final recordBloc = blocContext.read<RecordBloc>();
-    showModalBottomSheet<void>(
-      context: blocContext,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (_) => BlocProvider.value(
-        value: recordBloc,
-        child: const QuickRecordModal(),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => GetIt.I<RecordBloc>(),
-      child: Builder(
-        builder: (blocContext) {
-          return Scaffold(
-            body: navigationShell,
-            bottomNavigationBar: _buildBottomNavBar(),
-            floatingActionButton: CustomFAB(
-              onPressed: () => _showQuickRecordModal(blocContext),
-            ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
-          );
-        },
+      child: Scaffold(
+        body: navigationShell,
+        bottomNavigationBar: _buildBottomNavBar(),
       ),
     );
   }
@@ -79,11 +56,12 @@ class MainScreen extends StatelessWidget {
               _buildNavItem(0, Icons.home_rounded, Icons.home_outlined, '홈'),
               _buildNavItem(1, Icons.calendar_month_rounded,
                   Icons.calendar_month_outlined, '캘린더'),
-              const SizedBox(width: 64), // FAB 공간
+              _buildNavItem(2, Icons.notifications_rounded,
+                  Icons.notifications_outlined, '알림'),
               _buildNavItem(
-                  2, Icons.insights_rounded, Icons.insights_outlined, '분석'),
+                  3, Icons.insights_rounded, Icons.insights_outlined, '분석'),
               _buildNavItem(
-                  3, Icons.settings_rounded, Icons.settings_outlined, '설정'),
+                  4, Icons.settings_rounded, Icons.settings_outlined, '설정'),
             ],
           ),
         ),

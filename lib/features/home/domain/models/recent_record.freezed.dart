@@ -31,6 +31,9 @@ mixin _$RecentRecord {
   /// 색상 값 (ARGB)
   int get colorValue => throw _privateConstructorUsedError;
 
+  /// 원본 엔티티 (상세보기에 사용)
+  dynamic get originalEntity => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $RecentRecordCopyWith<RecentRecord> get copyWith =>
       throw _privateConstructorUsedError;
@@ -47,7 +50,8 @@ abstract class $RecentRecordCopyWith<$Res> {
       String subtitle,
       String time,
       String emoji,
-      int colorValue});
+      int colorValue,
+      dynamic originalEntity});
 }
 
 /// @nodoc
@@ -68,6 +72,7 @@ class _$RecentRecordCopyWithImpl<$Res, $Val extends RecentRecord>
     Object? time = null,
     Object? emoji = null,
     Object? colorValue = null,
+    Object? originalEntity = freezed,
   }) {
     return _then(_value.copyWith(
       title: null == title
@@ -90,6 +95,10 @@ class _$RecentRecordCopyWithImpl<$Res, $Val extends RecentRecord>
           ? _value.colorValue
           : colorValue // ignore: cast_nullable_to_non_nullable
               as int,
+      originalEntity: freezed == originalEntity
+          ? _value.originalEntity
+          : originalEntity // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ) as $Val);
   }
 }
@@ -107,7 +116,8 @@ abstract class _$$RecentRecordImplCopyWith<$Res>
       String subtitle,
       String time,
       String emoji,
-      int colorValue});
+      int colorValue,
+      dynamic originalEntity});
 }
 
 /// @nodoc
@@ -126,6 +136,7 @@ class __$$RecentRecordImplCopyWithImpl<$Res>
     Object? time = null,
     Object? emoji = null,
     Object? colorValue = null,
+    Object? originalEntity = freezed,
   }) {
     return _then(_$RecentRecordImpl(
       title: null == title
@@ -148,6 +159,10 @@ class __$$RecentRecordImplCopyWithImpl<$Res>
           ? _value.colorValue
           : colorValue // ignore: cast_nullable_to_non_nullable
               as int,
+      originalEntity: freezed == originalEntity
+          ? _value.originalEntity
+          : originalEntity // ignore: cast_nullable_to_non_nullable
+              as dynamic,
     ));
   }
 }
@@ -160,7 +175,8 @@ class _$RecentRecordImpl implements _RecentRecord {
       required this.subtitle,
       required this.time,
       required this.emoji,
-      required this.colorValue});
+      required this.colorValue,
+      this.originalEntity});
 
   /// 제목
   @override
@@ -182,9 +198,13 @@ class _$RecentRecordImpl implements _RecentRecord {
   @override
   final int colorValue;
 
+  /// 원본 엔티티 (상세보기에 사용)
+  @override
+  final dynamic originalEntity;
+
   @override
   String toString() {
-    return 'RecentRecord(title: $title, subtitle: $subtitle, time: $time, emoji: $emoji, colorValue: $colorValue)';
+    return 'RecentRecord(title: $title, subtitle: $subtitle, time: $time, emoji: $emoji, colorValue: $colorValue, originalEntity: $originalEntity)';
   }
 
   @override
@@ -198,12 +218,14 @@ class _$RecentRecordImpl implements _RecentRecord {
             (identical(other.time, time) || other.time == time) &&
             (identical(other.emoji, emoji) || other.emoji == emoji) &&
             (identical(other.colorValue, colorValue) ||
-                other.colorValue == colorValue));
+                other.colorValue == colorValue) &&
+            const DeepCollectionEquality()
+                .equals(other.originalEntity, originalEntity));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, title, subtitle, time, emoji, colorValue);
+  int get hashCode => Object.hash(runtimeType, title, subtitle, time, emoji,
+      colorValue, const DeepCollectionEquality().hash(originalEntity));
 
   @JsonKey(ignore: true)
   @override
@@ -218,7 +240,8 @@ abstract class _RecentRecord implements RecentRecord {
       required final String subtitle,
       required final String time,
       required final String emoji,
-      required final int colorValue}) = _$RecentRecordImpl;
+      required final int colorValue,
+      final dynamic originalEntity}) = _$RecentRecordImpl;
 
   @override
 
@@ -240,6 +263,10 @@ abstract class _RecentRecord implements RecentRecord {
 
   /// 색상 값 (ARGB)
   int get colorValue;
+  @override
+
+  /// 원본 엔티티 (상세보기에 사용)
+  dynamic get originalEntity;
   @override
   @JsonKey(ignore: true)
   _$$RecentRecordImplCopyWith<_$RecentRecordImpl> get copyWith =>

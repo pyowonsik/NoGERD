@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'package:no_gerd/core/di/injection.dart';
 import 'package:no_gerd/features/calendar/presentation/bloc/calendar_bloc.dart';
+import 'package:no_gerd/features/calendar/presentation/widgets/calendar_records_modal.dart';
+import 'package:no_gerd/features/record/presentation/bloc/record_bloc.dart';
 import 'package:no_gerd/shared/shared.dart';
 
 /// 캘린더 페이지 (BLoC 통합)
@@ -19,19 +22,35 @@ class _CalendarPageState extends State<CalendarPage> {
   @override
   void initState() {
     super.initState();
-    // 페이지 진입 시 한 번만 데이터 로드
+    print('🔥 [CalendarPage] initState 호출');
+    // 페이지 진입 시 현재 월 데이터 로드
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
-        context
-            .read<CalendarBloc>()
-            .add(CalendarEvent.loadMonth(DateTime.now()));
+        context.read<CalendarBloc>().add(
+              CalendarEvent.loadMonth(DateTime.now()),
+            );
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return const _CalendarPageContent();
+    print('🔥 [CalendarPage] build 호출');
+    return BlocListener<RecordBloc, RecordState>(
+      listener: (context, state) {
+        // RecordBloc에서 성공 메시지가 있으면 CalendarBloc을 새로고침
+        state.successMessage.fold(
+          () {},
+          (_) {
+            final currentMonth = context.read<CalendarBloc>().state.focusedDay;
+            context.read<CalendarBloc>().add(
+                  CalendarEvent.loadMonth(currentMonth),
+                );
+          },
+        );
+      },
+      child: const _CalendarPageContent(),
+    );
   }
 }
 
@@ -78,12 +97,31 @@ class _CalendarPageContent extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: BlocBuilder<CalendarBloc, CalendarState>(
-                  buildWhen: (previous, current) =>
-                      previous.selectedDay != current.selectedDay ||
-                      previous.focusedDay != current.focusedDay ||
-                      previous.monthRecords != current.monthRecords ||
-                      previous.calendarFormat != current.calendarFormat,
+                  buildWhen: (previous, current) {
+                    print('🔥 [CalendarPage] buildWhen 체크');
+                    print('   - monthRecords 변경: ${previous.monthRecords != current.monthRecords}');
+                    print('   - monthRecords 개수: ${current.monthRecords.length}');
+                    print('   - isLoading: ${current.isLoading}');
+                    return previous.selectedDay != current.selectedDay ||
+                        previous.focusedDay != current.focusedDay ||
+                        previous.monthRecords != current.monthRecords ||
+                        previous.calendarFormat != current.calendarFormat ||
+                        previous.isLoading != current.isLoading;
+                  },
                   builder: (context, state) {
+                    print('🔥 [CalendarPage] BlocBuilder.builder 호출');
+                    print('   - monthRecords 개수: ${state.monthRecords.length}');
+
+                    // 로딩 중일 때 표시
+                    if (state.isLoading) {
+                      return const Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(40),
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    }
+
                     return Column(
                       children: [
                         // 캘린더
@@ -247,7 +285,7 @@ class _CalendarPageContent extends StatelessWidget {
                         const SizedBox(height: 20),
 
                         // 선택된 날짜의 기록
-                        _buildSelectedDayRecords(state),
+                        _buildSelectedDayRecords(context, state),
 
                         const SizedBox(height: 100),
                       ],
@@ -263,16 +301,25 @@ class _CalendarPageContent extends StatelessWidget {
   }
 
   Widget _buildMonthlyStats(CalendarState state) {
-    // 월간 통계 계산
-    int symptomCount = 0;
-    int mealCount = 0;
-    int medicationCount = 0;
+    // 증상 타입별로 집계
+    Map<GerdSymptom, int> symptomCounts = {};
 
     for (final records in state.monthRecords.values) {
-      symptomCount += (records['symptoms'] as List).length;
-      mealCount += (records['meals'] as List).length;
-      medicationCount += (records['medications'] as List).length;
+      // 증상 기록에서 각 증상 타입별로 카운트
+      final symptoms = records['symptoms'] as List;
+      for (final symptomRecord in symptoms) {
+        final symptomList = symptomRecord.symptoms as List<GerdSymptom>;
+        for (final symptom in symptomList) {
+          symptomCounts[symptom] = (symptomCounts[symptom] ?? 0) + 1;
+        }
+      }
     }
+
+    // 0회가 아닌 증상만 필터링 및 정렬 (건수 많은 순)
+    final nonZeroSymptoms = symptomCounts.entries
+        .where((entry) => entry.value > 0)
+        .toList()
+      ..sort((a, b) => b.value.compareTo(a.value));
 
     return GlassCard(
       child: Column(
@@ -293,34 +340,38 @@ class _CalendarPageContent extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          Row(
-            children: [
-              _StatItem(
-                label: '증상 발생',
-                value: '$symptomCount회',
-                color: AppTheme.symptomColor,
-                icon: Icons.local_fire_department_rounded,
+
+          // 증상별 통계
+          if (nonZeroSymptoms.isNotEmpty)
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: nonZeroSymptoms.map((entry) {
+                return _SymptomStatChip(
+                  symptom: entry.key,
+                  count: entry.value,
+                );
+              }).toList(),
+            )
+          else
+            const Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 16),
+                child: Text(
+                  '증상 기록이 없습니다',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: AppTheme.textSecondary,
+                  ),
+                ),
               ),
-              _StatItem(
-                label: '식사 기록',
-                value: '$mealCount회',
-                color: AppTheme.mealColor,
-                icon: Icons.restaurant_rounded,
-              ),
-              _StatItem(
-                label: '약물 복용',
-                value: '$medicationCount회',
-                color: AppTheme.medicationColor,
-                icon: Icons.medication_rounded,
-              ),
-            ],
-          ),
+            ),
         ],
       ),
     );
   }
 
-  Widget _buildSelectedDayRecords(CalendarState state) {
+  Widget _buildSelectedDayRecords(BuildContext context, CalendarState state) {
     final selectedDay = state.selectedDay;
     final records = state.selectedDayRecords;
 
@@ -360,6 +411,17 @@ class _CalendarPageContent extends StatelessWidget {
       }
     }
 
+    // 시간순 정렬 (최신순)
+    allRecords.sort((a, b) =>
+        (b['data'].recordedAt as DateTime)
+            .compareTo(a['data'].recordedAt as DateTime));
+
+    // 전체보기 모달용 데이터 (최대 20개)
+    final allRecordsForModal = allRecords.take(20).toList();
+
+    // 화면 표시용 데이터 (최대 5개)
+    final displayRecords = allRecords.take(5).toList();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -381,6 +443,36 @@ class _CalendarPageContent extends StatelessWidget {
                 color: AppTheme.textSecondary,
               ),
             ),
+            if (allRecords.length > 5) ...[
+              const SizedBox(width: 8),
+              TextButton(
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    builder: (context) => DraggableScrollableSheet(
+                      initialChildSize: 0.9,
+                      minChildSize: 0.5,
+                      maxChildSize: 0.95,
+                      builder: (context, scrollController) =>
+                          CalendarRecordsModal(
+                        records: allRecordsForModal,
+                        date: selectedDay,
+                      ),
+                    ),
+                  );
+                },
+                child: const Text(
+                  '전체보기',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: AppTheme.primary,
+                  ),
+                ),
+              ),
+            ],
           ],
         ),
         const SizedBox(height: 12),
@@ -403,7 +495,7 @@ class _CalendarPageContent extends StatelessWidget {
             ),
           )
         else
-          ...allRecords.map(
+          ...displayRecords.map(
             (record) {
               final type = record['type'] as String;
               Color color;
@@ -461,6 +553,9 @@ class _CalendarPageContent extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 10),
                 child: GlassCard(
                   padding: const EdgeInsets.all(14),
+                  onTap: () {
+                    context.push('/record/detail', extra: data);
+                  },
                   child: Row(
                     children: [
                       Container(
@@ -563,6 +658,55 @@ class _StatItem extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// 증상 통계 칩 위젯
+class _SymptomStatChip extends StatelessWidget {
+  final GerdSymptom symptom;
+  final int count;
+
+  const _SymptomStatChip({
+    required this.symptom,
+    required this.count,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: AppTheme.symptomColor.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: AppTheme.symptomColor.withValues(alpha: 0.3),
+        ),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(symptom.emoji, style: const TextStyle(fontSize: 16)),
+          const SizedBox(width: 4),
+          Text(
+            symptom.label,
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: AppTheme.textPrimary,
+            ),
+          ),
+          const SizedBox(width: 6),
+          Text(
+            '$count회',
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: AppTheme.symptomColor,
+            ),
+          ),
+        ],
       ),
     );
   }

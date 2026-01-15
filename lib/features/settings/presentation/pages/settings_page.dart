@@ -307,9 +307,11 @@ class _SettingsPageContent extends StatelessWidget {
             title: '알림 시간',
             subtitle: state.settings.reminderTime.format(context),
             onTap: () async {
-              final time = await showTimePicker(
+              final time = await CustomTimePicker.show(
                 context: context,
                 initialTime: state.settings.reminderTime,
+                title: '알림 시간',
+                subtitle: '일일 기록 알림 시간을 설정하세요',
               );
               if (time != null && context.mounted) {
                 context

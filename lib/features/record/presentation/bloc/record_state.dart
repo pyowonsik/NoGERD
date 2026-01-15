@@ -20,6 +20,15 @@ class RecordState with _$RecordState {
     /// 생활습관 기록 목록
     required List<LifestyleRecord> lifestyleRecords,
 
+    /// 현재 편집 중인 식사 기록 (UPSERT용)
+    MealRecord? currentMealRecord,
+
+    /// 현재 편집 중인 생활습관 기록 (UPSERT용)
+    LifestyleRecord? currentLifestyleRecord,
+
+    /// 편집 모드 여부 (기존 기록 수정 중)
+    @Default(false) bool isEditMode,
+
     /// 에러
     required Option<Failure> failure,
 
