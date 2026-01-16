@@ -54,14 +54,30 @@ class MainScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _buildNavItem(0, Icons.home_rounded, Icons.home_outlined, '홈'),
-              _buildNavItem(1, Icons.calendar_month_rounded,
-                  Icons.calendar_month_outlined, '캘린더'),
-              _buildNavItem(2, Icons.notifications_rounded,
-                  Icons.notifications_outlined, '알림'),
               _buildNavItem(
-                  3, Icons.insights_rounded, Icons.insights_outlined, '분석'),
+                1,
+                Icons.calendar_month_rounded,
+                Icons.calendar_month_outlined,
+                '캘린더',
+              ),
               _buildNavItem(
-                  4, Icons.settings_rounded, Icons.settings_outlined, '설정'),
+                2,
+                Icons.notifications_rounded,
+                Icons.notifications_outlined,
+                '알림',
+              ),
+              _buildNavItem(
+                3,
+                Icons.insights_rounded,
+                Icons.insights_outlined,
+                '분석',
+              ),
+              _buildNavItem(
+                4,
+                Icons.settings_rounded,
+                Icons.settings_outlined,
+                '설정',
+              ),
             ],
           ),
         ),
@@ -70,7 +86,11 @@ class MainScreen extends StatelessWidget {
   }
 
   Widget _buildNavItem(
-      int index, IconData activeIcon, IconData inactiveIcon, String label) {
+    int index,
+    IconData activeIcon,
+    IconData inactiveIcon,
+    String label,
+  ) {
     final isSelected = navigationShell.currentIndex == index;
     return GestureDetector(
       onTap: () => _onTap(index),

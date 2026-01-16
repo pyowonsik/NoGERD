@@ -40,8 +40,8 @@ abstract class RecordRemoteDataSource {
 }
 
 class RecordDataSourceException implements Exception {
-  final String message;
   RecordDataSourceException(this.message);
+  final String message;
 
   @override
   String toString() => 'RecordDataSourceException: $message';

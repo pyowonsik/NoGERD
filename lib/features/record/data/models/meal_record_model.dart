@@ -7,16 +7,30 @@ part 'meal_record_model.g.dart';
 
 @freezed
 class MealRecordModel with _$MealRecordModel {
+  factory MealRecordModel.fromEntity(MealRecord entity, String userId) {
+    return MealRecordModel(
+      id: entity.id,
+      userId: userId,
+      recordedAt: entity.recordedAt,
+      mealType: entity.mealType.name,
+      foods: entity.foods,
+      triggerCategories: entity.triggerCategories?.map((t) => t.name).toList(),
+      fullnessLevel: entity.fullnessLevel,
+      notes: entity.notes,
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
+    );
+  }
   const factory MealRecordModel({
     required String id,
     @JsonKey(name: 'user_id') required String userId,
     @JsonKey(name: 'record_datetime') required DateTime recordedAt,
     @JsonKey(name: 'meal_type') required String mealType,
     required List<String> foods,
-    @JsonKey(name: 'trigger_categories') List<String>? triggerCategories,
     @JsonKey(name: 'fullness_level') required int fullnessLevel,
-    String? notes,
     @JsonKey(name: 'created_at') required DateTime createdAt,
+    @JsonKey(name: 'trigger_categories') List<String>? triggerCategories,
+    String? notes,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
   }) = _MealRecordModel;
 
@@ -35,30 +49,17 @@ class MealRecordModel with _$MealRecordModel {
       ),
       foods: foods,
       triggerCategories: triggerCategories
-          ?.map((t) => TriggerFoodCategory.values.firstWhere(
-                (e) => e.name == t,
-                orElse: () => TriggerFoodCategory.fatty,
-              ))
+          ?.map(
+            (t) => TriggerFoodCategory.values.firstWhere(
+              (e) => e.name == t,
+              orElse: () => TriggerFoodCategory.fatty,
+            ),
+          )
           .toList(),
       fullnessLevel: fullnessLevel,
       notes: notes,
       createdAt: createdAt,
       updatedAt: updatedAt,
-    );
-  }
-
-  factory MealRecordModel.fromEntity(MealRecord entity, String userId) {
-    return MealRecordModel(
-      id: entity.id,
-      userId: userId,
-      recordedAt: entity.recordedAt,
-      mealType: entity.mealType.name,
-      foods: entity.foods,
-      triggerCategories: entity.triggerCategories?.map((t) => t.name).toList(),
-      fullnessLevel: entity.fullnessLevel,
-      notes: entity.notes,
-      createdAt: entity.createdAt,
-      updatedAt: entity.updatedAt,
     );
   }
 }

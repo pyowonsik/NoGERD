@@ -6,16 +6,15 @@ import 'package:no_gerd/shared/shared.dart';
 
 /// 건강 점수 카드
 class HealthScoreCard extends StatefulWidget {
-  final int score;
-  final int? previousScore;
-  final String? message;
-
   const HealthScoreCard({
     super.key,
     required this.score,
     this.previousScore,
     this.message,
   });
+  final int score;
+  final int? previousScore;
+  final String? message;
 
   @override
   State<HealthScoreCard> createState() => _HealthScoreCardState();
@@ -36,10 +35,12 @@ class _HealthScoreCardState extends State<HealthScoreCard>
     _scoreAnimation = Tween<double>(
       begin: 0,
       end: widget.score.toDouble(),
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeOutCubic,
-    ));
+    ).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeOutCubic,
+      ),
+    );
     _controller.forward();
   }
 
@@ -265,25 +266,23 @@ class _HealthScoreCardState extends State<HealthScoreCard>
 }
 
 class _ScoreItem {
+  _ScoreItem(this.label, this.value, this.color);
   final String label;
   final int value;
   final Color color;
-
-  _ScoreItem(this.label, this.value, this.color);
 }
 
 class _CircularProgressPainter extends CustomPainter {
-  final double progress;
-  final Color color;
-  final Color backgroundColor;
-  final double strokeWidth;
-
   _CircularProgressPainter({
     required this.progress,
     required this.color,
     required this.backgroundColor,
     required this.strokeWidth,
   });
+  final double progress;
+  final Color color;
+  final Color backgroundColor;
+  final double strokeWidth;
 
   @override
   void paint(Canvas canvas, Size size) {

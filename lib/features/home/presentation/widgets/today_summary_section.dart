@@ -5,14 +5,14 @@ import 'package:no_gerd/shared/shared.dart';
 
 /// 오늘 요약 섹션
 class TodaySummarySection extends StatelessWidget {
-  /// 요약 데이터
-  final List<RecordSummary> summary;
-
   /// 생성자
   const TodaySummarySection({
     required this.summary,
     super.key,
   });
+
+  /// 요약 데이터
+  final List<RecordSummary> summary;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class TodaySummarySection extends StatelessWidget {
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: Theme.of(context).colorScheme.onBackground,
+            color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
         const SizedBox(height: 12),
@@ -62,9 +62,8 @@ class TodaySummarySection extends StatelessWidget {
 }
 
 class _SummaryItem extends StatelessWidget {
-  final RecordSummary data;
-
   const _SummaryItem({required this.data});
+  final RecordSummary data;
 
   @override
   Widget build(BuildContext context) {

@@ -27,7 +27,7 @@ class AuthRepositoryImpl implements IAuthRepository {
     } on AuthDataSourceException catch (e) {
       return Left(_handleAuthError(e.message));
     } catch (e) {
-      return Left(Failure.unexpected('회원가입 중 오류 발생: ${e.toString()}'));
+      return Left(Failure.unexpected('회원가입 중 오류 발생: ${e}'));
     }
   }
 
@@ -45,7 +45,7 @@ class AuthRepositoryImpl implements IAuthRepository {
     } on AuthDataSourceException catch (e) {
       return Left(_handleAuthError(e.message));
     } catch (e) {
-      return Left(Failure.unexpected('로그인 중 오류 발생: ${e.toString()}'));
+      return Left(Failure.unexpected('로그인 중 오류 발생: ${e}'));
     }
   }
 
@@ -55,7 +55,7 @@ class AuthRepositoryImpl implements IAuthRepository {
       await _remoteDataSource.signOut();
       return const Right(unit);
     } catch (e) {
-      return Left(Failure.unexpected('로그아웃 중 오류 발생: ${e.toString()}'));
+      return Left(Failure.unexpected('로그아웃 중 오류 발생: ${e}'));
     }
   }
 
@@ -66,7 +66,7 @@ class AuthRepositoryImpl implements IAuthRepository {
       if (userModel == null) return const Right(null);
       return Right(userModel.toEntity());
     } catch (e) {
-      return Left(Failure.unexpected('사용자 정보 조회 실패: ${e.toString()}'));
+      return Left(Failure.unexpected('사용자 정보 조회 실패: ${e}'));
     }
   }
 
@@ -83,7 +83,7 @@ class AuthRepositoryImpl implements IAuthRepository {
       await _remoteDataSource.resendVerificationEmail();
       return const Right(unit);
     } catch (e) {
-      return Left(Failure.unexpected('인증 이메일 발송 실패: ${e.toString()}'));
+      return Left(Failure.unexpected('인증 이메일 발송 실패: ${e}'));
     }
   }
 
@@ -93,7 +93,7 @@ class AuthRepositoryImpl implements IAuthRepository {
       await _remoteDataSource.sendPasswordResetEmail(email);
       return const Right(unit);
     } catch (e) {
-      return Left(Failure.unexpected('비밀번호 재설정 이메일 발송 실패: ${e.toString()}'));
+      return Left(Failure.unexpected('비밀번호 재설정 이메일 발송 실패: ${e}'));
     }
   }
 

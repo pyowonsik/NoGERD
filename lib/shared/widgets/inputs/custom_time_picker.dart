@@ -5,16 +5,15 @@ import 'package:no_gerd/shared/theme/app_theme.dart';
 /// 앱 컨셉에 맞는 커스텀 시간 선택기
 /// iOS 스타일 휠 피커 + Teal 기반 디자인
 class CustomTimePicker extends StatefulWidget {
-  final TimeOfDay initialTime;
-  final String title;
-  final String? subtitle;
-
   const CustomTimePicker({
     super.key,
     required this.initialTime,
     this.title = '시간 선택',
     this.subtitle,
   });
+  final TimeOfDay initialTime;
+  final String title;
+  final String? subtitle;
 
   /// 시간 선택 Bottom Sheet 표시
   static Future<TimeOfDay?> show({
@@ -178,8 +177,6 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
                     AppTheme.primaryLight.withValues(alpha: 0.2),
                     AppTheme.primary.withValues(alpha: 0.1),
                   ],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
                 ),
                 borderRadius: BorderRadius.circular(14),
                 border: Border.all(
@@ -242,7 +239,7 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
       scrollController: controller,
       itemExtent: 50,
       diameterRatio: 1.5,
-      squeeze: 1.0,
+      squeeze: 1,
       selectionOverlay: const SizedBox.shrink(),
       onSelectedItemChanged: onChanged,
       children: List.generate(itemCount, (index) {
@@ -253,9 +250,7 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
             style: TextStyle(
               fontSize: isSelected ? 32 : 20,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.w400,
-              color: isSelected
-                  ? AppTheme.primaryDark
-                  : AppTheme.textTertiary,
+              color: isSelected ? AppTheme.primaryDark : AppTheme.textTertiary,
             ),
           ),
         );

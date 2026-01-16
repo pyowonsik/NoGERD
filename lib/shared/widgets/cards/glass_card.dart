@@ -6,6 +6,21 @@ import 'package:no_gerd/shared/theme/app_theme.dart';
 
 /// 유리 효과가 적용된 카드 위젯
 class GlassCard extends StatelessWidget {
+  /// 생성자
+  const GlassCard({
+    super.key,
+    required this.child,
+    this.padding,
+    this.margin,
+    this.width,
+    this.height,
+    this.borderRadius = AppTheme.radiusLarge,
+    this.backgroundColor,
+    this.blur = 10,
+    this.onTap,
+    this.gradient,
+  });
+
   /// 카드 내용
   final Widget child;
 
@@ -35,21 +50,6 @@ class GlassCard extends StatelessWidget {
 
   /// 그라디언트
   final Gradient? gradient;
-
-  /// 생성자
-  const GlassCard({
-    super.key,
-    required this.child,
-    this.padding,
-    this.margin,
-    this.width,
-    this.height,
-    this.borderRadius = AppTheme.radiusLarge,
-    this.backgroundColor,
-    this.blur = 10,
-    this.onTap,
-    this.gradient,
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +84,6 @@ class GlassCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(borderRadius),
                   border: Border.all(
                     color: borderColor,
-                    width: 1,
                   ),
                   boxShadow: AppTheme.cardShadow,
                 ),
@@ -100,6 +99,17 @@ class GlassCard extends StatelessWidget {
 
 /// 상태 카드 (숫자 통계 표시용)
 class StatCard extends StatelessWidget {
+  /// 생성자
+  const StatCard({
+    super.key,
+    required this.title,
+    required this.value,
+    this.subtitle,
+    this.icon,
+    this.valueColor,
+    this.onTap,
+  });
+
   /// 제목
   final String title;
 
@@ -117,17 +127,6 @@ class StatCard extends StatelessWidget {
 
   /// 탭 콜백
   final VoidCallback? onTap;
-
-  /// 생성자
-  const StatCard({
-    super.key,
-    required this.title,
-    required this.value,
-    this.subtitle,
-    this.icon,
-    this.valueColor,
-    this.onTap,
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -184,6 +183,16 @@ class StatCard extends StatelessWidget {
 
 /// 액션 카드 (기록하기 버튼용)
 class ActionCard extends StatelessWidget {
+  /// 생성자
+  const ActionCard({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.emoji,
+    required this.gradient,
+    this.onTap,
+  });
+
   /// 제목
   final String title;
 
@@ -198,16 +207,6 @@ class ActionCard extends StatelessWidget {
 
   /// 탭 콜백
   final VoidCallback? onTap;
-
-  /// 생성자
-  const ActionCard({
-    super.key,
-    required this.title,
-    required this.subtitle,
-    required this.emoji,
-    required this.gradient,
-    this.onTap,
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -268,6 +267,16 @@ class ActionCard extends StatelessWidget {
 
 /// 인사이트 카드 (팁 표시용)
 class InsightCard extends StatelessWidget {
+  /// 생성자
+  const InsightCard({
+    super.key,
+    required this.title,
+    required this.message,
+    required this.icon,
+    required this.color,
+    this.onTap,
+  });
+
   /// 제목
   final String title;
 
@@ -282,16 +291,6 @@ class InsightCard extends StatelessWidget {
 
   /// 탭 콜백
   final VoidCallback? onTap;
-
-  /// 생성자
-  const InsightCard({
-    super.key,
-    required this.title,
-    required this.message,
-    required this.icon,
-    required this.color,
-    this.onTap,
-  });
 
   @override
   Widget build(BuildContext context) {

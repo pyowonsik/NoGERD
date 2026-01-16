@@ -9,12 +9,20 @@ import 'package:no_gerd/features/record/domain/repositories/record_repository.da
 enum WeekType {
   /// 이번 주
   thisWeek,
+
   /// 지난 주
   lastWeek,
 }
 
 /// 증상 추이 데이터
 class SymptomTrend {
+  /// 생성자
+  const SymptomTrend({
+    required this.date,
+    required this.count,
+    required this.averageSeverity,
+  });
+
   /// 날짜
   final DateTime date;
 
@@ -23,13 +31,6 @@ class SymptomTrend {
 
   /// 평균 심각도
   final double averageSeverity;
-
-  /// 생성자
-  const SymptomTrend({
-    required this.date,
-    required this.count,
-    required this.averageSeverity,
-  });
 }
 
 /// 증상 추이 조회 UseCase
@@ -71,7 +72,8 @@ class GetSymptomTrendsUseCase
   }
 
   @override
-  Future<Either<Failure, List<SymptomTrend>>> call(DateRangeParams params) async {
+  Future<Either<Failure, List<SymptomTrend>>> call(
+      DateRangeParams params) async {
     if (_useMockData) {
       // 이번 주 = 좋은 시나리오, 지난 주 = 나쁜 시나리오
       final isGood = _isThisWeek(params);
@@ -95,17 +97,21 @@ class GetSymptomTrendsUseCase
               );
               final averageSeverity = totalSeverity / symptoms.length;
 
-              trends.add(SymptomTrend(
-                date: currentDate,
-                count: symptoms.length,
-                averageSeverity: averageSeverity,
-              ));
+              trends.add(
+                SymptomTrend(
+                  date: currentDate,
+                  count: symptoms.length,
+                  averageSeverity: averageSeverity,
+                ),
+              );
             } else {
-              trends.add(SymptomTrend(
-                date: currentDate,
-                count: 0,
-                averageSeverity: 0,
-              ));
+              trends.add(
+                SymptomTrend(
+                  date: currentDate,
+                  count: 0,
+                  averageSeverity: 0,
+                ),
+              );
             }
           },
         );
@@ -123,7 +129,8 @@ class GetSymptomTrendsUseCase
   }
 
   /// Mock 데이터 생성
-  List<SymptomTrend> _generateMockTrends(DateRangeParams params, {required bool isGood}) {
+  List<SymptomTrend> _generateMockTrends(DateRangeParams params,
+      {required bool isGood}) {
     final trends = <SymptomTrend>[];
     var currentDate = params.startDate;
 
@@ -135,27 +142,33 @@ class GetSymptomTrendsUseCase
         if (isGood) {
           // 좋은 시나리오: 증상 거의 없음 (0~1개, 낮은 심각도)
           final count = currentDate.day % 2; // 0 또는 1
-          trends.add(SymptomTrend(
-            date: currentDate,
-            count: count,
-            averageSeverity: count > 0 ? 1.5 : 0,
-          ));
+          trends.add(
+            SymptomTrend(
+              date: currentDate,
+              count: count,
+              averageSeverity: count > 0 ? 1.5 : 0,
+            ),
+          );
         } else {
           // 나쁜 시나리오: 증상 많음 (2~4개, 높은 심각도)
           final count = (currentDate.day % 3) + 2;
-          trends.add(SymptomTrend(
-            date: currentDate,
-            count: count,
-            averageSeverity: 3.5 + (count * 0.3),
-          ));
+          trends.add(
+            SymptomTrend(
+              date: currentDate,
+              count: count,
+              averageSeverity: 3.5 + (count * 0.3),
+            ),
+          );
         }
       } else {
         // 주말: 기록 없음
-        trends.add(SymptomTrend(
-          date: currentDate,
-          count: 0,
-          averageSeverity: 0,
-        ));
+        trends.add(
+          SymptomTrend(
+            date: currentDate,
+            count: 0,
+            averageSeverity: 0,
+          ),
+        );
       }
 
       currentDate = currentDate.add(const Duration(days: 1));

@@ -7,14 +7,29 @@ part 'lifestyle_record_model.g.dart';
 
 @freezed
 class LifestyleRecordModel with _$LifestyleRecordModel {
+  factory LifestyleRecordModel.fromEntity(
+    LifestyleRecord entity,
+    String userId,
+  ) {
+    return LifestyleRecordModel(
+      id: entity.id,
+      userId: userId,
+      recordedAt: entity.recordedAt,
+      lifestyleType: entity.lifestyleType.name,
+      details: entity.details,
+      notes: entity.notes,
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
+    );
+  }
   const factory LifestyleRecordModel({
     required String id,
     @JsonKey(name: 'user_id') required String userId,
     @JsonKey(name: 'record_datetime') required DateTime recordedAt,
     @JsonKey(name: 'lifestyle_type') required String lifestyleType,
     required Map<String, dynamic> details,
-    String? notes,
     @JsonKey(name: 'created_at') required DateTime createdAt,
+    String? notes,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
   }) = _LifestyleRecordModel;
 
@@ -35,22 +50,6 @@ class LifestyleRecordModel with _$LifestyleRecordModel {
       notes: notes,
       createdAt: createdAt,
       updatedAt: updatedAt,
-    );
-  }
-
-  factory LifestyleRecordModel.fromEntity(
-    LifestyleRecord entity,
-    String userId,
-  ) {
-    return LifestyleRecordModel(
-      id: entity.id,
-      userId: userId,
-      recordedAt: entity.recordedAt,
-      lifestyleType: entity.lifestyleType.name,
-      details: entity.details,
-      notes: entity.notes,
-      createdAt: entity.createdAt,
-      updatedAt: entity.updatedAt,
     );
   }
 }

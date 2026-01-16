@@ -8,17 +8,17 @@ import 'package:no_gerd/shared/constants/gerd_constants.dart';
 
 /// 트리거 분석 결과
 class TriggerAnalysis {
-  /// 트리거 카테고리
-  final TriggerFoodCategory category;
-
-  /// 발생 횟수
-  final int count;
-
   /// 생성자
   const TriggerAnalysis({
     required this.category,
     required this.count,
   });
+
+  /// 트리거 카테고리
+  final TriggerFoodCategory category;
+
+  /// 발생 횟수
+  final int count;
 }
 
 /// 트리거 분석 UseCase
@@ -46,29 +46,30 @@ class AnalyzeTriggersUseCase
   }
 
   @override
-  Future<Either<Failure, List<TriggerAnalysis>>> call(DateRangeParams params) async {
+  Future<Either<Failure, List<TriggerAnalysis>>> call(
+      DateRangeParams params) async {
     if (_useMockData) {
       // 이번 주 = 좋은 시나리오, 지난 주 = 나쁜 시나리오
       final isGood = _isThisWeek(params);
       if (isGood) {
         // 좋은 시나리오: 트리거 음식 거의 안 먹음
-        return Right([
-          const TriggerAnalysis(category: TriggerFoodCategory.caffeine, count: 1),
+        return const Right([
+          TriggerAnalysis(category: TriggerFoodCategory.caffeine, count: 1),
         ]);
       } else {
         // 나쁜 시나리오: 트리거 음식 많이 섭취
-        return Right([
-          const TriggerAnalysis(category: TriggerFoodCategory.spicy, count: 10),
-          const TriggerAnalysis(category: TriggerFoodCategory.fatty, count: 8),
-          const TriggerAnalysis(category: TriggerFoodCategory.caffeine, count: 7),
-          const TriggerAnalysis(category: TriggerFoodCategory.carbonated, count: 5),
-          const TriggerAnalysis(category: TriggerFoodCategory.alcohol, count: 4),
+        return const Right([
+          TriggerAnalysis(category: TriggerFoodCategory.spicy, count: 10),
+          TriggerAnalysis(category: TriggerFoodCategory.fatty, count: 8),
+          TriggerAnalysis(category: TriggerFoodCategory.caffeine, count: 7),
+          TriggerAnalysis(category: TriggerFoodCategory.carbonated, count: 5),
+          TriggerAnalysis(category: TriggerFoodCategory.alcohol, count: 4),
         ]);
       }
     }
 
     try {
-      final Map<TriggerFoodCategory, int> triggerCounts = {};
+      final triggerCounts = <TriggerFoodCategory, int>{};
       var currentDate = params.startDate;
 
       while (!currentDate.isAfter(params.endDate)) {

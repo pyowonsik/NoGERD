@@ -68,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         // 로고 영역
-                        const AppLogo(size: LogoSize.medium),
+                        const AppLogo(),
                         const SizedBox(height: 24),
                         const Text(
                           'NoGERD',

@@ -4,17 +4,17 @@ import 'package:no_gerd/shared/theme/app_theme.dart';
 
 /// 앱 공통 로고 위젯
 class AppLogo extends StatelessWidget {
-  /// 로고 크기 (small, medium, large)
-  final LogoSize size;
-
-  /// 애니메이션 활성화 여부
-  final bool animated;
-
   const AppLogo({
     super.key,
     this.size = LogoSize.medium,
     this.animated = false,
   });
+
+  /// 로고 크기 (small, medium, large)
+  final LogoSize size;
+
+  /// 애니메이션 활성화 여부
+  final bool animated;
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +78,8 @@ class AppLogo extends StatelessWidget {
                 height: dimensions.iconBoxSize,
                 decoration: BoxDecoration(
                   gradient: AppTheme.primaryGradient,
-                  borderRadius: BorderRadius.circular(dimensions.iconBorderRadius),
+                  borderRadius:
+                      BorderRadius.circular(dimensions.iconBorderRadius),
                   boxShadow: [
                     BoxShadow(
                       color: AppTheme.primary.withAlpha(102),
@@ -184,16 +185,6 @@ enum LogoSize {
 }
 
 class _LogoDimensions {
-  final double containerSize;
-  final double borderRadius;
-  final double innerCircleSize;
-  final double iconBoxSize;
-  final double iconBorderRadius;
-  final double iconSize;
-  final double checkSize;
-  final double checkBorderWidth;
-  final double checkIconSize;
-
   const _LogoDimensions({
     required this.containerSize,
     required this.borderRadius,
@@ -205,4 +196,13 @@ class _LogoDimensions {
     required this.checkBorderWidth,
     required this.checkIconSize,
   });
+  final double containerSize;
+  final double borderRadius;
+  final double innerCircleSize;
+  final double iconBoxSize;
+  final double iconBorderRadius;
+  final double iconSize;
+  final double checkSize;
+  final double checkBorderWidth;
+  final double checkIconSize;
 }

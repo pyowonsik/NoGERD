@@ -99,8 +99,10 @@ class _CalendarPageContent extends StatelessWidget {
                 child: BlocBuilder<CalendarBloc, CalendarState>(
                   buildWhen: (previous, current) {
                     print('🔥 [CalendarPage] buildWhen 체크');
-                    print('   - monthRecords 변경: ${previous.monthRecords != current.monthRecords}');
-                    print('   - monthRecords 개수: ${current.monthRecords.length}');
+                    print(
+                        '   - monthRecords 변경: ${previous.monthRecords != current.monthRecords}');
+                    print(
+                        '   - monthRecords 개수: ${current.monthRecords.length}');
                     print('   - isLoading: ${current.isLoading}');
                     return previous.selectedDay != current.selectedDay ||
                         previous.focusedDay != current.focusedDay ||
@@ -128,7 +130,7 @@ class _CalendarPageContent extends StatelessWidget {
                         GlassCard(
                           padding: const EdgeInsets.all(12),
                           child: TableCalendar(
-                            firstDay: DateTime.utc(2020, 1, 1),
+                            firstDay: DateTime.utc(2020, 1),
                             lastDay: DateTime.utc(2030, 12, 31),
                             focusedDay: state.focusedDay,
                             calendarFormat: state.calendarFormat,
@@ -161,8 +163,7 @@ class _CalendarPageContent extends StatelessWidget {
 
                               // 각 타입별로 마커 표시를 위한 더미 리스트
                               final markers = <String>[];
-                              if ((dayRecords['symptoms'] as List)
-                                  .isNotEmpty) {
+                              if ((dayRecords['symptoms'] as List).isNotEmpty) {
                                 markers.add('symptom');
                               }
                               if ((dayRecords['meals'] as List).isNotEmpty) {
@@ -231,7 +232,6 @@ class _CalendarPageContent extends StatelessWidget {
                                 shape: BoxShape.circle,
                               ),
                               markerSize: 6,
-                              markersMaxCount: 4,
                             ),
                             calendarBuilders: CalendarBuilders(
                               markerBuilder: (context, date, events) {
@@ -245,16 +245,12 @@ class _CalendarPageContent extends StatelessWidget {
                                       switch (event) {
                                         case 'symptom':
                                           color = AppTheme.symptomColor;
-                                          break;
                                         case 'meal':
                                           color = AppTheme.mealColor;
-                                          break;
                                         case 'medication':
                                           color = AppTheme.medicationColor;
-                                          break;
                                         case 'lifestyle':
                                           color = AppTheme.lifestyleColor;
-                                          break;
                                         default:
                                           color = AppTheme.accent;
                                       }
@@ -302,7 +298,7 @@ class _CalendarPageContent extends StatelessWidget {
 
   Widget _buildMonthlyStats(CalendarState state) {
     // 증상 타입별로 집계
-    Map<GerdSymptom, int> symptomCounts = {};
+    var symptomCounts = <GerdSymptom, int>{};
 
     for (final records in state.monthRecords.values) {
       // 증상 기록에서 각 증상 타입별로 카운트
@@ -412,9 +408,10 @@ class _CalendarPageContent extends StatelessWidget {
     }
 
     // 시간순 정렬 (최신순)
-    allRecords.sort((a, b) =>
-        (b['data'].recordedAt as DateTime)
-            .compareTo(a['data'].recordedAt as DateTime));
+    allRecords.sort(
+      (a, b) => (b['data'].recordedAt as DateTime)
+          .compareTo(a['data'].recordedAt as DateTime),
+    );
 
     // 전체보기 모달용 데이터 (최대 20개)
     final allRecordsForModal = allRecords.take(20).toList();
@@ -507,22 +504,18 @@ class _CalendarPageContent extends StatelessWidget {
                   color = AppTheme.symptomColor;
                   icon = Icons.local_fire_department_rounded;
                   typeLabel = '증상';
-                  break;
                 case 'meal':
                   color = AppTheme.mealColor;
                   icon = Icons.restaurant_rounded;
                   typeLabel = '식사';
-                  break;
                 case 'medication':
                   color = AppTheme.medicationColor;
                   icon = Icons.medication_rounded;
                   typeLabel = '약물';
-                  break;
                 case 'lifestyle':
                   color = AppTheme.lifestyleColor;
                   icon = Icons.self_improvement_rounded;
                   typeLabel = '생활습관';
-                  break;
                 default:
                   color = AppTheme.accent;
                   icon = Icons.circle;
@@ -614,17 +607,16 @@ class _CalendarPageContent extends StatelessWidget {
 }
 
 class _StatItem extends StatelessWidget {
-  final String label;
-  final String value;
-  final Color color;
-  final IconData icon;
-
   const _StatItem({
     required this.label,
     required this.value,
     required this.color,
     required this.icon,
   });
+  final String label;
+  final String value;
+  final Color color;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
@@ -665,13 +657,12 @@ class _StatItem extends StatelessWidget {
 
 /// 증상 통계 칩 위젯
 class _SymptomStatChip extends StatelessWidget {
-  final GerdSymptom symptom;
-  final int count;
-
   const _SymptomStatChip({
     required this.symptom,
     required this.count,
   });
+  final GerdSymptom symptom;
+  final int count;
 
   @override
   Widget build(BuildContext context) {

@@ -6,13 +6,13 @@ import 'package:no_gerd/shared/shared.dart';
 
 /// 전체 기록 보기 모달
 class AllRecordsModal extends StatefulWidget {
-  /// 전체 기록 데이터 (최대 20개)
-  final List<RecentRecord> records;
-
   const AllRecordsModal({
     required this.records,
     super.key,
   });
+
+  /// 전체 기록 데이터 (최대 20개)
+  final List<RecentRecord> records;
 
   @override
   State<AllRecordsModal> createState() => _AllRecordsModalState();
@@ -22,8 +22,7 @@ class _AllRecordsModalState extends State<AllRecordsModal> {
   int _currentPage = 0;
   static const int _itemsPerPage = 10;
 
-  int get _totalPages =>
-      (widget.records.length / _itemsPerPage).ceil();
+  int get _totalPages => (widget.records.length / _itemsPerPage).ceil();
 
   List<RecentRecord> get _currentPageRecords {
     final start = _currentPage * _itemsPerPage;
@@ -155,9 +154,8 @@ class _AllRecordsModalState extends State<AllRecordsModal> {
 }
 
 class _RecordItem extends StatelessWidget {
-  final RecentRecord data;
-
   const _RecordItem({required this.data});
+  final RecentRecord data;
 
   @override
   Widget build(BuildContext context) {

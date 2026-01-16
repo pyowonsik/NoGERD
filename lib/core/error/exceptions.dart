@@ -2,13 +2,13 @@
 ///
 /// Data Layer에서 발생하는 예외들을 정의합니다.
 /// Repository에서 이 예외들을 catch하여 Failure로 변환합니다.
+library;
 
 /// 기본 앱 예외
 abstract class AppException implements Exception {
+  const AppException(this.message, [this.cause]);
   final String message;
   final dynamic cause;
-
-  const AppException(this.message, [this.cause]);
 
   @override
   String toString() => '$runtimeType: $message';

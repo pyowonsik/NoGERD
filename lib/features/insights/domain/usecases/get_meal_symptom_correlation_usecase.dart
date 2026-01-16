@@ -8,6 +8,13 @@ import 'package:no_gerd/shared/constants/gerd_constants.dart';
 
 /// 식사-증상 연관성 데이터
 class MealSymptomCorrelation {
+  /// 생성자
+  const MealSymptomCorrelation({
+    required this.mealType,
+    required this.symptomCount,
+    required this.totalMealCount,
+  });
+
   /// 식사 타입
   final MealType mealType;
 
@@ -16,13 +23,6 @@ class MealSymptomCorrelation {
 
   /// 전체 식사 횟수
   final int totalMealCount;
-
-  /// 생성자
-  const MealSymptomCorrelation({
-    required this.mealType,
-    required this.symptomCount,
-    required this.totalMealCount,
-  });
 
   /// 증상 발생률 (%)
   int get percentage =>
@@ -54,24 +54,25 @@ class GetMealSymptomCorrelationUseCase
   }
 
   @override
-  Future<Either<Failure, List<MealSymptomCorrelation>>> call(DateRangeParams params) async {
+  Future<Either<Failure, List<MealSymptomCorrelation>>> call(
+      DateRangeParams params) async {
     if (_useMockData) {
       // 이번 주 = 좋은 시나리오, 지난 주 = 나쁜 시나리오
       final isGood = _isThisWeek(params);
       if (isGood) {
         // 좋은 시나리오: 식사 후 증상 거의 없음 (아침 0%, 점심 0%, 저녁 20%)
-        return Right([
-          const MealSymptomCorrelation(
+        return const Right([
+          MealSymptomCorrelation(
             mealType: MealType.breakfast,
             symptomCount: 0,
             totalMealCount: 5,
           ),
-          const MealSymptomCorrelation(
+          MealSymptomCorrelation(
             mealType: MealType.lunch,
             symptomCount: 0,
             totalMealCount: 5,
           ),
-          const MealSymptomCorrelation(
+          MealSymptomCorrelation(
             mealType: MealType.dinner,
             symptomCount: 1,
             totalMealCount: 5,
@@ -79,18 +80,18 @@ class GetMealSymptomCorrelationUseCase
         ]);
       } else {
         // 나쁜 시나리오: 식사 후 증상 많음 (아침 40%, 점심 60%, 저녁 80%)
-        return Right([
-          const MealSymptomCorrelation(
+        return const Right([
+          MealSymptomCorrelation(
             mealType: MealType.breakfast,
             symptomCount: 2,
             totalMealCount: 5,
           ),
-          const MealSymptomCorrelation(
+          MealSymptomCorrelation(
             mealType: MealType.lunch,
             symptomCount: 3,
             totalMealCount: 5,
           ),
-          const MealSymptomCorrelation(
+          MealSymptomCorrelation(
             mealType: MealType.dinner,
             symptomCount: 4,
             totalMealCount: 5,
@@ -100,10 +101,10 @@ class GetMealSymptomCorrelationUseCase
     }
 
     try {
-      final Map<MealType, int> mealCounts = {
+      final mealCounts = <MealType, int>{
         for (final type in MealType.values) type: 0,
       };
-      final Map<MealType, int> symptomAfterMealCounts = {
+      final symptomAfterMealCounts = <MealType, int>{
         for (final type in MealType.values) type: 0,
       };
 

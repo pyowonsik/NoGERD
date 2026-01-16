@@ -10,9 +10,8 @@ import 'package:no_gerd/features/record/data/models/symptom_record_model.dart';
 
 @LazySingleton(as: RecordRemoteDataSource)
 class SupabaseRecordDataSource implements RecordRemoteDataSource {
-  final SupabaseClient _supabase;
-
   SupabaseRecordDataSource(this._supabase);
+  final SupabaseClient _supabase;
 
   void _log(String message, {Object? error}) {
     developer.log(
@@ -47,7 +46,8 @@ class SupabaseRecordDataSource implements RecordRemoteDataSource {
       _log('getSymptomRecords response: $response');
 
       return (response as List)
-          .map((json) => SymptomRecordModel.fromJson(json as Map<String, dynamic>))
+          .map((json) =>
+              SymptomRecordModel.fromJson(json as Map<String, dynamic>))
           .toList();
     } catch (e, st) {
       _log('getSymptomRecords failed', error: e);
@@ -63,7 +63,8 @@ class SupabaseRecordDataSource implements RecordRemoteDataSource {
       _log('addSymptomRecord: $json');
       _log('Current user: ${_supabase.auth.currentUser?.id}');
 
-      final response = await _supabase.from('symptom_records').insert(json).select();
+      final response =
+          await _supabase.from('symptom_records').insert(json).select();
       _log('addSymptomRecord response: $response');
     } catch (e, st) {
       _log('addSymptomRecord failed', error: e);
@@ -78,10 +79,7 @@ class SupabaseRecordDataSource implements RecordRemoteDataSource {
       final json = record.toJson();
       _log('updateSymptomRecord: id=${record.id}, json=$json');
 
-      await _supabase
-          .from('symptom_records')
-          .update(json)
-          .eq('id', record.id);
+      await _supabase.from('symptom_records').update(json).eq('id', record.id);
 
       _log('updateSymptomRecord success');
     } catch (e, st) {
@@ -140,7 +138,8 @@ class SupabaseRecordDataSource implements RecordRemoteDataSource {
       _log('addMealRecord: $json');
       _log('Current user: ${_supabase.auth.currentUser?.id}');
 
-      final response = await _supabase.from('meal_records').insert(json).select();
+      final response =
+          await _supabase.from('meal_records').insert(json).select();
       _log('addMealRecord response: $response');
     } catch (e, st) {
       _log('addMealRecord failed', error: e);
@@ -155,10 +154,7 @@ class SupabaseRecordDataSource implements RecordRemoteDataSource {
       final json = record.toJson();
       _log('updateMealRecord: id=${record.id}');
 
-      await _supabase
-          .from('meal_records')
-          .update(json)
-          .eq('id', record.id);
+      await _supabase.from('meal_records').update(json).eq('id', record.id);
 
       _log('updateMealRecord success');
     } catch (e, st) {
@@ -230,7 +226,8 @@ class SupabaseRecordDataSource implements RecordRemoteDataSource {
   }
 
   @override
-  Future<List<MedicationRecordModel>> getMedicationRecords(DateTime date) async {
+  Future<List<MedicationRecordModel>> getMedicationRecords(
+      DateTime date) async {
     try {
       final startOfDay = DateTime(date.year, date.month, date.day);
       final endOfDay = startOfDay.add(const Duration(days: 1));
@@ -247,7 +244,8 @@ class SupabaseRecordDataSource implements RecordRemoteDataSource {
       _log('getMedicationRecords response: $response');
 
       return (response as List)
-          .map((json) => MedicationRecordModel.fromJson(json as Map<String, dynamic>))
+          .map((json) =>
+              MedicationRecordModel.fromJson(json as Map<String, dynamic>))
           .toList();
     } catch (e, st) {
       _log('getMedicationRecords failed', error: e);
@@ -263,7 +261,8 @@ class SupabaseRecordDataSource implements RecordRemoteDataSource {
       _log('addMedicationRecord: $json');
       _log('Current user: ${_supabase.auth.currentUser?.id}');
 
-      final response = await _supabase.from('medication_records').insert(json).select();
+      final response =
+          await _supabase.from('medication_records').insert(json).select();
       _log('addMedicationRecord response: $response');
     } catch (e, st) {
       _log('addMedicationRecord failed', error: e);
@@ -324,7 +323,8 @@ class SupabaseRecordDataSource implements RecordRemoteDataSource {
       _log('getLifestyleRecords response: $response');
 
       return (response as List)
-          .map((json) => LifestyleRecordModel.fromJson(json as Map<String, dynamic>))
+          .map((json) =>
+              LifestyleRecordModel.fromJson(json as Map<String, dynamic>))
           .toList();
     } catch (e, st) {
       _log('getLifestyleRecords failed', error: e);
@@ -340,7 +340,8 @@ class SupabaseRecordDataSource implements RecordRemoteDataSource {
       _log('addLifestyleRecord: $json');
       _log('Current user: ${_supabase.auth.currentUser?.id}');
 
-      final response = await _supabase.from('lifestyle_records').insert(json).select();
+      final response =
+          await _supabase.from('lifestyle_records').insert(json).select();
       _log('addLifestyleRecord response: $response');
     } catch (e, st) {
       _log('addLifestyleRecord failed', error: e);

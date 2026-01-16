@@ -4,6 +4,17 @@ import 'package:no_gerd/shared/shared.dart';
 
 /// 설정 항목 타일
 class SettingTile extends StatelessWidget {
+  /// 생성자
+  const SettingTile({
+    required this.icon,
+    required this.iconColor,
+    required this.title,
+    required this.subtitle,
+    this.trailing,
+    this.onTap,
+    super.key,
+  });
+
   /// 아이콘
   final IconData icon;
 
@@ -21,17 +32,6 @@ class SettingTile extends StatelessWidget {
 
   /// 탭 콜백
   final VoidCallback? onTap;
-
-  /// 생성자
-  const SettingTile({
-    required this.icon,
-    required this.iconColor,
-    required this.title,
-    required this.subtitle,
-    this.trailing,
-    this.onTap,
-    super.key,
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +65,10 @@ class SettingTile extends StatelessWidget {
           : null,
       trailing: trailing ??
           (onTap != null
-              ? const Icon(Icons.chevron_right_rounded,
-                  color: AppTheme.textTertiary)
+              ? const Icon(
+                  Icons.chevron_right_rounded,
+                  color: AppTheme.textTertiary,
+                )
               : null),
     );
   }

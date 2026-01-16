@@ -2,10 +2,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:table_calendar/table_calendar.dart';
-
 import 'package:no_gerd/core/error/failures.dart';
 import 'package:no_gerd/features/calendar/domain/usecases/get_records_for_month_usecase.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 part 'calendar_bloc.freezed.dart';
 part 'calendar_event.dart';
@@ -57,7 +56,8 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
             state.selectedDay!.day,
           );
           selectedDayRecords = monthRecords[normalizedDay];
-          print('🔥 [CalendarBloc] 선택된 날짜 기록 업데이트: ${selectedDayRecords != null ? "있음" : "없음"}');
+          print(
+              '🔥 [CalendarBloc] 선택된 날짜 기록 업데이트: ${selectedDayRecords != null ? "있음" : "없음"}');
         }
 
         emit(

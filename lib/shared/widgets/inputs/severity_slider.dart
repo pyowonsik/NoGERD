@@ -4,6 +4,14 @@ import 'package:no_gerd/shared/theme/app_theme.dart';
 
 /// 증상 강도 슬라이더
 class SeveritySlider extends StatelessWidget {
+  /// 생성자
+  const SeveritySlider({
+    super.key,
+    required this.value,
+    this.onChanged,
+    this.label,
+  });
+
   /// 현재 값 (1-10)
   final int value;
 
@@ -12,14 +20,6 @@ class SeveritySlider extends StatelessWidget {
 
   /// 라벨
   final String? label;
-
-  /// 생성자
-  const SeveritySlider({
-    super.key,
-    required this.value,
-    this.onChanged,
-    this.label,
-  });
 
   Color get _severityColor {
     if (value <= 3) return AppTheme.success;
@@ -101,8 +101,10 @@ class SeveritySlider extends StatelessWidget {
               SliderTheme(
                 data: SliderThemeData(
                   trackHeight: 8,
-                  thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 12),
-                  overlayShape: const RoundSliderOverlayShape(overlayRadius: 20),
+                  thumbShape:
+                      const RoundSliderThumbShape(enabledThumbRadius: 12),
+                  overlayShape:
+                      const RoundSliderOverlayShape(overlayRadius: 20),
                   activeTrackColor: _severityColor,
                   inactiveTrackColor: _severityColor.withValues(alpha: 0.2),
                   thumbColor: _severityColor,
@@ -174,6 +176,14 @@ class SeveritySlider extends StatelessWidget {
 
 /// 시간 선택기
 class TimeSelector extends StatelessWidget {
+  /// 생성자
+  const TimeSelector({
+    super.key,
+    required this.selectedTime,
+    this.onChanged,
+    this.label,
+  });
+
   /// 선택된 시간
   final TimeOfDay selectedTime;
 
@@ -182,14 +192,6 @@ class TimeSelector extends StatelessWidget {
 
   /// 라벨
   final String? label;
-
-  /// 생성자
-  const TimeSelector({
-    super.key,
-    required this.selectedTime,
-    this.onChanged,
-    this.label,
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -268,6 +270,16 @@ class TimeSelector extends StatelessWidget {
 
 /// 노트 입력 필드
 class NoteInput extends StatelessWidget {
+  /// 생성자
+  const NoteInput({
+    super.key,
+    this.controller,
+    this.label,
+    this.hint,
+    this.maxLines = 4,
+    this.maxLength,
+  });
+
   /// 컨트롤러
   final TextEditingController? controller;
 
@@ -282,16 +294,6 @@ class NoteInput extends StatelessWidget {
 
   /// 최대 글자 수
   final int? maxLength;
-
-  /// 생성자
-  const NoteInput({
-    super.key,
-    this.controller,
-    this.label,
-    this.hint,
-    this.maxLines = 4,
-    this.maxLength,
-  });
 
   @override
   Widget build(BuildContext context) {

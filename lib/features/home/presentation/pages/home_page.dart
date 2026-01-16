@@ -5,11 +5,11 @@ import 'package:no_gerd/features/home/presentation/bloc/home_bloc.dart';
 import 'package:no_gerd/features/record/presentation/bloc/record_bloc.dart';
 import 'package:no_gerd/shared/shared.dart';
 
-import '../widgets/health_score_card.dart';
-import '../widgets/quick_actions_section.dart';
-import '../widgets/quick_tips_section.dart';
-import '../widgets/recent_records_section.dart';
-import '../widgets/today_summary_section.dart';
+import 'package:no_gerd/features/home/presentation/widgets/health_score_card.dart';
+import 'package:no_gerd/features/home/presentation/widgets/quick_actions_section.dart';
+import 'package:no_gerd/features/home/presentation/widgets/quick_tips_section.dart';
+import 'package:no_gerd/features/home/presentation/widgets/recent_records_section.dart';
+import 'package:no_gerd/features/home/presentation/widgets/today_summary_section.dart';
 
 /// 홈 화면 (BLoC 적용)
 class HomePage extends StatefulWidget {

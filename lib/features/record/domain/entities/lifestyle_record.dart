@@ -24,11 +24,11 @@ class LifestyleRecord with _$LifestyleRecord {
     /// 예: 스트레스 - {"level": 7}
     required Map<String, dynamic> details,
 
-    /// 메모
-    String? notes,
-
     /// 생성 시간
     required DateTime createdAt,
+
+    /// 메모
+    String? notes,
 
     /// 수정 시간
     DateTime? updatedAt,

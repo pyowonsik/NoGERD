@@ -120,12 +120,6 @@ class QuickRecordModal extends StatelessWidget {
 }
 
 class _RecordOption extends StatelessWidget {
-  final String emoji;
-  final String title;
-  final String subtitle;
-  final Gradient gradient;
-  final VoidCallback? onTap;
-
   const _RecordOption({
     required this.emoji,
     required this.title,
@@ -133,6 +127,11 @@ class _RecordOption extends StatelessWidget {
     required this.gradient,
     this.onTap,
   });
+  final String emoji;
+  final String title;
+  final String subtitle;
+  final Gradient gradient;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -286,15 +285,18 @@ class _SymptomRecordScreenState extends State<SymptomRecordScreen> {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(symptom.emoji,
-                              style: const TextStyle(fontSize: 18)),
+                          Text(
+                            symptom.emoji,
+                            style: const TextStyle(fontSize: 18),
+                          ),
                           const SizedBox(width: 6),
                           Text(
                             symptom.label,
                             style: TextStyle(
                               fontSize: 14,
-                              fontWeight:
-                                  isSelected ? FontWeight.w600 : FontWeight.w500,
+                              fontWeight: isSelected
+                                  ? FontWeight.w600
+                                  : FontWeight.w500,
                               color: isSelected
                                   ? AppTheme.symptomColor
                                   : AppTheme.textSecondary,
@@ -352,7 +354,7 @@ class _SymptomRecordScreenState extends State<SymptomRecordScreen> {
                 maxLines: 3,
                 decoration: InputDecoration(
                   hintText: '추가로 기록하고 싶은 내용을 입력하세요',
-                  hintStyle: TextStyle(color: AppTheme.textTertiary),
+                  hintStyle: const TextStyle(color: AppTheme.textTertiary),
                   filled: true,
                   fillColor: Colors.white,
                   border: OutlineInputBorder(
@@ -486,7 +488,7 @@ class _SymptomRecordScreenState extends State<SymptomRecordScreen> {
                           ? [
                               AppTheme.success,
                               AppTheme.warning,
-                              AppTheme.error
+                              AppTheme.error,
                             ][index]
                           : Colors.grey.shade300,
                     ),
@@ -517,12 +519,18 @@ class _SymptomRecordScreenState extends State<SymptomRecordScreen> {
           const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('약함',
-                  style: TextStyle(fontSize: 12, color: AppTheme.textTertiary)),
-              Text('보통',
-                  style: TextStyle(fontSize: 12, color: AppTheme.textTertiary)),
-              Text('심함',
-                  style: TextStyle(fontSize: 12, color: AppTheme.textTertiary)),
+              Text(
+                '약함',
+                style: TextStyle(fontSize: 12, color: AppTheme.textTertiary),
+              ),
+              Text(
+                '보통',
+                style: TextStyle(fontSize: 12, color: AppTheme.textTertiary),
+              ),
+              Text(
+                '심함',
+                style: TextStyle(fontSize: 12, color: AppTheme.textTertiary),
+              ),
             ],
           ),
         ],
@@ -563,8 +571,10 @@ class _SymptomRecordScreenState extends State<SymptomRecordScreen> {
               ),
             ),
             const Spacer(),
-            Icon(Icons.keyboard_arrow_down_rounded,
-                color: AppTheme.textTertiary),
+            const Icon(
+              Icons.keyboard_arrow_down_rounded,
+              color: AppTheme.textTertiary,
+            ),
           ],
         ),
       ),
@@ -603,10 +613,10 @@ class _SymptomRecordScreenState extends State<SymptomRecordScreen> {
 // 식사 기록 화면 (UPSERT 지원)
 // ============================================================
 class MealRecordScreen extends StatefulWidget {
+  const MealRecordScreen({super.key, this.initialMealType});
+
   /// 초기 식사 타입 (홈에서 아침/점심/저녁 버튼 클릭 시 전달)
   final MealType? initialMealType;
-
-  const MealRecordScreen({super.key, this.initialMealType});
 
   @override
   State<MealRecordScreen> createState() => _MealRecordScreenState();
@@ -668,9 +678,7 @@ class _MealRecordScreenState extends State<MealRecordScreen> {
         _selectedTriggers.clear();
         _selectedTriggers.addAll(record.triggerCategories!);
       }
-      if (record.fullnessLevel != null) {
-        _fullnessLevel = record.fullnessLevel!;
-      }
+      _fullnessLevel = record.fullnessLevel!;
     });
   }
 
@@ -772,8 +780,8 @@ class _MealRecordScreenState extends State<MealRecordScreen> {
                                       right:
                                           type != MealType.values.last ? 8 : 0,
                                     ),
-                                    padding:
-                                        const EdgeInsets.symmetric(vertical: 12),
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 12),
                                     decoration: BoxDecoration(
                                       color: isSelected
                                           ? AppTheme.mealColor
@@ -838,7 +846,8 @@ class _MealRecordScreenState extends State<MealRecordScreen> {
                                       vertical: 4,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: AppTheme.info.withValues(alpha: 0.2),
+                                      color:
+                                          AppTheme.info.withValues(alpha: 0.2),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: const Text(
@@ -904,7 +913,7 @@ class _MealRecordScreenState extends State<MealRecordScreen> {
                                   ),
                                 ),
                                 const Spacer(),
-                                Icon(
+                                const Icon(
                                   Icons.keyboard_arrow_down_rounded,
                                   color: AppTheme.textTertiary,
                                 ),
@@ -932,7 +941,7 @@ class _MealRecordScreenState extends State<MealRecordScreen> {
                                 controller: _foodController,
                                 decoration: InputDecoration(
                                   hintText: '음식 이름을 입력하세요',
-                                  hintStyle: TextStyle(
+                                  hintStyle: const TextStyle(
                                     color: AppTheme.textTertiary,
                                   ),
                                   filled: true,
@@ -1163,10 +1172,10 @@ class _MealRecordScreenState extends State<MealRecordScreen> {
 // 약물 기록 화면
 // ============================================================
 class MedicationRecordScreen extends StatefulWidget {
+  const MedicationRecordScreen({super.key, this.initialNotTaking = false});
+
   /// 초기 복용 안함 상태 (홈에서 토글 ON 시 true)
   final bool initialNotTaking;
-
-  const MedicationRecordScreen({super.key, this.initialNotTaking = false});
 
   @override
   State<MedicationRecordScreen> createState() => _MedicationRecordScreenState();
@@ -1291,7 +1300,7 @@ class _MedicationRecordScreenState extends State<MedicationRecordScreen> {
                             ),
                           ),
                           const SizedBox(height: 2),
-                          Text(
+                          const Text(
                             '약물을 복용하지 않은 날도 기록하세요',
                             style: TextStyle(
                               fontSize: 12,
@@ -1306,7 +1315,7 @@ class _MedicationRecordScreenState extends State<MedicationRecordScreen> {
                       onChanged: (value) {
                         setState(() => _notTakingMedication = value);
                       },
-                      activeColor: AppTheme.info,
+                      activeThumbColor: AppTheme.info,
                     ),
                   ],
                 ),
@@ -1333,264 +1342,274 @@ class _MedicationRecordScreenState extends State<MedicationRecordScreen> {
                     color: AppTheme.textSecondary,
                   ),
                 ),
-              const SizedBox(height: 12),
-              ...MedicationType.values.map((type) {
-                final isSelected = _selectedTypes.contains(type);
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        if (isSelected) {
-                          _selectedTypes.remove(type);
-                        } else {
-                          _selectedTypes.add(type);
-                        }
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(14),
-                      decoration: BoxDecoration(
-                        color: isSelected
-                            ? AppTheme.medicationColor.withValues(alpha: 0.1)
-                            : Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: isSelected
-                              ? AppTheme.medicationColor
-                              : Colors.grey.shade300,
-                          width: isSelected ? 2 : 1,
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          Text(type.emoji, style: const TextStyle(fontSize: 24)),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  type.label,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: isSelected
-                                        ? AppTheme.medicationColor
-                                        : AppTheme.textPrimary,
-                                  ),
-                                ),
-                                const SizedBox(height: 2),
-                                Text(
-                                  type.examples.join(', '),
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: AppTheme.textSecondary,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          if (isSelected)
-                            const Icon(
-                              Icons.check_circle,
-                              color: AppTheme.medicationColor,
-                            ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              }),
-
-              const SizedBox(height: 20),
-
-              // 약물 이름
-              const Text(
-                '약물 이름',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: AppTheme.textPrimary,
-                ),
-              ),
-              const SizedBox(height: 12),
-              TextField(
-                onChanged: (v) => _medicationName = v,
-                decoration: InputDecoration(
-                  hintText: '예: 오메프라졸',
-                  hintStyle: TextStyle(color: AppTheme.textTertiary),
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Colors.grey.shade300),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Colors.grey.shade300),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(
-                        color: AppTheme.medicationColor, width: 2),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
-              // 용량
-              const Text(
-                '용량',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: AppTheme.textPrimary,
-                ),
-              ),
-              const SizedBox(height: 12),
-              TextField(
-                onChanged: (v) => _dosage = v,
-                decoration: InputDecoration(
-                  hintText: '예: 20mg',
-                  hintStyle: TextStyle(color: AppTheme.textTertiary),
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Colors.grey.shade300),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(color: Colors.grey.shade300),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(
-                        color: AppTheme.medicationColor, width: 2),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
-              // 복용 시간
-              const Text(
-                '복용 시간',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: AppTheme.textPrimary,
-                ),
-              ),
-              const SizedBox(height: 12),
-              GestureDetector(
-                onTap: () async {
-                  final time = await CustomTimePicker.show(
-                    context: context,
-                    initialTime: _selectedTime,
-                    title: '복용 시간',
-                    subtitle: '약물을 복용한 시간을 선택하세요',
-                  );
-                  if (time != null) {
-                    setState(() => _selectedTime = time);
-                  }
-                },
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: Colors.grey.shade300),
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.access_time_rounded,
-                          color: AppTheme.medicationColor),
-                      const SizedBox(width: 12),
-                      Text(
-                        _formatTime24(_selectedTime),
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: AppTheme.textPrimary,
-                        ),
-                      ),
-                      const Spacer(),
-                      Icon(Icons.keyboard_arrow_down_rounded,
-                          color: AppTheme.textTertiary),
-                    ],
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
-              // 효과 평가
-              const Text(
-                '효과 평가 (선택)',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: AppTheme.textPrimary,
-                ),
-              ),
-              const SizedBox(height: 12),
-              Row(
-                children: [
-                  {'label': '좋음', 'value': 8, 'emoji': '😊'},
-                  {'label': '보통', 'value': 5, 'emoji': '😐'},
-                  {'label': '별로', 'value': 2, 'emoji': '😞'},
-                ].map((effect) {
-                  final isSelected = _effectiveness == effect['value'];
-                  return Expanded(
+                const SizedBox(height: 12),
+                ...MedicationType.values.map((type) {
+                  final isSelected = _selectedTypes.contains(type);
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
                     child: GestureDetector(
-                      onTap: () =>
-                          setState(() => _effectiveness = effect['value'] as int),
+                      onTap: () {
+                        setState(() {
+                          if (isSelected) {
+                            _selectedTypes.remove(type);
+                          } else {
+                            _selectedTypes.add(type);
+                          }
+                        });
+                      },
                       child: Container(
-                        margin: EdgeInsets.only(
-                          right: effect['label'] != '별로' ? 8 : 0,
-                        ),
-                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        padding: const EdgeInsets.all(14),
                         decoration: BoxDecoration(
                           color: isSelected
-                              ? AppTheme.medicationColor.withValues(alpha: 0.15)
+                              ? AppTheme.medicationColor.withValues(alpha: 0.1)
                               : Colors.white,
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(12),
                           border: Border.all(
                             color: isSelected
                                 ? AppTheme.medicationColor
                                 : Colors.grey.shade300,
+                            width: isSelected ? 2 : 1,
                           ),
                         ),
-                        child: Column(
+                        child: Row(
                           children: [
-                            Text(
-                              effect['emoji'] as String,
-                              style: const TextStyle(fontSize: 24),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              effect['label'] as String,
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: isSelected
-                                    ? FontWeight.w600
-                                    : FontWeight.w500,
-                                color: isSelected
-                                    ? AppTheme.medicationColor
-                                    : AppTheme.textSecondary,
+                            Text(type.emoji,
+                                style: const TextStyle(fontSize: 24)),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    type.label,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: isSelected
+                                          ? AppTheme.medicationColor
+                                          : AppTheme.textPrimary,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    type.examples.join(', '),
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      color: AppTheme.textSecondary,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
+                            if (isSelected)
+                              const Icon(
+                                Icons.check_circle,
+                                color: AppTheme.medicationColor,
+                              ),
                           ],
                         ),
                       ),
                     ),
                   );
-                }).toList(),
-              ),
+                }),
+
+                const SizedBox(height: 20),
+
+                // 약물 이름
+                const Text(
+                  '약물 이름',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: AppTheme.textPrimary,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  onChanged: (v) => _medicationName = v,
+                  decoration: InputDecoration(
+                    hintText: '예: 오메프라졸',
+                    hintStyle: const TextStyle(color: AppTheme.textTertiary),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(color: Colors.grey.shade300),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(color: Colors.grey.shade300),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(
+                        color: AppTheme.medicationColor,
+                        width: 2,
+                      ),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                // 용량
+                const Text(
+                  '용량',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: AppTheme.textPrimary,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                TextField(
+                  onChanged: (v) => _dosage = v,
+                  decoration: InputDecoration(
+                    hintText: '예: 20mg',
+                    hintStyle: const TextStyle(color: AppTheme.textTertiary),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(color: Colors.grey.shade300),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(color: Colors.grey.shade300),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: const BorderSide(
+                        color: AppTheme.medicationColor,
+                        width: 2,
+                      ),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                // 복용 시간
+                const Text(
+                  '복용 시간',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: AppTheme.textPrimary,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                GestureDetector(
+                  onTap: () async {
+                    final time = await CustomTimePicker.show(
+                      context: context,
+                      initialTime: _selectedTime,
+                      title: '복용 시간',
+                      subtitle: '약물을 복용한 시간을 선택하세요',
+                    );
+                    if (time != null) {
+                      setState(() => _selectedTime = time);
+                    }
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 14),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.grey.shade300),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.access_time_rounded,
+                          color: AppTheme.medicationColor,
+                        ),
+                        const SizedBox(width: 12),
+                        Text(
+                          _formatTime24(_selectedTime),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: AppTheme.textPrimary,
+                          ),
+                        ),
+                        const Spacer(),
+                        const Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                          color: AppTheme.textTertiary,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                // 효과 평가
+                const Text(
+                  '효과 평가 (선택)',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: AppTheme.textPrimary,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    {'label': '좋음', 'value': 8, 'emoji': '😊'},
+                    {'label': '보통', 'value': 5, 'emoji': '😐'},
+                    {'label': '별로', 'value': 2, 'emoji': '😞'},
+                  ].map((effect) {
+                    final isSelected = _effectiveness == effect['value'];
+                    return Expanded(
+                      child: GestureDetector(
+                        onTap: () => setState(
+                            () => _effectiveness = (effect['value'] as int)!),
+                        child: Container(
+                          margin: EdgeInsets.only(
+                            right: effect['label'] != '별로' ? 8 : 0,
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          decoration: BoxDecoration(
+                            color: isSelected
+                                ? AppTheme.medicationColor
+                                    .withValues(alpha: 0.15)
+                                : Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: isSelected
+                                  ? AppTheme.medicationColor
+                                  : Colors.grey.shade300,
+                            ),
+                          ),
+                          child: Column(
+                            children: [
+                              Text(
+                                effect['emoji']! as String,
+                                style: const TextStyle(fontSize: 24),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                effect['label']! as String,
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: isSelected
+                                      ? FontWeight.w600
+                                      : FontWeight.w500,
+                                  color: isSelected
+                                      ? AppTheme.medicationColor
+                                      : AppTheme.textSecondary,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
               ],
 
               const SizedBox(height: 32),
@@ -1601,10 +1620,10 @@ class _MedicationRecordScreenState extends State<MedicationRecordScreen> {
                 height: 54,
                 child: ElevatedButton(
                   onPressed: (_notTakingMedication ||
-                          (_selectedTypes.isNotEmpty &&
-                              _medicationName.isNotEmpty &&
-                              _dosage.isNotEmpty)) &&
-                      !_isLoading
+                              (_selectedTypes.isNotEmpty &&
+                                  _medicationName.isNotEmpty &&
+                                  _dosage.isNotEmpty)) &&
+                          !_isLoading
                       ? _saveRecord
                       : null,
                   style: ElevatedButton.styleFrom(
@@ -1658,8 +1677,7 @@ class _MedicationRecordScreenState extends State<MedicationRecordScreen> {
       id: _uuid.v4(),
       recordedAt: recordedAt,
       isTaken: !_notTakingMedication,
-      medicationTypes:
-          _notTakingMedication ? null : _selectedTypes.toList(),
+      medicationTypes: _notTakingMedication ? null : _selectedTypes.toList(),
       medicationName: _notTakingMedication ? null : _medicationName,
       dosage: _notTakingMedication ? null : _dosage,
       effectiveness: _notTakingMedication ? null : _effectiveness,
@@ -1912,7 +1930,7 @@ class _LifestyleRecordScreenState extends State<LifestyleRecordScreen> {
               gradient: LinearGradient(
                 colors: [
                   AppTheme.lifestyleColor.withValues(alpha: 0.3),
-                  AppTheme.lifestyleColor.withValues(alpha: 0.0),
+                  AppTheme.lifestyleColor.withValues(alpha: 0),
                 ],
               ),
             ),
@@ -1929,9 +1947,10 @@ class _LifestyleRecordScreenState extends State<LifestyleRecordScreen> {
         const Text(
           '수면 시간',
           style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: AppTheme.textPrimary),
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: AppTheme.textPrimary,
+          ),
         ),
         const SizedBox(height: 12),
         Container(
@@ -1945,8 +1964,11 @@ class _LifestyleRecordScreenState extends State<LifestyleRecordScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.bedtime_rounded,
-                      color: AppTheme.lifestyleColor, size: 28),
+                  const Icon(
+                    Icons.bedtime_rounded,
+                    color: AppTheme.lifestyleColor,
+                    size: 28,
+                  ),
                   const SizedBox(width: 12),
                   Text(
                     '${_sleepHours.toStringAsFixed(1)}시간',
@@ -1961,7 +1983,6 @@ class _LifestyleRecordScreenState extends State<LifestyleRecordScreen> {
               const SizedBox(height: 16),
               Slider(
                 value: _sleepHours,
-                min: 0,
                 max: 12,
                 divisions: 24,
                 activeColor: AppTheme.lifestyleColor,
@@ -1974,9 +1995,10 @@ class _LifestyleRecordScreenState extends State<LifestyleRecordScreen> {
         const Text(
           '수면 자세',
           style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: AppTheme.textPrimary),
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: AppTheme.textPrimary,
+          ),
         ),
         const SizedBox(height: 12),
         Wrap(
@@ -2000,8 +2022,9 @@ class _LifestyleRecordScreenState extends State<LifestyleRecordScreen> {
                       : Colors.white,
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(
-                    color:
-                        isSelected ? AppTheme.lifestyleColor : Colors.grey.shade300,
+                    color: isSelected
+                        ? AppTheme.lifestyleColor
+                        : Colors.grey.shade300,
                   ),
                 ),
                 child: Text(
@@ -2038,7 +2061,7 @@ class _LifestyleRecordScreenState extends State<LifestyleRecordScreen> {
               Switch(
                 value: _lateNightMeal,
                 onChanged: (v) => setState(() => _lateNightMeal = v),
-                activeColor: AppTheme.lifestyleColor,
+                activeThumbColor: AppTheme.lifestyleColor,
               ),
             ],
           ),
@@ -2054,9 +2077,10 @@ class _LifestyleRecordScreenState extends State<LifestyleRecordScreen> {
         const Text(
           '스트레스 레벨',
           style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: AppTheme.textPrimary),
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: AppTheme.textPrimary,
+          ),
         ),
         const SizedBox(height: 12),
         Container(
@@ -2097,25 +2121,31 @@ class _LifestyleRecordScreenState extends State<LifestyleRecordScreen> {
                 activeColor: AppTheme.lifestyleColor,
                 onChanged: (v) => setState(() => _stressLevel = v.round()),
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('낮음',
-                      style:
-                          TextStyle(fontSize: 12, color: AppTheme.textTertiary)),
-                  Text('보통',
-                      style:
-                          TextStyle(fontSize: 12, color: AppTheme.textTertiary)),
-                  Text('높음',
-                      style:
-                          TextStyle(fontSize: 12, color: AppTheme.textTertiary)),
+                  Text(
+                    '낮음',
+                    style:
+                        TextStyle(fontSize: 12, color: AppTheme.textTertiary),
+                  ),
+                  Text(
+                    '보통',
+                    style:
+                        TextStyle(fontSize: 12, color: AppTheme.textTertiary),
+                  ),
+                  Text(
+                    '높음',
+                    style:
+                        TextStyle(fontSize: 12, color: AppTheme.textTertiary),
+                  ),
                 ],
               ),
             ],
           ),
         ),
         const SizedBox(height: 16),
-        InsightCard(
+        const InsightCard(
           icon: Icons.lightbulb_outline_rounded,
           title: '스트레스 관리 팁',
           message: '스트레스는 위산 분비를 증가시킬 수 있습니다. 심호흡, 명상, 가벼운 운동이 도움됩니다.',
@@ -2146,15 +2176,16 @@ class _LifestyleRecordScreenState extends State<LifestyleRecordScreen> {
                     Text(
                       '오늘 운동을 했나요?',
                       style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
-                          color: AppTheme.textPrimary),
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        color: AppTheme.textPrimary,
+                      ),
                     ),
                     SizedBox(height: 4),
                     Text(
                       '30분 이상의 가벼운 운동도 포함됩니다',
-                      style:
-                          TextStyle(fontSize: 13, color: AppTheme.textSecondary),
+                      style: TextStyle(
+                          fontSize: 13, color: AppTheme.textSecondary),
                     ),
                   ],
                 ),
@@ -2162,13 +2193,13 @@ class _LifestyleRecordScreenState extends State<LifestyleRecordScreen> {
               Switch(
                 value: _exercisedToday,
                 onChanged: (v) => setState(() => _exercisedToday = v),
-                activeColor: AppTheme.lifestyleColor,
+                activeThumbColor: AppTheme.lifestyleColor,
               ),
             ],
           ),
         ),
         const SizedBox(height: 16),
-        InsightCard(
+        const InsightCard(
           icon: Icons.directions_walk_rounded,
           title: '식후 활동 팁',
           message: '식사 직후 격렬한 운동은 피하고, 가벼운 산책은 소화에 도움이 됩니다.',

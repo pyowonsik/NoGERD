@@ -15,6 +15,9 @@ class MedicationRecord with _$MedicationRecord {
     /// 기록 시간
     required DateTime recordedAt,
 
+    /// 생성 시간
+    required DateTime createdAt,
+
     /// 약물 복용 여부 (true: 복용함, false: 복용 안함)
     @Default(true) bool isTaken,
 
@@ -35,9 +38,6 @@ class MedicationRecord with _$MedicationRecord {
 
     /// 메모
     String? notes,
-
-    /// 생성 시간
-    required DateTime createdAt,
 
     /// 수정 시간
     DateTime? updatedAt,

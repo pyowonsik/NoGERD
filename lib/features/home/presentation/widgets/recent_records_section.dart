@@ -6,18 +6,18 @@ import 'package:no_gerd/shared/shared.dart';
 
 /// 최근 기록 섹션
 class RecentRecordsSection extends StatelessWidget {
-  /// 최근 기록 데이터 (홈 화면용)
-  final List<RecentRecord> records;
-
-  /// 전체 기록 데이터 (사용하지 않음, 호환성 유지)
-  final List<RecentRecord> allRecords;
-
   /// 생성자
   const RecentRecordsSection({
     required this.records,
     required this.allRecords,
     super.key,
   });
+
+  /// 최근 기록 데이터 (홈 화면용)
+  final List<RecentRecord> records;
+
+  /// 전체 기록 데이터 (사용하지 않음, 호환성 유지)
+  final List<RecentRecord> allRecords;
 
   /// 캘린더 이동 확인 다이얼로그
   Future<void> _showCalendarConfirmDialog(BuildContext context) async {
@@ -60,7 +60,7 @@ class RecentRecordsSection extends StatelessWidget {
       ),
     );
 
-    if (result == true && context.mounted) {
+    if ((result ?? false) && context.mounted) {
       context.go('/calendar');
     }
   }
@@ -127,9 +127,8 @@ class RecentRecordsSection extends StatelessWidget {
 }
 
 class _RecentRecordItem extends StatelessWidget {
-  final RecentRecord data;
-
   const _RecentRecordItem({required this.data});
+  final RecentRecord data;
 
   @override
   Widget build(BuildContext context) {

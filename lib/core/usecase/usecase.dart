@@ -41,11 +41,11 @@ class NoParams extends Equatable {
 ///
 /// 단일 ID를 필요로 하는 UseCase에서 사용합니다.
 class IdParams extends Equatable {
-  /// ID 값
-  final String id;
-
   /// 생성자
   const IdParams(this.id);
+
+  /// ID 값
+  final String id;
 
   @override
   List<Object?> get props => [id];
@@ -55,11 +55,11 @@ class IdParams extends Equatable {
 ///
 /// 날짜를 필요로 하는 UseCase에서 사용합니다.
 class DateParams extends Equatable {
-  /// 날짜
-  final DateTime date;
-
   /// 생성자
   const DateParams(this.date);
+
+  /// 날짜
+  final DateTime date;
 
   @override
   List<Object?> get props => [date];
@@ -69,17 +69,17 @@ class DateParams extends Equatable {
 ///
 /// 시작일과 종료일을 필요로 하는 UseCase에서 사용합니다.
 class DateRangeParams extends Equatable {
-  /// 시작 날짜
-  final DateTime startDate;
-
-  /// 종료 날짜
-  final DateTime endDate;
-
   /// 생성자
   const DateRangeParams({
     required this.startDate,
     required this.endDate,
   });
+
+  /// 시작 날짜
+  final DateTime startDate;
+
+  /// 종료 날짜
+  final DateTime endDate;
 
   @override
   List<Object?> get props => [startDate, endDate];
@@ -89,17 +89,17 @@ class DateRangeParams extends Equatable {
 ///
 /// 페이지네이션이 필요한 UseCase에서 사용합니다.
 class PaginationParams extends Equatable {
-  /// 페이지 번호 (0부터 시작)
-  final int page;
-
-  /// 페이지당 아이템 수
-  final int limit;
-
   /// 생성자
   const PaginationParams({
     this.page = 0,
     this.limit = 20,
   });
+
+  /// 페이지 번호 (0부터 시작)
+  final int page;
+
+  /// 페이지당 아이템 수
+  final int limit;
 
   @override
   List<Object?> get props => [page, limit];

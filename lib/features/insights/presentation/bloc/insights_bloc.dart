@@ -100,10 +100,12 @@ class InsightsBloc extends Bloc<InsightsEvent, InsightsState> {
     healthScoreResult.fold(
       (failure) => emit(state.copyWith(failure: some(failure))),
       (score) {
-        emit(state.copyWith(
-          healthScore: score,
-          previousHealthScore: state.healthScore,
-        ));
+        emit(
+          state.copyWith(
+            healthScore: score,
+            previousHealthScore: state.healthScore,
+          ),
+        );
       },
     );
 
@@ -187,17 +189,21 @@ class InsightsBloc extends Bloc<InsightsEvent, InsightsState> {
     final result = await _getAIInsightsUseCase(state);
 
     result.fold(
-      (failure) => emit(state.copyWith(
-        isAILoading: false,
-        failure: some(failure),
-      )),
-      (insight) => emit(state.copyWith(
-        isAILoading: false,
-        aiInsight: some(insight),
-        canGenerateThisWeek: false,
-        nextReportDate: _getAIInsightsUseCase.getNextMonday(),
-        failure: none(),
-      )),
+      (failure) => emit(
+        state.copyWith(
+          isAILoading: false,
+          failure: some(failure),
+        ),
+      ),
+      (insight) => emit(
+        state.copyWith(
+          isAILoading: false,
+          aiInsight: some(insight),
+          canGenerateThisWeek: false,
+          nextReportDate: _getAIInsightsUseCase.getNextMonday(),
+          failure: none(),
+        ),
+      ),
     );
   }
 
@@ -211,17 +217,21 @@ class InsightsBloc extends Bloc<InsightsEvent, InsightsState> {
     final nextMonday = _getAIInsightsUseCase.getNextMonday();
 
     if (savedInsight != null) {
-      emit(state.copyWith(
-        aiInsight: some(savedInsight),
-        canGenerateThisWeek: canGenerate,
-        nextReportDate: canGenerate ? null : nextMonday,
-      ));
+      emit(
+        state.copyWith(
+          aiInsight: some(savedInsight),
+          canGenerateThisWeek: canGenerate,
+          nextReportDate: canGenerate ? null : nextMonday,
+        ),
+      );
     } else {
-      emit(state.copyWith(
-        aiInsight: none(),
-        canGenerateThisWeek: canGenerate,
-        nextReportDate: canGenerate ? null : nextMonday,
-      ));
+      emit(
+        state.copyWith(
+          aiInsight: none(),
+          canGenerateThisWeek: canGenerate,
+          nextReportDate: canGenerate ? null : nextMonday,
+        ),
+      );
     }
   }
 }

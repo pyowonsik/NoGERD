@@ -40,7 +40,7 @@ class SupabaseAuthDataSource implements AuthRemoteDataSource {
     } on AuthException catch (e) {
       throw AuthDataSourceException(e.message);
     } catch (e) {
-      throw AuthDataSourceException('회원가입 중 오류 발생: ${e.toString()}');
+      throw AuthDataSourceException('회원가입 중 오류 발생: ${e}');
     }
   }
 
@@ -63,7 +63,7 @@ class SupabaseAuthDataSource implements AuthRemoteDataSource {
     } on AuthException catch (e) {
       throw AuthDataSourceException(e.message);
     } catch (e) {
-      throw AuthDataSourceException('로그인 중 오류 발생: ${e.toString()}');
+      throw AuthDataSourceException('로그인 중 오류 발생: ${e}');
     }
   }
 
@@ -74,7 +74,7 @@ class SupabaseAuthDataSource implements AuthRemoteDataSource {
     } on AuthException catch (e) {
       throw AuthDataSourceException(e.message);
     } catch (e) {
-      throw AuthDataSourceException('로그아웃 중 오류 발생: ${e.toString()}');
+      throw AuthDataSourceException('로그아웃 중 오류 발생: ${e}');
     }
   }
 
@@ -85,7 +85,7 @@ class SupabaseAuthDataSource implements AuthRemoteDataSource {
       if (user == null) return null;
       return UserModel.fromSupabaseUser(user);
     } catch (e) {
-      throw AuthDataSourceException('사용자 정보 조회 실패: ${e.toString()}');
+      throw AuthDataSourceException('사용자 정보 조회 실패: ${e}');
     }
   }
 
@@ -107,12 +107,12 @@ class SupabaseAuthDataSource implements AuthRemoteDataSource {
       }
       await _supabase.auth.resend(
         type: OtpType.signup,
-        email: user.email!,
+        email: user.email,
       );
     } on AuthException catch (e) {
       throw AuthDataSourceException(e.message);
     } catch (e) {
-      throw AuthDataSourceException('인증 이메일 발송 실패: ${e.toString()}');
+      throw AuthDataSourceException('인증 이메일 발송 실패: ${e}');
     }
   }
 
@@ -123,7 +123,7 @@ class SupabaseAuthDataSource implements AuthRemoteDataSource {
     } on AuthException catch (e) {
       throw AuthDataSourceException(e.message);
     } catch (e) {
-      throw AuthDataSourceException('비밀번호 재설정 이메일 발송 실패: ${e.toString()}');
+      throw AuthDataSourceException('비밀번호 재설정 이메일 발송 실패: ${e}');
     }
   }
 }

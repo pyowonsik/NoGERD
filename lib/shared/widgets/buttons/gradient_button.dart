@@ -4,6 +4,20 @@ import 'package:no_gerd/shared/theme/app_theme.dart';
 
 /// 그라디언트 버튼 위젯
 class GradientButton extends StatelessWidget {
+  /// 생성자
+  const GradientButton({
+    super.key,
+    required this.text,
+    this.onPressed,
+    this.gradient,
+    this.width,
+    this.height = 52,
+    this.borderRadius = AppTheme.radiusMedium,
+    this.icon,
+    this.isLoading = false,
+    this.disabled = false,
+  });
+
   /// 버튼 텍스트
   final String text;
 
@@ -30,20 +44,6 @@ class GradientButton extends StatelessWidget {
 
   /// 비활성화 여부
   final bool disabled;
-
-  /// 생성자
-  const GradientButton({
-    super.key,
-    required this.text,
-    this.onPressed,
-    this.gradient,
-    this.width,
-    this.height = 52,
-    this.borderRadius = AppTheme.radiusMedium,
-    this.icon,
-    this.isLoading = false,
-    this.disabled = false,
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -107,6 +107,18 @@ class GradientButton extends StatelessWidget {
 
 /// 아웃라인 버튼
 class OutlineButton extends StatelessWidget {
+  /// 생성자
+  const OutlineButton({
+    super.key,
+    required this.text,
+    this.onPressed,
+    this.borderColor,
+    this.textColor,
+    this.width,
+    this.height = 52,
+    this.icon,
+  });
+
   /// 버튼 텍스트
   final String text;
 
@@ -127,18 +139,6 @@ class OutlineButton extends StatelessWidget {
 
   /// 아이콘
   final IconData? icon;
-
-  /// 생성자
-  const OutlineButton({
-    super.key,
-    required this.text,
-    this.onPressed,
-    this.borderColor,
-    this.textColor,
-    this.width,
-    this.height = 52,
-    this.icon,
-  });
 
   @override
   Widget build(BuildContext context) {
@@ -180,6 +180,16 @@ class OutlineButton extends StatelessWidget {
 
 /// 칩 버튼 (선택용)
 class SelectableChip extends StatelessWidget {
+  /// 생성자
+  const SelectableChip({
+    super.key,
+    required this.label,
+    this.emoji,
+    required this.isSelected,
+    this.onTap,
+    this.selectedColor,
+  });
+
   /// 라벨
   final String label;
 
@@ -195,16 +205,6 @@ class SelectableChip extends StatelessWidget {
   /// 선택 색상
   final Color? selectedColor;
 
-  /// 생성자
-  const SelectableChip({
-    super.key,
-    required this.label,
-    this.emoji,
-    required this.isSelected,
-    this.onTap,
-    this.selectedColor,
-  });
-
   @override
   Widget build(BuildContext context) {
     final color = selectedColor ?? AppTheme.primary;
@@ -218,7 +218,9 @@ class SelectableChip extends StatelessWidget {
           color: isSelected ? color.withValues(alpha: 0.15) : Colors.white,
           borderRadius: BorderRadius.circular(AppTheme.radiusMedium),
           border: Border.all(
-            color: isSelected ? color : AppTheme.textTertiary.withValues(alpha: 0.3),
+            color: isSelected
+                ? color
+                : AppTheme.textTertiary.withValues(alpha: 0.3),
             width: isSelected ? 2 : 1,
           ),
           boxShadow: isSelected
@@ -263,6 +265,15 @@ class SelectableChip extends StatelessWidget {
 
 /// FAB (플로팅 액션 버튼)
 class CustomFAB extends StatelessWidget {
+  /// 생성자
+  const CustomFAB({
+    super.key,
+    this.onPressed,
+    this.icon = Icons.add,
+    this.gradient,
+    this.size = 64,
+  });
+
   /// 탭 콜백
   final VoidCallback? onPressed;
 
@@ -274,15 +285,6 @@ class CustomFAB extends StatelessWidget {
 
   /// 크기
   final double size;
-
-  /// 생성자
-  const CustomFAB({
-    super.key,
-    this.onPressed,
-    this.icon = Icons.add,
-    this.gradient,
-    this.size = 64,
-  });
 
   @override
   Widget build(BuildContext context) {

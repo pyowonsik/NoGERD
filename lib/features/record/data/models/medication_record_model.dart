@@ -7,47 +7,6 @@ part 'medication_record_model.g.dart';
 
 @freezed
 class MedicationRecordModel with _$MedicationRecordModel {
-  const factory MedicationRecordModel({
-    required String id,
-    @JsonKey(name: 'user_id') required String userId,
-    @JsonKey(name: 'record_datetime') required DateTime recordedAt,
-    @JsonKey(name: 'is_taken') @Default(true) bool isTaken,
-    @JsonKey(name: 'medication_types') List<String>? medicationTypes,
-    @JsonKey(name: 'medication_name') String? medicationName,
-    String? dosage,
-    String? purpose,
-    int? effectiveness,
-    String? notes,
-    @JsonKey(name: 'created_at') required DateTime createdAt,
-    @JsonKey(name: 'updated_at') DateTime? updatedAt,
-  }) = _MedicationRecordModel;
-
-  const MedicationRecordModel._();
-
-  factory MedicationRecordModel.fromJson(Map<String, dynamic> json) =>
-      _$MedicationRecordModelFromJson(json);
-
-  MedicationRecord toEntity() {
-    return MedicationRecord(
-      id: id,
-      recordedAt: recordedAt,
-      isTaken: isTaken,
-      medicationTypes: medicationTypes
-          ?.map((typeString) => MedicationType.values.firstWhere(
-                (e) => e.name == typeString,
-                orElse: () => MedicationType.ppi,
-              ))
-          .toList(),
-      medicationName: medicationName,
-      dosage: dosage,
-      purpose: purpose,
-      effectiveness: effectiveness,
-      notes: notes,
-      createdAt: createdAt,
-      updatedAt: updatedAt,
-    );
-  }
-
   factory MedicationRecordModel.fromEntity(
     MedicationRecord entity,
     String userId,
@@ -66,6 +25,48 @@ class MedicationRecordModel with _$MedicationRecordModel {
       notes: entity.notes,
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
+    );
+  }
+  const factory MedicationRecordModel({
+    required String id,
+    @JsonKey(name: 'user_id') required String userId,
+    @JsonKey(name: 'record_datetime') required DateTime recordedAt,
+    @JsonKey(name: 'created_at') required DateTime createdAt,
+    @JsonKey(name: 'is_taken') @Default(true) bool isTaken,
+    @JsonKey(name: 'medication_types') List<String>? medicationTypes,
+    @JsonKey(name: 'medication_name') String? medicationName,
+    String? dosage,
+    String? purpose,
+    int? effectiveness,
+    String? notes,
+    @JsonKey(name: 'updated_at') DateTime? updatedAt,
+  }) = _MedicationRecordModel;
+
+  const MedicationRecordModel._();
+
+  factory MedicationRecordModel.fromJson(Map<String, dynamic> json) =>
+      _$MedicationRecordModelFromJson(json);
+
+  MedicationRecord toEntity() {
+    return MedicationRecord(
+      id: id,
+      recordedAt: recordedAt,
+      isTaken: isTaken,
+      medicationTypes: medicationTypes
+          ?.map(
+            (typeString) => MedicationType.values.firstWhere(
+              (e) => e.name == typeString,
+              orElse: () => MedicationType.ppi,
+            ),
+          )
+          .toList(),
+      medicationName: medicationName,
+      dosage: dosage,
+      purpose: purpose,
+      effectiveness: effectiveness,
+      notes: notes,
+      createdAt: createdAt,
+      updatedAt: updatedAt,
     );
   }
 }

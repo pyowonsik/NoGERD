@@ -69,23 +69,21 @@ class QuickTipsSection extends StatelessWidget {
 }
 
 class _TipData {
-  final IconData icon;
-  final String title;
-  final String message;
-  final Color color;
-
   _TipData({
     required this.icon,
     required this.title,
     required this.message,
     required this.color,
   });
+  final IconData icon;
+  final String title;
+  final String message;
+  final Color color;
 }
 
 class _TipCard extends StatelessWidget {
-  final _TipData data;
-
   const _TipCard({required this.data});
+  final _TipData data;
 
   @override
   Widget build(BuildContext context) {

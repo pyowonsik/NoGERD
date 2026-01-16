@@ -1,341 +1,259 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:no_gerd/core/di/injection.dart';
+import 'package:no_gerd/features/settings/domain/entities/alarm_config.dart';
+import 'package:no_gerd/features/settings/presentation/bloc/alarm_bloc.dart';
 import 'package:no_gerd/shared/shared.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 /// 알람 설정 화면
 /// 식사 알림, 약물 복용 알림 설정
-class AlarmSettingsPage extends StatefulWidget {
+class AlarmSettingsPage extends StatelessWidget {
   const AlarmSettingsPage({super.key});
 
   @override
-  State<AlarmSettingsPage> createState() => _AlarmSettingsPageState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) =>
+          getIt<AlarmBloc>()..add(const AlarmEvent.loadConfigs()),
+      child: const _AlarmSettingsView(),
+    );
+  }
 }
 
-class _AlarmSettingsPageState extends State<AlarmSettingsPage> {
-  // 식사 알림
-  bool _breakfastMealEnabled = false;
-  TimeOfDay _breakfastMealTime = const TimeOfDay(hour: 7, minute: 30);
-
-  bool _lunchMealEnabled = false;
-  TimeOfDay _lunchMealTime = const TimeOfDay(hour: 12, minute: 0);
-
-  bool _dinnerMealEnabled = false;
-  TimeOfDay _dinnerMealTime = const TimeOfDay(hour: 18, minute: 30);
-
-  // 약물 알림
-  bool _breakfastMedicationEnabled = false;
-  TimeOfDay _breakfastMedicationTime = const TimeOfDay(hour: 8, minute: 0);
-
-  bool _lunchMedicationEnabled = false;
-  TimeOfDay _lunchMedicationTime = const TimeOfDay(hour: 12, minute: 30);
-
-  bool _dinnerMedicationEnabled = false;
-  TimeOfDay _dinnerMedicationTime = const TimeOfDay(hour: 19, minute: 0);
-
-  // 생활습관 알림
-  bool _sleepEnabled = false;
-  TimeOfDay _sleepTime = const TimeOfDay(hour: 22, minute: 0);
-
-  @override
-  void initState() {
-    super.initState();
-    _loadSettings();
-  }
-
-  Future<void> _loadSettings() async {
-    final prefs = await SharedPreferences.getInstance();
-
-    setState(() {
-      // 식사 알림
-      _breakfastMealEnabled = prefs.getBool('alarm_breakfast_meal_enabled') ?? false;
-      _breakfastMealTime = TimeOfDay(
-        hour: prefs.getInt('alarm_breakfast_meal_hour') ?? 7,
-        minute: prefs.getInt('alarm_breakfast_meal_minute') ?? 30,
-      );
-
-      _lunchMealEnabled = prefs.getBool('alarm_lunch_meal_enabled') ?? false;
-      _lunchMealTime = TimeOfDay(
-        hour: prefs.getInt('alarm_lunch_meal_hour') ?? 12,
-        minute: prefs.getInt('alarm_lunch_meal_minute') ?? 0,
-      );
-
-      _dinnerMealEnabled = prefs.getBool('alarm_dinner_meal_enabled') ?? false;
-      _dinnerMealTime = TimeOfDay(
-        hour: prefs.getInt('alarm_dinner_meal_hour') ?? 18,
-        minute: prefs.getInt('alarm_dinner_meal_minute') ?? 30,
-      );
-
-      // 약물 알림
-      _breakfastMedicationEnabled =
-          prefs.getBool('alarm_breakfast_medication_enabled') ?? false;
-      _breakfastMedicationTime = TimeOfDay(
-        hour: prefs.getInt('alarm_breakfast_medication_hour') ?? 8,
-        minute: prefs.getInt('alarm_breakfast_medication_minute') ?? 0,
-      );
-
-      _lunchMedicationEnabled =
-          prefs.getBool('alarm_lunch_medication_enabled') ?? false;
-      _lunchMedicationTime = TimeOfDay(
-        hour: prefs.getInt('alarm_lunch_medication_hour') ?? 12,
-        minute: prefs.getInt('alarm_lunch_medication_minute') ?? 30,
-      );
-
-      _dinnerMedicationEnabled =
-          prefs.getBool('alarm_dinner_medication_enabled') ?? false;
-      _dinnerMedicationTime = TimeOfDay(
-        hour: prefs.getInt('alarm_dinner_medication_hour') ?? 19,
-        minute: prefs.getInt('alarm_dinner_medication_minute') ?? 0,
-      );
-
-      // 생활습관 알림
-      _sleepEnabled = prefs.getBool('alarm_sleep_enabled') ?? false;
-      _sleepTime = TimeOfDay(
-        hour: prefs.getInt('alarm_sleep_hour') ?? 22,
-        minute: prefs.getInt('alarm_sleep_minute') ?? 0,
-      );
-    });
-  }
-
-  Future<void> _saveSetting(String key, dynamic value) async {
-    final prefs = await SharedPreferences.getInstance();
-    if (value is bool) {
-      await prefs.setBool(key, value);
-    } else if (value is int) {
-      await prefs.setInt(key, value);
-    }
-  }
+class _AlarmSettingsView extends StatelessWidget {
+  const _AlarmSettingsView();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppTheme.background,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Text(
-          '알람 설정',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: Theme.of(context).colorScheme.onBackground,
+    return BlocListener<AlarmBloc, AlarmState>(
+      listenWhen: (previous, current) =>
+          previous.errorMessage != current.errorMessage,
+      listener: (context, state) {
+        state.errorMessage.fold(
+          () => null,
+          (message) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(message),
+                backgroundColor: Colors.red,
+              ),
+            );
+          },
+        );
+      },
+      child: Scaffold(
+        backgroundColor: AppTheme.background,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: Text(
+            '알람 설정',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
           ),
-        ),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // 식사 알림 섹션
-            _buildSectionHeader(context, '🍽️', '식사 알림'),
-            const SizedBox(height: 4),
-            Text(
-              '식사 시간을 알려드립니다',
-              style: TextStyle(
-                fontSize: 13,
-                color: Theme.of(context)
-                    .colorScheme
-                    .onBackground
-                    .withOpacity(0.6),
-              ),
-            ),
-            const SizedBox(height: 16),
-            _buildAlarmItem(
-              emoji: '🌅',
-              title: '아침 식사',
-              enabled: _breakfastMealEnabled,
-              time: _breakfastMealTime,
-              onToggle: (value) {
-                setState(() => _breakfastMealEnabled = value);
-                _saveSetting('alarm_breakfast_meal_enabled', value);
+          centerTitle: true,
+          actions: [
+            BlocBuilder<AlarmBloc, AlarmState>(
+              builder: (context, state) {
+                if (!state.hasPermission && !state.isLoading) {
+                  return IconButton(
+                    icon: const Icon(Icons.notifications_off),
+                    onPressed: () {
+                      context.read<AlarmBloc>().add(
+                            const AlarmEvent.requestPermission(),
+                          );
+                    },
+                    tooltip: '알림 권한 요청',
+                  );
+                }
+                return const SizedBox.shrink();
               },
-              onTimeTap: () => _selectTime(
-                _breakfastMealTime,
-                (time) {
-                  setState(() => _breakfastMealTime = time);
-                  _saveSetting('alarm_breakfast_meal_hour', time.hour);
-                  _saveSetting('alarm_breakfast_meal_minute', time.minute);
-                },
-                title: '아침 식사 알림',
-                subtitle: '아침 식사 시간을 설정하세요',
-              ),
-              color: const Color(0xFFFF9800),
             ),
-            const SizedBox(height: 12),
-            _buildAlarmItem(
-              emoji: '☀️',
-              title: '점심 식사',
-              enabled: _lunchMealEnabled,
-              time: _lunchMealTime,
-              onToggle: (value) {
-                setState(() => _lunchMealEnabled = value);
-                _saveSetting('alarm_lunch_meal_enabled', value);
-              },
-              onTimeTap: () => _selectTime(
-                _lunchMealTime,
-                (time) {
-                  setState(() => _lunchMealTime = time);
-                  _saveSetting('alarm_lunch_meal_hour', time.hour);
-                  _saveSetting('alarm_lunch_meal_minute', time.minute);
-                },
-                title: '점심 식사 알림',
-                subtitle: '점심 식사 시간을 설정하세요',
-              ),
-              color: const Color(0xFF43A047),
-            ),
-            const SizedBox(height: 12),
-            _buildAlarmItem(
-              emoji: '🌙',
-              title: '저녁 식사',
-              enabled: _dinnerMealEnabled,
-              time: _dinnerMealTime,
-              onToggle: (value) {
-                setState(() => _dinnerMealEnabled = value);
-                _saveSetting('alarm_dinner_meal_enabled', value);
-              },
-              onTimeTap: () => _selectTime(
-                _dinnerMealTime,
-                (time) {
-                  setState(() => _dinnerMealTime = time);
-                  _saveSetting('alarm_dinner_meal_hour', time.hour);
-                  _saveSetting('alarm_dinner_meal_minute', time.minute);
-                },
-                title: '저녁 식사 알림',
-                subtitle: '저녁 식사 시간을 설정하세요',
-              ),
-              color: const Color(0xFF3949AB),
-            ),
-
-            const SizedBox(height: 32),
-
-            // 약물 알림 섹션
-            _buildSectionHeader(context, '💊', '약물 복용 알림'),
-            const SizedBox(height: 4),
-            Text(
-              '약물 복용 시간을 알려드립니다',
-              style: TextStyle(
-                fontSize: 13,
-                color: Theme.of(context)
-                    .colorScheme
-                    .onBackground
-                    .withOpacity(0.6),
-              ),
-            ),
-            const SizedBox(height: 16),
-            _buildAlarmItem(
-              emoji: '☕',
-              title: '아침 약물',
-              enabled: _breakfastMedicationEnabled,
-              time: _breakfastMedicationTime,
-              onToggle: (value) {
-                setState(() => _breakfastMedicationEnabled = value);
-                _saveSetting('alarm_breakfast_medication_enabled', value);
-              },
-              onTimeTap: () => _selectTime(
-                _breakfastMedicationTime,
-                (time) {
-                  setState(() => _breakfastMedicationTime = time);
-                  _saveSetting('alarm_breakfast_medication_hour', time.hour);
-                  _saveSetting('alarm_breakfast_medication_minute', time.minute);
-                },
-                title: '아침 약물 알림',
-                subtitle: '아침 약물 복용 시간을 설정하세요',
-              ),
-              color: AppTheme.medicationColor,
-            ),
-            const SizedBox(height: 12),
-            _buildAlarmItem(
-              emoji: '🍵',
-              title: '점심 약물',
-              enabled: _lunchMedicationEnabled,
-              time: _lunchMedicationTime,
-              onToggle: (value) {
-                setState(() => _lunchMedicationEnabled = value);
-                _saveSetting('alarm_lunch_medication_enabled', value);
-              },
-              onTimeTap: () => _selectTime(
-                _lunchMedicationTime,
-                (time) {
-                  setState(() => _lunchMedicationTime = time);
-                  _saveSetting('alarm_lunch_medication_hour', time.hour);
-                  _saveSetting('alarm_lunch_medication_minute', time.minute);
-                },
-                title: '점심 약물 알림',
-                subtitle: '점심 약물 복용 시간을 설정하세요',
-              ),
-              color: AppTheme.medicationColor,
-            ),
-            const SizedBox(height: 12),
-            _buildAlarmItem(
-              emoji: '🌃',
-              title: '저녁 약물',
-              enabled: _dinnerMedicationEnabled,
-              time: _dinnerMedicationTime,
-              onToggle: (value) {
-                setState(() => _dinnerMedicationEnabled = value);
-                _saveSetting('alarm_dinner_medication_enabled', value);
-              },
-              onTimeTap: () => _selectTime(
-                _dinnerMedicationTime,
-                (time) {
-                  setState(() => _dinnerMedicationTime = time);
-                  _saveSetting('alarm_dinner_medication_hour', time.hour);
-                  _saveSetting('alarm_dinner_medication_minute', time.minute);
-                },
-                title: '저녁 약물 알림',
-                subtitle: '저녁 약물 복용 시간을 설정하세요',
-              ),
-              color: AppTheme.medicationColor,
-            ),
-
-            const SizedBox(height: 32),
-
-            // 생활습관 알림 섹션
-            _buildSectionHeader(context, '🏃', '생활습관 알림'),
-            const SizedBox(height: 4),
-            Text(
-              '건강한 생활습관을 위한 알림',
-              style: TextStyle(
-                fontSize: 13,
-                color: Theme.of(context)
-                    .colorScheme
-                    .onBackground
-                    .withOpacity(0.6),
-              ),
-            ),
-            const SizedBox(height: 16),
-            _buildAlarmItem(
-              emoji: '😴',
-              title: '취침 시간',
-              enabled: _sleepEnabled,
-              time: _sleepTime,
-              onToggle: (value) {
-                setState(() => _sleepEnabled = value);
-                _saveSetting('alarm_sleep_enabled', value);
-              },
-              onTimeTap: () => _selectTime(
-                _sleepTime,
-                (time) {
-                  setState(() => _sleepTime = time);
-                  _saveSetting('alarm_sleep_hour', time.hour);
-                  _saveSetting('alarm_sleep_minute', time.minute);
-                },
-                title: '취침 시간 알림',
-                subtitle: '건강한 수면을 위한 시간을 설정하세요',
-              ),
-              color: AppTheme.lifestyleColor,
-            ),
-
-            const SizedBox(height: 20),
           ],
+        ),
+        body: BlocBuilder<AlarmBloc, AlarmState>(
+          builder: (context, state) {
+            if (state.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            return SingleChildScrollView(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // 권한 안내
+                  if (!state.hasPermission) _buildPermissionWarning(context),
+
+                  // 식사 알림 섹션
+                  _buildSectionHeader(context, '🍽️', '식사 알림'),
+                  const SizedBox(height: 4),
+                  Text(
+                    '식사 시간을 알려드립니다',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.6),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  _buildAlarmItem(
+                    context,
+                    state,
+                    type: AlarmType.breakfast,
+                    emoji: '🌅',
+                    title: '아침 식사',
+                    color: const Color(0xFFFF9800),
+                    timePickerTitle: '아침 식사 알림',
+                    timePickerSubtitle: '아침 식사 시간을 설정하세요',
+                  ),
+                  const SizedBox(height: 12),
+                  _buildAlarmItem(
+                    context,
+                    state,
+                    type: AlarmType.lunch,
+                    emoji: '☀️',
+                    title: '점심 식사',
+                    color: const Color(0xFF43A047),
+                    timePickerTitle: '점심 식사 알림',
+                    timePickerSubtitle: '점심 식사 시간을 설정하세요',
+                  ),
+                  const SizedBox(height: 12),
+                  _buildAlarmItem(
+                    context,
+                    state,
+                    type: AlarmType.dinner,
+                    emoji: '🌙',
+                    title: '저녁 식사',
+                    color: const Color(0xFF3949AB),
+                    timePickerTitle: '저녁 식사 알림',
+                    timePickerSubtitle: '저녁 식사 시간을 설정하세요',
+                  ),
+
+                  const SizedBox(height: 32),
+
+                  // 약물 알림 섹션
+                  _buildSectionHeader(context, '💊', '약물 복용 알림'),
+                  const SizedBox(height: 4),
+                  Text(
+                    '약물 복용 시간을 알려드립니다',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.6),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  _buildAlarmItem(
+                    context,
+                    state,
+                    type: AlarmType.morningMedicine,
+                    emoji: '☕',
+                    title: '아침 약물',
+                    color: AppTheme.medicationColor,
+                    timePickerTitle: '아침 약물 알림',
+                    timePickerSubtitle: '아침 약물 복용 시간을 설정하세요',
+                  ),
+                  const SizedBox(height: 12),
+                  _buildAlarmItem(
+                    context,
+                    state,
+                    type: AlarmType.lunchMedicine,
+                    emoji: '🍵',
+                    title: '점심 약물',
+                    color: AppTheme.medicationColor,
+                    timePickerTitle: '점심 약물 알림',
+                    timePickerSubtitle: '점심 약물 복용 시간을 설정하세요',
+                  ),
+                  const SizedBox(height: 12),
+                  _buildAlarmItem(
+                    context,
+                    state,
+                    type: AlarmType.dinnerMedicine,
+                    emoji: '🌃',
+                    title: '저녁 약물',
+                    color: AppTheme.medicationColor,
+                    timePickerTitle: '저녁 약물 알림',
+                    timePickerSubtitle: '저녁 약물 복용 시간을 설정하세요',
+                  ),
+
+                  const SizedBox(height: 32),
+
+                  // 생활습관 알림 섹션
+                  _buildSectionHeader(context, '🏃', '생활습관 알림'),
+                  const SizedBox(height: 4),
+                  Text(
+                    '건강한 생활습관을 위한 알림',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.6),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  _buildAlarmItem(
+                    context,
+                    state,
+                    type: AlarmType.bedtime,
+                    emoji: '😴',
+                    title: '취침 시간',
+                    color: AppTheme.lifestyleColor,
+                    timePickerTitle: '취침 시간 알림',
+                    timePickerSubtitle: '건강한 수면을 위한 시간을 설정하세요',
+                  ),
+
+                  const SizedBox(height: 20),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );
   }
 
+  Widget _buildPermissionWarning(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.orange.shade50,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.orange.shade200),
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.warning_amber_rounded, color: Colors.orange.shade700),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              '알림 권한이 필요합니다. 상단 아이콘을 눌러 권한을 허용해주세요.',
+              style: TextStyle(
+                fontSize: 13,
+                color: Colors.orange.shade900,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildSectionHeader(
-      BuildContext context, String emoji, String title) {
+    BuildContext context,
+    String emoji,
+    String title,
+  ) {
     return Row(
       children: [
         Text(emoji, style: const TextStyle(fontSize: 24)),
@@ -345,26 +263,32 @@ class _AlarmSettingsPageState extends State<AlarmSettingsPage> {
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: Theme.of(context).colorScheme.onBackground,
+            color: Theme.of(context).colorScheme.onSurface,
           ),
         ),
       ],
     );
   }
 
-  Widget _buildAlarmItem({
+  Widget _buildAlarmItem(
+    BuildContext context,
+    AlarmState state, {
+    required AlarmType type,
     required String emoji,
     required String title,
-    required bool enabled,
-    required TimeOfDay time,
-    required ValueChanged<bool> onToggle,
-    required VoidCallback onTimeTap,
     required Color color,
+    required String timePickerTitle,
+    required String timePickerSubtitle,
   }) {
-    final cardBgColor = Colors.white;
-    final borderColor = enabled
-        ? color.withValues(alpha: 0.3)
-        : Colors.grey.shade300;
+    final config = state.configs[type];
+    if (config == null) return const SizedBox.shrink();
+
+    final enabled = config.enabled;
+    final time = TimeOfDay(hour: config.hour, minute: config.minute);
+
+    const cardBgColor = Colors.white;
+    final borderColor =
+        enabled ? color.withValues(alpha: 0.3) : Colors.grey.shade300;
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -423,7 +347,13 @@ class _AlarmSettingsPageState extends State<AlarmSettingsPage> {
                 ),
                 const SizedBox(height: 4),
                 GestureDetector(
-                  onTap: onTimeTap,
+                  onTap: () => _selectTime(
+                    context,
+                    type,
+                    time,
+                    title: timePickerTitle,
+                    subtitle: timePickerSubtitle,
+                  ),
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 12,
@@ -436,7 +366,6 @@ class _AlarmSettingsPageState extends State<AlarmSettingsPage> {
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
                         color: enabled ? color : Colors.grey.shade300,
-                        width: 1,
                       ),
                     ),
                     child: Row(
@@ -465,8 +394,12 @@ class _AlarmSettingsPageState extends State<AlarmSettingsPage> {
           ),
           Switch(
             value: enabled,
-            onChanged: onToggle,
-            activeColor: color,
+            onChanged: (value) {
+              context.read<AlarmBloc>().add(
+                    AlarmEvent.toggleAlarm(type: type, enabled: value),
+                  );
+            },
+            activeThumbColor: color,
           ),
         ],
       ),
@@ -474,20 +407,27 @@ class _AlarmSettingsPageState extends State<AlarmSettingsPage> {
   }
 
   Future<void> _selectTime(
-    TimeOfDay currentTime,
-    ValueChanged<TimeOfDay> onTimeSelected, {
+    BuildContext context,
+    AlarmType type,
+    TimeOfDay currentTime, {
     String title = '시간 선택',
     String? subtitle,
   }) async {
-    final TimeOfDay? picked = await CustomTimePicker.show(
+    final picked = await CustomTimePicker.show(
       context: context,
       initialTime: currentTime,
       title: title,
       subtitle: subtitle,
     );
 
-    if (picked != null && picked != currentTime) {
-      onTimeSelected(picked);
+    if (picked != null && picked != currentTime && context.mounted) {
+      context.read<AlarmBloc>().add(
+            AlarmEvent.updateTime(
+              type: type,
+              hour: picked.hour,
+              minute: picked.minute,
+            ),
+          );
     }
   }
 }

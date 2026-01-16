@@ -95,17 +95,17 @@ class AppTheme {
   ];
 
   // === Border Radius ===
-  static const double radiusSmall = 8.0;
-  static const double radiusMedium = 12.0;
-  static const double radiusLarge = 16.0;
-  static const double radiusXLarge = 24.0;
+  static const double radiusSmall = 8;
+  static const double radiusMedium = 12;
+  static const double radiusLarge = 16;
+  static const double radiusXLarge = 24;
 
   // === Spacing ===
-  static const double spacingXS = 4.0;
-  static const double spacingS = 8.0;
-  static const double spacingM = 16.0;
-  static const double spacingL = 24.0;
-  static const double spacingXL = 32.0;
+  static const double spacingXS = 4;
+  static const double spacingS = 8;
+  static const double spacingM = 16;
+  static const double spacingL = 24;
+  static const double spacingXL = 32;
 
   // === ThemeData ===
   static ThemeData get lightTheme {
@@ -157,7 +157,8 @@ class AppTheme {
           borderRadius: BorderRadius.circular(radiusMedium),
           borderSide: BorderSide.none,
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: Colors.white,
