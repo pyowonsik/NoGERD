@@ -26,6 +26,9 @@ class Failure with _$Failure {
   /// 권한 관련 실패 (알림 권한 등)
   const factory Failure.permission(String message) = PermissionFailure;
 
+  /// 인증 실패 (로그인 필요)
+  const factory Failure.unauthorized(String message) = UnauthorizedFailure;
+
   /// 데이터 형식 오류
   const factory Failure.format(String message) = FormatFailure;
 }
@@ -41,6 +44,7 @@ extension FailureX on Failure {
       unexpected: (msg) => '예상치 못한 오류가 발생했습니다: $msg',
       cache: (msg) => '캐시 오류가 발생했습니다: $msg',
       permission: (msg) => '권한이 필요합니다: $msg',
+      unauthorized: (msg) => msg,
       format: (msg) => '데이터 형식 오류: $msg',
     );
   }

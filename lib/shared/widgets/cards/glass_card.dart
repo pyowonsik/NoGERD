@@ -53,6 +53,14 @@ class GlassCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final defaultBgColor = isDark
+        ? const Color(0xFF2C2C2C).withValues(alpha: 0.95)
+        : Colors.white.withValues(alpha: 0.9);
+    final borderColor = isDark
+        ? Colors.white.withValues(alpha: 0.1)
+        : Colors.white.withValues(alpha: 0.2);
+
     return Container(
       width: width,
       height: height,
@@ -71,11 +79,11 @@ class GlassCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   gradient: gradient,
                   color: gradient == null
-                      ? (backgroundColor ?? Colors.white.withValues(alpha: 0.9))
+                      ? (backgroundColor ?? defaultBgColor)
                       : null,
                   borderRadius: BorderRadius.circular(borderRadius),
                   border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.2),
+                    color: borderColor,
                     width: 1,
                   ),
                   boxShadow: AppTheme.cardShadow,

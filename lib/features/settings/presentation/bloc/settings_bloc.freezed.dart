@@ -19,12 +19,6 @@ mixin _$SettingsEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadSettings,
-    required TResult Function(bool enabled) updateDailyReminder,
-    required TResult Function(TimeOfDay time) updateReminderTime,
-    required TResult Function(bool enabled) updateMedicationReminder,
-    required TResult Function(bool enabled) updateDarkMode,
-    required TResult Function(String languageCode) updateLanguage,
-    required TResult Function() backupData,
     required TResult Function() exportData,
     required TResult Function() deleteAllData,
   }) =>
@@ -32,12 +26,6 @@ mixin _$SettingsEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadSettings,
-    TResult? Function(bool enabled)? updateDailyReminder,
-    TResult? Function(TimeOfDay time)? updateReminderTime,
-    TResult? Function(bool enabled)? updateMedicationReminder,
-    TResult? Function(bool enabled)? updateDarkMode,
-    TResult? Function(String languageCode)? updateLanguage,
-    TResult? Function()? backupData,
     TResult? Function()? exportData,
     TResult? Function()? deleteAllData,
   }) =>
@@ -45,12 +33,6 @@ mixin _$SettingsEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadSettings,
-    TResult Function(bool enabled)? updateDailyReminder,
-    TResult Function(TimeOfDay time)? updateReminderTime,
-    TResult Function(bool enabled)? updateMedicationReminder,
-    TResult Function(bool enabled)? updateDarkMode,
-    TResult Function(String languageCode)? updateLanguage,
-    TResult Function()? backupData,
     TResult Function()? exportData,
     TResult Function()? deleteAllData,
     required TResult orElse(),
@@ -59,15 +41,6 @@ mixin _$SettingsEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(SettingsEventLoadSettings value) loadSettings,
-    required TResult Function(SettingsEventUpdateDailyReminder value)
-        updateDailyReminder,
-    required TResult Function(SettingsEventUpdateReminderTime value)
-        updateReminderTime,
-    required TResult Function(SettingsEventUpdateMedicationReminder value)
-        updateMedicationReminder,
-    required TResult Function(SettingsEventUpdateDarkMode value) updateDarkMode,
-    required TResult Function(SettingsEventUpdateLanguage value) updateLanguage,
-    required TResult Function(SettingsEventBackupData value) backupData,
     required TResult Function(SettingsEventExportData value) exportData,
     required TResult Function(SettingsEventDeleteAllData value) deleteAllData,
   }) =>
@@ -75,15 +48,6 @@ mixin _$SettingsEvent {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(SettingsEventLoadSettings value)? loadSettings,
-    TResult? Function(SettingsEventUpdateDailyReminder value)?
-        updateDailyReminder,
-    TResult? Function(SettingsEventUpdateReminderTime value)?
-        updateReminderTime,
-    TResult? Function(SettingsEventUpdateMedicationReminder value)?
-        updateMedicationReminder,
-    TResult? Function(SettingsEventUpdateDarkMode value)? updateDarkMode,
-    TResult? Function(SettingsEventUpdateLanguage value)? updateLanguage,
-    TResult? Function(SettingsEventBackupData value)? backupData,
     TResult? Function(SettingsEventExportData value)? exportData,
     TResult? Function(SettingsEventDeleteAllData value)? deleteAllData,
   }) =>
@@ -91,14 +55,6 @@ mixin _$SettingsEvent {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(SettingsEventLoadSettings value)? loadSettings,
-    TResult Function(SettingsEventUpdateDailyReminder value)?
-        updateDailyReminder,
-    TResult Function(SettingsEventUpdateReminderTime value)? updateReminderTime,
-    TResult Function(SettingsEventUpdateMedicationReminder value)?
-        updateMedicationReminder,
-    TResult Function(SettingsEventUpdateDarkMode value)? updateDarkMode,
-    TResult Function(SettingsEventUpdateLanguage value)? updateLanguage,
-    TResult Function(SettingsEventBackupData value)? backupData,
     TResult Function(SettingsEventExportData value)? exportData,
     TResult Function(SettingsEventDeleteAllData value)? deleteAllData,
     required TResult orElse(),
@@ -166,12 +122,6 @@ class _$SettingsEventLoadSettingsImpl implements SettingsEventLoadSettings {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadSettings,
-    required TResult Function(bool enabled) updateDailyReminder,
-    required TResult Function(TimeOfDay time) updateReminderTime,
-    required TResult Function(bool enabled) updateMedicationReminder,
-    required TResult Function(bool enabled) updateDarkMode,
-    required TResult Function(String languageCode) updateLanguage,
-    required TResult Function() backupData,
     required TResult Function() exportData,
     required TResult Function() deleteAllData,
   }) {
@@ -182,12 +132,6 @@ class _$SettingsEventLoadSettingsImpl implements SettingsEventLoadSettings {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadSettings,
-    TResult? Function(bool enabled)? updateDailyReminder,
-    TResult? Function(TimeOfDay time)? updateReminderTime,
-    TResult? Function(bool enabled)? updateMedicationReminder,
-    TResult? Function(bool enabled)? updateDarkMode,
-    TResult? Function(String languageCode)? updateLanguage,
-    TResult? Function()? backupData,
     TResult? Function()? exportData,
     TResult? Function()? deleteAllData,
   }) {
@@ -198,12 +142,6 @@ class _$SettingsEventLoadSettingsImpl implements SettingsEventLoadSettings {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadSettings,
-    TResult Function(bool enabled)? updateDailyReminder,
-    TResult Function(TimeOfDay time)? updateReminderTime,
-    TResult Function(bool enabled)? updateMedicationReminder,
-    TResult Function(bool enabled)? updateDarkMode,
-    TResult Function(String languageCode)? updateLanguage,
-    TResult Function()? backupData,
     TResult Function()? exportData,
     TResult Function()? deleteAllData,
     required TResult orElse(),
@@ -218,15 +156,6 @@ class _$SettingsEventLoadSettingsImpl implements SettingsEventLoadSettings {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(SettingsEventLoadSettings value) loadSettings,
-    required TResult Function(SettingsEventUpdateDailyReminder value)
-        updateDailyReminder,
-    required TResult Function(SettingsEventUpdateReminderTime value)
-        updateReminderTime,
-    required TResult Function(SettingsEventUpdateMedicationReminder value)
-        updateMedicationReminder,
-    required TResult Function(SettingsEventUpdateDarkMode value) updateDarkMode,
-    required TResult Function(SettingsEventUpdateLanguage value) updateLanguage,
-    required TResult Function(SettingsEventBackupData value) backupData,
     required TResult Function(SettingsEventExportData value) exportData,
     required TResult Function(SettingsEventDeleteAllData value) deleteAllData,
   }) {
@@ -237,15 +166,6 @@ class _$SettingsEventLoadSettingsImpl implements SettingsEventLoadSettings {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(SettingsEventLoadSettings value)? loadSettings,
-    TResult? Function(SettingsEventUpdateDailyReminder value)?
-        updateDailyReminder,
-    TResult? Function(SettingsEventUpdateReminderTime value)?
-        updateReminderTime,
-    TResult? Function(SettingsEventUpdateMedicationReminder value)?
-        updateMedicationReminder,
-    TResult? Function(SettingsEventUpdateDarkMode value)? updateDarkMode,
-    TResult? Function(SettingsEventUpdateLanguage value)? updateLanguage,
-    TResult? Function(SettingsEventBackupData value)? backupData,
     TResult? Function(SettingsEventExportData value)? exportData,
     TResult? Function(SettingsEventDeleteAllData value)? deleteAllData,
   }) {
@@ -256,14 +176,6 @@ class _$SettingsEventLoadSettingsImpl implements SettingsEventLoadSettings {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(SettingsEventLoadSettings value)? loadSettings,
-    TResult Function(SettingsEventUpdateDailyReminder value)?
-        updateDailyReminder,
-    TResult Function(SettingsEventUpdateReminderTime value)? updateReminderTime,
-    TResult Function(SettingsEventUpdateMedicationReminder value)?
-        updateMedicationReminder,
-    TResult Function(SettingsEventUpdateDarkMode value)? updateDarkMode,
-    TResult Function(SettingsEventUpdateLanguage value)? updateLanguage,
-    TResult Function(SettingsEventBackupData value)? backupData,
     TResult Function(SettingsEventExportData value)? exportData,
     TResult Function(SettingsEventDeleteAllData value)? deleteAllData,
     required TResult orElse(),
@@ -277,1109 +189,6 @@ class _$SettingsEventLoadSettingsImpl implements SettingsEventLoadSettings {
 
 abstract class SettingsEventLoadSettings implements SettingsEvent {
   const factory SettingsEventLoadSettings() = _$SettingsEventLoadSettingsImpl;
-}
-
-/// @nodoc
-abstract class _$$SettingsEventUpdateDailyReminderImplCopyWith<$Res> {
-  factory _$$SettingsEventUpdateDailyReminderImplCopyWith(
-          _$SettingsEventUpdateDailyReminderImpl value,
-          $Res Function(_$SettingsEventUpdateDailyReminderImpl) then) =
-      __$$SettingsEventUpdateDailyReminderImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({bool enabled});
-}
-
-/// @nodoc
-class __$$SettingsEventUpdateDailyReminderImplCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res,
-        _$SettingsEventUpdateDailyReminderImpl>
-    implements _$$SettingsEventUpdateDailyReminderImplCopyWith<$Res> {
-  __$$SettingsEventUpdateDailyReminderImplCopyWithImpl(
-      _$SettingsEventUpdateDailyReminderImpl _value,
-      $Res Function(_$SettingsEventUpdateDailyReminderImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? enabled = null,
-  }) {
-    return _then(_$SettingsEventUpdateDailyReminderImpl(
-      null == enabled
-          ? _value.enabled
-          : enabled // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$SettingsEventUpdateDailyReminderImpl
-    implements SettingsEventUpdateDailyReminder {
-  const _$SettingsEventUpdateDailyReminderImpl(this.enabled);
-
-  @override
-  final bool enabled;
-
-  @override
-  String toString() {
-    return 'SettingsEvent.updateDailyReminder(enabled: $enabled)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SettingsEventUpdateDailyReminderImpl &&
-            (identical(other.enabled, enabled) || other.enabled == enabled));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, enabled);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SettingsEventUpdateDailyReminderImplCopyWith<
-          _$SettingsEventUpdateDailyReminderImpl>
-      get copyWith => __$$SettingsEventUpdateDailyReminderImplCopyWithImpl<
-          _$SettingsEventUpdateDailyReminderImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() loadSettings,
-    required TResult Function(bool enabled) updateDailyReminder,
-    required TResult Function(TimeOfDay time) updateReminderTime,
-    required TResult Function(bool enabled) updateMedicationReminder,
-    required TResult Function(bool enabled) updateDarkMode,
-    required TResult Function(String languageCode) updateLanguage,
-    required TResult Function() backupData,
-    required TResult Function() exportData,
-    required TResult Function() deleteAllData,
-  }) {
-    return updateDailyReminder(enabled);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadSettings,
-    TResult? Function(bool enabled)? updateDailyReminder,
-    TResult? Function(TimeOfDay time)? updateReminderTime,
-    TResult? Function(bool enabled)? updateMedicationReminder,
-    TResult? Function(bool enabled)? updateDarkMode,
-    TResult? Function(String languageCode)? updateLanguage,
-    TResult? Function()? backupData,
-    TResult? Function()? exportData,
-    TResult? Function()? deleteAllData,
-  }) {
-    return updateDailyReminder?.call(enabled);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadSettings,
-    TResult Function(bool enabled)? updateDailyReminder,
-    TResult Function(TimeOfDay time)? updateReminderTime,
-    TResult Function(bool enabled)? updateMedicationReminder,
-    TResult Function(bool enabled)? updateDarkMode,
-    TResult Function(String languageCode)? updateLanguage,
-    TResult Function()? backupData,
-    TResult Function()? exportData,
-    TResult Function()? deleteAllData,
-    required TResult orElse(),
-  }) {
-    if (updateDailyReminder != null) {
-      return updateDailyReminder(enabled);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(SettingsEventLoadSettings value) loadSettings,
-    required TResult Function(SettingsEventUpdateDailyReminder value)
-        updateDailyReminder,
-    required TResult Function(SettingsEventUpdateReminderTime value)
-        updateReminderTime,
-    required TResult Function(SettingsEventUpdateMedicationReminder value)
-        updateMedicationReminder,
-    required TResult Function(SettingsEventUpdateDarkMode value) updateDarkMode,
-    required TResult Function(SettingsEventUpdateLanguage value) updateLanguage,
-    required TResult Function(SettingsEventBackupData value) backupData,
-    required TResult Function(SettingsEventExportData value) exportData,
-    required TResult Function(SettingsEventDeleteAllData value) deleteAllData,
-  }) {
-    return updateDailyReminder(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SettingsEventLoadSettings value)? loadSettings,
-    TResult? Function(SettingsEventUpdateDailyReminder value)?
-        updateDailyReminder,
-    TResult? Function(SettingsEventUpdateReminderTime value)?
-        updateReminderTime,
-    TResult? Function(SettingsEventUpdateMedicationReminder value)?
-        updateMedicationReminder,
-    TResult? Function(SettingsEventUpdateDarkMode value)? updateDarkMode,
-    TResult? Function(SettingsEventUpdateLanguage value)? updateLanguage,
-    TResult? Function(SettingsEventBackupData value)? backupData,
-    TResult? Function(SettingsEventExportData value)? exportData,
-    TResult? Function(SettingsEventDeleteAllData value)? deleteAllData,
-  }) {
-    return updateDailyReminder?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(SettingsEventLoadSettings value)? loadSettings,
-    TResult Function(SettingsEventUpdateDailyReminder value)?
-        updateDailyReminder,
-    TResult Function(SettingsEventUpdateReminderTime value)? updateReminderTime,
-    TResult Function(SettingsEventUpdateMedicationReminder value)?
-        updateMedicationReminder,
-    TResult Function(SettingsEventUpdateDarkMode value)? updateDarkMode,
-    TResult Function(SettingsEventUpdateLanguage value)? updateLanguage,
-    TResult Function(SettingsEventBackupData value)? backupData,
-    TResult Function(SettingsEventExportData value)? exportData,
-    TResult Function(SettingsEventDeleteAllData value)? deleteAllData,
-    required TResult orElse(),
-  }) {
-    if (updateDailyReminder != null) {
-      return updateDailyReminder(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class SettingsEventUpdateDailyReminder implements SettingsEvent {
-  const factory SettingsEventUpdateDailyReminder(final bool enabled) =
-      _$SettingsEventUpdateDailyReminderImpl;
-
-  bool get enabled;
-  @JsonKey(ignore: true)
-  _$$SettingsEventUpdateDailyReminderImplCopyWith<
-          _$SettingsEventUpdateDailyReminderImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$SettingsEventUpdateReminderTimeImplCopyWith<$Res> {
-  factory _$$SettingsEventUpdateReminderTimeImplCopyWith(
-          _$SettingsEventUpdateReminderTimeImpl value,
-          $Res Function(_$SettingsEventUpdateReminderTimeImpl) then) =
-      __$$SettingsEventUpdateReminderTimeImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({TimeOfDay time});
-}
-
-/// @nodoc
-class __$$SettingsEventUpdateReminderTimeImplCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res,
-        _$SettingsEventUpdateReminderTimeImpl>
-    implements _$$SettingsEventUpdateReminderTimeImplCopyWith<$Res> {
-  __$$SettingsEventUpdateReminderTimeImplCopyWithImpl(
-      _$SettingsEventUpdateReminderTimeImpl _value,
-      $Res Function(_$SettingsEventUpdateReminderTimeImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? time = null,
-  }) {
-    return _then(_$SettingsEventUpdateReminderTimeImpl(
-      null == time
-          ? _value.time
-          : time // ignore: cast_nullable_to_non_nullable
-              as TimeOfDay,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$SettingsEventUpdateReminderTimeImpl
-    implements SettingsEventUpdateReminderTime {
-  const _$SettingsEventUpdateReminderTimeImpl(this.time);
-
-  @override
-  final TimeOfDay time;
-
-  @override
-  String toString() {
-    return 'SettingsEvent.updateReminderTime(time: $time)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SettingsEventUpdateReminderTimeImpl &&
-            (identical(other.time, time) || other.time == time));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, time);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SettingsEventUpdateReminderTimeImplCopyWith<
-          _$SettingsEventUpdateReminderTimeImpl>
-      get copyWith => __$$SettingsEventUpdateReminderTimeImplCopyWithImpl<
-          _$SettingsEventUpdateReminderTimeImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() loadSettings,
-    required TResult Function(bool enabled) updateDailyReminder,
-    required TResult Function(TimeOfDay time) updateReminderTime,
-    required TResult Function(bool enabled) updateMedicationReminder,
-    required TResult Function(bool enabled) updateDarkMode,
-    required TResult Function(String languageCode) updateLanguage,
-    required TResult Function() backupData,
-    required TResult Function() exportData,
-    required TResult Function() deleteAllData,
-  }) {
-    return updateReminderTime(time);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadSettings,
-    TResult? Function(bool enabled)? updateDailyReminder,
-    TResult? Function(TimeOfDay time)? updateReminderTime,
-    TResult? Function(bool enabled)? updateMedicationReminder,
-    TResult? Function(bool enabled)? updateDarkMode,
-    TResult? Function(String languageCode)? updateLanguage,
-    TResult? Function()? backupData,
-    TResult? Function()? exportData,
-    TResult? Function()? deleteAllData,
-  }) {
-    return updateReminderTime?.call(time);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadSettings,
-    TResult Function(bool enabled)? updateDailyReminder,
-    TResult Function(TimeOfDay time)? updateReminderTime,
-    TResult Function(bool enabled)? updateMedicationReminder,
-    TResult Function(bool enabled)? updateDarkMode,
-    TResult Function(String languageCode)? updateLanguage,
-    TResult Function()? backupData,
-    TResult Function()? exportData,
-    TResult Function()? deleteAllData,
-    required TResult orElse(),
-  }) {
-    if (updateReminderTime != null) {
-      return updateReminderTime(time);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(SettingsEventLoadSettings value) loadSettings,
-    required TResult Function(SettingsEventUpdateDailyReminder value)
-        updateDailyReminder,
-    required TResult Function(SettingsEventUpdateReminderTime value)
-        updateReminderTime,
-    required TResult Function(SettingsEventUpdateMedicationReminder value)
-        updateMedicationReminder,
-    required TResult Function(SettingsEventUpdateDarkMode value) updateDarkMode,
-    required TResult Function(SettingsEventUpdateLanguage value) updateLanguage,
-    required TResult Function(SettingsEventBackupData value) backupData,
-    required TResult Function(SettingsEventExportData value) exportData,
-    required TResult Function(SettingsEventDeleteAllData value) deleteAllData,
-  }) {
-    return updateReminderTime(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SettingsEventLoadSettings value)? loadSettings,
-    TResult? Function(SettingsEventUpdateDailyReminder value)?
-        updateDailyReminder,
-    TResult? Function(SettingsEventUpdateReminderTime value)?
-        updateReminderTime,
-    TResult? Function(SettingsEventUpdateMedicationReminder value)?
-        updateMedicationReminder,
-    TResult? Function(SettingsEventUpdateDarkMode value)? updateDarkMode,
-    TResult? Function(SettingsEventUpdateLanguage value)? updateLanguage,
-    TResult? Function(SettingsEventBackupData value)? backupData,
-    TResult? Function(SettingsEventExportData value)? exportData,
-    TResult? Function(SettingsEventDeleteAllData value)? deleteAllData,
-  }) {
-    return updateReminderTime?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(SettingsEventLoadSettings value)? loadSettings,
-    TResult Function(SettingsEventUpdateDailyReminder value)?
-        updateDailyReminder,
-    TResult Function(SettingsEventUpdateReminderTime value)? updateReminderTime,
-    TResult Function(SettingsEventUpdateMedicationReminder value)?
-        updateMedicationReminder,
-    TResult Function(SettingsEventUpdateDarkMode value)? updateDarkMode,
-    TResult Function(SettingsEventUpdateLanguage value)? updateLanguage,
-    TResult Function(SettingsEventBackupData value)? backupData,
-    TResult Function(SettingsEventExportData value)? exportData,
-    TResult Function(SettingsEventDeleteAllData value)? deleteAllData,
-    required TResult orElse(),
-  }) {
-    if (updateReminderTime != null) {
-      return updateReminderTime(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class SettingsEventUpdateReminderTime implements SettingsEvent {
-  const factory SettingsEventUpdateReminderTime(final TimeOfDay time) =
-      _$SettingsEventUpdateReminderTimeImpl;
-
-  TimeOfDay get time;
-  @JsonKey(ignore: true)
-  _$$SettingsEventUpdateReminderTimeImplCopyWith<
-          _$SettingsEventUpdateReminderTimeImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$SettingsEventUpdateMedicationReminderImplCopyWith<$Res> {
-  factory _$$SettingsEventUpdateMedicationReminderImplCopyWith(
-          _$SettingsEventUpdateMedicationReminderImpl value,
-          $Res Function(_$SettingsEventUpdateMedicationReminderImpl) then) =
-      __$$SettingsEventUpdateMedicationReminderImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({bool enabled});
-}
-
-/// @nodoc
-class __$$SettingsEventUpdateMedicationReminderImplCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res,
-        _$SettingsEventUpdateMedicationReminderImpl>
-    implements _$$SettingsEventUpdateMedicationReminderImplCopyWith<$Res> {
-  __$$SettingsEventUpdateMedicationReminderImplCopyWithImpl(
-      _$SettingsEventUpdateMedicationReminderImpl _value,
-      $Res Function(_$SettingsEventUpdateMedicationReminderImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? enabled = null,
-  }) {
-    return _then(_$SettingsEventUpdateMedicationReminderImpl(
-      null == enabled
-          ? _value.enabled
-          : enabled // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$SettingsEventUpdateMedicationReminderImpl
-    implements SettingsEventUpdateMedicationReminder {
-  const _$SettingsEventUpdateMedicationReminderImpl(this.enabled);
-
-  @override
-  final bool enabled;
-
-  @override
-  String toString() {
-    return 'SettingsEvent.updateMedicationReminder(enabled: $enabled)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SettingsEventUpdateMedicationReminderImpl &&
-            (identical(other.enabled, enabled) || other.enabled == enabled));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, enabled);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SettingsEventUpdateMedicationReminderImplCopyWith<
-          _$SettingsEventUpdateMedicationReminderImpl>
-      get copyWith => __$$SettingsEventUpdateMedicationReminderImplCopyWithImpl<
-          _$SettingsEventUpdateMedicationReminderImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() loadSettings,
-    required TResult Function(bool enabled) updateDailyReminder,
-    required TResult Function(TimeOfDay time) updateReminderTime,
-    required TResult Function(bool enabled) updateMedicationReminder,
-    required TResult Function(bool enabled) updateDarkMode,
-    required TResult Function(String languageCode) updateLanguage,
-    required TResult Function() backupData,
-    required TResult Function() exportData,
-    required TResult Function() deleteAllData,
-  }) {
-    return updateMedicationReminder(enabled);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadSettings,
-    TResult? Function(bool enabled)? updateDailyReminder,
-    TResult? Function(TimeOfDay time)? updateReminderTime,
-    TResult? Function(bool enabled)? updateMedicationReminder,
-    TResult? Function(bool enabled)? updateDarkMode,
-    TResult? Function(String languageCode)? updateLanguage,
-    TResult? Function()? backupData,
-    TResult? Function()? exportData,
-    TResult? Function()? deleteAllData,
-  }) {
-    return updateMedicationReminder?.call(enabled);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadSettings,
-    TResult Function(bool enabled)? updateDailyReminder,
-    TResult Function(TimeOfDay time)? updateReminderTime,
-    TResult Function(bool enabled)? updateMedicationReminder,
-    TResult Function(bool enabled)? updateDarkMode,
-    TResult Function(String languageCode)? updateLanguage,
-    TResult Function()? backupData,
-    TResult Function()? exportData,
-    TResult Function()? deleteAllData,
-    required TResult orElse(),
-  }) {
-    if (updateMedicationReminder != null) {
-      return updateMedicationReminder(enabled);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(SettingsEventLoadSettings value) loadSettings,
-    required TResult Function(SettingsEventUpdateDailyReminder value)
-        updateDailyReminder,
-    required TResult Function(SettingsEventUpdateReminderTime value)
-        updateReminderTime,
-    required TResult Function(SettingsEventUpdateMedicationReminder value)
-        updateMedicationReminder,
-    required TResult Function(SettingsEventUpdateDarkMode value) updateDarkMode,
-    required TResult Function(SettingsEventUpdateLanguage value) updateLanguage,
-    required TResult Function(SettingsEventBackupData value) backupData,
-    required TResult Function(SettingsEventExportData value) exportData,
-    required TResult Function(SettingsEventDeleteAllData value) deleteAllData,
-  }) {
-    return updateMedicationReminder(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SettingsEventLoadSettings value)? loadSettings,
-    TResult? Function(SettingsEventUpdateDailyReminder value)?
-        updateDailyReminder,
-    TResult? Function(SettingsEventUpdateReminderTime value)?
-        updateReminderTime,
-    TResult? Function(SettingsEventUpdateMedicationReminder value)?
-        updateMedicationReminder,
-    TResult? Function(SettingsEventUpdateDarkMode value)? updateDarkMode,
-    TResult? Function(SettingsEventUpdateLanguage value)? updateLanguage,
-    TResult? Function(SettingsEventBackupData value)? backupData,
-    TResult? Function(SettingsEventExportData value)? exportData,
-    TResult? Function(SettingsEventDeleteAllData value)? deleteAllData,
-  }) {
-    return updateMedicationReminder?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(SettingsEventLoadSettings value)? loadSettings,
-    TResult Function(SettingsEventUpdateDailyReminder value)?
-        updateDailyReminder,
-    TResult Function(SettingsEventUpdateReminderTime value)? updateReminderTime,
-    TResult Function(SettingsEventUpdateMedicationReminder value)?
-        updateMedicationReminder,
-    TResult Function(SettingsEventUpdateDarkMode value)? updateDarkMode,
-    TResult Function(SettingsEventUpdateLanguage value)? updateLanguage,
-    TResult Function(SettingsEventBackupData value)? backupData,
-    TResult Function(SettingsEventExportData value)? exportData,
-    TResult Function(SettingsEventDeleteAllData value)? deleteAllData,
-    required TResult orElse(),
-  }) {
-    if (updateMedicationReminder != null) {
-      return updateMedicationReminder(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class SettingsEventUpdateMedicationReminder implements SettingsEvent {
-  const factory SettingsEventUpdateMedicationReminder(final bool enabled) =
-      _$SettingsEventUpdateMedicationReminderImpl;
-
-  bool get enabled;
-  @JsonKey(ignore: true)
-  _$$SettingsEventUpdateMedicationReminderImplCopyWith<
-          _$SettingsEventUpdateMedicationReminderImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$SettingsEventUpdateDarkModeImplCopyWith<$Res> {
-  factory _$$SettingsEventUpdateDarkModeImplCopyWith(
-          _$SettingsEventUpdateDarkModeImpl value,
-          $Res Function(_$SettingsEventUpdateDarkModeImpl) then) =
-      __$$SettingsEventUpdateDarkModeImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({bool enabled});
-}
-
-/// @nodoc
-class __$$SettingsEventUpdateDarkModeImplCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res, _$SettingsEventUpdateDarkModeImpl>
-    implements _$$SettingsEventUpdateDarkModeImplCopyWith<$Res> {
-  __$$SettingsEventUpdateDarkModeImplCopyWithImpl(
-      _$SettingsEventUpdateDarkModeImpl _value,
-      $Res Function(_$SettingsEventUpdateDarkModeImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? enabled = null,
-  }) {
-    return _then(_$SettingsEventUpdateDarkModeImpl(
-      null == enabled
-          ? _value.enabled
-          : enabled // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$SettingsEventUpdateDarkModeImpl implements SettingsEventUpdateDarkMode {
-  const _$SettingsEventUpdateDarkModeImpl(this.enabled);
-
-  @override
-  final bool enabled;
-
-  @override
-  String toString() {
-    return 'SettingsEvent.updateDarkMode(enabled: $enabled)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SettingsEventUpdateDarkModeImpl &&
-            (identical(other.enabled, enabled) || other.enabled == enabled));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, enabled);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SettingsEventUpdateDarkModeImplCopyWith<_$SettingsEventUpdateDarkModeImpl>
-      get copyWith => __$$SettingsEventUpdateDarkModeImplCopyWithImpl<
-          _$SettingsEventUpdateDarkModeImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() loadSettings,
-    required TResult Function(bool enabled) updateDailyReminder,
-    required TResult Function(TimeOfDay time) updateReminderTime,
-    required TResult Function(bool enabled) updateMedicationReminder,
-    required TResult Function(bool enabled) updateDarkMode,
-    required TResult Function(String languageCode) updateLanguage,
-    required TResult Function() backupData,
-    required TResult Function() exportData,
-    required TResult Function() deleteAllData,
-  }) {
-    return updateDarkMode(enabled);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadSettings,
-    TResult? Function(bool enabled)? updateDailyReminder,
-    TResult? Function(TimeOfDay time)? updateReminderTime,
-    TResult? Function(bool enabled)? updateMedicationReminder,
-    TResult? Function(bool enabled)? updateDarkMode,
-    TResult? Function(String languageCode)? updateLanguage,
-    TResult? Function()? backupData,
-    TResult? Function()? exportData,
-    TResult? Function()? deleteAllData,
-  }) {
-    return updateDarkMode?.call(enabled);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadSettings,
-    TResult Function(bool enabled)? updateDailyReminder,
-    TResult Function(TimeOfDay time)? updateReminderTime,
-    TResult Function(bool enabled)? updateMedicationReminder,
-    TResult Function(bool enabled)? updateDarkMode,
-    TResult Function(String languageCode)? updateLanguage,
-    TResult Function()? backupData,
-    TResult Function()? exportData,
-    TResult Function()? deleteAllData,
-    required TResult orElse(),
-  }) {
-    if (updateDarkMode != null) {
-      return updateDarkMode(enabled);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(SettingsEventLoadSettings value) loadSettings,
-    required TResult Function(SettingsEventUpdateDailyReminder value)
-        updateDailyReminder,
-    required TResult Function(SettingsEventUpdateReminderTime value)
-        updateReminderTime,
-    required TResult Function(SettingsEventUpdateMedicationReminder value)
-        updateMedicationReminder,
-    required TResult Function(SettingsEventUpdateDarkMode value) updateDarkMode,
-    required TResult Function(SettingsEventUpdateLanguage value) updateLanguage,
-    required TResult Function(SettingsEventBackupData value) backupData,
-    required TResult Function(SettingsEventExportData value) exportData,
-    required TResult Function(SettingsEventDeleteAllData value) deleteAllData,
-  }) {
-    return updateDarkMode(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SettingsEventLoadSettings value)? loadSettings,
-    TResult? Function(SettingsEventUpdateDailyReminder value)?
-        updateDailyReminder,
-    TResult? Function(SettingsEventUpdateReminderTime value)?
-        updateReminderTime,
-    TResult? Function(SettingsEventUpdateMedicationReminder value)?
-        updateMedicationReminder,
-    TResult? Function(SettingsEventUpdateDarkMode value)? updateDarkMode,
-    TResult? Function(SettingsEventUpdateLanguage value)? updateLanguage,
-    TResult? Function(SettingsEventBackupData value)? backupData,
-    TResult? Function(SettingsEventExportData value)? exportData,
-    TResult? Function(SettingsEventDeleteAllData value)? deleteAllData,
-  }) {
-    return updateDarkMode?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(SettingsEventLoadSettings value)? loadSettings,
-    TResult Function(SettingsEventUpdateDailyReminder value)?
-        updateDailyReminder,
-    TResult Function(SettingsEventUpdateReminderTime value)? updateReminderTime,
-    TResult Function(SettingsEventUpdateMedicationReminder value)?
-        updateMedicationReminder,
-    TResult Function(SettingsEventUpdateDarkMode value)? updateDarkMode,
-    TResult Function(SettingsEventUpdateLanguage value)? updateLanguage,
-    TResult Function(SettingsEventBackupData value)? backupData,
-    TResult Function(SettingsEventExportData value)? exportData,
-    TResult Function(SettingsEventDeleteAllData value)? deleteAllData,
-    required TResult orElse(),
-  }) {
-    if (updateDarkMode != null) {
-      return updateDarkMode(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class SettingsEventUpdateDarkMode implements SettingsEvent {
-  const factory SettingsEventUpdateDarkMode(final bool enabled) =
-      _$SettingsEventUpdateDarkModeImpl;
-
-  bool get enabled;
-  @JsonKey(ignore: true)
-  _$$SettingsEventUpdateDarkModeImplCopyWith<_$SettingsEventUpdateDarkModeImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$SettingsEventUpdateLanguageImplCopyWith<$Res> {
-  factory _$$SettingsEventUpdateLanguageImplCopyWith(
-          _$SettingsEventUpdateLanguageImpl value,
-          $Res Function(_$SettingsEventUpdateLanguageImpl) then) =
-      __$$SettingsEventUpdateLanguageImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({String languageCode});
-}
-
-/// @nodoc
-class __$$SettingsEventUpdateLanguageImplCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res, _$SettingsEventUpdateLanguageImpl>
-    implements _$$SettingsEventUpdateLanguageImplCopyWith<$Res> {
-  __$$SettingsEventUpdateLanguageImplCopyWithImpl(
-      _$SettingsEventUpdateLanguageImpl _value,
-      $Res Function(_$SettingsEventUpdateLanguageImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? languageCode = null,
-  }) {
-    return _then(_$SettingsEventUpdateLanguageImpl(
-      null == languageCode
-          ? _value.languageCode
-          : languageCode // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$SettingsEventUpdateLanguageImpl implements SettingsEventUpdateLanguage {
-  const _$SettingsEventUpdateLanguageImpl(this.languageCode);
-
-  @override
-  final String languageCode;
-
-  @override
-  String toString() {
-    return 'SettingsEvent.updateLanguage(languageCode: $languageCode)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SettingsEventUpdateLanguageImpl &&
-            (identical(other.languageCode, languageCode) ||
-                other.languageCode == languageCode));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, languageCode);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SettingsEventUpdateLanguageImplCopyWith<_$SettingsEventUpdateLanguageImpl>
-      get copyWith => __$$SettingsEventUpdateLanguageImplCopyWithImpl<
-          _$SettingsEventUpdateLanguageImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() loadSettings,
-    required TResult Function(bool enabled) updateDailyReminder,
-    required TResult Function(TimeOfDay time) updateReminderTime,
-    required TResult Function(bool enabled) updateMedicationReminder,
-    required TResult Function(bool enabled) updateDarkMode,
-    required TResult Function(String languageCode) updateLanguage,
-    required TResult Function() backupData,
-    required TResult Function() exportData,
-    required TResult Function() deleteAllData,
-  }) {
-    return updateLanguage(languageCode);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadSettings,
-    TResult? Function(bool enabled)? updateDailyReminder,
-    TResult? Function(TimeOfDay time)? updateReminderTime,
-    TResult? Function(bool enabled)? updateMedicationReminder,
-    TResult? Function(bool enabled)? updateDarkMode,
-    TResult? Function(String languageCode)? updateLanguage,
-    TResult? Function()? backupData,
-    TResult? Function()? exportData,
-    TResult? Function()? deleteAllData,
-  }) {
-    return updateLanguage?.call(languageCode);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadSettings,
-    TResult Function(bool enabled)? updateDailyReminder,
-    TResult Function(TimeOfDay time)? updateReminderTime,
-    TResult Function(bool enabled)? updateMedicationReminder,
-    TResult Function(bool enabled)? updateDarkMode,
-    TResult Function(String languageCode)? updateLanguage,
-    TResult Function()? backupData,
-    TResult Function()? exportData,
-    TResult Function()? deleteAllData,
-    required TResult orElse(),
-  }) {
-    if (updateLanguage != null) {
-      return updateLanguage(languageCode);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(SettingsEventLoadSettings value) loadSettings,
-    required TResult Function(SettingsEventUpdateDailyReminder value)
-        updateDailyReminder,
-    required TResult Function(SettingsEventUpdateReminderTime value)
-        updateReminderTime,
-    required TResult Function(SettingsEventUpdateMedicationReminder value)
-        updateMedicationReminder,
-    required TResult Function(SettingsEventUpdateDarkMode value) updateDarkMode,
-    required TResult Function(SettingsEventUpdateLanguage value) updateLanguage,
-    required TResult Function(SettingsEventBackupData value) backupData,
-    required TResult Function(SettingsEventExportData value) exportData,
-    required TResult Function(SettingsEventDeleteAllData value) deleteAllData,
-  }) {
-    return updateLanguage(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SettingsEventLoadSettings value)? loadSettings,
-    TResult? Function(SettingsEventUpdateDailyReminder value)?
-        updateDailyReminder,
-    TResult? Function(SettingsEventUpdateReminderTime value)?
-        updateReminderTime,
-    TResult? Function(SettingsEventUpdateMedicationReminder value)?
-        updateMedicationReminder,
-    TResult? Function(SettingsEventUpdateDarkMode value)? updateDarkMode,
-    TResult? Function(SettingsEventUpdateLanguage value)? updateLanguage,
-    TResult? Function(SettingsEventBackupData value)? backupData,
-    TResult? Function(SettingsEventExportData value)? exportData,
-    TResult? Function(SettingsEventDeleteAllData value)? deleteAllData,
-  }) {
-    return updateLanguage?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(SettingsEventLoadSettings value)? loadSettings,
-    TResult Function(SettingsEventUpdateDailyReminder value)?
-        updateDailyReminder,
-    TResult Function(SettingsEventUpdateReminderTime value)? updateReminderTime,
-    TResult Function(SettingsEventUpdateMedicationReminder value)?
-        updateMedicationReminder,
-    TResult Function(SettingsEventUpdateDarkMode value)? updateDarkMode,
-    TResult Function(SettingsEventUpdateLanguage value)? updateLanguage,
-    TResult Function(SettingsEventBackupData value)? backupData,
-    TResult Function(SettingsEventExportData value)? exportData,
-    TResult Function(SettingsEventDeleteAllData value)? deleteAllData,
-    required TResult orElse(),
-  }) {
-    if (updateLanguage != null) {
-      return updateLanguage(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class SettingsEventUpdateLanguage implements SettingsEvent {
-  const factory SettingsEventUpdateLanguage(final String languageCode) =
-      _$SettingsEventUpdateLanguageImpl;
-
-  String get languageCode;
-  @JsonKey(ignore: true)
-  _$$SettingsEventUpdateLanguageImplCopyWith<_$SettingsEventUpdateLanguageImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$SettingsEventBackupDataImplCopyWith<$Res> {
-  factory _$$SettingsEventBackupDataImplCopyWith(
-          _$SettingsEventBackupDataImpl value,
-          $Res Function(_$SettingsEventBackupDataImpl) then) =
-      __$$SettingsEventBackupDataImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$SettingsEventBackupDataImplCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res, _$SettingsEventBackupDataImpl>
-    implements _$$SettingsEventBackupDataImplCopyWith<$Res> {
-  __$$SettingsEventBackupDataImplCopyWithImpl(
-      _$SettingsEventBackupDataImpl _value,
-      $Res Function(_$SettingsEventBackupDataImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-
-class _$SettingsEventBackupDataImpl implements SettingsEventBackupData {
-  const _$SettingsEventBackupDataImpl();
-
-  @override
-  String toString() {
-    return 'SettingsEvent.backupData()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SettingsEventBackupDataImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() loadSettings,
-    required TResult Function(bool enabled) updateDailyReminder,
-    required TResult Function(TimeOfDay time) updateReminderTime,
-    required TResult Function(bool enabled) updateMedicationReminder,
-    required TResult Function(bool enabled) updateDarkMode,
-    required TResult Function(String languageCode) updateLanguage,
-    required TResult Function() backupData,
-    required TResult Function() exportData,
-    required TResult Function() deleteAllData,
-  }) {
-    return backupData();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? loadSettings,
-    TResult? Function(bool enabled)? updateDailyReminder,
-    TResult? Function(TimeOfDay time)? updateReminderTime,
-    TResult? Function(bool enabled)? updateMedicationReminder,
-    TResult? Function(bool enabled)? updateDarkMode,
-    TResult? Function(String languageCode)? updateLanguage,
-    TResult? Function()? backupData,
-    TResult? Function()? exportData,
-    TResult? Function()? deleteAllData,
-  }) {
-    return backupData?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? loadSettings,
-    TResult Function(bool enabled)? updateDailyReminder,
-    TResult Function(TimeOfDay time)? updateReminderTime,
-    TResult Function(bool enabled)? updateMedicationReminder,
-    TResult Function(bool enabled)? updateDarkMode,
-    TResult Function(String languageCode)? updateLanguage,
-    TResult Function()? backupData,
-    TResult Function()? exportData,
-    TResult Function()? deleteAllData,
-    required TResult orElse(),
-  }) {
-    if (backupData != null) {
-      return backupData();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(SettingsEventLoadSettings value) loadSettings,
-    required TResult Function(SettingsEventUpdateDailyReminder value)
-        updateDailyReminder,
-    required TResult Function(SettingsEventUpdateReminderTime value)
-        updateReminderTime,
-    required TResult Function(SettingsEventUpdateMedicationReminder value)
-        updateMedicationReminder,
-    required TResult Function(SettingsEventUpdateDarkMode value) updateDarkMode,
-    required TResult Function(SettingsEventUpdateLanguage value) updateLanguage,
-    required TResult Function(SettingsEventBackupData value) backupData,
-    required TResult Function(SettingsEventExportData value) exportData,
-    required TResult Function(SettingsEventDeleteAllData value) deleteAllData,
-  }) {
-    return backupData(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(SettingsEventLoadSettings value)? loadSettings,
-    TResult? Function(SettingsEventUpdateDailyReminder value)?
-        updateDailyReminder,
-    TResult? Function(SettingsEventUpdateReminderTime value)?
-        updateReminderTime,
-    TResult? Function(SettingsEventUpdateMedicationReminder value)?
-        updateMedicationReminder,
-    TResult? Function(SettingsEventUpdateDarkMode value)? updateDarkMode,
-    TResult? Function(SettingsEventUpdateLanguage value)? updateLanguage,
-    TResult? Function(SettingsEventBackupData value)? backupData,
-    TResult? Function(SettingsEventExportData value)? exportData,
-    TResult? Function(SettingsEventDeleteAllData value)? deleteAllData,
-  }) {
-    return backupData?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(SettingsEventLoadSettings value)? loadSettings,
-    TResult Function(SettingsEventUpdateDailyReminder value)?
-        updateDailyReminder,
-    TResult Function(SettingsEventUpdateReminderTime value)? updateReminderTime,
-    TResult Function(SettingsEventUpdateMedicationReminder value)?
-        updateMedicationReminder,
-    TResult Function(SettingsEventUpdateDarkMode value)? updateDarkMode,
-    TResult Function(SettingsEventUpdateLanguage value)? updateLanguage,
-    TResult Function(SettingsEventBackupData value)? backupData,
-    TResult Function(SettingsEventExportData value)? exportData,
-    TResult Function(SettingsEventDeleteAllData value)? deleteAllData,
-    required TResult orElse(),
-  }) {
-    if (backupData != null) {
-      return backupData(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class SettingsEventBackupData implements SettingsEvent {
-  const factory SettingsEventBackupData() = _$SettingsEventBackupDataImpl;
 }
 
 /// @nodoc
@@ -1424,12 +233,6 @@ class _$SettingsEventExportDataImpl implements SettingsEventExportData {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadSettings,
-    required TResult Function(bool enabled) updateDailyReminder,
-    required TResult Function(TimeOfDay time) updateReminderTime,
-    required TResult Function(bool enabled) updateMedicationReminder,
-    required TResult Function(bool enabled) updateDarkMode,
-    required TResult Function(String languageCode) updateLanguage,
-    required TResult Function() backupData,
     required TResult Function() exportData,
     required TResult Function() deleteAllData,
   }) {
@@ -1440,12 +243,6 @@ class _$SettingsEventExportDataImpl implements SettingsEventExportData {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadSettings,
-    TResult? Function(bool enabled)? updateDailyReminder,
-    TResult? Function(TimeOfDay time)? updateReminderTime,
-    TResult? Function(bool enabled)? updateMedicationReminder,
-    TResult? Function(bool enabled)? updateDarkMode,
-    TResult? Function(String languageCode)? updateLanguage,
-    TResult? Function()? backupData,
     TResult? Function()? exportData,
     TResult? Function()? deleteAllData,
   }) {
@@ -1456,12 +253,6 @@ class _$SettingsEventExportDataImpl implements SettingsEventExportData {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadSettings,
-    TResult Function(bool enabled)? updateDailyReminder,
-    TResult Function(TimeOfDay time)? updateReminderTime,
-    TResult Function(bool enabled)? updateMedicationReminder,
-    TResult Function(bool enabled)? updateDarkMode,
-    TResult Function(String languageCode)? updateLanguage,
-    TResult Function()? backupData,
     TResult Function()? exportData,
     TResult Function()? deleteAllData,
     required TResult orElse(),
@@ -1476,15 +267,6 @@ class _$SettingsEventExportDataImpl implements SettingsEventExportData {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(SettingsEventLoadSettings value) loadSettings,
-    required TResult Function(SettingsEventUpdateDailyReminder value)
-        updateDailyReminder,
-    required TResult Function(SettingsEventUpdateReminderTime value)
-        updateReminderTime,
-    required TResult Function(SettingsEventUpdateMedicationReminder value)
-        updateMedicationReminder,
-    required TResult Function(SettingsEventUpdateDarkMode value) updateDarkMode,
-    required TResult Function(SettingsEventUpdateLanguage value) updateLanguage,
-    required TResult Function(SettingsEventBackupData value) backupData,
     required TResult Function(SettingsEventExportData value) exportData,
     required TResult Function(SettingsEventDeleteAllData value) deleteAllData,
   }) {
@@ -1495,15 +277,6 @@ class _$SettingsEventExportDataImpl implements SettingsEventExportData {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(SettingsEventLoadSettings value)? loadSettings,
-    TResult? Function(SettingsEventUpdateDailyReminder value)?
-        updateDailyReminder,
-    TResult? Function(SettingsEventUpdateReminderTime value)?
-        updateReminderTime,
-    TResult? Function(SettingsEventUpdateMedicationReminder value)?
-        updateMedicationReminder,
-    TResult? Function(SettingsEventUpdateDarkMode value)? updateDarkMode,
-    TResult? Function(SettingsEventUpdateLanguage value)? updateLanguage,
-    TResult? Function(SettingsEventBackupData value)? backupData,
     TResult? Function(SettingsEventExportData value)? exportData,
     TResult? Function(SettingsEventDeleteAllData value)? deleteAllData,
   }) {
@@ -1514,14 +287,6 @@ class _$SettingsEventExportDataImpl implements SettingsEventExportData {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(SettingsEventLoadSettings value)? loadSettings,
-    TResult Function(SettingsEventUpdateDailyReminder value)?
-        updateDailyReminder,
-    TResult Function(SettingsEventUpdateReminderTime value)? updateReminderTime,
-    TResult Function(SettingsEventUpdateMedicationReminder value)?
-        updateMedicationReminder,
-    TResult Function(SettingsEventUpdateDarkMode value)? updateDarkMode,
-    TResult Function(SettingsEventUpdateLanguage value)? updateLanguage,
-    TResult Function(SettingsEventBackupData value)? backupData,
     TResult Function(SettingsEventExportData value)? exportData,
     TResult Function(SettingsEventDeleteAllData value)? deleteAllData,
     required TResult orElse(),
@@ -1579,12 +344,6 @@ class _$SettingsEventDeleteAllDataImpl implements SettingsEventDeleteAllData {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loadSettings,
-    required TResult Function(bool enabled) updateDailyReminder,
-    required TResult Function(TimeOfDay time) updateReminderTime,
-    required TResult Function(bool enabled) updateMedicationReminder,
-    required TResult Function(bool enabled) updateDarkMode,
-    required TResult Function(String languageCode) updateLanguage,
-    required TResult Function() backupData,
     required TResult Function() exportData,
     required TResult Function() deleteAllData,
   }) {
@@ -1595,12 +354,6 @@ class _$SettingsEventDeleteAllDataImpl implements SettingsEventDeleteAllData {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loadSettings,
-    TResult? Function(bool enabled)? updateDailyReminder,
-    TResult? Function(TimeOfDay time)? updateReminderTime,
-    TResult? Function(bool enabled)? updateMedicationReminder,
-    TResult? Function(bool enabled)? updateDarkMode,
-    TResult? Function(String languageCode)? updateLanguage,
-    TResult? Function()? backupData,
     TResult? Function()? exportData,
     TResult? Function()? deleteAllData,
   }) {
@@ -1611,12 +364,6 @@ class _$SettingsEventDeleteAllDataImpl implements SettingsEventDeleteAllData {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loadSettings,
-    TResult Function(bool enabled)? updateDailyReminder,
-    TResult Function(TimeOfDay time)? updateReminderTime,
-    TResult Function(bool enabled)? updateMedicationReminder,
-    TResult Function(bool enabled)? updateDarkMode,
-    TResult Function(String languageCode)? updateLanguage,
-    TResult Function()? backupData,
     TResult Function()? exportData,
     TResult Function()? deleteAllData,
     required TResult orElse(),
@@ -1631,15 +378,6 @@ class _$SettingsEventDeleteAllDataImpl implements SettingsEventDeleteAllData {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(SettingsEventLoadSettings value) loadSettings,
-    required TResult Function(SettingsEventUpdateDailyReminder value)
-        updateDailyReminder,
-    required TResult Function(SettingsEventUpdateReminderTime value)
-        updateReminderTime,
-    required TResult Function(SettingsEventUpdateMedicationReminder value)
-        updateMedicationReminder,
-    required TResult Function(SettingsEventUpdateDarkMode value) updateDarkMode,
-    required TResult Function(SettingsEventUpdateLanguage value) updateLanguage,
-    required TResult Function(SettingsEventBackupData value) backupData,
     required TResult Function(SettingsEventExportData value) exportData,
     required TResult Function(SettingsEventDeleteAllData value) deleteAllData,
   }) {
@@ -1650,15 +388,6 @@ class _$SettingsEventDeleteAllDataImpl implements SettingsEventDeleteAllData {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(SettingsEventLoadSettings value)? loadSettings,
-    TResult? Function(SettingsEventUpdateDailyReminder value)?
-        updateDailyReminder,
-    TResult? Function(SettingsEventUpdateReminderTime value)?
-        updateReminderTime,
-    TResult? Function(SettingsEventUpdateMedicationReminder value)?
-        updateMedicationReminder,
-    TResult? Function(SettingsEventUpdateDarkMode value)? updateDarkMode,
-    TResult? Function(SettingsEventUpdateLanguage value)? updateLanguage,
-    TResult? Function(SettingsEventBackupData value)? backupData,
     TResult? Function(SettingsEventExportData value)? exportData,
     TResult? Function(SettingsEventDeleteAllData value)? deleteAllData,
   }) {
@@ -1669,14 +398,6 @@ class _$SettingsEventDeleteAllDataImpl implements SettingsEventDeleteAllData {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(SettingsEventLoadSettings value)? loadSettings,
-    TResult Function(SettingsEventUpdateDailyReminder value)?
-        updateDailyReminder,
-    TResult Function(SettingsEventUpdateReminderTime value)? updateReminderTime,
-    TResult Function(SettingsEventUpdateMedicationReminder value)?
-        updateMedicationReminder,
-    TResult Function(SettingsEventUpdateDarkMode value)? updateDarkMode,
-    TResult Function(SettingsEventUpdateLanguage value)? updateLanguage,
-    TResult Function(SettingsEventBackupData value)? backupData,
     TResult Function(SettingsEventExportData value)? exportData,
     TResult Function(SettingsEventDeleteAllData value)? deleteAllData,
     required TResult orElse(),

@@ -25,6 +25,7 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   late final AuthBloc _authBloc;
+  late final SettingsBloc _settingsBloc;
   late final GoRouter _router;
 
   @override
@@ -32,6 +33,9 @@ class _AppState extends State<App> {
     super.initState();
     // AuthBloc을 먼저 생성하고 checkStatus 이벤트 발생
     _authBloc = getIt<AuthBloc>()..add(const AuthEvent.checkStatus());
+    // SettingsBloc 생성하고 설정 로드
+    _settingsBloc = getIt<SettingsBloc>()
+      ..add(const SettingsEvent.loadSettings());
     // 같은 AuthBloc 인스턴스를 사용하는 GoRouter 생성
     _router = AppRouter.createRouter(authBloc: _authBloc);
   }
@@ -39,6 +43,7 @@ class _AppState extends State<App> {
   @override
   void dispose() {
     _authBloc.close();
+    _settingsBloc.close();
     super.dispose();
   }
 
@@ -51,6 +56,11 @@ class _AppState extends State<App> {
           value: _authBloc,
         ),
 
+        // Settings Feature BLoC (전역)
+        BlocProvider<SettingsBloc>.value(
+          value: _settingsBloc,
+        ),
+
         // Home Feature BLoC
         BlocProvider<HomeBloc>(
           create: (_) => getIt<HomeBloc>(),
@@ -59,9 +69,7 @@ class _AppState extends State<App> {
         // Calendar Feature BLoC
         BlocProvider<CalendarBloc>(
           create: (_) {
-            print('🔥 [CalendarBloc] BLoC 생성 시작');
             final bloc = getIt<CalendarBloc>();
-            print('🔥 [CalendarBloc] loadMonth 이벤트 추가');
             bloc.add(CalendarEvent.loadMonth(DateTime.now()));
             return bloc;
           },
@@ -71,11 +79,6 @@ class _AppState extends State<App> {
         // Insights Feature BLoC
         BlocProvider<InsightsBloc>(
           create: (_) => getIt<InsightsBloc>(),
-        ),
-
-        // Settings Feature BLoC
-        BlocProvider<SettingsBloc>(
-          create: (_) => getIt<SettingsBloc>(),
         ),
       ],
       child: MaterialApp.router(

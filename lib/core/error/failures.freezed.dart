@@ -25,6 +25,7 @@ mixin _$Failure {
     required TResult Function(String message) unexpected,
     required TResult Function(String message) cache,
     required TResult Function(String message) permission,
+    required TResult Function(String message) unauthorized,
     required TResult Function(String message) format,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,6 +37,7 @@ mixin _$Failure {
     TResult? Function(String message)? unexpected,
     TResult? Function(String message)? cache,
     TResult? Function(String message)? permission,
+    TResult? Function(String message)? unauthorized,
     TResult? Function(String message)? format,
   }) =>
       throw _privateConstructorUsedError;
@@ -47,6 +49,7 @@ mixin _$Failure {
     TResult Function(String message)? unexpected,
     TResult Function(String message)? cache,
     TResult Function(String message)? permission,
+    TResult Function(String message)? unauthorized,
     TResult Function(String message)? format,
     required TResult orElse(),
   }) =>
@@ -59,6 +62,7 @@ mixin _$Failure {
     required TResult Function(UnexpectedFailure value) unexpected,
     required TResult Function(CacheFailure value) cache,
     required TResult Function(PermissionFailure value) permission,
+    required TResult Function(UnauthorizedFailure value) unauthorized,
     required TResult Function(FormatFailure value) format,
   }) =>
       throw _privateConstructorUsedError;
@@ -70,6 +74,7 @@ mixin _$Failure {
     TResult? Function(UnexpectedFailure value)? unexpected,
     TResult? Function(CacheFailure value)? cache,
     TResult? Function(PermissionFailure value)? permission,
+    TResult? Function(UnauthorizedFailure value)? unauthorized,
     TResult? Function(FormatFailure value)? format,
   }) =>
       throw _privateConstructorUsedError;
@@ -81,6 +86,7 @@ mixin _$Failure {
     TResult Function(UnexpectedFailure value)? unexpected,
     TResult Function(CacheFailure value)? cache,
     TResult Function(PermissionFailure value)? permission,
+    TResult Function(UnauthorizedFailure value)? unauthorized,
     TResult Function(FormatFailure value)? format,
     required TResult orElse(),
   }) =>
@@ -195,6 +201,7 @@ class _$DatabaseFailureImpl implements DatabaseFailure {
     required TResult Function(String message) unexpected,
     required TResult Function(String message) cache,
     required TResult Function(String message) permission,
+    required TResult Function(String message) unauthorized,
     required TResult Function(String message) format,
   }) {
     return database(message);
@@ -209,6 +216,7 @@ class _$DatabaseFailureImpl implements DatabaseFailure {
     TResult? Function(String message)? unexpected,
     TResult? Function(String message)? cache,
     TResult? Function(String message)? permission,
+    TResult? Function(String message)? unauthorized,
     TResult? Function(String message)? format,
   }) {
     return database?.call(message);
@@ -223,6 +231,7 @@ class _$DatabaseFailureImpl implements DatabaseFailure {
     TResult Function(String message)? unexpected,
     TResult Function(String message)? cache,
     TResult Function(String message)? permission,
+    TResult Function(String message)? unauthorized,
     TResult Function(String message)? format,
     required TResult orElse(),
   }) {
@@ -241,6 +250,7 @@ class _$DatabaseFailureImpl implements DatabaseFailure {
     required TResult Function(UnexpectedFailure value) unexpected,
     required TResult Function(CacheFailure value) cache,
     required TResult Function(PermissionFailure value) permission,
+    required TResult Function(UnauthorizedFailure value) unauthorized,
     required TResult Function(FormatFailure value) format,
   }) {
     return database(this);
@@ -255,6 +265,7 @@ class _$DatabaseFailureImpl implements DatabaseFailure {
     TResult? Function(UnexpectedFailure value)? unexpected,
     TResult? Function(CacheFailure value)? cache,
     TResult? Function(PermissionFailure value)? permission,
+    TResult? Function(UnauthorizedFailure value)? unauthorized,
     TResult? Function(FormatFailure value)? format,
   }) {
     return database?.call(this);
@@ -269,6 +280,7 @@ class _$DatabaseFailureImpl implements DatabaseFailure {
     TResult Function(UnexpectedFailure value)? unexpected,
     TResult Function(CacheFailure value)? cache,
     TResult Function(PermissionFailure value)? permission,
+    TResult Function(UnauthorizedFailure value)? unauthorized,
     TResult Function(FormatFailure value)? format,
     required TResult orElse(),
   }) {
@@ -363,6 +375,7 @@ class _$ValidationFailureImpl implements ValidationFailure {
     required TResult Function(String message) unexpected,
     required TResult Function(String message) cache,
     required TResult Function(String message) permission,
+    required TResult Function(String message) unauthorized,
     required TResult Function(String message) format,
   }) {
     return validation(message);
@@ -377,6 +390,7 @@ class _$ValidationFailureImpl implements ValidationFailure {
     TResult? Function(String message)? unexpected,
     TResult? Function(String message)? cache,
     TResult? Function(String message)? permission,
+    TResult? Function(String message)? unauthorized,
     TResult? Function(String message)? format,
   }) {
     return validation?.call(message);
@@ -391,6 +405,7 @@ class _$ValidationFailureImpl implements ValidationFailure {
     TResult Function(String message)? unexpected,
     TResult Function(String message)? cache,
     TResult Function(String message)? permission,
+    TResult Function(String message)? unauthorized,
     TResult Function(String message)? format,
     required TResult orElse(),
   }) {
@@ -409,6 +424,7 @@ class _$ValidationFailureImpl implements ValidationFailure {
     required TResult Function(UnexpectedFailure value) unexpected,
     required TResult Function(CacheFailure value) cache,
     required TResult Function(PermissionFailure value) permission,
+    required TResult Function(UnauthorizedFailure value) unauthorized,
     required TResult Function(FormatFailure value) format,
   }) {
     return validation(this);
@@ -423,6 +439,7 @@ class _$ValidationFailureImpl implements ValidationFailure {
     TResult? Function(UnexpectedFailure value)? unexpected,
     TResult? Function(CacheFailure value)? cache,
     TResult? Function(PermissionFailure value)? permission,
+    TResult? Function(UnauthorizedFailure value)? unauthorized,
     TResult? Function(FormatFailure value)? format,
   }) {
     return validation?.call(this);
@@ -437,6 +454,7 @@ class _$ValidationFailureImpl implements ValidationFailure {
     TResult Function(UnexpectedFailure value)? unexpected,
     TResult Function(CacheFailure value)? cache,
     TResult Function(PermissionFailure value)? permission,
+    TResult Function(UnauthorizedFailure value)? unauthorized,
     TResult Function(FormatFailure value)? format,
     required TResult orElse(),
   }) {
@@ -532,6 +550,7 @@ class _$NotFoundFailureImpl implements NotFoundFailure {
     required TResult Function(String message) unexpected,
     required TResult Function(String message) cache,
     required TResult Function(String message) permission,
+    required TResult Function(String message) unauthorized,
     required TResult Function(String message) format,
   }) {
     return notFound(message);
@@ -546,6 +565,7 @@ class _$NotFoundFailureImpl implements NotFoundFailure {
     TResult? Function(String message)? unexpected,
     TResult? Function(String message)? cache,
     TResult? Function(String message)? permission,
+    TResult? Function(String message)? unauthorized,
     TResult? Function(String message)? format,
   }) {
     return notFound?.call(message);
@@ -560,6 +580,7 @@ class _$NotFoundFailureImpl implements NotFoundFailure {
     TResult Function(String message)? unexpected,
     TResult Function(String message)? cache,
     TResult Function(String message)? permission,
+    TResult Function(String message)? unauthorized,
     TResult Function(String message)? format,
     required TResult orElse(),
   }) {
@@ -578,6 +599,7 @@ class _$NotFoundFailureImpl implements NotFoundFailure {
     required TResult Function(UnexpectedFailure value) unexpected,
     required TResult Function(CacheFailure value) cache,
     required TResult Function(PermissionFailure value) permission,
+    required TResult Function(UnauthorizedFailure value) unauthorized,
     required TResult Function(FormatFailure value) format,
   }) {
     return notFound(this);
@@ -592,6 +614,7 @@ class _$NotFoundFailureImpl implements NotFoundFailure {
     TResult? Function(UnexpectedFailure value)? unexpected,
     TResult? Function(CacheFailure value)? cache,
     TResult? Function(PermissionFailure value)? permission,
+    TResult? Function(UnauthorizedFailure value)? unauthorized,
     TResult? Function(FormatFailure value)? format,
   }) {
     return notFound?.call(this);
@@ -606,6 +629,7 @@ class _$NotFoundFailureImpl implements NotFoundFailure {
     TResult Function(UnexpectedFailure value)? unexpected,
     TResult Function(CacheFailure value)? cache,
     TResult Function(PermissionFailure value)? permission,
+    TResult Function(UnauthorizedFailure value)? unauthorized,
     TResult Function(FormatFailure value)? format,
     required TResult orElse(),
   }) {
@@ -700,6 +724,7 @@ class _$UnexpectedFailureImpl implements UnexpectedFailure {
     required TResult Function(String message) unexpected,
     required TResult Function(String message) cache,
     required TResult Function(String message) permission,
+    required TResult Function(String message) unauthorized,
     required TResult Function(String message) format,
   }) {
     return unexpected(message);
@@ -714,6 +739,7 @@ class _$UnexpectedFailureImpl implements UnexpectedFailure {
     TResult? Function(String message)? unexpected,
     TResult? Function(String message)? cache,
     TResult? Function(String message)? permission,
+    TResult? Function(String message)? unauthorized,
     TResult? Function(String message)? format,
   }) {
     return unexpected?.call(message);
@@ -728,6 +754,7 @@ class _$UnexpectedFailureImpl implements UnexpectedFailure {
     TResult Function(String message)? unexpected,
     TResult Function(String message)? cache,
     TResult Function(String message)? permission,
+    TResult Function(String message)? unauthorized,
     TResult Function(String message)? format,
     required TResult orElse(),
   }) {
@@ -746,6 +773,7 @@ class _$UnexpectedFailureImpl implements UnexpectedFailure {
     required TResult Function(UnexpectedFailure value) unexpected,
     required TResult Function(CacheFailure value) cache,
     required TResult Function(PermissionFailure value) permission,
+    required TResult Function(UnauthorizedFailure value) unauthorized,
     required TResult Function(FormatFailure value) format,
   }) {
     return unexpected(this);
@@ -760,6 +788,7 @@ class _$UnexpectedFailureImpl implements UnexpectedFailure {
     TResult? Function(UnexpectedFailure value)? unexpected,
     TResult? Function(CacheFailure value)? cache,
     TResult? Function(PermissionFailure value)? permission,
+    TResult? Function(UnauthorizedFailure value)? unauthorized,
     TResult? Function(FormatFailure value)? format,
   }) {
     return unexpected?.call(this);
@@ -774,6 +803,7 @@ class _$UnexpectedFailureImpl implements UnexpectedFailure {
     TResult Function(UnexpectedFailure value)? unexpected,
     TResult Function(CacheFailure value)? cache,
     TResult Function(PermissionFailure value)? permission,
+    TResult Function(UnauthorizedFailure value)? unauthorized,
     TResult Function(FormatFailure value)? format,
     required TResult orElse(),
   }) {
@@ -868,6 +898,7 @@ class _$CacheFailureImpl implements CacheFailure {
     required TResult Function(String message) unexpected,
     required TResult Function(String message) cache,
     required TResult Function(String message) permission,
+    required TResult Function(String message) unauthorized,
     required TResult Function(String message) format,
   }) {
     return cache(message);
@@ -882,6 +913,7 @@ class _$CacheFailureImpl implements CacheFailure {
     TResult? Function(String message)? unexpected,
     TResult? Function(String message)? cache,
     TResult? Function(String message)? permission,
+    TResult? Function(String message)? unauthorized,
     TResult? Function(String message)? format,
   }) {
     return cache?.call(message);
@@ -896,6 +928,7 @@ class _$CacheFailureImpl implements CacheFailure {
     TResult Function(String message)? unexpected,
     TResult Function(String message)? cache,
     TResult Function(String message)? permission,
+    TResult Function(String message)? unauthorized,
     TResult Function(String message)? format,
     required TResult orElse(),
   }) {
@@ -914,6 +947,7 @@ class _$CacheFailureImpl implements CacheFailure {
     required TResult Function(UnexpectedFailure value) unexpected,
     required TResult Function(CacheFailure value) cache,
     required TResult Function(PermissionFailure value) permission,
+    required TResult Function(UnauthorizedFailure value) unauthorized,
     required TResult Function(FormatFailure value) format,
   }) {
     return cache(this);
@@ -928,6 +962,7 @@ class _$CacheFailureImpl implements CacheFailure {
     TResult? Function(UnexpectedFailure value)? unexpected,
     TResult? Function(CacheFailure value)? cache,
     TResult? Function(PermissionFailure value)? permission,
+    TResult? Function(UnauthorizedFailure value)? unauthorized,
     TResult? Function(FormatFailure value)? format,
   }) {
     return cache?.call(this);
@@ -942,6 +977,7 @@ class _$CacheFailureImpl implements CacheFailure {
     TResult Function(UnexpectedFailure value)? unexpected,
     TResult Function(CacheFailure value)? cache,
     TResult Function(PermissionFailure value)? permission,
+    TResult Function(UnauthorizedFailure value)? unauthorized,
     TResult Function(FormatFailure value)? format,
     required TResult orElse(),
   }) {
@@ -1036,6 +1072,7 @@ class _$PermissionFailureImpl implements PermissionFailure {
     required TResult Function(String message) unexpected,
     required TResult Function(String message) cache,
     required TResult Function(String message) permission,
+    required TResult Function(String message) unauthorized,
     required TResult Function(String message) format,
   }) {
     return permission(message);
@@ -1050,6 +1087,7 @@ class _$PermissionFailureImpl implements PermissionFailure {
     TResult? Function(String message)? unexpected,
     TResult? Function(String message)? cache,
     TResult? Function(String message)? permission,
+    TResult? Function(String message)? unauthorized,
     TResult? Function(String message)? format,
   }) {
     return permission?.call(message);
@@ -1064,6 +1102,7 @@ class _$PermissionFailureImpl implements PermissionFailure {
     TResult Function(String message)? unexpected,
     TResult Function(String message)? cache,
     TResult Function(String message)? permission,
+    TResult Function(String message)? unauthorized,
     TResult Function(String message)? format,
     required TResult orElse(),
   }) {
@@ -1082,6 +1121,7 @@ class _$PermissionFailureImpl implements PermissionFailure {
     required TResult Function(UnexpectedFailure value) unexpected,
     required TResult Function(CacheFailure value) cache,
     required TResult Function(PermissionFailure value) permission,
+    required TResult Function(UnauthorizedFailure value) unauthorized,
     required TResult Function(FormatFailure value) format,
   }) {
     return permission(this);
@@ -1096,6 +1136,7 @@ class _$PermissionFailureImpl implements PermissionFailure {
     TResult? Function(UnexpectedFailure value)? unexpected,
     TResult? Function(CacheFailure value)? cache,
     TResult? Function(PermissionFailure value)? permission,
+    TResult? Function(UnauthorizedFailure value)? unauthorized,
     TResult? Function(FormatFailure value)? format,
   }) {
     return permission?.call(this);
@@ -1110,6 +1151,7 @@ class _$PermissionFailureImpl implements PermissionFailure {
     TResult Function(UnexpectedFailure value)? unexpected,
     TResult Function(CacheFailure value)? cache,
     TResult Function(PermissionFailure value)? permission,
+    TResult Function(UnauthorizedFailure value)? unauthorized,
     TResult Function(FormatFailure value)? format,
     required TResult orElse(),
   }) {
@@ -1129,6 +1171,181 @@ abstract class PermissionFailure implements Failure {
   @override
   @JsonKey(ignore: true)
   _$$PermissionFailureImplCopyWith<_$PermissionFailureImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UnauthorizedFailureImplCopyWith<$Res>
+    implements $FailureCopyWith<$Res> {
+  factory _$$UnauthorizedFailureImplCopyWith(_$UnauthorizedFailureImpl value,
+          $Res Function(_$UnauthorizedFailureImpl) then) =
+      __$$UnauthorizedFailureImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$$UnauthorizedFailureImplCopyWithImpl<$Res>
+    extends _$FailureCopyWithImpl<$Res, _$UnauthorizedFailureImpl>
+    implements _$$UnauthorizedFailureImplCopyWith<$Res> {
+  __$$UnauthorizedFailureImplCopyWithImpl(_$UnauthorizedFailureImpl _value,
+      $Res Function(_$UnauthorizedFailureImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$UnauthorizedFailureImpl(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UnauthorizedFailureImpl implements UnauthorizedFailure {
+  const _$UnauthorizedFailureImpl(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'Failure.unauthorized(message: $message)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UnauthorizedFailureImpl &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UnauthorizedFailureImplCopyWith<_$UnauthorizedFailureImpl> get copyWith =>
+      __$$UnauthorizedFailureImplCopyWithImpl<_$UnauthorizedFailureImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String message) database,
+    required TResult Function(String message) validation,
+    required TResult Function(String message) notFound,
+    required TResult Function(String message) unexpected,
+    required TResult Function(String message) cache,
+    required TResult Function(String message) permission,
+    required TResult Function(String message) unauthorized,
+    required TResult Function(String message) format,
+  }) {
+    return unauthorized(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String message)? database,
+    TResult? Function(String message)? validation,
+    TResult? Function(String message)? notFound,
+    TResult? Function(String message)? unexpected,
+    TResult? Function(String message)? cache,
+    TResult? Function(String message)? permission,
+    TResult? Function(String message)? unauthorized,
+    TResult? Function(String message)? format,
+  }) {
+    return unauthorized?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String message)? database,
+    TResult Function(String message)? validation,
+    TResult Function(String message)? notFound,
+    TResult Function(String message)? unexpected,
+    TResult Function(String message)? cache,
+    TResult Function(String message)? permission,
+    TResult Function(String message)? unauthorized,
+    TResult Function(String message)? format,
+    required TResult orElse(),
+  }) {
+    if (unauthorized != null) {
+      return unauthorized(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(DatabaseFailure value) database,
+    required TResult Function(ValidationFailure value) validation,
+    required TResult Function(NotFoundFailure value) notFound,
+    required TResult Function(UnexpectedFailure value) unexpected,
+    required TResult Function(CacheFailure value) cache,
+    required TResult Function(PermissionFailure value) permission,
+    required TResult Function(UnauthorizedFailure value) unauthorized,
+    required TResult Function(FormatFailure value) format,
+  }) {
+    return unauthorized(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(DatabaseFailure value)? database,
+    TResult? Function(ValidationFailure value)? validation,
+    TResult? Function(NotFoundFailure value)? notFound,
+    TResult? Function(UnexpectedFailure value)? unexpected,
+    TResult? Function(CacheFailure value)? cache,
+    TResult? Function(PermissionFailure value)? permission,
+    TResult? Function(UnauthorizedFailure value)? unauthorized,
+    TResult? Function(FormatFailure value)? format,
+  }) {
+    return unauthorized?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(DatabaseFailure value)? database,
+    TResult Function(ValidationFailure value)? validation,
+    TResult Function(NotFoundFailure value)? notFound,
+    TResult Function(UnexpectedFailure value)? unexpected,
+    TResult Function(CacheFailure value)? cache,
+    TResult Function(PermissionFailure value)? permission,
+    TResult Function(UnauthorizedFailure value)? unauthorized,
+    TResult Function(FormatFailure value)? format,
+    required TResult orElse(),
+  }) {
+    if (unauthorized != null) {
+      return unauthorized(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class UnauthorizedFailure implements Failure {
+  const factory UnauthorizedFailure(final String message) =
+      _$UnauthorizedFailureImpl;
+
+  @override
+  String get message;
+  @override
+  @JsonKey(ignore: true)
+  _$$UnauthorizedFailureImplCopyWith<_$UnauthorizedFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1204,6 +1421,7 @@ class _$FormatFailureImpl implements FormatFailure {
     required TResult Function(String message) unexpected,
     required TResult Function(String message) cache,
     required TResult Function(String message) permission,
+    required TResult Function(String message) unauthorized,
     required TResult Function(String message) format,
   }) {
     return format(message);
@@ -1218,6 +1436,7 @@ class _$FormatFailureImpl implements FormatFailure {
     TResult? Function(String message)? unexpected,
     TResult? Function(String message)? cache,
     TResult? Function(String message)? permission,
+    TResult? Function(String message)? unauthorized,
     TResult? Function(String message)? format,
   }) {
     return format?.call(message);
@@ -1232,6 +1451,7 @@ class _$FormatFailureImpl implements FormatFailure {
     TResult Function(String message)? unexpected,
     TResult Function(String message)? cache,
     TResult Function(String message)? permission,
+    TResult Function(String message)? unauthorized,
     TResult Function(String message)? format,
     required TResult orElse(),
   }) {
@@ -1250,6 +1470,7 @@ class _$FormatFailureImpl implements FormatFailure {
     required TResult Function(UnexpectedFailure value) unexpected,
     required TResult Function(CacheFailure value) cache,
     required TResult Function(PermissionFailure value) permission,
+    required TResult Function(UnauthorizedFailure value) unauthorized,
     required TResult Function(FormatFailure value) format,
   }) {
     return format(this);
@@ -1264,6 +1485,7 @@ class _$FormatFailureImpl implements FormatFailure {
     TResult? Function(UnexpectedFailure value)? unexpected,
     TResult? Function(CacheFailure value)? cache,
     TResult? Function(PermissionFailure value)? permission,
+    TResult? Function(UnauthorizedFailure value)? unauthorized,
     TResult? Function(FormatFailure value)? format,
   }) {
     return format?.call(this);
@@ -1278,6 +1500,7 @@ class _$FormatFailureImpl implements FormatFailure {
     TResult Function(UnexpectedFailure value)? unexpected,
     TResult Function(CacheFailure value)? cache,
     TResult Function(PermissionFailure value)? permission,
+    TResult Function(UnauthorizedFailure value)? unauthorized,
     TResult Function(FormatFailure value)? format,
     required TResult orElse(),
   }) {

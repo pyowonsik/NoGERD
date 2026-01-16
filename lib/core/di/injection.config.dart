@@ -10,6 +10,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:shared_preferences/shared_preferences.dart' as _i460;
 import 'package:supabase_flutter/supabase_flutter.dart' as _i454;
 
 import '../../features/auth/data/datasources/auth_remote_datasource.dart'
@@ -69,8 +70,12 @@ import '../../features/record/domain/usecases/upsert_lifestyle_record_usecase.da
 import '../../features/record/domain/usecases/upsert_meal_record_usecase.dart'
     as _i674;
 import '../../features/record/presentation/bloc/record_bloc.dart' as _i7;
-import '../../features/settings/domain/usecases/backup_data_usecase.dart'
-    as _i597;
+import '../../features/settings/data/datasources/settings_local_data_source.dart'
+    as _i599;
+import '../../features/settings/data/repositories/settings_repository_impl.dart'
+    as _i955;
+import '../../features/settings/domain/repositories/settings_repository.dart'
+    as _i674;
 import '../../features/settings/domain/usecases/delete_all_data_usecase.dart'
     as _i885;
 import '../../features/settings/domain/usecases/export_data_usecase.dart'
@@ -80,30 +85,29 @@ import '../../features/settings/domain/usecases/load_settings_usecase.dart'
 import '../../features/settings/domain/usecases/save_settings_usecase.dart'
     as _i109;
 import '../../features/settings/presentation/bloc/settings_bloc.dart' as _i585;
+import 'injection.dart' as _i464;
 import 'supabase_module.dart' as _i695;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
-  _i174.GetIt init({
+  Future<_i174.GetIt> init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
-  }) {
+  }) async {
     final gh = _i526.GetItHelper(
       this,
       environment,
       environmentFilter,
     );
+    final coreModule = _$CoreModule();
     final supabaseModule = _$SupabaseModule();
-    gh.factory<_i885.DeleteAllDataUseCase>(
-        () => const _i885.DeleteAllDataUseCase());
-    gh.factory<_i109.SaveSettingsUseCase>(
-        () => const _i109.SaveSettingsUseCase());
-    gh.factory<_i42.LoadSettingsUseCase>(
-        () => const _i42.LoadSettingsUseCase());
-    gh.factory<_i142.ExportDataUseCase>(() => const _i142.ExportDataUseCase());
-    gh.factory<_i597.BackupDataUseCase>(() => const _i597.BackupDataUseCase());
-    gh.factory<_i585.SettingsBloc>(() => _i585.SettingsBloc());
+    await gh.factoryAsync<_i460.SharedPreferences>(
+      () => coreModule.prefs,
+      preResolve: true,
+    );
     gh.lazySingleton<_i454.SupabaseClient>(() => supabaseModule.supabaseClient);
+    gh.lazySingleton<_i599.SettingsLocalDataSource>(
+        () => _i599.SettingsLocalDataSourceImpl(gh<_i460.SharedPreferences>()));
     gh.lazySingleton<_i161.AuthRemoteDataSource>(
         () => _i161.SupabaseAuthDataSource(gh<_i454.SupabaseClient>()));
     gh.lazySingleton<_i1004.RecordRemoteDataSource>(
@@ -115,6 +119,19 @@ extension GetItInjectableX on _i174.GetIt {
               gh<_i1004.RecordRemoteDataSource>(),
               gh<_i454.SupabaseClient>(),
             ));
+    gh.lazySingleton<_i674.SettingsRepository>(
+        () => _i955.SettingsRepositoryImpl(
+              gh<_i599.SettingsLocalDataSource>(),
+              gh<_i454.SupabaseClient>(),
+            ));
+    gh.factory<_i885.DeleteAllDataUseCase>(
+        () => _i885.DeleteAllDataUseCase(gh<_i674.SettingsRepository>()));
+    gh.factory<_i109.SaveSettingsUseCase>(
+        () => _i109.SaveSettingsUseCase(gh<_i674.SettingsRepository>()));
+    gh.factory<_i42.LoadSettingsUseCase>(
+        () => _i42.LoadSettingsUseCase(gh<_i674.SettingsRepository>()));
+    gh.factory<_i142.ExportDataUseCase>(
+        () => _i142.ExportDataUseCase(gh<_i674.SettingsRepository>()));
     gh.factory<_i259.SignInUseCase>(
         () => _i259.SignInUseCase(gh<_i787.IAuthRepository>()));
     gh.factory<_i860.SignUpUseCase>(
@@ -123,10 +140,16 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i17.GetCurrentUserUseCase(gh<_i787.IAuthRepository>()));
     gh.factory<_i915.SignOutUseCase>(
         () => _i915.SignOutUseCase(gh<_i787.IAuthRepository>()));
+    gh.factory<_i588.GetLifestyleImpactUseCase>(
+        () => _i588.GetLifestyleImpactUseCase(gh<_i968.IRecordRepository>()));
+    gh.factory<_i84.GetSymptomDistributionUseCase>(() =>
+        _i84.GetSymptomDistributionUseCase(gh<_i968.IRecordRepository>()));
     gh.factory<_i152.AnalyzeTriggersUseCase>(
         () => _i152.AnalyzeTriggersUseCase(gh<_i968.IRecordRepository>()));
     gh.factory<_i106.GetSymptomTrendsUseCase>(
         () => _i106.GetSymptomTrendsUseCase(gh<_i968.IRecordRepository>()));
+    gh.factory<_i102.GetMealSymptomCorrelationUseCase>(() =>
+        _i102.GetMealSymptomCorrelationUseCase(gh<_i968.IRecordRepository>()));
     gh.factory<_i1039.GetWeeklyPatternUseCase>(
         () => _i1039.GetWeeklyPatternUseCase(gh<_i968.IRecordRepository>()));
     gh.factory<_i382.CalculateHealthScoreUseCase>(
@@ -152,12 +175,6 @@ extension GetItInjectableX on _i174.GetIt {
         _i374.GetMealRecordByDateAndTypeUseCase(gh<_i968.IRecordRepository>()));
     gh.factory<_i680.AddLifestyleRecordUseCase>(
         () => _i680.AddLifestyleRecordUseCase(gh<_i968.IRecordRepository>()));
-    gh.factory<_i588.GetLifestyleImpactUseCase>(
-        () => _i588.GetLifestyleImpactUseCase(gh<_i968.IRecordRepository>()));
-    gh.factory<_i84.GetSymptomDistributionUseCase>(() =>
-        _i84.GetSymptomDistributionUseCase(gh<_i968.IRecordRepository>()));
-    gh.factory<_i102.GetMealSymptomCorrelationUseCase>(() =>
-        _i102.GetMealSymptomCorrelationUseCase(gh<_i968.IRecordRepository>()));
     gh.factory<_i658.InsightsBloc>(() => _i658.InsightsBloc(
           gh<_i382.CalculateHealthScoreUseCase>(),
           gh<_i152.AnalyzeTriggersUseCase>(),
@@ -166,6 +183,11 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i84.GetSymptomDistributionUseCase>(),
           gh<_i102.GetMealSymptomCorrelationUseCase>(),
           gh<_i588.GetLifestyleImpactUseCase>(),
+        ));
+    gh.factory<_i585.SettingsBloc>(() => _i585.SettingsBloc(
+          gh<_i42.LoadSettingsUseCase>(),
+          gh<_i142.ExportDataUseCase>(),
+          gh<_i885.DeleteAllDataUseCase>(),
         ));
     gh.factory<_i7.RecordBloc>(() => _i7.RecordBloc(
           gh<_i857.AddSymptomRecordUseCase>(),
@@ -191,5 +213,7 @@ extension GetItInjectableX on _i174.GetIt {
     return this;
   }
 }
+
+class _$CoreModule extends _i464.CoreModule {}
 
 class _$SupabaseModule extends _i695.SupabaseModule {}
