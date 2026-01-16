@@ -112,12 +112,12 @@ class _AlarmSettingsPageState extends State<AlarmSettingsPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text(
+        title: Text(
           '알람 설정',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w600,
-            color: AppTheme.textPrimary,
+            color: Theme.of(context).colorScheme.onBackground,
           ),
         ),
         centerTitle: true,
@@ -128,13 +128,16 @@ class _AlarmSettingsPageState extends State<AlarmSettingsPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // 식사 알림 섹션
-            _buildSectionHeader('🍽️', '식사 알림'),
+            _buildSectionHeader(context, '🍽️', '식사 알림'),
             const SizedBox(height: 4),
-            const Text(
+            Text(
               '식사 시간을 알려드립니다',
               style: TextStyle(
                 fontSize: 13,
-                color: AppTheme.textSecondary,
+                color: Theme.of(context)
+                    .colorScheme
+                    .onBackground
+                    .withOpacity(0.6),
               ),
             ),
             const SizedBox(height: 16),
@@ -207,13 +210,16 @@ class _AlarmSettingsPageState extends State<AlarmSettingsPage> {
             const SizedBox(height: 32),
 
             // 약물 알림 섹션
-            _buildSectionHeader('💊', '약물 복용 알림'),
+            _buildSectionHeader(context, '💊', '약물 복용 알림'),
             const SizedBox(height: 4),
-            const Text(
+            Text(
               '약물 복용 시간을 알려드립니다',
               style: TextStyle(
                 fontSize: 13,
-                color: AppTheme.textSecondary,
+                color: Theme.of(context)
+                    .colorScheme
+                    .onBackground
+                    .withOpacity(0.6),
               ),
             ),
             const SizedBox(height: 16),
@@ -286,13 +292,16 @@ class _AlarmSettingsPageState extends State<AlarmSettingsPage> {
             const SizedBox(height: 32),
 
             // 생활습관 알림 섹션
-            _buildSectionHeader('🏃', '생활습관 알림'),
+            _buildSectionHeader(context, '🏃', '생활습관 알림'),
             const SizedBox(height: 4),
-            const Text(
+            Text(
               '건강한 생활습관을 위한 알림',
               style: TextStyle(
                 fontSize: 13,
-                color: AppTheme.textSecondary,
+                color: Theme.of(context)
+                    .colorScheme
+                    .onBackground
+                    .withOpacity(0.6),
               ),
             ),
             const SizedBox(height: 16),
@@ -325,17 +334,18 @@ class _AlarmSettingsPageState extends State<AlarmSettingsPage> {
     );
   }
 
-  Widget _buildSectionHeader(String emoji, String title) {
+  Widget _buildSectionHeader(
+      BuildContext context, String emoji, String title) {
     return Row(
       children: [
         Text(emoji, style: const TextStyle(fontSize: 24)),
         const SizedBox(width: 12),
         Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: AppTheme.textPrimary,
+            color: Theme.of(context).colorScheme.onBackground,
           ),
         ),
       ],
@@ -351,13 +361,18 @@ class _AlarmSettingsPageState extends State<AlarmSettingsPage> {
     required VoidCallback onTimeTap,
     required Color color,
   }) {
+    final cardBgColor = Colors.white;
+    final borderColor = enabled
+        ? color.withValues(alpha: 0.3)
+        : Colors.grey.shade300;
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: cardBgColor,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
-          color: enabled ? color.withValues(alpha: 0.3) : Colors.grey.shade300,
+          color: borderColor,
           width: enabled ? 2 : 1,
         ),
         boxShadow: enabled
@@ -398,7 +413,12 @@ class _AlarmSettingsPageState extends State<AlarmSettingsPage> {
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
-                    color: enabled ? AppTheme.textPrimary : AppTheme.textSecondary,
+                    color: enabled
+                        ? Theme.of(context).colorScheme.onSurface
+                        : Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withOpacity(0.5),
                   ),
                 ),
                 const SizedBox(height: 4),

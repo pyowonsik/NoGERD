@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:share_plus/share_plus.dart';
 
 import 'package:no_gerd/core/di/injection.dart';
 import 'package:no_gerd/features/auth/domain/entities/user.dart';
@@ -17,11 +20,8 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<SettingsBloc>()
-        ..add(const SettingsEvent.loadSettings()),
-      child: const _SettingsPageContent(),
-    );
+    // SettingsBloc은 이미 app.dart에서 전역으로 제공됨
+    return const _SettingsPageContent();
   }
 }
 
@@ -40,17 +40,52 @@ class _SettingsPageContent extends StatelessWidget {
           listener: (context, state) {
             state.message.fold(
               () => null,
-              (msg) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(msg)),
-                );
+              (msg) async {
+                // 데이터 내보내기 성공 시 공유 다이얼로그 표시
+                if (msg.contains('내보냈습니다')) {
+                  final filePath = msg.split(': ').last;
+                  final file = File(filePath);
+
+                  if (await file.exists()) {
+                    // 공유 다이얼로그 표시
+                    final result = await Share.shareXFiles(
+                      [XFile(filePath)],
+                      subject: 'NoGERD 데이터 백업',
+                      text: 'NoGERD 앱의 건강 기록 데이터입니다.',
+                    );
+
+                    // 공유 성공 메시지
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            result.status == ShareResultStatus.success
+                                ? '파일을 공유했습니다'
+                                : result.status == ShareResultStatus.dismissed
+                                    ? '공유를 취소했습니다'
+                                    : '데이터 내보내기 완료',
+                          ),
+                          duration: const Duration(seconds: 2),
+                        ),
+                      );
+                    }
+                  }
+                } else {
+                  // 다른 메시지는 기존대로 스낵바 표시
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(msg),
+                      duration: const Duration(seconds: 3),
+                    ),
+                  );
+                }
               },
             );
           },
           child: CustomScrollView(
             slivers: [
               // App Bar
-              const SliverAppBar(
+              SliverAppBar(
                 floating: true,
                 backgroundColor: Colors.transparent,
                 elevation: 0,
@@ -59,7 +94,7 @@ class _SettingsPageContent extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: AppTheme.textPrimary,
+                    color: Theme.of(context).colorScheme.onBackground,
                   ),
                 ),
                 centerTitle: true,
@@ -92,36 +127,22 @@ class _SettingsPageContent extends StatelessWidget {
 
                           const SizedBox(height: 24),
 
-                          // 알림 설정
-                          _buildSectionTitle('알림 설정'),
-                          const SizedBox(height: 12),
-                          _buildNotificationSettings(context, state),
-
-                          const SizedBox(height: 24),
-
-                          // 앱 설정
-                          _buildSectionTitle('앱 설정'),
-                          const SizedBox(height: 12),
-                          _buildAppSettings(context, state),
-
-                          const SizedBox(height: 24),
-
                           // 데이터 관리
-                          _buildSectionTitle('데이터 관리'),
+                          _buildSectionTitle('데이터 관리', context),
                           const SizedBox(height: 12),
                           _buildDataSettings(context, state),
 
                           const SizedBox(height: 24),
 
                           // 건강 정보
-                          _buildSectionTitle('건강 정보'),
+                          _buildSectionTitle('건강 정보', context),
                           const SizedBox(height: 12),
                           _buildHealthInfo(context),
 
                           const SizedBox(height: 24),
 
                           // 앱 정보
-                          _buildSectionTitle('정보'),
+                          _buildSectionTitle('정보', context),
                           const SizedBox(height: 12),
                           _buildAppInfo(context),
 
@@ -139,13 +160,13 @@ class _SettingsPageContent extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionTitle(String title) {
+  Widget _buildSectionTitle(String title, BuildContext context) {
     return Text(
       title,
-      style: const TextStyle(
+      style: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w600,
-        color: AppTheme.textSecondary,
+        color: Theme.of(context).colorScheme.onBackground.withOpacity(0.6),
       ),
     );
   }
@@ -179,18 +200,21 @@ class _SettingsPageContent extends StatelessWidget {
                         children: [
                           Text(
                             user.email.split('@').first,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
-                              color: AppTheme.textPrimary,
+                              color: Theme.of(context).colorScheme.onSurface,
                             ),
                           ),
                           const SizedBox(height: 4),
                           Text(
                             user.email,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 13,
-                              color: AppTheme.textSecondary,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface
+                                  .withOpacity(0.6),
                             ),
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -225,7 +249,7 @@ class _SettingsPageContent extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 16),
-                const Expanded(
+                Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -234,15 +258,18 @@ class _SettingsPageContent extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: AppTheme.textPrimary,
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       Text(
                         '로그인하여 데이터를 동기화하세요',
                         style: TextStyle(
                           fontSize: 13,
-                          color: AppTheme.textSecondary,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withOpacity(0.6),
                         ),
                       ),
                     ],
@@ -282,131 +309,19 @@ class _SettingsPageContent extends StatelessWidget {
     );
   }
 
-  Widget _buildNotificationSettings(BuildContext context, SettingsState state) {
-    return GlassCard(
-      padding: EdgeInsets.zero,
-      child: Column(
-        children: [
-          SettingTile(
-            icon: Icons.notifications_active_rounded,
-            iconColor: AppTheme.warning,
-            title: '일일 기록 알림',
-            subtitle: '매일 지정된 시간에 알림',
-            trailing: Switch(
-              value: state.settings.dailyReminderEnabled,
-              onChanged: (v) => context
-                  .read<SettingsBloc>()
-                  .add(SettingsEvent.updateDailyReminder(v)),
-              activeColor: AppTheme.primary,
-            ),
-          ),
-          const Divider(height: 1, indent: 56),
-          SettingTile(
-            icon: Icons.access_time_rounded,
-            iconColor: AppTheme.info,
-            title: '알림 시간',
-            subtitle: state.settings.reminderTime.format(context),
-            onTap: () async {
-              final time = await CustomTimePicker.show(
-                context: context,
-                initialTime: state.settings.reminderTime,
-                title: '알림 시간',
-                subtitle: '일일 기록 알림 시간을 설정하세요',
-              );
-              if (time != null && context.mounted) {
-                context
-                    .read<SettingsBloc>()
-                    .add(SettingsEvent.updateReminderTime(time));
-              }
-            },
-          ),
-          const Divider(height: 1, indent: 56),
-          SettingTile(
-            icon: Icons.medication_rounded,
-            iconColor: AppTheme.medicationColor,
-            title: '약 복용 알림',
-            subtitle: '복용 시간에 알림',
-            trailing: Switch(
-              value: state.settings.medicationReminderEnabled,
-              onChanged: (v) => context
-                  .read<SettingsBloc>()
-                  .add(SettingsEvent.updateMedicationReminder(v)),
-              activeColor: AppTheme.primary,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildAppSettings(BuildContext context, SettingsState state) {
-    return GlassCard(
-      padding: EdgeInsets.zero,
-      child: Column(
-        children: [
-          SettingTile(
-            icon: Icons.dark_mode_rounded,
-            iconColor: AppTheme.lifestyleColor,
-            title: '다크 모드',
-            subtitle: '어두운 테마 사용',
-            trailing: Switch(
-              value: state.settings.darkModeEnabled,
-              onChanged: (v) => context
-                  .read<SettingsBloc>()
-                  .add(SettingsEvent.updateDarkMode(v)),
-              activeColor: AppTheme.primary,
-            ),
-          ),
-          const Divider(height: 1, indent: 56),
-          SettingTile(
-            icon: Icons.language_rounded,
-            iconColor: AppTheme.info,
-            title: '언어',
-            subtitle: '한국어',
-            onTap: () {},
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildDataSettings(BuildContext context, SettingsState state) {
     return GlassCard(
       padding: EdgeInsets.zero,
-      child: Column(
-        children: [
-          SettingTile(
-            icon: Icons.cloud_upload_rounded,
-            iconColor: AppTheme.success,
-            title: '데이터 백업',
-            subtitle: '클라우드에 데이터 저장',
-            onTap: () {
-              _showBackupDialog(context);
-            },
-          ),
-          const Divider(height: 1, indent: 56),
-          SettingTile(
-            icon: Icons.file_download_rounded,
-            iconColor: AppTheme.info,
-            title: '데이터 내보내기',
-            subtitle: 'CSV 파일로 내보내기',
-            onTap: () {
-              context.read<SettingsBloc>().add(
-                    const SettingsEvent.exportData(),
-                  );
-            },
-          ),
-          const Divider(height: 1, indent: 56),
-          SettingTile(
-            icon: Icons.delete_outline_rounded,
-            iconColor: AppTheme.error,
-            title: '데이터 삭제',
-            subtitle: '모든 기록 삭제',
-            onTap: () {
-              _showDeleteConfirmDialog(context);
-            },
-          ),
-        ],
+      child: SettingTile(
+        icon: Icons.delete_outline_rounded,
+        iconColor: AppTheme.error,
+        title: '데이터 삭제',
+        subtitle: '모든 기록 삭제',
+        onTap: state.isProcessing
+            ? null
+            : () {
+                _showDeleteConfirmDialog(context);
+              },
       ),
     );
   }
@@ -468,7 +383,7 @@ class _SettingsPageContent extends StatelessWidget {
             iconColor: AppTheme.textSecondary,
             title: '이용약관',
             subtitle: '',
-            onTap: () {},
+            onTap: () => _showTermsOfServiceDialog(context),
           ),
           const Divider(height: 1, indent: 56),
           SettingTile(
@@ -476,41 +391,15 @@ class _SettingsPageContent extends StatelessWidget {
             iconColor: AppTheme.textSecondary,
             title: '개인정보 처리방침',
             subtitle: '',
-            onTap: () {},
+            onTap: () => _showPrivacyPolicyDialog(context),
           ),
           const Divider(height: 1, indent: 56),
           SettingTile(
             icon: Icons.mail_outline_rounded,
             iconColor: AppTheme.primary,
             title: '문의하기',
-            subtitle: 'pyowonsik@gmail.com',
+            subtitle: 'qqrtyu@gmail.com',
             onTap: () {},
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _showBackupDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (dialogContext) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('데이터 백업'),
-        content: const Text('데이터를 클라우드에 백업하시겠습니까?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(dialogContext),
-            child: const Text('취소'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(dialogContext);
-              context.read<SettingsBloc>().add(
-                    const SettingsEvent.backupData(),
-                  );
-            },
-            child: const Text('백업'),
           ),
         ],
       ),
@@ -840,6 +729,287 @@ class _SettingsPageContent extends StatelessWidget {
                 color: AppTheme.textPrimary,
                 height: 1.4,
               ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showTermsOfServiceDialog(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        height: MediaQuery.of(context).size.height * 0.85,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              // 헤더
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: Colors.grey.shade200),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    const Expanded(
+                      child: Text(
+                        '이용약관',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: AppTheme.textPrimary,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
+              ),
+              // 내용
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildTermsSection(
+                        '제1조 (목적)',
+                        '본 약관은 NoGERD(이하 "서비스")의 이용과 관련하여 서비스 제공자와 이용자 간의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.',
+                      ),
+                      _buildTermsSection(
+                        '제2조 (정의)',
+                        '1. "서비스"란 역류성 식도염 관리를 위한 건강 기록 애플리케이션을 의미합니다.\n'
+                            '2. "이용자"란 본 약관에 따라 서비스를 이용하는 회원을 말합니다.\n'
+                            '3. "건강 정보"란 이용자가 서비스에 입력하는 증상, 식사, 약물, 생활습관 등의 정보를 말합니다.',
+                      ),
+                      _buildTermsSection(
+                        '제3조 (약관의 효력 및 변경)',
+                        '1. 본 약관은 서비스 화면에 게시하거나 기타의 방법으로 이용자에게 공지함으로써 효력이 발생합니다.\n'
+                            '2. 회사는 필요한 경우 관련 법령을 위배하지 않는 범위에서 본 약관을 변경할 수 있습니다.\n'
+                            '3. 약관이 변경되는 경우, 회사는 변경사항을 시행일자 7일 전부터 공지합니다.',
+                      ),
+                      _buildTermsSection(
+                        '제4조 (서비스의 제공)',
+                        '1. 회사는 다음과 같은 서비스를 제공합니다:\n'
+                            '   - 건강 기록 입력 및 관리\n'
+                            '   - 증상 추이 분석\n'
+                            '   - 식습관 및 생활습관 관리\n'
+                            '   - 알림 기능\n'
+                            '2. 서비스는 연중무휴 1일 24시간 제공함을 원칙으로 합니다.\n'
+                            '3. 회사는 서비스 개선을 위해 정기점검을 실시할 수 있으며, 사전에 공지합니다.',
+                      ),
+                      _buildTermsSection(
+                        '제5조 (이용자의 의무)',
+                        '1. 이용자는 정확한 건강 정보를 입력하여야 합니다.\n'
+                            '2. 이용자는 타인의 개인정보를 도용하거나 부정하게 사용할 수 없습니다.\n'
+                            '3. 이용자는 관련 법령, 본 약관의 규정, 이용안내 및 서비스상에 공지한 주의사항을 준수하여야 합니다.',
+                      ),
+                      _buildTermsSection(
+                        '제6조 (의료 행위 제한)',
+                        '본 서비스는 건강 기록 관리 도구로서, 의료 진단이나 치료를 목적으로 하지 않습니다. 질병의 진단, 치료, 예방 등의 의료 행위는 반드시 의료 전문가와 상담하시기 바랍니다.',
+                      ),
+                      _buildTermsSection(
+                        '제7조 (책임의 제한)',
+                        '1. 회사는 천재지변 또는 이에 준하는 불가항력으로 인하여 서비스를 제공할 수 없는 경우에는 서비스 제공에 관한 책임이 면제됩니다.\n'
+                            '2. 회사는 이용자의 귀책사유로 인한 서비스 이용의 장애에 대하여 책임을 지지 않습니다.\n'
+                            '3. 회사는 이용자가 서비스를 이용하여 기대하는 건강 개선 효과 등에 대하여 책임을 지지 않습니다.',
+                      ),
+                      _buildTermsSection(
+                        '제8조 (분쟁 해결)',
+                        '1. 회사와 이용자는 서비스와 관련하여 발생한 분쟁을 원만하게 해결하기 위하여 필요한 모든 노력을 하여야 합니다.\n'
+                            '2. 제1항의 규정에도 불구하고, 분쟁이 해결되지 않을 경우 관할법원은 민사소송법상의 관할법원으로 합니다.',
+                      ),
+                      const SizedBox(height: 20),
+                      const Text(
+                        '시행일: 2026년 1월 16일',
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: AppTheme.textSecondary,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showPrivacyPolicyDialog(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        height: MediaQuery.of(context).size.height * 0.85,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              // 헤더
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: Colors.grey.shade200),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    const Expanded(
+                      child: Text(
+                        '개인정보 처리방침',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: AppTheme.textPrimary,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ],
+                ),
+              ),
+              // 내용
+              Expanded(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildTermsSection(
+                        '1. 개인정보의 수집 및 이용 목적',
+                        'NoGERD는 다음의 목적을 위하여 개인정보를 처리합니다:\n'
+                            '• 회원 가입 및 관리\n'
+                            '• 건강 기록 서비스 제공\n'
+                            '• 서비스 개선 및 분석\n'
+                            '• 알림 서비스 제공',
+                      ),
+                      _buildTermsSection(
+                        '2. 수집하는 개인정보의 항목',
+                        '가. 필수 수집 항목\n'
+                            '• 이메일 주소\n'
+                            '• 비밀번호 (암호화 저장)\n\n'
+                            '나. 자동 수집 항목\n'
+                            '• 서비스 이용 기록\n'
+                            '• 접속 로그\n'
+                            '• 기기 정보\n\n'
+                            '다. 건강 정보\n'
+                            '• 증상 기록 (증상 종류, 심각도, 발생 시간)\n'
+                            '• 식사 기록 (식사 유형, 음식 종류, 포만감)\n'
+                            '• 약물 기록 (약물 종류, 복용 시간)\n'
+                            '• 생활습관 기록 (수면, 운동, 스트레스 등)',
+                      ),
+                      _buildTermsSection(
+                        '3. 개인정보의 보유 및 이용 기간',
+                        '• 회원 탈퇴 시까지 보유\n'
+                            '• 단, 관계 법령에 의해 보존할 필요가 있는 경우 해당 기간 동안 보유\n'
+                            '• 회원이 직접 입력한 건강 기록은 회원이 삭제하기 전까지 보관',
+                      ),
+                      _buildTermsSection(
+                        '4. 개인정보의 제3자 제공',
+                        'NoGERD는 원칙적으로 이용자의 개인정보를 제3자에게 제공하지 않습니다. 다만, 다음의 경우에는 예외로 합니다:\n'
+                            '• 이용자가 사전에 동의한 경우\n'
+                            '• 법령의 규정에 의거하거나, 수사 목적으로 법령에 정해진 절차와 방법에 따라 수사기관의 요구가 있는 경우',
+                      ),
+                      _buildTermsSection(
+                        '5. 개인정보의 파기',
+                        '• 파기 절차: 회원 탈퇴 시 지체 없이 파기\n'
+                            '• 파기 방법: 전자적 파일 형태의 정보는 기록을 재생할 수 없는 기술적 방법을 사용하여 삭제',
+                      ),
+                      _buildTermsSection(
+                        '6. 개인정보의 안전성 확보 조치',
+                        'NoGERD는 개인정보의 안전성 확보를 위해 다음과 같은 조치를 취하고 있습니다:\n'
+                            '• 비밀번호 암호화: 비밀번호는 암호화되어 저장 및 관리\n'
+                            '• 해킹 등에 대비한 기술적 대책\n'
+                            '• 접근 제한: 개인정보를 처리하는 데이터베이스 시스템에 대한 접근 권한 부여, 변경, 말소\n'
+                            '• 접속 기록 보관: 개인정보처리시스템에 대한 접속 기록을 최소 6개월 이상 보관',
+                      ),
+                      _buildTermsSection(
+                        '7. 민감정보의 처리',
+                        '본 서비스는 건강 관련 민감정보를 수집합니다. 이는 서비스 제공을 위한 필수적인 정보이며, 이용자의 동의 없이 제3자에게 제공되지 않습니다.',
+                      ),
+                      _buildTermsSection(
+                        '8. 이용자의 권리',
+                        '이용자는 언제든지 다음의 권리를 행사할 수 있습니다:\n'
+                            '• 개인정보 열람 요구\n'
+                            '• 개인정보 정정·삭제 요구\n'
+                            '• 개인정보 처리 정지 요구\n'
+                            '• 회원 탈퇴(동의 철회)',
+                      ),
+                      _buildTermsSection(
+                        '9. 개인정보 보호책임자',
+                        '성명: NoGERD 개인정보 보호책임자\n'
+                            '이메일: qqrtyu@gmail.com\n\n'
+                            '개인정보 처리에 관한 문의사항이 있으시면 언제든지 연락 주시기 바랍니다.',
+                      ),
+                      _buildTermsSection(
+                        '10. 개인정보 처리방침의 변경',
+                        '본 개인정보 처리방침은 시행일로부터 적용되며, 법령 및 방침에 따른 변경 내용의 추가, 삭제 및 정정이 있는 경우에는 변경사항의 시행 7일 전부터 공지사항을 통하여 고지할 것입니다.',
+                      ),
+                      const SizedBox(height: 20),
+                      const Text(
+                        '시행일: 2026년 1월 16일',
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: AppTheme.textSecondary,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTermsSection(String title, String content) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: AppTheme.textPrimary,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            content,
+            style: const TextStyle(
+              fontSize: 14,
+              color: AppTheme.textSecondary,
+              height: 1.6,
             ),
           ),
         ],

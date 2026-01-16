@@ -1,7 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'injection.config.dart';
+import 'package:no_gerd/core/di/injection.config.dart';
 
 /// 전역 GetIt 인스턴스
 final getIt = GetIt.instance;
@@ -16,3 +17,10 @@ final getIt = GetIt.instance;
   asExtension: true,
 )
 Future<void> configureDependencies() async => getIt.init();
+
+/// Core Module - SharedPreferences 등록
+@module
+abstract class CoreModule {
+  @preResolve
+  Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
+}

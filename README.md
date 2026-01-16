@@ -410,8 +410,7 @@ void dispose() {
 
 ## 📞 Contact
 
-- 📧 Email: pyowonsik@gmail.com
-- 💻 GitHub: [@pyowonsik](https://github.com/pyowonsik)
+- 📧 Email: qqrtyu@gmail.com
 
 ---
 
