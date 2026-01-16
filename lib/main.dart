@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -22,6 +23,9 @@ Future<void> main() async {
 
   // 환경 변수 로드
   await dotenv.load(fileName: '.env');
+
+  // Gemini 초기화
+  Gemini.init(apiKey: dotenv.env['GEMINI_API_KEY']!);
 
   // Supabase 초기화
   await Supabase.initialize(

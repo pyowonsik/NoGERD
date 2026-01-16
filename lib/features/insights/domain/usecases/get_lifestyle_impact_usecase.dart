@@ -34,21 +34,83 @@ class LifestyleImpact {
 /// 지정된 기간 동안의 생활습관 기록을 분석하여 건강에 미치는 영향을 평가합니다.
 @injectable
 class GetLifestyleImpactUseCase
-    implements UseCase<List<LifestyleImpact>, int> {
+    implements UseCase<List<LifestyleImpact>, DateRangeParams> {
   /// 생성자
   const GetLifestyleImpactUseCase(this._repository);
 
   final IRecordRepository _repository;
 
+  // 실제 데이터 사용
+  static const _useMockData = false;
+
+  /// 이번 주인지 확인
+  bool _isThisWeek(DateRangeParams params) {
+    final now = DateTime.now();
+    final weekday = now.weekday;
+    final thisMonday = DateTime(now.year, now.month, now.day)
+        .subtract(Duration(days: weekday - 1));
+    return params.startDate.isAtSameMomentAs(thisMonday) ||
+        params.startDate.isAfter(thisMonday);
+  }
+
   @override
-  Future<Either<Failure, List<LifestyleImpact>>> call(int days) async {
+  Future<Either<Failure, List<LifestyleImpact>>> call(DateRangeParams params) async {
+    if (_useMockData) {
+      // 이번 주 = 좋은 시나리오, 지난 주 = 나쁜 시나리오
+      final isGood = _isThisWeek(params);
+      if (isGood) {
+        // 좋은 시나리오: 충분한 수면, 규칙적 운동, 낮은 스트레스
+        return Right([
+          const LifestyleImpact(
+            lifestyleType: LifestyleType.sleep,
+            averageValue: 7.5,
+            statusLabel: '양호',
+            description: '평균 7.5시간 수면',
+          ),
+          const LifestyleImpact(
+            lifestyleType: LifestyleType.exercise,
+            averageValue: 4.0,
+            statusLabel: '양호',
+            description: '주 4회 운동',
+          ),
+          const LifestyleImpact(
+            lifestyleType: LifestyleType.stress,
+            averageValue: 2.5,
+            statusLabel: '양호',
+            description: '낮은 스트레스 수준',
+          ),
+        ]);
+      } else {
+        // 나쁜 시나리오: 수면 부족, 운동 부족, 높은 스트레스
+        return Right([
+          const LifestyleImpact(
+            lifestyleType: LifestyleType.sleep,
+            averageValue: 4.5,
+            statusLabel: '부족',
+            description: '평균 4.5시간 수면',
+          ),
+          const LifestyleImpact(
+            lifestyleType: LifestyleType.exercise,
+            averageValue: 0.0,
+            statusLabel: '부족',
+            description: '운동 기록 없음',
+          ),
+          const LifestyleImpact(
+            lifestyleType: LifestyleType.stress,
+            averageValue: 8.5,
+            statusLabel: '주의',
+            description: '매우 높은 스트레스 수준',
+          ),
+        ]);
+      }
+    }
+
     try {
       final Map<LifestyleType, List<double>> lifestyleData = {};
-      final now = DateTime.now();
+      var currentDate = params.startDate;
 
-      for (int i = 0; i < days; i++) {
-        final date = now.subtract(Duration(days: i));
-        final result = await _repository.getLifestyleRecords(date);
+      while (!currentDate.isAfter(params.endDate)) {
+        final result = await _repository.getLifestyleRecords(currentDate);
 
         result.fold(
           (failure) => null,
@@ -78,7 +140,12 @@ class GetLifestyleImpactUseCase
             }
           },
         );
+
+        currentDate = currentDate.add(const Duration(days: 1));
       }
+
+      // 총 일수 계산
+      final totalDays = params.endDate.difference(params.startDate).inDays + 1;
 
       // 분석 결과 생성
       final impacts = <LifestyleImpact>[];
@@ -96,7 +163,7 @@ class GetLifestyleImpactUseCase
         final exerciseValues = lifestyleData[LifestyleType.exercise]!;
         // 운동한 횟수 계산 (1.0 값의 개수)
         final exerciseCount = exerciseValues.where((v) => v == 1.0).length;
-        impacts.add(_analyzeExercise(exerciseCount, days));
+        impacts.add(_analyzeExercise(exerciseCount, totalDays));
       }
 
       // 스트레스 분석

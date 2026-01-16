@@ -35,8 +35,37 @@ class InsightsState with _$InsightsState {
     /// 생활습관 영향 데이터
     required List<LifestyleImpact> lifestyleImpacts,
 
+    // ===== 지난 주 데이터 (AI 분석용) =====
+
+    /// 지난 주 증상 추이 데이터
+    required List<SymptomTrend> lastWeekSymptomTrends,
+
+    /// 지난 주 트리거 분석 결과
+    required List<TriggerAnalysis> lastWeekTriggerAnalysis,
+
+    /// 지난 주 증상 분포 데이터
+    required List<SymptomDistribution> lastWeekSymptomDistribution,
+
+    /// 지난 주 식사-증상 연관성 데이터
+    required List<MealSymptomCorrelation> lastWeekMealSymptomCorrelation,
+
+    /// 지난 주 생활습관 영향 데이터
+    required List<LifestyleImpact> lastWeekLifestyleImpacts,
+
     /// 에러
     required Option<Failure> failure,
+
+    /// AI 인사이트 로딩 상태
+    required bool isAILoading,
+
+    /// AI 인사이트 결과
+    required Option<AIInsight> aiInsight,
+
+    /// 이번 주 AI 리포트 생성 가능 여부
+    required bool canGenerateThisWeek,
+
+    /// 다음 리포트 생성 가능 날짜 (월요일)
+    required DateTime? nextReportDate,
   }) = _InsightsState;
 
   /// 초기 상태
@@ -51,6 +80,15 @@ class InsightsState with _$InsightsState {
         symptomDistribution: [],
         mealSymptomCorrelation: [],
         lifestyleImpacts: [],
+        lastWeekSymptomTrends: [],
+        lastWeekTriggerAnalysis: [],
+        lastWeekSymptomDistribution: [],
+        lastWeekMealSymptomCorrelation: [],
+        lastWeekLifestyleImpacts: [],
         failure: none(),
+        isAILoading: false,
+        aiInsight: none(),
+        canGenerateThisWeek: true,
+        nextReportDate: null,
       );
 }
