@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:no_gerd/features/home/domain/models/recent_record.dart';
-import 'package:no_gerd/features/home/presentation/widgets/all_records_modal.dart';
 import 'package:no_gerd/shared/shared.dart';
 
 /// 최근 기록 섹션
 class RecentRecordsSection extends StatelessWidget {
-  /// 최근 기록 데이터 (홈 화면용, 최대 5개)
+  /// 최근 기록 데이터 (홈 화면용)
   final List<RecentRecord> records;
 
-  /// 전체 기록 데이터 (전체보기 모달용, 최대 20개)
+  /// 전체 기록 데이터 (사용하지 않음, 호환성 유지)
   final List<RecentRecord> allRecords;
 
   /// 생성자
@@ -20,8 +19,57 @@ class RecentRecordsSection extends StatelessWidget {
     super.key,
   });
 
+  /// 캘린더 이동 확인 다이얼로그
+  Future<void> _showCalendarConfirmDialog(BuildContext context) async {
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        title: const Text(
+          '캘린더로 이동',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: const Text(
+          '전체 기록을 확인하려면 캘린더 탭으로 이동합니다.',
+          style: TextStyle(fontSize: 14),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text(
+              '취소',
+              style: TextStyle(color: AppTheme.textSecondary),
+            ),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text(
+              '확인',
+              style: TextStyle(
+                color: AppTheme.primary,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (result == true && context.mounted) {
+      context.go('/calendar');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    // 최근 기록 3개만 표시
+    final displayRecords = records.take(3).toList();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -37,29 +85,12 @@ class RecentRecordsSection extends StatelessWidget {
               ),
             ),
             TextButton(
-              onPressed: allRecords.length > 5
-                  ? () {
-                      showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        builder: (context) => DraggableScrollableSheet(
-                          initialChildSize: 0.9,
-                          minChildSize: 0.5,
-                          maxChildSize: 0.95,
-                          builder: (context, scrollController) =>
-                              AllRecordsModal(records: allRecords),
-                        ),
-                      );
-                    }
-                  : null,
-              child: Text(
+              onPressed: () => _showCalendarConfirmDialog(context),
+              child: const Text(
                 '전체보기',
                 style: TextStyle(
                   fontSize: 14,
-                  color: allRecords.length > 5
-                      ? AppTheme.primary
-                      : AppTheme.textTertiary,
+                  color: AppTheme.primary,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -67,8 +98,8 @@ class RecentRecordsSection extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 8),
-        // 기록 목록
-        if (records.isEmpty)
+        // 기록 목록 (최대 3개)
+        if (displayRecords.isEmpty)
           const GlassCard(
             child: Center(
               child: Padding(
@@ -84,7 +115,7 @@ class RecentRecordsSection extends StatelessWidget {
             ),
           )
         else
-          ...records.map(
+          ...displayRecords.map(
             (record) => Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: _RecentRecordItem(data: record),

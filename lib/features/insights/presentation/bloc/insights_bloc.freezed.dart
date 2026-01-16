@@ -20,18 +20,24 @@ mixin _$InsightsEvent {
   TResult when<TResult extends Object?>({
     required TResult Function(int days) loadData,
     required TResult Function() refresh,
+    required TResult Function() loadAIInsights,
+    required TResult Function() loadSavedInsight,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int days)? loadData,
     TResult? Function()? refresh,
+    TResult? Function()? loadAIInsights,
+    TResult? Function()? loadSavedInsight,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int days)? loadData,
     TResult Function()? refresh,
+    TResult Function()? loadAIInsights,
+    TResult Function()? loadSavedInsight,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +45,25 @@ mixin _$InsightsEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(InsightsEventLoadData value) loadData,
     required TResult Function(InsightsEventRefresh value) refresh,
+    required TResult Function(InsightsEventLoadAIInsights value) loadAIInsights,
+    required TResult Function(InsightsEventLoadSavedInsight value)
+        loadSavedInsight,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InsightsEventLoadData value)? loadData,
     TResult? Function(InsightsEventRefresh value)? refresh,
+    TResult? Function(InsightsEventLoadAIInsights value)? loadAIInsights,
+    TResult? Function(InsightsEventLoadSavedInsight value)? loadSavedInsight,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InsightsEventLoadData value)? loadData,
     TResult Function(InsightsEventRefresh value)? refresh,
+    TResult Function(InsightsEventLoadAIInsights value)? loadAIInsights,
+    TResult Function(InsightsEventLoadSavedInsight value)? loadSavedInsight,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -142,6 +155,8 @@ class _$InsightsEventLoadDataImpl implements InsightsEventLoadData {
   TResult when<TResult extends Object?>({
     required TResult Function(int days) loadData,
     required TResult Function() refresh,
+    required TResult Function() loadAIInsights,
+    required TResult Function() loadSavedInsight,
   }) {
     return loadData(days);
   }
@@ -151,6 +166,8 @@ class _$InsightsEventLoadDataImpl implements InsightsEventLoadData {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int days)? loadData,
     TResult? Function()? refresh,
+    TResult? Function()? loadAIInsights,
+    TResult? Function()? loadSavedInsight,
   }) {
     return loadData?.call(days);
   }
@@ -160,6 +177,8 @@ class _$InsightsEventLoadDataImpl implements InsightsEventLoadData {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int days)? loadData,
     TResult Function()? refresh,
+    TResult Function()? loadAIInsights,
+    TResult Function()? loadSavedInsight,
     required TResult orElse(),
   }) {
     if (loadData != null) {
@@ -173,6 +192,9 @@ class _$InsightsEventLoadDataImpl implements InsightsEventLoadData {
   TResult map<TResult extends Object?>({
     required TResult Function(InsightsEventLoadData value) loadData,
     required TResult Function(InsightsEventRefresh value) refresh,
+    required TResult Function(InsightsEventLoadAIInsights value) loadAIInsights,
+    required TResult Function(InsightsEventLoadSavedInsight value)
+        loadSavedInsight,
   }) {
     return loadData(this);
   }
@@ -182,6 +204,8 @@ class _$InsightsEventLoadDataImpl implements InsightsEventLoadData {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InsightsEventLoadData value)? loadData,
     TResult? Function(InsightsEventRefresh value)? refresh,
+    TResult? Function(InsightsEventLoadAIInsights value)? loadAIInsights,
+    TResult? Function(InsightsEventLoadSavedInsight value)? loadSavedInsight,
   }) {
     return loadData?.call(this);
   }
@@ -191,6 +215,8 @@ class _$InsightsEventLoadDataImpl implements InsightsEventLoadData {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InsightsEventLoadData value)? loadData,
     TResult Function(InsightsEventRefresh value)? refresh,
+    TResult Function(InsightsEventLoadAIInsights value)? loadAIInsights,
+    TResult Function(InsightsEventLoadSavedInsight value)? loadSavedInsight,
     required TResult orElse(),
   }) {
     if (loadData != null) {
@@ -251,6 +277,8 @@ class _$InsightsEventRefreshImpl implements InsightsEventRefresh {
   TResult when<TResult extends Object?>({
     required TResult Function(int days) loadData,
     required TResult Function() refresh,
+    required TResult Function() loadAIInsights,
+    required TResult Function() loadSavedInsight,
   }) {
     return refresh();
   }
@@ -260,6 +288,8 @@ class _$InsightsEventRefreshImpl implements InsightsEventRefresh {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int days)? loadData,
     TResult? Function()? refresh,
+    TResult? Function()? loadAIInsights,
+    TResult? Function()? loadSavedInsight,
   }) {
     return refresh?.call();
   }
@@ -269,6 +299,8 @@ class _$InsightsEventRefreshImpl implements InsightsEventRefresh {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int days)? loadData,
     TResult Function()? refresh,
+    TResult Function()? loadAIInsights,
+    TResult Function()? loadSavedInsight,
     required TResult orElse(),
   }) {
     if (refresh != null) {
@@ -282,6 +314,9 @@ class _$InsightsEventRefreshImpl implements InsightsEventRefresh {
   TResult map<TResult extends Object?>({
     required TResult Function(InsightsEventLoadData value) loadData,
     required TResult Function(InsightsEventRefresh value) refresh,
+    required TResult Function(InsightsEventLoadAIInsights value) loadAIInsights,
+    required TResult Function(InsightsEventLoadSavedInsight value)
+        loadSavedInsight,
   }) {
     return refresh(this);
   }
@@ -291,6 +326,8 @@ class _$InsightsEventRefreshImpl implements InsightsEventRefresh {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(InsightsEventLoadData value)? loadData,
     TResult? Function(InsightsEventRefresh value)? refresh,
+    TResult? Function(InsightsEventLoadAIInsights value)? loadAIInsights,
+    TResult? Function(InsightsEventLoadSavedInsight value)? loadSavedInsight,
   }) {
     return refresh?.call(this);
   }
@@ -300,6 +337,8 @@ class _$InsightsEventRefreshImpl implements InsightsEventRefresh {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(InsightsEventLoadData value)? loadData,
     TResult Function(InsightsEventRefresh value)? refresh,
+    TResult Function(InsightsEventLoadAIInsights value)? loadAIInsights,
+    TResult Function(InsightsEventLoadSavedInsight value)? loadSavedInsight,
     required TResult orElse(),
   }) {
     if (refresh != null) {
@@ -311,6 +350,246 @@ class _$InsightsEventRefreshImpl implements InsightsEventRefresh {
 
 abstract class InsightsEventRefresh implements InsightsEvent {
   const factory InsightsEventRefresh() = _$InsightsEventRefreshImpl;
+}
+
+/// @nodoc
+abstract class _$$InsightsEventLoadAIInsightsImplCopyWith<$Res> {
+  factory _$$InsightsEventLoadAIInsightsImplCopyWith(
+          _$InsightsEventLoadAIInsightsImpl value,
+          $Res Function(_$InsightsEventLoadAIInsightsImpl) then) =
+      __$$InsightsEventLoadAIInsightsImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$InsightsEventLoadAIInsightsImplCopyWithImpl<$Res>
+    extends _$InsightsEventCopyWithImpl<$Res, _$InsightsEventLoadAIInsightsImpl>
+    implements _$$InsightsEventLoadAIInsightsImplCopyWith<$Res> {
+  __$$InsightsEventLoadAIInsightsImplCopyWithImpl(
+      _$InsightsEventLoadAIInsightsImpl _value,
+      $Res Function(_$InsightsEventLoadAIInsightsImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$InsightsEventLoadAIInsightsImpl implements InsightsEventLoadAIInsights {
+  const _$InsightsEventLoadAIInsightsImpl();
+
+  @override
+  String toString() {
+    return 'InsightsEvent.loadAIInsights()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InsightsEventLoadAIInsightsImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int days) loadData,
+    required TResult Function() refresh,
+    required TResult Function() loadAIInsights,
+    required TResult Function() loadSavedInsight,
+  }) {
+    return loadAIInsights();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int days)? loadData,
+    TResult? Function()? refresh,
+    TResult? Function()? loadAIInsights,
+    TResult? Function()? loadSavedInsight,
+  }) {
+    return loadAIInsights?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int days)? loadData,
+    TResult Function()? refresh,
+    TResult Function()? loadAIInsights,
+    TResult Function()? loadSavedInsight,
+    required TResult orElse(),
+  }) {
+    if (loadAIInsights != null) {
+      return loadAIInsights();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InsightsEventLoadData value) loadData,
+    required TResult Function(InsightsEventRefresh value) refresh,
+    required TResult Function(InsightsEventLoadAIInsights value) loadAIInsights,
+    required TResult Function(InsightsEventLoadSavedInsight value)
+        loadSavedInsight,
+  }) {
+    return loadAIInsights(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InsightsEventLoadData value)? loadData,
+    TResult? Function(InsightsEventRefresh value)? refresh,
+    TResult? Function(InsightsEventLoadAIInsights value)? loadAIInsights,
+    TResult? Function(InsightsEventLoadSavedInsight value)? loadSavedInsight,
+  }) {
+    return loadAIInsights?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InsightsEventLoadData value)? loadData,
+    TResult Function(InsightsEventRefresh value)? refresh,
+    TResult Function(InsightsEventLoadAIInsights value)? loadAIInsights,
+    TResult Function(InsightsEventLoadSavedInsight value)? loadSavedInsight,
+    required TResult orElse(),
+  }) {
+    if (loadAIInsights != null) {
+      return loadAIInsights(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InsightsEventLoadAIInsights implements InsightsEvent {
+  const factory InsightsEventLoadAIInsights() =
+      _$InsightsEventLoadAIInsightsImpl;
+}
+
+/// @nodoc
+abstract class _$$InsightsEventLoadSavedInsightImplCopyWith<$Res> {
+  factory _$$InsightsEventLoadSavedInsightImplCopyWith(
+          _$InsightsEventLoadSavedInsightImpl value,
+          $Res Function(_$InsightsEventLoadSavedInsightImpl) then) =
+      __$$InsightsEventLoadSavedInsightImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$InsightsEventLoadSavedInsightImplCopyWithImpl<$Res>
+    extends _$InsightsEventCopyWithImpl<$Res,
+        _$InsightsEventLoadSavedInsightImpl>
+    implements _$$InsightsEventLoadSavedInsightImplCopyWith<$Res> {
+  __$$InsightsEventLoadSavedInsightImplCopyWithImpl(
+      _$InsightsEventLoadSavedInsightImpl _value,
+      $Res Function(_$InsightsEventLoadSavedInsightImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$InsightsEventLoadSavedInsightImpl
+    implements InsightsEventLoadSavedInsight {
+  const _$InsightsEventLoadSavedInsightImpl();
+
+  @override
+  String toString() {
+    return 'InsightsEvent.loadSavedInsight()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InsightsEventLoadSavedInsightImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int days) loadData,
+    required TResult Function() refresh,
+    required TResult Function() loadAIInsights,
+    required TResult Function() loadSavedInsight,
+  }) {
+    return loadSavedInsight();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int days)? loadData,
+    TResult? Function()? refresh,
+    TResult? Function()? loadAIInsights,
+    TResult? Function()? loadSavedInsight,
+  }) {
+    return loadSavedInsight?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int days)? loadData,
+    TResult Function()? refresh,
+    TResult Function()? loadAIInsights,
+    TResult Function()? loadSavedInsight,
+    required TResult orElse(),
+  }) {
+    if (loadSavedInsight != null) {
+      return loadSavedInsight();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(InsightsEventLoadData value) loadData,
+    required TResult Function(InsightsEventRefresh value) refresh,
+    required TResult Function(InsightsEventLoadAIInsights value) loadAIInsights,
+    required TResult Function(InsightsEventLoadSavedInsight value)
+        loadSavedInsight,
+  }) {
+    return loadSavedInsight(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(InsightsEventLoadData value)? loadData,
+    TResult? Function(InsightsEventRefresh value)? refresh,
+    TResult? Function(InsightsEventLoadAIInsights value)? loadAIInsights,
+    TResult? Function(InsightsEventLoadSavedInsight value)? loadSavedInsight,
+  }) {
+    return loadSavedInsight?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(InsightsEventLoadData value)? loadData,
+    TResult Function(InsightsEventRefresh value)? refresh,
+    TResult Function(InsightsEventLoadAIInsights value)? loadAIInsights,
+    TResult Function(InsightsEventLoadSavedInsight value)? loadSavedInsight,
+    required TResult orElse(),
+  }) {
+    if (loadSavedInsight != null) {
+      return loadSavedInsight(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class InsightsEventLoadSavedInsight implements InsightsEvent {
+  const factory InsightsEventLoadSavedInsight() =
+      _$InsightsEventLoadSavedInsightImpl;
 }
 
 /// @nodoc
@@ -347,10 +626,41 @@ mixin _$InsightsState {
 
   /// 생활습관 영향 데이터
   List<LifestyleImpact> get lifestyleImpacts =>
+      throw _privateConstructorUsedError; // ===== 지난 주 데이터 (AI 분석용) =====
+  /// 지난 주 증상 추이 데이터
+  List<SymptomTrend> get lastWeekSymptomTrends =>
+      throw _privateConstructorUsedError;
+
+  /// 지난 주 트리거 분석 결과
+  List<TriggerAnalysis> get lastWeekTriggerAnalysis =>
+      throw _privateConstructorUsedError;
+
+  /// 지난 주 증상 분포 데이터
+  List<SymptomDistribution> get lastWeekSymptomDistribution =>
+      throw _privateConstructorUsedError;
+
+  /// 지난 주 식사-증상 연관성 데이터
+  List<MealSymptomCorrelation> get lastWeekMealSymptomCorrelation =>
+      throw _privateConstructorUsedError;
+
+  /// 지난 주 생활습관 영향 데이터
+  List<LifestyleImpact> get lastWeekLifestyleImpacts =>
       throw _privateConstructorUsedError;
 
   /// 에러
   Option<Failure> get failure => throw _privateConstructorUsedError;
+
+  /// AI 인사이트 로딩 상태
+  bool get isAILoading => throw _privateConstructorUsedError;
+
+  /// AI 인사이트 결과
+  Option<AIInsight> get aiInsight => throw _privateConstructorUsedError;
+
+  /// 이번 주 AI 리포트 생성 가능 여부
+  bool get canGenerateThisWeek => throw _privateConstructorUsedError;
+
+  /// 다음 리포트 생성 가능 날짜 (월요일)
+  DateTime? get nextReportDate => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $InsightsStateCopyWith<InsightsState> get copyWith =>
@@ -374,7 +684,16 @@ abstract class $InsightsStateCopyWith<$Res> {
       List<SymptomDistribution> symptomDistribution,
       List<MealSymptomCorrelation> mealSymptomCorrelation,
       List<LifestyleImpact> lifestyleImpacts,
-      Option<Failure> failure});
+      List<SymptomTrend> lastWeekSymptomTrends,
+      List<TriggerAnalysis> lastWeekTriggerAnalysis,
+      List<SymptomDistribution> lastWeekSymptomDistribution,
+      List<MealSymptomCorrelation> lastWeekMealSymptomCorrelation,
+      List<LifestyleImpact> lastWeekLifestyleImpacts,
+      Option<Failure> failure,
+      bool isAILoading,
+      Option<AIInsight> aiInsight,
+      bool canGenerateThisWeek,
+      DateTime? nextReportDate});
 }
 
 /// @nodoc
@@ -400,7 +719,16 @@ class _$InsightsStateCopyWithImpl<$Res, $Val extends InsightsState>
     Object? symptomDistribution = null,
     Object? mealSymptomCorrelation = null,
     Object? lifestyleImpacts = null,
+    Object? lastWeekSymptomTrends = null,
+    Object? lastWeekTriggerAnalysis = null,
+    Object? lastWeekSymptomDistribution = null,
+    Object? lastWeekMealSymptomCorrelation = null,
+    Object? lastWeekLifestyleImpacts = null,
     Object? failure = null,
+    Object? isAILoading = null,
+    Object? aiInsight = null,
+    Object? canGenerateThisWeek = null,
+    Object? nextReportDate = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -443,10 +771,46 @@ class _$InsightsStateCopyWithImpl<$Res, $Val extends InsightsState>
           ? _value.lifestyleImpacts
           : lifestyleImpacts // ignore: cast_nullable_to_non_nullable
               as List<LifestyleImpact>,
+      lastWeekSymptomTrends: null == lastWeekSymptomTrends
+          ? _value.lastWeekSymptomTrends
+          : lastWeekSymptomTrends // ignore: cast_nullable_to_non_nullable
+              as List<SymptomTrend>,
+      lastWeekTriggerAnalysis: null == lastWeekTriggerAnalysis
+          ? _value.lastWeekTriggerAnalysis
+          : lastWeekTriggerAnalysis // ignore: cast_nullable_to_non_nullable
+              as List<TriggerAnalysis>,
+      lastWeekSymptomDistribution: null == lastWeekSymptomDistribution
+          ? _value.lastWeekSymptomDistribution
+          : lastWeekSymptomDistribution // ignore: cast_nullable_to_non_nullable
+              as List<SymptomDistribution>,
+      lastWeekMealSymptomCorrelation: null == lastWeekMealSymptomCorrelation
+          ? _value.lastWeekMealSymptomCorrelation
+          : lastWeekMealSymptomCorrelation // ignore: cast_nullable_to_non_nullable
+              as List<MealSymptomCorrelation>,
+      lastWeekLifestyleImpacts: null == lastWeekLifestyleImpacts
+          ? _value.lastWeekLifestyleImpacts
+          : lastWeekLifestyleImpacts // ignore: cast_nullable_to_non_nullable
+              as List<LifestyleImpact>,
       failure: null == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
               as Option<Failure>,
+      isAILoading: null == isAILoading
+          ? _value.isAILoading
+          : isAILoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      aiInsight: null == aiInsight
+          ? _value.aiInsight
+          : aiInsight // ignore: cast_nullable_to_non_nullable
+              as Option<AIInsight>,
+      canGenerateThisWeek: null == canGenerateThisWeek
+          ? _value.canGenerateThisWeek
+          : canGenerateThisWeek // ignore: cast_nullable_to_non_nullable
+              as bool,
+      nextReportDate: freezed == nextReportDate
+          ? _value.nextReportDate
+          : nextReportDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -470,7 +834,16 @@ abstract class _$$InsightsStateImplCopyWith<$Res>
       List<SymptomDistribution> symptomDistribution,
       List<MealSymptomCorrelation> mealSymptomCorrelation,
       List<LifestyleImpact> lifestyleImpacts,
-      Option<Failure> failure});
+      List<SymptomTrend> lastWeekSymptomTrends,
+      List<TriggerAnalysis> lastWeekTriggerAnalysis,
+      List<SymptomDistribution> lastWeekSymptomDistribution,
+      List<MealSymptomCorrelation> lastWeekMealSymptomCorrelation,
+      List<LifestyleImpact> lastWeekLifestyleImpacts,
+      Option<Failure> failure,
+      bool isAILoading,
+      Option<AIInsight> aiInsight,
+      bool canGenerateThisWeek,
+      DateTime? nextReportDate});
 }
 
 /// @nodoc
@@ -494,7 +867,16 @@ class __$$InsightsStateImplCopyWithImpl<$Res>
     Object? symptomDistribution = null,
     Object? mealSymptomCorrelation = null,
     Object? lifestyleImpacts = null,
+    Object? lastWeekSymptomTrends = null,
+    Object? lastWeekTriggerAnalysis = null,
+    Object? lastWeekSymptomDistribution = null,
+    Object? lastWeekMealSymptomCorrelation = null,
+    Object? lastWeekLifestyleImpacts = null,
     Object? failure = null,
+    Object? isAILoading = null,
+    Object? aiInsight = null,
+    Object? canGenerateThisWeek = null,
+    Object? nextReportDate = freezed,
   }) {
     return _then(_$InsightsStateImpl(
       isLoading: null == isLoading
@@ -537,10 +919,46 @@ class __$$InsightsStateImplCopyWithImpl<$Res>
           ? _value._lifestyleImpacts
           : lifestyleImpacts // ignore: cast_nullable_to_non_nullable
               as List<LifestyleImpact>,
+      lastWeekSymptomTrends: null == lastWeekSymptomTrends
+          ? _value._lastWeekSymptomTrends
+          : lastWeekSymptomTrends // ignore: cast_nullable_to_non_nullable
+              as List<SymptomTrend>,
+      lastWeekTriggerAnalysis: null == lastWeekTriggerAnalysis
+          ? _value._lastWeekTriggerAnalysis
+          : lastWeekTriggerAnalysis // ignore: cast_nullable_to_non_nullable
+              as List<TriggerAnalysis>,
+      lastWeekSymptomDistribution: null == lastWeekSymptomDistribution
+          ? _value._lastWeekSymptomDistribution
+          : lastWeekSymptomDistribution // ignore: cast_nullable_to_non_nullable
+              as List<SymptomDistribution>,
+      lastWeekMealSymptomCorrelation: null == lastWeekMealSymptomCorrelation
+          ? _value._lastWeekMealSymptomCorrelation
+          : lastWeekMealSymptomCorrelation // ignore: cast_nullable_to_non_nullable
+              as List<MealSymptomCorrelation>,
+      lastWeekLifestyleImpacts: null == lastWeekLifestyleImpacts
+          ? _value._lastWeekLifestyleImpacts
+          : lastWeekLifestyleImpacts // ignore: cast_nullable_to_non_nullable
+              as List<LifestyleImpact>,
       failure: null == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
               as Option<Failure>,
+      isAILoading: null == isAILoading
+          ? _value.isAILoading
+          : isAILoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      aiInsight: null == aiInsight
+          ? _value.aiInsight
+          : aiInsight // ignore: cast_nullable_to_non_nullable
+              as Option<AIInsight>,
+      canGenerateThisWeek: null == canGenerateThisWeek
+          ? _value.canGenerateThisWeek
+          : canGenerateThisWeek // ignore: cast_nullable_to_non_nullable
+              as bool,
+      nextReportDate: freezed == nextReportDate
+          ? _value.nextReportDate
+          : nextReportDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -559,13 +977,28 @@ class _$InsightsStateImpl implements _InsightsState {
       required final List<SymptomDistribution> symptomDistribution,
       required final List<MealSymptomCorrelation> mealSymptomCorrelation,
       required final List<LifestyleImpact> lifestyleImpacts,
-      required this.failure})
+      required final List<SymptomTrend> lastWeekSymptomTrends,
+      required final List<TriggerAnalysis> lastWeekTriggerAnalysis,
+      required final List<SymptomDistribution> lastWeekSymptomDistribution,
+      required final List<MealSymptomCorrelation>
+          lastWeekMealSymptomCorrelation,
+      required final List<LifestyleImpact> lastWeekLifestyleImpacts,
+      required this.failure,
+      required this.isAILoading,
+      required this.aiInsight,
+      required this.canGenerateThisWeek,
+      required this.nextReportDate})
       : _symptomTrends = symptomTrends,
         _triggerAnalysis = triggerAnalysis,
         _weeklyPatterns = weeklyPatterns,
         _symptomDistribution = symptomDistribution,
         _mealSymptomCorrelation = mealSymptomCorrelation,
-        _lifestyleImpacts = lifestyleImpacts;
+        _lifestyleImpacts = lifestyleImpacts,
+        _lastWeekSymptomTrends = lastWeekSymptomTrends,
+        _lastWeekTriggerAnalysis = lastWeekTriggerAnalysis,
+        _lastWeekSymptomDistribution = lastWeekSymptomDistribution,
+        _lastWeekMealSymptomCorrelation = lastWeekMealSymptomCorrelation,
+        _lastWeekLifestyleImpacts = lastWeekLifestyleImpacts;
 
   /// 로딩 상태
   @override
@@ -652,13 +1085,90 @@ class _$InsightsStateImpl implements _InsightsState {
     return EqualUnmodifiableListView(_lifestyleImpacts);
   }
 
+// ===== 지난 주 데이터 (AI 분석용) =====
+  /// 지난 주 증상 추이 데이터
+  final List<SymptomTrend> _lastWeekSymptomTrends;
+// ===== 지난 주 데이터 (AI 분석용) =====
+  /// 지난 주 증상 추이 데이터
+  @override
+  List<SymptomTrend> get lastWeekSymptomTrends {
+    if (_lastWeekSymptomTrends is EqualUnmodifiableListView)
+      return _lastWeekSymptomTrends;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_lastWeekSymptomTrends);
+  }
+
+  /// 지난 주 트리거 분석 결과
+  final List<TriggerAnalysis> _lastWeekTriggerAnalysis;
+
+  /// 지난 주 트리거 분석 결과
+  @override
+  List<TriggerAnalysis> get lastWeekTriggerAnalysis {
+    if (_lastWeekTriggerAnalysis is EqualUnmodifiableListView)
+      return _lastWeekTriggerAnalysis;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_lastWeekTriggerAnalysis);
+  }
+
+  /// 지난 주 증상 분포 데이터
+  final List<SymptomDistribution> _lastWeekSymptomDistribution;
+
+  /// 지난 주 증상 분포 데이터
+  @override
+  List<SymptomDistribution> get lastWeekSymptomDistribution {
+    if (_lastWeekSymptomDistribution is EqualUnmodifiableListView)
+      return _lastWeekSymptomDistribution;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_lastWeekSymptomDistribution);
+  }
+
+  /// 지난 주 식사-증상 연관성 데이터
+  final List<MealSymptomCorrelation> _lastWeekMealSymptomCorrelation;
+
+  /// 지난 주 식사-증상 연관성 데이터
+  @override
+  List<MealSymptomCorrelation> get lastWeekMealSymptomCorrelation {
+    if (_lastWeekMealSymptomCorrelation is EqualUnmodifiableListView)
+      return _lastWeekMealSymptomCorrelation;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_lastWeekMealSymptomCorrelation);
+  }
+
+  /// 지난 주 생활습관 영향 데이터
+  final List<LifestyleImpact> _lastWeekLifestyleImpacts;
+
+  /// 지난 주 생활습관 영향 데이터
+  @override
+  List<LifestyleImpact> get lastWeekLifestyleImpacts {
+    if (_lastWeekLifestyleImpacts is EqualUnmodifiableListView)
+      return _lastWeekLifestyleImpacts;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_lastWeekLifestyleImpacts);
+  }
+
   /// 에러
   @override
   final Option<Failure> failure;
 
+  /// AI 인사이트 로딩 상태
+  @override
+  final bool isAILoading;
+
+  /// AI 인사이트 결과
+  @override
+  final Option<AIInsight> aiInsight;
+
+  /// 이번 주 AI 리포트 생성 가능 여부
+  @override
+  final bool canGenerateThisWeek;
+
+  /// 다음 리포트 생성 가능 날짜 (월요일)
+  @override
+  final DateTime? nextReportDate;
+
   @override
   String toString() {
-    return 'InsightsState(isLoading: $isLoading, selectedDays: $selectedDays, healthScore: $healthScore, previousHealthScore: $previousHealthScore, symptomTrends: $symptomTrends, triggerAnalysis: $triggerAnalysis, weeklyPatterns: $weeklyPatterns, symptomDistribution: $symptomDistribution, mealSymptomCorrelation: $mealSymptomCorrelation, lifestyleImpacts: $lifestyleImpacts, failure: $failure)';
+    return 'InsightsState(isLoading: $isLoading, selectedDays: $selectedDays, healthScore: $healthScore, previousHealthScore: $previousHealthScore, symptomTrends: $symptomTrends, triggerAnalysis: $triggerAnalysis, weeklyPatterns: $weeklyPatterns, symptomDistribution: $symptomDistribution, mealSymptomCorrelation: $mealSymptomCorrelation, lifestyleImpacts: $lifestyleImpacts, lastWeekSymptomTrends: $lastWeekSymptomTrends, lastWeekTriggerAnalysis: $lastWeekTriggerAnalysis, lastWeekSymptomDistribution: $lastWeekSymptomDistribution, lastWeekMealSymptomCorrelation: $lastWeekMealSymptomCorrelation, lastWeekLifestyleImpacts: $lastWeekLifestyleImpacts, failure: $failure, isAILoading: $isAILoading, aiInsight: $aiInsight, canGenerateThisWeek: $canGenerateThisWeek, nextReportDate: $nextReportDate)';
   }
 
   @override
@@ -686,23 +1196,53 @@ class _$InsightsStateImpl implements _InsightsState {
                 other._mealSymptomCorrelation, _mealSymptomCorrelation) &&
             const DeepCollectionEquality()
                 .equals(other._lifestyleImpacts, _lifestyleImpacts) &&
-            (identical(other.failure, failure) || other.failure == failure));
+            const DeepCollectionEquality()
+                .equals(other._lastWeekSymptomTrends, _lastWeekSymptomTrends) &&
+            const DeepCollectionEquality().equals(
+                other._lastWeekTriggerAnalysis, _lastWeekTriggerAnalysis) &&
+            const DeepCollectionEquality().equals(
+                other._lastWeekSymptomDistribution,
+                _lastWeekSymptomDistribution) &&
+            const DeepCollectionEquality().equals(
+                other._lastWeekMealSymptomCorrelation,
+                _lastWeekMealSymptomCorrelation) &&
+            const DeepCollectionEquality().equals(
+                other._lastWeekLifestyleImpacts, _lastWeekLifestyleImpacts) &&
+            (identical(other.failure, failure) || other.failure == failure) &&
+            (identical(other.isAILoading, isAILoading) ||
+                other.isAILoading == isAILoading) &&
+            (identical(other.aiInsight, aiInsight) ||
+                other.aiInsight == aiInsight) &&
+            (identical(other.canGenerateThisWeek, canGenerateThisWeek) ||
+                other.canGenerateThisWeek == canGenerateThisWeek) &&
+            (identical(other.nextReportDate, nextReportDate) ||
+                other.nextReportDate == nextReportDate));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      isLoading,
-      selectedDays,
-      healthScore,
-      previousHealthScore,
-      const DeepCollectionEquality().hash(_symptomTrends),
-      const DeepCollectionEquality().hash(_triggerAnalysis),
-      const DeepCollectionEquality().hash(_weeklyPatterns),
-      const DeepCollectionEquality().hash(_symptomDistribution),
-      const DeepCollectionEquality().hash(_mealSymptomCorrelation),
-      const DeepCollectionEquality().hash(_lifestyleImpacts),
-      failure);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        isLoading,
+        selectedDays,
+        healthScore,
+        previousHealthScore,
+        const DeepCollectionEquality().hash(_symptomTrends),
+        const DeepCollectionEquality().hash(_triggerAnalysis),
+        const DeepCollectionEquality().hash(_weeklyPatterns),
+        const DeepCollectionEquality().hash(_symptomDistribution),
+        const DeepCollectionEquality().hash(_mealSymptomCorrelation),
+        const DeepCollectionEquality().hash(_lifestyleImpacts),
+        const DeepCollectionEquality().hash(_lastWeekSymptomTrends),
+        const DeepCollectionEquality().hash(_lastWeekTriggerAnalysis),
+        const DeepCollectionEquality().hash(_lastWeekSymptomDistribution),
+        const DeepCollectionEquality().hash(_lastWeekMealSymptomCorrelation),
+        const DeepCollectionEquality().hash(_lastWeekLifestyleImpacts),
+        failure,
+        isAILoading,
+        aiInsight,
+        canGenerateThisWeek,
+        nextReportDate
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -723,7 +1263,17 @@ abstract class _InsightsState implements InsightsState {
       required final List<SymptomDistribution> symptomDistribution,
       required final List<MealSymptomCorrelation> mealSymptomCorrelation,
       required final List<LifestyleImpact> lifestyleImpacts,
-      required final Option<Failure> failure}) = _$InsightsStateImpl;
+      required final List<SymptomTrend> lastWeekSymptomTrends,
+      required final List<TriggerAnalysis> lastWeekTriggerAnalysis,
+      required final List<SymptomDistribution> lastWeekSymptomDistribution,
+      required final List<MealSymptomCorrelation>
+          lastWeekMealSymptomCorrelation,
+      required final List<LifestyleImpact> lastWeekLifestyleImpacts,
+      required final Option<Failure> failure,
+      required final bool isAILoading,
+      required final Option<AIInsight> aiInsight,
+      required final bool canGenerateThisWeek,
+      required final DateTime? nextReportDate}) = _$InsightsStateImpl;
 
   @override
 
@@ -765,10 +1315,45 @@ abstract class _InsightsState implements InsightsState {
 
   /// 생활습관 영향 데이터
   List<LifestyleImpact> get lifestyleImpacts;
+  @override // ===== 지난 주 데이터 (AI 분석용) =====
+  /// 지난 주 증상 추이 데이터
+  List<SymptomTrend> get lastWeekSymptomTrends;
+  @override
+
+  /// 지난 주 트리거 분석 결과
+  List<TriggerAnalysis> get lastWeekTriggerAnalysis;
+  @override
+
+  /// 지난 주 증상 분포 데이터
+  List<SymptomDistribution> get lastWeekSymptomDistribution;
+  @override
+
+  /// 지난 주 식사-증상 연관성 데이터
+  List<MealSymptomCorrelation> get lastWeekMealSymptomCorrelation;
+  @override
+
+  /// 지난 주 생활습관 영향 데이터
+  List<LifestyleImpact> get lastWeekLifestyleImpacts;
   @override
 
   /// 에러
   Option<Failure> get failure;
+  @override
+
+  /// AI 인사이트 로딩 상태
+  bool get isAILoading;
+  @override
+
+  /// AI 인사이트 결과
+  Option<AIInsight> get aiInsight;
+  @override
+
+  /// 이번 주 AI 리포트 생성 가능 여부
+  bool get canGenerateThisWeek;
+  @override
+
+  /// 다음 리포트 생성 가능 날짜 (월요일)
+  DateTime? get nextReportDate;
   @override
   @JsonKey(ignore: true)
   _$$InsightsStateImplCopyWith<_$InsightsStateImpl> get copyWith =>

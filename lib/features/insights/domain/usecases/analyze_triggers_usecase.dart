@@ -26,21 +26,53 @@ class TriggerAnalysis {
 /// 식사 기록에서 트리거 음식을 분석하여 빈도를 계산합니다.
 @injectable
 class AnalyzeTriggersUseCase
-    implements UseCase<List<TriggerAnalysis>, DateTime> {
+    implements UseCase<List<TriggerAnalysis>, DateRangeParams> {
   /// 생성자
   const AnalyzeTriggersUseCase(this._repository);
 
   final IRecordRepository _repository;
 
+  // 실제 데이터 사용
+  static const _useMockData = false;
+
+  /// 이번 주인지 확인
+  bool _isThisWeek(DateRangeParams params) {
+    final now = DateTime.now();
+    final weekday = now.weekday;
+    final thisMonday = DateTime(now.year, now.month, now.day)
+        .subtract(Duration(days: weekday - 1));
+    return params.startDate.isAtSameMomentAs(thisMonday) ||
+        params.startDate.isAfter(thisMonday);
+  }
+
   @override
-  Future<Either<Failure, List<TriggerAnalysis>>> call(DateTime params) async {
+  Future<Either<Failure, List<TriggerAnalysis>>> call(DateRangeParams params) async {
+    if (_useMockData) {
+      // 이번 주 = 좋은 시나리오, 지난 주 = 나쁜 시나리오
+      final isGood = _isThisWeek(params);
+      if (isGood) {
+        // 좋은 시나리오: 트리거 음식 거의 안 먹음
+        return Right([
+          const TriggerAnalysis(category: TriggerFoodCategory.caffeine, count: 1),
+        ]);
+      } else {
+        // 나쁜 시나리오: 트리거 음식 많이 섭취
+        return Right([
+          const TriggerAnalysis(category: TriggerFoodCategory.spicy, count: 10),
+          const TriggerAnalysis(category: TriggerFoodCategory.fatty, count: 8),
+          const TriggerAnalysis(category: TriggerFoodCategory.caffeine, count: 7),
+          const TriggerAnalysis(category: TriggerFoodCategory.carbonated, count: 5),
+          const TriggerAnalysis(category: TriggerFoodCategory.alcohol, count: 4),
+        ]);
+      }
+    }
+
     try {
       final Map<TriggerFoodCategory, int> triggerCounts = {};
+      var currentDate = params.startDate;
 
-      // 지난 30일간의 식사 기록 분석
-      for (int i = 0; i < 30; i++) {
-        final date = params.subtract(Duration(days: i));
-        final result = await _repository.getMealRecords(date);
+      while (!currentDate.isAfter(params.endDate)) {
+        final result = await _repository.getMealRecords(currentDate);
 
         result.fold(
           (failure) => null,
@@ -55,6 +87,8 @@ class AnalyzeTriggersUseCase
             }
           },
         );
+
+        currentDate = currentDate.add(const Duration(days: 1));
       }
 
       // 빈도순으로 정렬
