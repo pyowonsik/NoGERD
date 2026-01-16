@@ -15,10 +15,9 @@ abstract class SettingsLocalDataSource {
 /// 설정 로컬 데이터 소스 구현체
 @LazySingleton(as: SettingsLocalDataSource)
 class SettingsLocalDataSourceImpl implements SettingsLocalDataSource {
-  final SharedPreferences _prefs;
-
   /// 생성자
   SettingsLocalDataSourceImpl(this._prefs);
+  final SharedPreferences _prefs;
 
   @override
   Future<AppSettings> getSettings() async {

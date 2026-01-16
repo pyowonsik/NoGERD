@@ -7,14 +7,26 @@ part 'symptom_record_model.g.dart';
 
 @freezed
 class SymptomRecordModel with _$SymptomRecordModel {
+  factory SymptomRecordModel.fromEntity(SymptomRecord entity, String userId) {
+    return SymptomRecordModel(
+      id: entity.id,
+      userId: userId,
+      recordedAt: entity.recordedAt,
+      symptoms: entity.symptoms.map((s) => s.name).toList(),
+      severity: entity.severity,
+      notes: entity.notes,
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
+    );
+  }
   const factory SymptomRecordModel({
     required String id,
     @JsonKey(name: 'user_id') required String userId,
     @JsonKey(name: 'record_datetime') required DateTime recordedAt,
     required List<String> symptoms,
     required int severity,
-    String? notes,
     @JsonKey(name: 'created_at') required DateTime createdAt,
+    String? notes,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
   }) = _SymptomRecordModel;
 
@@ -28,28 +40,17 @@ class SymptomRecordModel with _$SymptomRecordModel {
       id: id,
       recordedAt: recordedAt,
       symptoms: symptoms
-          .map((s) => GerdSymptom.values.firstWhere(
-                (e) => e.name == s,
-                orElse: () => GerdSymptom.heartburn,
-              ))
+          .map(
+            (s) => GerdSymptom.values.firstWhere(
+              (e) => e.name == s,
+              orElse: () => GerdSymptom.heartburn,
+            ),
+          )
           .toList(),
       severity: severity,
       notes: notes,
       createdAt: createdAt,
       updatedAt: updatedAt,
-    );
-  }
-
-  factory SymptomRecordModel.fromEntity(SymptomRecord entity, String userId) {
-    return SymptomRecordModel(
-      id: entity.id,
-      userId: userId,
-      recordedAt: entity.recordedAt,
-      symptoms: entity.symptoms.map((s) => s.name).toList(),
-      severity: entity.severity,
-      notes: entity.notes,
-      createdAt: entity.createdAt,
-      updatedAt: entity.updatedAt,
     );
   }
 }

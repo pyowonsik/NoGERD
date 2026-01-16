@@ -8,6 +8,14 @@ import 'package:no_gerd/shared/constants/gerd_constants.dart';
 
 /// 생활습관 영향 데이터
 class LifestyleImpact {
+  /// 생성자
+  const LifestyleImpact({
+    required this.lifestyleType,
+    required this.averageValue,
+    required this.statusLabel,
+    required this.description,
+  });
+
   /// 생활습관 유형
   final LifestyleType lifestyleType;
 
@@ -19,14 +27,6 @@ class LifestyleImpact {
 
   /// 설명
   final String description;
-
-  /// 생성자
-  const LifestyleImpact({
-    required this.lifestyleType,
-    required this.averageValue,
-    required this.statusLabel,
-    required this.description,
-  });
 }
 
 /// 생활습관 영향 분석 UseCase
@@ -54,26 +54,27 @@ class GetLifestyleImpactUseCase
   }
 
   @override
-  Future<Either<Failure, List<LifestyleImpact>>> call(DateRangeParams params) async {
+  Future<Either<Failure, List<LifestyleImpact>>> call(
+      DateRangeParams params) async {
     if (_useMockData) {
       // 이번 주 = 좋은 시나리오, 지난 주 = 나쁜 시나리오
       final isGood = _isThisWeek(params);
       if (isGood) {
         // 좋은 시나리오: 충분한 수면, 규칙적 운동, 낮은 스트레스
-        return Right([
-          const LifestyleImpact(
+        return const Right([
+          LifestyleImpact(
             lifestyleType: LifestyleType.sleep,
             averageValue: 7.5,
             statusLabel: '양호',
             description: '평균 7.5시간 수면',
           ),
-          const LifestyleImpact(
+          LifestyleImpact(
             lifestyleType: LifestyleType.exercise,
-            averageValue: 4.0,
+            averageValue: 4,
             statusLabel: '양호',
             description: '주 4회 운동',
           ),
-          const LifestyleImpact(
+          LifestyleImpact(
             lifestyleType: LifestyleType.stress,
             averageValue: 2.5,
             statusLabel: '양호',
@@ -82,20 +83,20 @@ class GetLifestyleImpactUseCase
         ]);
       } else {
         // 나쁜 시나리오: 수면 부족, 운동 부족, 높은 스트레스
-        return Right([
-          const LifestyleImpact(
+        return const Right([
+          LifestyleImpact(
             lifestyleType: LifestyleType.sleep,
             averageValue: 4.5,
             statusLabel: '부족',
             description: '평균 4.5시간 수면',
           ),
-          const LifestyleImpact(
+          LifestyleImpact(
             lifestyleType: LifestyleType.exercise,
-            averageValue: 0.0,
+            averageValue: 0,
             statusLabel: '부족',
             description: '운동 기록 없음',
           ),
-          const LifestyleImpact(
+          LifestyleImpact(
             lifestyleType: LifestyleType.stress,
             averageValue: 8.5,
             statusLabel: '주의',
@@ -106,7 +107,7 @@ class GetLifestyleImpactUseCase
     }
 
     try {
-      final Map<LifestyleType, List<double>> lifestyleData = {};
+      final lifestyleData = <LifestyleType, List<double>>{};
       var currentDate = params.startDate;
 
       while (!currentDate.isAfter(params.endDate)) {
@@ -123,19 +124,25 @@ class GetLifestyleImpactUseCase
               // 수면 정보
               final sleepHours = (details['sleep_hours'] as num?)?.toDouble();
               if (sleepHours != null) {
-                lifestyleData.putIfAbsent(LifestyleType.sleep, () => []).add(sleepHours);
+                lifestyleData
+                    .putIfAbsent(LifestyleType.sleep, () => [])
+                    .add(sleepHours);
               }
 
               // 스트레스 정보
               final stressLevel = (details['stress_level'] as num?)?.toDouble();
               if (stressLevel != null) {
-                lifestyleData.putIfAbsent(LifestyleType.stress, () => []).add(stressLevel);
+                lifestyleData
+                    .putIfAbsent(LifestyleType.stress, () => [])
+                    .add(stressLevel);
               }
 
               // 운동 정보 (boolean -> 1 또는 0으로 변환)
               final exercised = details['exercised'] as bool?;
               if (exercised != null) {
-                lifestyleData.putIfAbsent(LifestyleType.exercise, () => []).add(exercised ? 1.0 : 0.0);
+                lifestyleData
+                    .putIfAbsent(LifestyleType.exercise, () => [])
+                    .add(exercised ? 1.0 : 0.0);
               }
             }
           },

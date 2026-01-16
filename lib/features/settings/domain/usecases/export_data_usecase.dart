@@ -8,10 +8,9 @@ import 'package:no_gerd/features/settings/domain/repositories/settings_repositor
 /// 데이터 내보내기 UseCase
 @injectable
 class ExportDataUseCase implements UseCase<String, NoParams> {
-  final SettingsRepository _repository;
-
   /// 생성자
   const ExportDataUseCase(this._repository);
+  final SettingsRepository _repository;
 
   @override
   Future<Either<Failure, String>> call(NoParams params) async {

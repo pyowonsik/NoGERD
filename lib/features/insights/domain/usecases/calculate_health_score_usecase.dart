@@ -19,16 +19,15 @@ class CalculateHealthScoreUseCase implements UseCase<int, DateTime> {
   Future<Either<Failure, int>> call(DateTime params) async {
     try {
       // 지난 7일간의 데이터로 건강 점수 계산
-      int totalScore = 100;
+      var totalScore = 100;
 
-      for (int i = 0; i < 7; i++) {
+      for (var i = 0; i < 7; i++) {
         final date = params.subtract(Duration(days: i));
         final result = await _repository.getAllRecords(date);
 
         result.fold(
           (failure) => null,
           (records) {
-
             // 증상 기록에 따른 점수 감점
             final symptoms = records['symptoms'] as List;
             for (final symptom in symptoms) {

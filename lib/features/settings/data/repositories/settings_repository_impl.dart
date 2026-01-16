@@ -15,14 +15,13 @@ import 'package:no_gerd/features/settings/domain/repositories/settings_repositor
 /// 설정 Repository 구현체
 @LazySingleton(as: SettingsRepository)
 class SettingsRepositoryImpl implements SettingsRepository {
-  final SettingsLocalDataSource _localDataSource;
-  final SupabaseClient _supabaseClient;
-
   /// 생성자
   SettingsRepositoryImpl(
     this._localDataSource,
     this._supabaseClient,
   );
+  final SettingsLocalDataSource _localDataSource;
+  final SupabaseClient _supabaseClient;
 
   @override
   Future<Either<Failure, AppSettings>> loadSettings() async {
@@ -50,7 +49,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
       // 1. Supabase에서 현재 사용자 ID 가져오기
       final userId = _supabaseClient.auth.currentUser?.id;
       if (userId == null) {
-        return left(Failure.unauthorized('로그인이 필요합니다.'));
+        return left(const Failure.unauthorized('로그인이 필요합니다.'));
       }
 
       // 2. 모든 기록 가져오기
@@ -83,7 +82,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
       final lifestyleRecords = lifestyleData as List<dynamic>? ?? [];
 
       // 3. CSV 데이터 생성
-      List<List<dynamic>> rows = [
+      var rows = <List<dynamic>>[
         [
           '타입',
           '날짜',
@@ -94,12 +93,12 @@ class SettingsRepositoryImpl implements SettingsRepository {
           '음식',
           '약물명',
           '생활습관 유형',
-          '메모'
+          '메모',
         ],
       ];
 
       // 증상 기록 추가
-      for (var record in symptomRecords) {
+      for (final record in symptomRecords) {
         rows.add([
           '증상',
           record['record_datetime'] ?? '',
@@ -115,7 +114,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
       }
 
       // 식사 기록 추가
-      for (var record in mealRecords) {
+      for (final record in mealRecords) {
         rows.add([
           '식사',
           record['record_datetime'] ?? '',
@@ -131,7 +130,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
       }
 
       // 약물 기록 추가
-      for (var record in medicationRecords) {
+      for (final record in medicationRecords) {
         rows.add([
           '약물',
           record['record_datetime'] ?? '',
@@ -147,7 +146,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
       }
 
       // 생활습관 기록 추가
-      for (var record in lifestyleRecords) {
+      for (final record in lifestyleRecords) {
         rows.add([
           '생활습관',
           record['record_datetime'] ?? '',
@@ -170,13 +169,13 @@ class SettingsRepositoryImpl implements SettingsRepository {
       final timestamp = DateTime.now().millisecondsSinceEpoch;
       final path = '${directory.path}/nogerd_data_$timestamp.csv';
       final file = File(path);
-      await file.writeAsString(csv, encoding: utf8);
+      await file.writeAsString(csv);
 
       return right(path);
     } catch (e, stackTrace) {
       print('❌ CSV Export Error: $e');
       print('Stack trace: $stackTrace');
-      return left(Failure.unexpected('데이터 내보내기 실패: ${e.toString()}'));
+      return left(Failure.unexpected('데이터 내보내기 실패: ${e}'));
     }
   }
 
@@ -186,7 +185,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
       // Supabase에서 현재 사용자 ID 가져오기
       final userId = _supabaseClient.auth.currentUser?.id;
       if (userId == null) {
-        return left(Failure.unauthorized('로그인이 필요합니다.'));
+        return left(const Failure.unauthorized('로그인이 필요합니다.'));
       }
 
       // 모든 테이블에서 사용자 데이터 삭제
@@ -195,10 +194,7 @@ class SettingsRepositoryImpl implements SettingsRepository {
           .delete()
           .eq('user_id', userId);
 
-      await _supabaseClient
-          .from('meal_records')
-          .delete()
-          .eq('user_id', userId);
+      await _supabaseClient.from('meal_records').delete().eq('user_id', userId);
 
       await _supabaseClient
           .from('medication_records')

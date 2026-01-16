@@ -154,9 +154,8 @@ class _InsightsPageV2Content extends StatelessWidget {
 
 /// 증상 빈도 추이
 class _SymptomFrequencyTrend extends StatelessWidget {
-  final InsightsState state;
-
   const _SymptomFrequencyTrend({required this.state});
+  final InsightsState state;
 
   @override
   Widget build(BuildContext context) {
@@ -295,9 +294,8 @@ class _SymptomFrequencyTrend extends StatelessWidget {
 
 /// 증상 분포
 class _SymptomDistribution extends StatelessWidget {
-  final InsightsState state;
-
   const _SymptomDistribution({required this.state});
+  final InsightsState state;
 
   @override
   Widget build(BuildContext context) {
@@ -363,10 +361,10 @@ class _SymptomDistribution extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 '증상 분포',
                 style: TextStyle(
                   fontSize: 16,
@@ -466,9 +464,8 @@ class _SymptomDistribution extends StatelessWidget {
 
 /// 식사별 증상 연관성
 class _MealSymptomCorrelation extends StatelessWidget {
-  final InsightsState state;
-
   const _MealSymptomCorrelation({required this.state});
+  final InsightsState state;
 
   @override
   Widget build(BuildContext context) {
@@ -515,13 +512,16 @@ class _MealSymptomCorrelation extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Row(
+              Row(
                 children: [
-                  Icon(Icons.restaurant_rounded,
-                      color: AppTheme.mealColor, size: 20),
+                  Icon(
+                    Icons.restaurant_rounded,
+                    color: AppTheme.mealColor,
+                    size: 20,
+                  ),
                   SizedBox(width: 8),
                   Text(
                     '식사 후 증상 발생률',
@@ -583,8 +583,11 @@ class _MealSymptomCorrelation extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.lightbulb_outline_rounded,
-                      color: AppTheme.warning, size: 20),
+                  const Icon(
+                    Icons.lightbulb_outline_rounded,
+                    color: AppTheme.warning,
+                    size: 20,
+                  ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
@@ -606,17 +609,16 @@ class _MealSymptomCorrelation extends StatelessWidget {
 }
 
 class _MealCorrelationItem extends StatelessWidget {
-  final String emoji;
-  final String label;
-  final int percentage;
-  final Color color;
-
   const _MealCorrelationItem({
     required this.emoji,
     required this.label,
     required this.percentage,
     required this.color,
   });
+  final String emoji;
+  final String label;
+  final int percentage;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -659,9 +661,8 @@ class _MealCorrelationItem extends StatelessWidget {
 
 /// 트리거 음식 분석
 class _TriggerAnalysis extends StatelessWidget {
-  final InsightsState state;
-
   const _TriggerAnalysis({required this.state});
+  final InsightsState state;
 
   @override
   Widget build(BuildContext context) {
@@ -689,8 +690,11 @@ class _TriggerAnalysis extends StatelessWidget {
         children: [
           const Row(
             children: [
-              Icon(Icons.warning_amber_rounded,
-                  color: AppTheme.warning, size: 20),
+              Icon(
+                Icons.warning_amber_rounded,
+                color: AppTheme.warning,
+                size: 20,
+              ),
               SizedBox(width: 8),
               Text(
                 '트리거 음식 TOP 5',
@@ -767,9 +771,8 @@ class _TriggerAnalysis extends StatelessWidget {
 
 /// 생활습관 영향
 class _LifestyleImpact extends StatelessWidget {
-  final InsightsState state;
-
   const _LifestyleImpact({required this.state});
+  final InsightsState state;
 
   @override
   Widget build(BuildContext context) {
@@ -815,13 +818,16 @@ class _LifestyleImpact extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Row(
+              Row(
                 children: [
-                  Icon(Icons.directions_run_rounded,
-                      color: AppTheme.lifestyleColor, size: 20),
+                  Icon(
+                    Icons.directions_run_rounded,
+                    color: AppTheme.lifestyleColor,
+                    size: 20,
+                  ),
                   SizedBox(width: 8),
                   Text(
                     '생활습관 영향',
@@ -867,12 +873,6 @@ class _LifestyleImpact extends StatelessWidget {
 }
 
 class _LifestyleItem extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final String status;
-  final String description;
-  final Color color;
-
   const _LifestyleItem({
     required this.icon,
     required this.label,
@@ -880,6 +880,11 @@ class _LifestyleItem extends StatelessWidget {
     required this.description,
     required this.color,
   });
+  final IconData icon;
+  final String label;
+  final String status;
+  final String description;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -1033,13 +1038,12 @@ class _AIInsights extends StatelessWidget {
 
 /// 데이터 부족 안내 카드
 class _InsufficientDataCard extends StatelessWidget {
-  final int recordedDays;
-  final int minRequiredDays;
-
   const _InsufficientDataCard({
     required this.recordedDays,
     required this.minRequiredDays,
   });
+  final int recordedDays;
+  final int minRequiredDays;
 
   @override
   Widget build(BuildContext context) {
@@ -1049,7 +1053,7 @@ class _InsufficientDataCard extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              '지난 주 ${minRequiredDays}일 이상 기록이 필요해요',
+              '지난 주 $minRequiredDays일 이상 기록이 필요해요',
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 14,
@@ -1062,7 +1066,7 @@ class _InsufficientDataCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   '지난 주 기록: ',
                   style: TextStyle(
                     fontSize: 13,
@@ -1078,8 +1082,8 @@ class _InsufficientDataCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  ' / ${minRequiredDays}일',
-                  style: TextStyle(
+                  ' / $minRequiredDays일',
+                  style: const TextStyle(
                     fontSize: 13,
                     color: AppTheme.textTertiary,
                   ),
@@ -1099,13 +1103,13 @@ class _AILoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GlassCard(
+    return const GlassCard(
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+        padding: EdgeInsets.symmetric(vertical: 24, horizontal: 16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(
+            SizedBox(
               width: 20,
               height: 20,
               child: CircularProgressIndicator(
@@ -1113,7 +1117,7 @@ class _AILoadingIndicator extends StatelessWidget {
                 strokeWidth: 2.5,
               ),
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: 12),
             Text(
               'AI가 건강 데이터를 분석하고 있어요...',
               style: TextStyle(
@@ -1130,9 +1134,8 @@ class _AILoadingIndicator extends StatelessWidget {
 
 /// AI 생성 버튼
 class _GenerateAIButton extends StatelessWidget {
-  final VoidCallback onPressed;
-
   const _GenerateAIButton({required this.onPressed});
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -1154,7 +1157,7 @@ class _GenerateAIButton extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          Text(
+          const Text(
             '기록된 데이터를 기반으로 AI가 분석해드려요',
             style: TextStyle(
               fontSize: 13,
@@ -1179,7 +1182,7 @@ class _GenerateAIButton extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          Text(
+          const Text(
             '매주 1회 생성 · 기록 기반 분석',
             style: TextStyle(
               fontSize: 11,
@@ -1194,13 +1197,12 @@ class _GenerateAIButton extends StatelessWidget {
 
 /// AI 인사이트 카드들
 class _AIInsightCards extends StatelessWidget {
-  final AIInsight insight;
-  final DateTime? nextReportDate;
-
   const _AIInsightCards({
     required this.insight,
     this.nextReportDate,
   });
+  final AIInsight insight;
+  final DateTime? nextReportDate;
 
   @override
   Widget build(BuildContext context) {
@@ -1246,7 +1248,7 @@ class _AIInsightCards extends StatelessWidget {
         const SizedBox(height: 12),
         Text(
           '${_formatDate(insight.generatedAt)} 생성${nextReportDate != null ? ' · 다음 리포트: ${_formatNextDate(nextReportDate!)}' : ''}',
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 11,
             color: AppTheme.textTertiary,
           ),
@@ -1266,17 +1268,16 @@ class _AIInsightCards extends StatelessWidget {
 
 /// AI 인사이트 개별 카드
 class _AIInsightCard extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String message;
-  final Color color;
-
   const _AIInsightCard({
     required this.icon,
     required this.title,
     required this.message,
     required this.color,
   });
+  final IconData icon;
+  final String title;
+  final String message;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -1328,20 +1329,18 @@ class _AIInsightCard extends StatelessWidget {
 // ========== 데이터 클래스 ==========
 
 class _SymptomData {
+  _SymptomData(this.name, this.percentage, this.color);
   final String name;
   final int percentage;
   final Color color;
-
-  _SymptomData(this.name, this.percentage, this.color);
 }
 
 // ========== Custom Painters ==========
 
 /// 도넛 차트 페인터
 class _DonutChartPainter extends CustomPainter {
-  final List<_SymptomData> symptoms;
-
   _DonutChartPainter({required this.symptoms});
+  final List<_SymptomData> symptoms;
 
   @override
   void paint(Canvas canvas, Size size) {

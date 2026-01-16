@@ -8,10 +8,9 @@ import 'package:no_gerd/features/settings/domain/repositories/settings_repositor
 /// 모든 데이터 삭제 UseCase
 @injectable
 class DeleteAllDataUseCase implements UseCase<Unit, NoParams> {
-  final SettingsRepository _repository;
-
   /// 생성자
   const DeleteAllDataUseCase(this._repository);
+  final SettingsRepository _repository;
 
   @override
   Future<Either<Failure, Unit>> call(NoParams params) async {

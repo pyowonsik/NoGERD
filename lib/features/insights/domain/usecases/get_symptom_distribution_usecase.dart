@@ -8,17 +8,17 @@ import 'package:no_gerd/shared/constants/gerd_constants.dart';
 
 /// 증상 분포 데이터
 class SymptomDistribution {
-  /// 증상 타입
-  final GerdSymptom symptom;
-
-  /// 발생 횟수
-  final int count;
-
   /// 생성자
   const SymptomDistribution({
     required this.symptom,
     required this.count,
   });
+
+  /// 증상 타입
+  final GerdSymptom symptom;
+
+  /// 발생 횟수
+  final int count;
 }
 
 /// 증상 분포 조회 UseCase
@@ -46,30 +46,33 @@ class GetSymptomDistributionUseCase
   }
 
   @override
-  Future<Either<Failure, List<SymptomDistribution>>> call(DateRangeParams params) async {
+  Future<Either<Failure, List<SymptomDistribution>>> call(
+      DateRangeParams params) async {
     if (_useMockData) {
       // 이번 주 = 좋은 시나리오, 지난 주 = 나쁜 시나리오
       final isGood = _isThisWeek(params);
       if (isGood) {
         // 좋은 시나리오: 증상 거의 없음
-        return Right([
-          const SymptomDistribution(symptom: GerdSymptom.heartburn, count: 1),
+        return const Right([
+          SymptomDistribution(symptom: GerdSymptom.heartburn, count: 1),
         ]);
       } else {
         // 나쁜 시나리오: 다양한 증상 많이 발생
-        return Right([
-          const SymptomDistribution(
-              symptom: GerdSymptom.regurgitation, count: 12),
-          const SymptomDistribution(symptom: GerdSymptom.heartburn, count: 9),
-          const SymptomDistribution(symptom: GerdSymptom.chestPain, count: 6),
-          const SymptomDistribution(symptom: GerdSymptom.nausea, count: 4),
-          const SymptomDistribution(symptom: GerdSymptom.bloating, count: 3),
+        return const Right([
+          SymptomDistribution(
+            symptom: GerdSymptom.regurgitation,
+            count: 12,
+          ),
+          SymptomDistribution(symptom: GerdSymptom.heartburn, count: 9),
+          SymptomDistribution(symptom: GerdSymptom.chestPain, count: 6),
+          SymptomDistribution(symptom: GerdSymptom.nausea, count: 4),
+          SymptomDistribution(symptom: GerdSymptom.bloating, count: 3),
         ]);
       }
     }
 
     try {
-      final Map<GerdSymptom, int> symptomCounts = {};
+      final symptomCounts = <GerdSymptom, int>{};
       var currentDate = params.startDate;
 
       while (!currentDate.isAfter(params.endDate)) {

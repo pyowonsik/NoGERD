@@ -7,8 +7,8 @@ import 'package:no_gerd/features/record/presentation/bloc/record_bloc.dart';
 import 'package:no_gerd/shared/shared.dart';
 import 'package:no_gerd/shared/constants/gerd_constants.dart';
 
-import '../widgets/recent_records_section.dart';
-import '../widgets/today_summary_section.dart';
+import 'package:no_gerd/features/home/presentation/widgets/recent_records_section.dart';
+import 'package:no_gerd/features/home/presentation/widgets/today_summary_section.dart';
 
 /// 홈 화면 V2 - 새로운 기획
 /// 기록 방법: [아침][점심][저녁] + [약물][생활습관][증상] (upsert 방식)
@@ -86,26 +86,35 @@ class _HomePageV2Content extends StatelessWidget {
                           _RecordMethodSection(
                             onMealTap: (mealType) {
                               final recordBloc = context.read<RecordBloc>();
-                              context.push('/record/meal', extra: {
-                                'bloc': recordBloc,
-                                'mealType': mealType,
-                              });
+                              context.push(
+                                '/record/meal',
+                                extra: {
+                                  'bloc': recordBloc,
+                                  'mealType': mealType,
+                                },
+                              );
                             },
                             onMedicationTap: (notTaking) {
                               final recordBloc = context.read<RecordBloc>();
-                              context.push('/record/medication', extra: {
-                                'bloc': recordBloc,
-                                'notTaking': notTaking,
-                              });
+                              context.push(
+                                '/record/medication',
+                                extra: {
+                                  'bloc': recordBloc,
+                                  'notTaking': notTaking,
+                                },
+                              );
                             },
                             onLifestyleTap: () {
                               final recordBloc = context.read<RecordBloc>();
-                              context.push('/record/lifestyle', extra: recordBloc);
+                              context.push('/record/lifestyle',
+                                  extra: recordBloc);
                             },
                             onSymptomTap: () {
                               final recordBloc = context.read<RecordBloc>();
-                              context.push('/record/symptom',
-                                  extra: recordBloc);
+                              context.push(
+                                '/record/symptom',
+                                extra: recordBloc,
+                              );
                             },
                           ),
 
@@ -156,7 +165,7 @@ class _HomePageV2Content extends StatelessWidget {
                     fontSize: 14,
                     color: Theme.of(context)
                         .colorScheme
-                        .onBackground
+                        .onSurface
                         .withOpacity(0.7),
                   ),
                 ),
@@ -166,7 +175,7 @@ class _HomePageV2Content extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.onBackground,
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
               ],
@@ -182,6 +191,13 @@ class _HomePageV2Content extends StatelessWidget {
 /// 첫 번째 줄: 아침, 점심, 저녁 (식사 시간대)
 /// 두 번째 줄: 약물, 생활습관, 증상 (기록 유형)
 class _RecordMethodSection extends StatefulWidget {
+  const _RecordMethodSection({
+    required this.onMealTap,
+    required this.onMedicationTap,
+    required this.onLifestyleTap,
+    required this.onSymptomTap,
+  });
+
   /// 식사 기록 탭 (MealType enum)
   final void Function(MealType mealType) onMealTap;
 
@@ -193,13 +209,6 @@ class _RecordMethodSection extends StatefulWidget {
 
   /// 증상 기록 탭
   final VoidCallback onSymptomTap;
-
-  const _RecordMethodSection({
-    required this.onMealTap,
-    required this.onMedicationTap,
-    required this.onLifestyleTap,
-    required this.onSymptomTap,
-  });
 
   @override
   State<_RecordMethodSection> createState() => _RecordMethodSectionState();
@@ -269,7 +278,7 @@ class _RecordMethodSectionState extends State<_RecordMethodSection> {
                         setState(() => _notTakingMedication = value);
                       },
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      activeColor: AppTheme.info,
+                      activeThumbColor: AppTheme.info,
                     ),
                   ),
                 ],
@@ -340,7 +349,6 @@ class _RecordMethodSectionState extends State<_RecordMethodSection> {
                       )
                     : AppTheme.medicationGradient,
                 onTap: () => widget.onMedicationTap(_notTakingMedication),
-                disabled: false,
               ),
             ),
             const SizedBox(width: 10),
@@ -369,12 +377,6 @@ class _RecordMethodSectionState extends State<_RecordMethodSection> {
 }
 
 class _RecordButton extends StatelessWidget {
-  final String emoji;
-  final String label;
-  final Gradient gradient;
-  final VoidCallback? onTap;
-  final bool disabled;
-
   const _RecordButton({
     required this.emoji,
     required this.label,
@@ -382,6 +384,11 @@ class _RecordButton extends StatelessWidget {
     this.onTap,
     this.disabled = false,
   });
+  final String emoji;
+  final String label;
+  final Gradient gradient;
+  final VoidCallback? onTap;
+  final bool disabled;
 
   @override
   Widget build(BuildContext context) {

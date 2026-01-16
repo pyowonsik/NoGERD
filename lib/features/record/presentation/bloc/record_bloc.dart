@@ -199,8 +199,7 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
             isLoading: false,
             symptomRecords: records['symptoms'] as List<SymptomRecord>,
             mealRecords: records['meals'] as List<MealRecord>,
-            medicationRecords:
-                records['medications'] as List<MedicationRecord>,
+            medicationRecords: records['medications'] as List<MedicationRecord>,
             lifestyleRecords: records['lifestyles'] as List<LifestyleRecord>,
           ),
         );
@@ -226,27 +225,33 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
     RecordEventLoadMealRecord event,
     Emitter<RecordState> emit,
   ) async {
-    emit(state.copyWith(
-      isLoading: true,
-      failure: none(),
-      currentMealRecord: null,
-      isEditMode: false,
-    ));
+    emit(
+      state.copyWith(
+        isLoading: true,
+        failure: none(),
+        currentMealRecord: null,
+        isEditMode: false,
+      ),
+    );
 
     final result = await _getMealRecordByDateAndTypeUseCase(
       GetMealRecordParams(date: event.date, mealType: event.mealType),
     );
 
     result.fold(
-      (failure) => emit(state.copyWith(
-        isLoading: false,
-        failure: some(failure),
-      )),
-      (record) => emit(state.copyWith(
-        isLoading: false,
-        currentMealRecord: record,
-        isEditMode: record != null,
-      )),
+      (failure) => emit(
+        state.copyWith(
+          isLoading: false,
+          failure: some(failure),
+        ),
+      ),
+      (record) => emit(
+        state.copyWith(
+          isLoading: false,
+          currentMealRecord: record,
+          isEditMode: record != null,
+        ),
+      ),
     );
   }
 
@@ -260,18 +265,22 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
     final result = await _upsertMealRecordUseCase(event.record);
 
     result.fold(
-      (failure) => emit(state.copyWith(
-        isLoading: false,
-        failure: some(failure),
-      )),
+      (failure) => emit(
+        state.copyWith(
+          isLoading: false,
+          failure: some(failure),
+        ),
+      ),
       (_) {
         final message = state.isEditMode ? '기록이 수정되었습니다' : '기록이 저장되었습니다';
-        emit(state.copyWith(
-          isLoading: false,
-          successMessage: some(message),
-          currentMealRecord: null,
-          isEditMode: false,
-        ));
+        emit(
+          state.copyWith(
+            isLoading: false,
+            successMessage: some(message),
+            currentMealRecord: null,
+            isEditMode: false,
+          ),
+        );
         emit(state.copyWith(successMessage: none()));
       },
     );
@@ -282,12 +291,14 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
     RecordEventLoadLifestyleRecord event,
     Emitter<RecordState> emit,
   ) async {
-    emit(state.copyWith(
-      isLoading: true,
-      failure: none(),
-      currentLifestyleRecord: null,
-      isEditMode: false,
-    ));
+    emit(
+      state.copyWith(
+        isLoading: true,
+        failure: none(),
+        currentLifestyleRecord: null,
+        isEditMode: false,
+      ),
+    );
 
     final result = await _getLifestyleRecordByDateAndTypeUseCase(
       GetLifestyleRecordParams(
@@ -297,15 +308,19 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
     );
 
     result.fold(
-      (failure) => emit(state.copyWith(
-        isLoading: false,
-        failure: some(failure),
-      )),
-      (record) => emit(state.copyWith(
-        isLoading: false,
-        currentLifestyleRecord: record,
-        isEditMode: record != null,
-      )),
+      (failure) => emit(
+        state.copyWith(
+          isLoading: false,
+          failure: some(failure),
+        ),
+      ),
+      (record) => emit(
+        state.copyWith(
+          isLoading: false,
+          currentLifestyleRecord: record,
+          isEditMode: record != null,
+        ),
+      ),
     );
   }
 
@@ -319,18 +334,22 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
     final result = await _upsertLifestyleRecordUseCase(event.record);
 
     result.fold(
-      (failure) => emit(state.copyWith(
-        isLoading: false,
-        failure: some(failure),
-      )),
+      (failure) => emit(
+        state.copyWith(
+          isLoading: false,
+          failure: some(failure),
+        ),
+      ),
       (_) {
         final message = state.isEditMode ? '기록이 수정되었습니다' : '기록이 저장되었습니다';
-        emit(state.copyWith(
-          isLoading: false,
-          successMessage: some(message),
-          currentLifestyleRecord: null,
-          isEditMode: false,
-        ));
+        emit(
+          state.copyWith(
+            isLoading: false,
+            successMessage: some(message),
+            currentLifestyleRecord: null,
+            isEditMode: false,
+          ),
+        );
         emit(state.copyWith(successMessage: none()));
       },
     );
@@ -341,10 +360,12 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
     RecordEventClearCurrentRecord event,
     Emitter<RecordState> emit,
   ) {
-    emit(state.copyWith(
-      currentMealRecord: null,
-      currentLifestyleRecord: null,
-      isEditMode: false,
-    ));
+    emit(
+      state.copyWith(
+        currentMealRecord: null,
+        currentLifestyleRecord: null,
+        isEditMode: false,
+      ),
+    );
   }
 }

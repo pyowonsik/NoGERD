@@ -20,10 +20,10 @@ class GetRecordsForMonthUseCase
   ) async {
     try {
       // 해당 월의 첫날과 마지막 날 계산
-      final firstDay = DateTime(params.year, params.month, 1);
+      final firstDay = DateTime(params.year, params.month);
       final lastDay = DateTime(params.year, params.month + 1, 0);
 
-      final Map<DateTime, Map<String, dynamic>> monthRecords = {};
+      final monthRecords = <DateTime, Map<String, dynamic>>{};
 
       // 해당 월의 모든 날짜에 대해 기록 조회
       for (var day = firstDay;

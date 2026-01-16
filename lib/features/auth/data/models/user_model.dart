@@ -12,8 +12,8 @@ class UserModel with _$UserModel {
   const factory UserModel({
     required String id,
     required String email,
-    @JsonKey(name: 'email_confirmed_at') DateTime? emailConfirmedAt,
     @JsonKey(name: 'created_at') required DateTime createdAt,
+    @JsonKey(name: 'email_confirmed_at') DateTime? emailConfirmedAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
   }) = _UserModel;
 
@@ -29,10 +29,9 @@ class UserModel with _$UserModel {
       emailConfirmedAt: user.emailConfirmedAt != null
           ? DateTime.parse(user.emailConfirmedAt!)
           : null,
-      createdAt: DateTime.parse(user.createdAt!),
-      updatedAt: user.updatedAt != null
-          ? DateTime.parse(user.updatedAt!)
-          : null,
+      createdAt: DateTime.parse(user.createdAt),
+      updatedAt:
+          user.updatedAt != null ? DateTime.parse(user.updatedAt!) : null,
     );
   }
 

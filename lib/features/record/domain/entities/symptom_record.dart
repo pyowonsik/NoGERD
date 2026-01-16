@@ -21,11 +21,11 @@ class SymptomRecord with _$SymptomRecord {
     /// 심각도 (1-10)
     required int severity,
 
-    /// 메모
-    String? notes,
-
     /// 생성 시간
     required DateTime createdAt,
+
+    /// 메모
+    String? notes,
 
     /// 수정 시간
     DateTime? updatedAt,

@@ -9,10 +9,9 @@ import 'package:no_gerd/features/settings/domain/repositories/settings_repositor
 /// 설정 저장 UseCase
 @injectable
 class SaveSettingsUseCase implements UseCase<Unit, AppSettings> {
-  final SettingsRepository _repository;
-
   /// 생성자
   const SaveSettingsUseCase(this._repository);
+  final SettingsRepository _repository;
 
   @override
   Future<Either<Failure, Unit>> call(AppSettings params) async {

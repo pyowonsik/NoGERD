@@ -4,17 +4,17 @@ import 'package:no_gerd/shared/shared.dart';
 
 /// 캘린더 날짜별 전체 기록 모달
 class CalendarRecordsModal extends StatefulWidget {
-  /// 기록 데이터 (최대 20개)
-  final List<Map<String, dynamic>> records;
-
-  /// 선택된 날짜
-  final DateTime date;
-
   const CalendarRecordsModal({
     required this.records,
     required this.date,
     super.key,
   });
+
+  /// 기록 데이터 (최대 20개)
+  final List<Map<String, dynamic>> records;
+
+  /// 선택된 날짜
+  final DateTime date;
 
   @override
   State<CalendarRecordsModal> createState() => _CalendarRecordsModalState();
@@ -160,9 +160,8 @@ class _CalendarRecordsModalState extends State<CalendarRecordsModal> {
 }
 
 class _RecordItem extends StatelessWidget {
-  final Map<String, dynamic> data;
-
   const _RecordItem({required this.data});
+  final Map<String, dynamic> data;
 
   @override
   Widget build(BuildContext context) {
@@ -180,28 +179,22 @@ class _RecordItem extends StatelessWidget {
         icon = Icons.local_fire_department_rounded;
         typeLabel = '증상';
         final symptoms = record.symptoms as List;
-        title = symptoms.isNotEmpty
-            ? symptoms.first.label.toString()
-            : '증상 기록';
-        break;
+        title = symptoms.isNotEmpty ? symptoms.first.label.toString() : '증상 기록';
       case 'meal':
         color = AppTheme.mealColor;
         icon = Icons.restaurant_rounded;
         typeLabel = '식사';
         title = record.mealType.label.toString();
-        break;
       case 'medication':
         color = AppTheme.medicationColor;
         icon = Icons.medication_rounded;
         typeLabel = '약물';
         title = (record.medicationName as String?) ?? '약물 기록';
-        break;
       case 'lifestyle':
         color = AppTheme.lifestyleColor;
         icon = Icons.self_improvement_rounded;
         typeLabel = '생활습관';
         title = record.lifestyleType.label.toString();
-        break;
       default:
         color = AppTheme.accent;
         icon = Icons.circle;

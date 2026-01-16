@@ -33,6 +33,5 @@ class RecentRecord with _$RecentRecord {
         time: '',
         emoji: '',
         colorValue: 0,
-        originalEntity: null,
       );
 }

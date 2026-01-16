@@ -8,10 +8,9 @@ import 'package:no_gerd/features/auth/domain/repositories/auth_repository.dart';
 
 /// SignIn UseCase 파라미터
 class SignInParams {
+  SignInParams({required this.email, required this.password});
   final String email;
   final String password;
-
-  SignInParams({required this.email, required this.password});
 }
 
 /// 로그인 UseCase

@@ -34,7 +34,8 @@ class AIRemoteDataSource {
   DateTime getNextMonday() {
     final now = DateTime.now();
     final daysUntilMonday = (8 - now.weekday) % 7;
-    final nextMonday = now.add(Duration(days: daysUntilMonday == 0 ? 7 : daysUntilMonday));
+    final nextMonday =
+        now.add(Duration(days: daysUntilMonday == 0 ? 7 : daysUntilMonday));
     return DateTime(nextMonday.year, nextMonday.month, nextMonday.day);
   }
 
@@ -173,8 +174,11 @@ class AIRemoteDataSource {
 
     // 증상 추이
     final thisWeekSymptomCount = state.symptomTrends.fold<int>(
-      0, (sum, t) => sum + t.count);
-    final thisWeekRecordedDays = state.symptomTrends.where((t) => t.count > 0).length;
+      0,
+      (sum, t) => sum + t.count,
+    );
+    final thisWeekRecordedDays =
+        state.symptomTrends.where((t) => t.count > 0).length;
     print('📈 증상 추이: 총 $thisWeekSymptomCount회 (기록일: $thisWeekRecordedDays일)');
 
     // 증상 분포
@@ -213,8 +217,11 @@ class AIRemoteDataSource {
 
     // 증상 추이
     final lastWeekSymptomCount = state.lastWeekSymptomTrends.fold<int>(
-      0, (sum, t) => sum + t.count);
-    final lastWeekRecordedDays = state.lastWeekSymptomTrends.where((t) => t.count > 0).length;
+      0,
+      (sum, t) => sum + t.count,
+    );
+    final lastWeekRecordedDays =
+        state.lastWeekSymptomTrends.where((t) => t.count > 0).length;
     print('📈 증상 추이: 총 $lastWeekSymptomCount회 (기록일: $lastWeekRecordedDays일)');
 
     // 증상 분포

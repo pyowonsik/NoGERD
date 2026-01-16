@@ -17,10 +17,6 @@ part 'settings_state.dart';
 /// Settings BLoC
 @injectable
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
-  final LoadSettingsUseCase _loadSettingsUseCase;
-  final ExportDataUseCase _exportDataUseCase;
-  final DeleteAllDataUseCase _deleteAllDataUseCase;
-
   /// 생성자
   SettingsBloc(
     this._loadSettingsUseCase,
@@ -31,6 +27,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     on<SettingsEventExportData>(_onExportData);
     on<SettingsEventDeleteAllData>(_onDeleteAllData);
   }
+  final LoadSettingsUseCase _loadSettingsUseCase;
+  final ExportDataUseCase _exportDataUseCase;
+  final DeleteAllDataUseCase _deleteAllDataUseCase;
 
   Future<void> _onLoadSettings(
     SettingsEventLoadSettings event,
@@ -38,18 +37,22 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   ) async {
     emit(state.copyWith(isLoading: true));
 
-    final result = await _loadSettingsUseCase(NoParams());
+    final result = await _loadSettingsUseCase(const NoParams());
 
     result.fold(
-      (failure) => emit(state.copyWith(
-        isLoading: false,
-        failure: some(failure),
-      )),
-      (settings) => emit(state.copyWith(
-        isLoading: false,
-        settings: settings,
-        failure: none(),
-      )),
+      (failure) => emit(
+        state.copyWith(
+          isLoading: false,
+          failure: some(failure),
+        ),
+      ),
+      (settings) => emit(
+        state.copyWith(
+          isLoading: false,
+          settings: settings,
+          failure: none(),
+        ),
+      ),
     );
   }
 
@@ -59,19 +62,23 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   ) async {
     emit(state.copyWith(isProcessing: true));
 
-    final result = await _exportDataUseCase(NoParams());
+    final result = await _exportDataUseCase(const NoParams());
 
     result.fold(
-      (failure) => emit(state.copyWith(
-        isProcessing: false,
-        failure: some(failure),
-        message: some('데이터 내보내기 실패: ${failure.message}'),
-      )),
-      (filePath) => emit(state.copyWith(
-        isProcessing: false,
-        failure: none(),
-        message: some('데이터를 내보냈습니다: $filePath'),
-      )),
+      (failure) => emit(
+        state.copyWith(
+          isProcessing: false,
+          failure: some(failure),
+          message: some('데이터 내보내기 실패: ${failure.message}'),
+        ),
+      ),
+      (filePath) => emit(
+        state.copyWith(
+          isProcessing: false,
+          failure: none(),
+          message: some('데이터를 내보냈습니다: $filePath'),
+        ),
+      ),
     );
   }
 
@@ -81,19 +88,23 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   ) async {
     emit(state.copyWith(isProcessing: true));
 
-    final result = await _deleteAllDataUseCase(NoParams());
+    final result = await _deleteAllDataUseCase(const NoParams());
 
     result.fold(
-      (failure) => emit(state.copyWith(
-        isProcessing: false,
-        failure: some(failure),
-        message: some('데이터 삭제 실패'),
-      )),
-      (_) => emit(state.copyWith(
-        isProcessing: false,
-        failure: none(),
-        message: some('모든 데이터가 삭제되었습니다.'),
-      )),
+      (failure) => emit(
+        state.copyWith(
+          isProcessing: false,
+          failure: some(failure),
+          message: some('데이터 삭제 실패'),
+        ),
+      ),
+      (_) => emit(
+        state.copyWith(
+          isProcessing: false,
+          failure: none(),
+          message: some('모든 데이터가 삭제되었습니다.'),
+        ),
+      ),
     );
   }
 }

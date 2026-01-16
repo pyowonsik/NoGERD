@@ -8,13 +8,13 @@ import 'package:no_gerd/features/calendar/presentation/pages/calendar_page.dart'
 import 'package:no_gerd/features/home/presentation/pages/home_page_v2.dart';
 import 'package:no_gerd/features/insights/presentation/pages/insights_page_v2.dart';
 import 'package:no_gerd/features/record/presentation/bloc/record_bloc.dart';
+import 'package:no_gerd/features/record/presentation/pages/record_detail_page.dart';
+import 'package:no_gerd/features/settings/presentation/pages/alarm_settings_page.dart';
 import 'package:no_gerd/features/settings/presentation/pages/settings_page.dart';
 import 'package:no_gerd/screens/main_screen.dart';
 import 'package:no_gerd/screens/record/quick_record_modal.dart';
 import 'package:no_gerd/screens/splash/splash_screen.dart';
 import 'package:no_gerd/shared/constants/gerd_constants.dart';
-import 'package:no_gerd/features/settings/presentation/pages/alarm_settings_page.dart';
-import 'package:no_gerd/features/record/presentation/pages/record_detail_page.dart';
 
 /// 앱의 모든 라우트를 정의하는 클래스
 abstract final class AppRoutes {
@@ -136,7 +136,6 @@ abstract final class AppRoutes {
             return RecordDetailPage(record: record);
           },
         ),
-
       ];
 
   /// StatefulShellRoute: 탭 기반 네비게이션 (IndexedStack 사용)

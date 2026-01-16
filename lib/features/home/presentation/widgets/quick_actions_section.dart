@@ -74,17 +74,16 @@ class QuickActionsSection extends StatelessWidget {
 }
 
 class _QuickActionButton extends StatelessWidget {
-  final String emoji;
-  final String label;
-  final Gradient gradient;
-  final VoidCallback? onTap;
-
   const _QuickActionButton({
     required this.emoji,
     required this.label,
     required this.gradient,
     this.onTap,
   });
+  final String emoji;
+  final String label;
+  final Gradient gradient;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {

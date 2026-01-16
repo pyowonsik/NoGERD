@@ -74,20 +74,35 @@ import '../../features/record/domain/usecases/upsert_lifestyle_record_usecase.da
 import '../../features/record/domain/usecases/upsert_meal_record_usecase.dart'
     as _i674;
 import '../../features/record/presentation/bloc/record_bloc.dart' as _i7;
+import '../../features/settings/data/datasources/alarm_local_datasource.dart'
+    as _i852;
+import '../../features/settings/data/datasources/alarm_platform_datasource.dart'
+    as _i92;
 import '../../features/settings/data/datasources/settings_local_data_source.dart'
     as _i599;
+import '../../features/settings/data/repositories/alarm_repository_impl.dart'
+    as _i282;
 import '../../features/settings/data/repositories/settings_repository_impl.dart'
     as _i955;
+import '../../features/settings/domain/repositories/alarm_repository.dart'
+    as _i1003;
 import '../../features/settings/domain/repositories/settings_repository.dart'
     as _i674;
+import '../../features/settings/domain/usecases/cancel_alarm_usecase.dart'
+    as _i1045;
 import '../../features/settings/domain/usecases/delete_all_data_usecase.dart'
     as _i885;
 import '../../features/settings/domain/usecases/export_data_usecase.dart'
     as _i142;
+import '../../features/settings/domain/usecases/get_alarm_configs_usecase.dart'
+    as _i123;
 import '../../features/settings/domain/usecases/load_settings_usecase.dart'
     as _i42;
 import '../../features/settings/domain/usecases/save_settings_usecase.dart'
     as _i109;
+import '../../features/settings/domain/usecases/schedule_alarm_usecase.dart'
+    as _i57;
+import '../../features/settings/presentation/bloc/alarm_bloc.dart' as _i528;
 import '../../features/settings/presentation/bloc/settings_bloc.dart' as _i585;
 import 'injection.dart' as _i464;
 import 'supabase_module.dart' as _i695;
@@ -116,12 +131,20 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i599.SettingsLocalDataSourceImpl(gh<_i460.SharedPreferences>()));
     gh.lazySingleton<_i161.AuthRemoteDataSource>(
         () => _i161.SupabaseAuthDataSource(gh<_i454.SupabaseClient>()));
+    gh.lazySingleton<_i92.AlarmPlatformDataSource>(
+        () => const _i92.AlarmPlatformDataSourceImpl());
     gh.factory<_i65.GetAIInsightsUseCase>(
         () => _i65.GetAIInsightsUseCase(gh<_i1069.AIRemoteDataSource>()));
+    gh.lazySingleton<_i852.AlarmLocalDataSource>(
+        () => _i852.AlarmLocalDataSourceImpl(gh<_i460.SharedPreferences>()));
     gh.lazySingleton<_i1004.RecordRemoteDataSource>(
         () => _i865.SupabaseRecordDataSource(gh<_i454.SupabaseClient>()));
     gh.lazySingleton<_i787.IAuthRepository>(
         () => _i153.AuthRepositoryImpl(gh<_i161.AuthRemoteDataSource>()));
+    gh.lazySingleton<_i1003.AlarmRepository>(() => _i282.AlarmRepositoryImpl(
+          gh<_i92.AlarmPlatformDataSource>(),
+          gh<_i852.AlarmLocalDataSource>(),
+        ));
     gh.lazySingleton<_i968.IRecordRepository>(
         () => _i982.SupabaseRecordRepositoryImpl(
               gh<_i1004.RecordRemoteDataSource>(),
@@ -183,10 +206,22 @@ extension GetItInjectableX on _i174.GetIt {
         _i374.GetMealRecordByDateAndTypeUseCase(gh<_i968.IRecordRepository>()));
     gh.factory<_i680.AddLifestyleRecordUseCase>(
         () => _i680.AddLifestyleRecordUseCase(gh<_i968.IRecordRepository>()));
+    gh.factory<_i57.ScheduleAlarmUseCase>(
+        () => _i57.ScheduleAlarmUseCase(gh<_i1003.AlarmRepository>()));
+    gh.factory<_i123.GetAlarmConfigsUseCase>(
+        () => _i123.GetAlarmConfigsUseCase(gh<_i1003.AlarmRepository>()));
+    gh.factory<_i1045.CancelAlarmUseCase>(
+        () => _i1045.CancelAlarmUseCase(gh<_i1003.AlarmRepository>()));
     gh.factory<_i585.SettingsBloc>(() => _i585.SettingsBloc(
           gh<_i42.LoadSettingsUseCase>(),
           gh<_i142.ExportDataUseCase>(),
           gh<_i885.DeleteAllDataUseCase>(),
+        ));
+    gh.factory<_i528.AlarmBloc>(() => _i528.AlarmBloc(
+          gh<_i123.GetAlarmConfigsUseCase>(),
+          gh<_i57.ScheduleAlarmUseCase>(),
+          gh<_i1045.CancelAlarmUseCase>(),
+          gh<_i1003.AlarmRepository>(),
         ));
     gh.factory<_i7.RecordBloc>(() => _i7.RecordBloc(
           gh<_i857.AddSymptomRecordUseCase>(),

@@ -16,13 +16,12 @@ import 'package:no_gerd/shared/constants/gerd_constants.dart';
 
 @LazySingleton(as: IRecordRepository)
 class SupabaseRecordRepositoryImpl implements IRecordRepository {
-  final RecordRemoteDataSource _remoteDataSource;
-  final SupabaseClient _supabase;
-
   SupabaseRecordRepositoryImpl(
     this._remoteDataSource,
     this._supabase,
   );
+  final RecordRemoteDataSource _remoteDataSource;
+  final SupabaseClient _supabase;
 
   String? _getCurrentUserId() {
     return _supabase.auth.currentUser?.id;
@@ -37,7 +36,7 @@ class SupabaseRecordRepositoryImpl implements IRecordRepository {
     try {
       final userId = _getCurrentUserId();
       if (userId == null) {
-        return Left(Failure.permission('로그인이 필요합니다'));
+        return const Left(Failure.permission('로그인이 필요합니다'));
       }
 
       final models = await _remoteDataSource.getSymptomRecords(date);
@@ -54,7 +53,7 @@ class SupabaseRecordRepositoryImpl implements IRecordRepository {
     try {
       final userId = _getCurrentUserId();
       if (userId == null) {
-        return Left(Failure.permission('로그인이 필요합니다'));
+        return const Left(Failure.permission('로그인이 필요합니다'));
       }
 
       final model = SymptomRecordModel.fromEntity(record, userId);
@@ -74,7 +73,7 @@ class SupabaseRecordRepositoryImpl implements IRecordRepository {
     try {
       final userId = _getCurrentUserId();
       if (userId == null) {
-        return Left(Failure.permission('로그인이 필요합니다'));
+        return const Left(Failure.permission('로그인이 필요합니다'));
       }
 
       final model = SymptomRecordModel.fromEntity(record, userId);
@@ -92,7 +91,7 @@ class SupabaseRecordRepositoryImpl implements IRecordRepository {
     try {
       final userId = _getCurrentUserId();
       if (userId == null) {
-        return Left(Failure.permission('로그인이 필요합니다'));
+        return const Left(Failure.permission('로그인이 필요합니다'));
       }
 
       await _remoteDataSource.deleteSymptomRecord(id);
@@ -113,7 +112,7 @@ class SupabaseRecordRepositoryImpl implements IRecordRepository {
     try {
       final userId = _getCurrentUserId();
       if (userId == null) {
-        return Left(Failure.permission('로그인이 필요합니다'));
+        return const Left(Failure.permission('로그인이 필요합니다'));
       }
 
       final models = await _remoteDataSource.getMealRecords(date);
@@ -130,7 +129,7 @@ class SupabaseRecordRepositoryImpl implements IRecordRepository {
     try {
       final userId = _getCurrentUserId();
       if (userId == null) {
-        return Left(Failure.permission('로그인이 필요합니다'));
+        return const Left(Failure.permission('로그인이 필요합니다'));
       }
 
       final model = MealRecordModel.fromEntity(record, userId);
@@ -148,7 +147,7 @@ class SupabaseRecordRepositoryImpl implements IRecordRepository {
     try {
       final userId = _getCurrentUserId();
       if (userId == null) {
-        return Left(Failure.permission('로그인이 필요합니다'));
+        return const Left(Failure.permission('로그인이 필요합니다'));
       }
 
       final model = MealRecordModel.fromEntity(record, userId);
@@ -166,7 +165,7 @@ class SupabaseRecordRepositoryImpl implements IRecordRepository {
     try {
       final userId = _getCurrentUserId();
       if (userId == null) {
-        return Left(Failure.permission('로그인이 필요합니다'));
+        return const Left(Failure.permission('로그인이 필요합니다'));
       }
 
       await _remoteDataSource.deleteMealRecord(id);
@@ -186,7 +185,7 @@ class SupabaseRecordRepositoryImpl implements IRecordRepository {
     try {
       final userId = _getCurrentUserId();
       if (userId == null) {
-        return Left(Failure.permission('로그인이 필요합니다'));
+        return const Left(Failure.permission('로그인이 필요합니다'));
       }
 
       final model = await _remoteDataSource.getMealRecordByDateAndType(
@@ -206,7 +205,7 @@ class SupabaseRecordRepositoryImpl implements IRecordRepository {
     try {
       final userId = _getCurrentUserId();
       if (userId == null) {
-        return Left(Failure.permission('로그인이 필요합니다'));
+        return const Left(Failure.permission('로그인이 필요합니다'));
       }
 
       final model = MealRecordModel.fromEntity(record, userId);
@@ -228,7 +227,7 @@ class SupabaseRecordRepositoryImpl implements IRecordRepository {
     try {
       final userId = _getCurrentUserId();
       if (userId == null) {
-        return Left(Failure.permission('로그인이 필요합니다'));
+        return const Left(Failure.permission('로그인이 필요합니다'));
       }
 
       final models = await _remoteDataSource.getMedicationRecords(date);
@@ -247,7 +246,7 @@ class SupabaseRecordRepositoryImpl implements IRecordRepository {
     try {
       final userId = _getCurrentUserId();
       if (userId == null) {
-        return Left(Failure.permission('로그인이 필요합니다'));
+        return const Left(Failure.permission('로그인이 필요합니다'));
       }
 
       final model = MedicationRecordModel.fromEntity(record, userId);
@@ -267,7 +266,7 @@ class SupabaseRecordRepositoryImpl implements IRecordRepository {
     try {
       final userId = _getCurrentUserId();
       if (userId == null) {
-        return Left(Failure.permission('로그인이 필요합니다'));
+        return const Left(Failure.permission('로그인이 필요합니다'));
       }
 
       final model = MedicationRecordModel.fromEntity(record, userId);
@@ -285,7 +284,7 @@ class SupabaseRecordRepositoryImpl implements IRecordRepository {
     try {
       final userId = _getCurrentUserId();
       if (userId == null) {
-        return Left(Failure.permission('로그인이 필요합니다'));
+        return const Left(Failure.permission('로그인이 필요합니다'));
       }
 
       await _remoteDataSource.deleteMedicationRecord(id);
@@ -306,7 +305,7 @@ class SupabaseRecordRepositoryImpl implements IRecordRepository {
     try {
       final userId = _getCurrentUserId();
       if (userId == null) {
-        return Left(Failure.permission('로그인이 필요합니다'));
+        return const Left(Failure.permission('로그인이 필요합니다'));
       }
 
       final models = await _remoteDataSource.getLifestyleRecords(date);
@@ -325,7 +324,7 @@ class SupabaseRecordRepositoryImpl implements IRecordRepository {
     try {
       final userId = _getCurrentUserId();
       if (userId == null) {
-        return Left(Failure.permission('로그인이 필요합니다'));
+        return const Left(Failure.permission('로그인이 필요합니다'));
       }
 
       final model = LifestyleRecordModel.fromEntity(record, userId);
@@ -345,7 +344,7 @@ class SupabaseRecordRepositoryImpl implements IRecordRepository {
     try {
       final userId = _getCurrentUserId();
       if (userId == null) {
-        return Left(Failure.permission('로그인이 필요합니다'));
+        return const Left(Failure.permission('로그인이 필요합니다'));
       }
 
       final model = LifestyleRecordModel.fromEntity(record, userId);
@@ -363,7 +362,7 @@ class SupabaseRecordRepositoryImpl implements IRecordRepository {
     try {
       final userId = _getCurrentUserId();
       if (userId == null) {
-        return Left(Failure.permission('로그인이 필요합니다'));
+        return const Left(Failure.permission('로그인이 필요합니다'));
       }
 
       await _remoteDataSource.deleteLifestyleRecord(id);
@@ -383,7 +382,7 @@ class SupabaseRecordRepositoryImpl implements IRecordRepository {
     try {
       final userId = _getCurrentUserId();
       if (userId == null) {
-        return Left(Failure.permission('로그인이 필요합니다'));
+        return const Left(Failure.permission('로그인이 필요합니다'));
       }
 
       final model = await _remoteDataSource.getLifestyleRecordByDateAndType(
@@ -405,7 +404,7 @@ class SupabaseRecordRepositoryImpl implements IRecordRepository {
     try {
       final userId = _getCurrentUserId();
       if (userId == null) {
-        return Left(Failure.permission('로그인이 필요합니다'));
+        return const Left(Failure.permission('로그인이 필요합니다'));
       }
 
       final model = LifestyleRecordModel.fromEntity(record, userId);
@@ -427,7 +426,7 @@ class SupabaseRecordRepositoryImpl implements IRecordRepository {
     try {
       final userId = _getCurrentUserId();
       if (userId == null) {
-        return Left(Failure.permission('로그인이 필요합니다'));
+        return const Left(Failure.permission('로그인이 필요합니다'));
       }
 
       final symptomResult = await getSymptomRecords(date);

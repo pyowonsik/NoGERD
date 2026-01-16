@@ -9,10 +9,9 @@ import 'package:no_gerd/features/settings/domain/repositories/settings_repositor
 /// 설정 로드 UseCase
 @injectable
 class LoadSettingsUseCase implements UseCase<AppSettings, NoParams> {
-  final SettingsRepository _repository;
-
   /// 생성자
   const LoadSettingsUseCase(this._repository);
+  final SettingsRepository _repository;
 
   @override
   Future<Either<Failure, AppSettings>> call(NoParams params) async {

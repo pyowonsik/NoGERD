@@ -21,17 +21,17 @@ class MealRecord with _$MealRecord {
     /// 음식 목록
     required List<String> foods,
 
-    /// 트리거 음식 카테고리
-    List<TriggerFoodCategory>? triggerCategories,
-
     /// 포만감 (1-10)
     required int fullnessLevel,
 
-    /// 메모
-    String? notes,
-
     /// 생성 시간
     required DateTime createdAt,
+
+    /// 트리거 음식 카테고리
+    List<TriggerFoodCategory>? triggerCategories,
+
+    /// 메모
+    String? notes,
 
     /// 수정 시간
     DateTime? updatedAt,

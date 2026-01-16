@@ -22,14 +22,13 @@ part 'home_state.dart';
 /// 홈 화면의 상태를 관리합니다.
 @injectable
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  final IRecordRepository _recordRepository;
-
   /// 생성자
   HomeBloc(this._recordRepository) : super(HomeState.initial()) {
     on<HomeEventStarted>(_onStarted);
     on<HomeEventRefreshed>(_onRefreshed);
     on<HomeEventDateChanged>(_onDateChanged);
   }
+  final IRecordRepository _recordRepository;
 
   Future<void> _onStarted(
     HomeEventStarted event,
@@ -65,7 +64,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           meals,
           medications,
           lifestyles,
-          limit: 20,
         );
         final recentRecords = allRecords.take(5).toList();
 
@@ -101,7 +99,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     List<SymptomRecord> symptoms,
     List<MealRecord> meals,
   ) {
-    int score = 100;
+    var score = 100;
 
     for (final symptom in symptoms) {
       score -= symptom.severity * 2;
@@ -168,7 +166,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       ),
       RecordSummary(
         label: '수면',
-        value: '${sleepHours}시간',
+        value: '$sleepHours시간',
         subValue: sleepHours >= 7
             ? '양호'
             : sleepHours >= 5
@@ -187,7 +185,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     List<LifestyleRecord> lifestyles, {
     int limit = 20,
   }) {
-    final List<RecentRecord> records = [];
+    final records = <RecentRecord>[];
 
     for (final symptom in symptoms) {
       records.add(
@@ -217,18 +215,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     for (final medication in medications) {
       final types = medication.medicationTypes;
-      final typeEmoji = types != null && types.isNotEmpty
-          ? types.first.emoji
-          : '💊';
+      final typeEmoji =
+          types != null && types.isNotEmpty ? types.first.emoji : '💊';
 
       records.add(
         RecentRecord(
           title: medication.isTaken
               ? (medication.medicationName ?? '약물')
               : '약물 복용 안함',
-          subtitle: medication.isTaken
-              ? (medication.dosage ?? '')
-              : '복용하지 않음',
+          subtitle: medication.isTaken ? (medication.dosage ?? '') : '복용하지 않음',
           time: _formatTime(medication.recordedAt),
           emoji: medication.isTaken ? typeEmoji : '🚫',
           colorValue: RecordType.medication.color.value,

@@ -288,8 +288,8 @@ class _InsightsPageContent extends StatelessWidget {
       _SymptomData('기타', 8, AppTheme.textTertiary),
     ];
 
-    final totalCount = state.symptomTrends
-        .fold<int>(0, (sum, trend) => sum + trend.count);
+    final totalCount =
+        state.symptomTrends.fold<int>(0, (sum, trend) => sum + trend.count);
 
     return GlassCard(
       child: Column(
@@ -400,8 +400,9 @@ class _InsightsPageContent extends StatelessWidget {
       );
     }
 
-    final maxCount =
-        state.triggerAnalysis.isNotEmpty ? state.triggerAnalysis.first.count : 1;
+    final maxCount = state.triggerAnalysis.isNotEmpty
+        ? state.triggerAnalysis.first.count
+        : 1;
 
     return GlassCard(
       child: Column(
@@ -409,8 +410,11 @@ class _InsightsPageContent extends StatelessWidget {
         children: [
           const Row(
             children: [
-              Icon(Icons.warning_amber_rounded,
-                  color: AppTheme.warning, size: 20),
+              Icon(
+                Icons.warning_amber_rounded,
+                color: AppTheme.warning,
+                size: 20,
+              ),
               SizedBox(width: 8),
               Text(
                 '트리거 음식 분석',
@@ -516,8 +520,11 @@ class _InsightsPageContent extends StatelessWidget {
             ),
             child: const Row(
               children: [
-                Icon(Icons.lightbulb_outline_rounded,
-                    color: AppTheme.info, size: 20),
+                Icon(
+                  Icons.lightbulb_outline_rounded,
+                  color: AppTheme.info,
+                  size: 20,
+                ),
                 SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -549,7 +556,8 @@ class _InsightsPageContent extends StatelessWidget {
                 gradient: AppTheme.primaryGradient,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: const Icon(Icons.auto_awesome, color: Colors.white, size: 18),
+              child:
+                  const Icon(Icons.auto_awesome, color: Colors.white, size: 18),
             ),
             const SizedBox(width: 10),
             const Text(
@@ -566,18 +574,16 @@ class _InsightsPageContent extends StatelessWidget {
         const _InsightCard(
           icon: Icons.trending_up_rounded,
           title: '좋은 소식!',
-          message:
-              '지난 주 대비 증상 빈도가 감소 추세예요. 현재 관리 방법을 유지하세요.',
+          message: '지난 주 대비 증상 빈도가 감소 추세예요. 현재 관리 방법을 유지하세요.',
           color: AppTheme.success,
         ),
         const SizedBox(height: 10),
         _InsightCard(
           icon: Icons.restaurant_rounded,
           title: '식습관 팁',
-          message:
-              state.triggerAnalysis.isNotEmpty
-                  ? '${state.triggerAnalysis.first.category.label} 섭취 후 증상이 자주 발생해요.'
-                  : '균형 잡힌 식사를 유지하세요.',
+          message: state.triggerAnalysis.isNotEmpty
+              ? '${state.triggerAnalysis.first.category.label} 섭취 후 증상이 자주 발생해요.'
+              : '균형 잡힌 식사를 유지하세요.',
           color: AppTheme.mealColor,
         ),
         const SizedBox(height: 10),
@@ -595,15 +601,14 @@ class _InsightsPageContent extends StatelessWidget {
 // ========== 위젯 컴포넌트 ==========
 
 class _TimeSlot extends StatelessWidget {
-  final String time;
-  final int count;
-  final bool isHighest;
-
   const _TimeSlot({
     required this.time,
     required this.count,
     required this.isHighest,
   });
+  final String time;
+  final int count;
+  final bool isHighest;
 
   @override
   Widget build(BuildContext context) {
@@ -648,17 +653,16 @@ class _TimeSlot extends StatelessWidget {
 }
 
 class _InsightCard extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String message;
-  final Color color;
-
   const _InsightCard({
     required this.icon,
     required this.title,
     required this.message,
     required this.color,
   });
+  final IconData icon;
+  final String title;
+  final String message;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -710,21 +714,19 @@ class _InsightCard extends StatelessWidget {
 // ========== 데이터 클래스 ==========
 
 class _SymptomData {
+  _SymptomData(this.name, this.percentage, this.color);
   final String name;
   final int percentage;
   final Color color;
-
-  _SymptomData(this.name, this.percentage, this.color);
 }
 
 // ========== Custom Painters ==========
 
 /// 라인 차트 페인터
 class _LineChartPainter extends CustomPainter {
+  _LineChartPainter({required this.data, required this.color});
   final List<int> data;
   final Color color;
-
-  _LineChartPainter({required this.data, required this.color});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -742,7 +744,7 @@ class _LineChartPainter extends CustomPainter {
         end: Alignment.bottomCenter,
         colors: [
           color.withValues(alpha: 0.3),
-          color.withValues(alpha: 0.0),
+          color.withValues(alpha: 0),
         ],
       ).createShader(Rect.fromLTWH(0, 0, size.width, size.height));
 
@@ -787,9 +789,8 @@ class _LineChartPainter extends CustomPainter {
 
 /// 도넛 차트 페인터
 class _DonutChartPainter extends CustomPainter {
-  final List<_SymptomData> symptoms;
-
   _DonutChartPainter({required this.symptoms});
+  final List<_SymptomData> symptoms;
 
   @override
   void paint(Canvas canvas, Size size) {

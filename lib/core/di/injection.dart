@@ -12,9 +12,7 @@ final getIt = GetIt.instance;
 /// Injectable을 사용하여 자동으로 의존성을 등록합니다.
 /// 앱 시작 시 main()에서 호출해야 합니다.
 @InjectableInit(
-  initializerName: 'init',
   preferRelativeImports: true,
-  asExtension: true,
 )
 Future<void> configureDependencies() async => getIt.init();
 
