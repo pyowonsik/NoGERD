@@ -28,13 +28,13 @@ mixin _$MealRecordModel {
   @JsonKey(name: 'meal_type')
   String get mealType => throw _privateConstructorUsedError;
   List<String> get foods => throw _privateConstructorUsedError;
-  @JsonKey(name: 'trigger_categories')
-  List<String>? get triggerCategories => throw _privateConstructorUsedError;
   @JsonKey(name: 'fullness_level')
   int get fullnessLevel => throw _privateConstructorUsedError;
-  String? get notes => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
   DateTime get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'trigger_categories')
+  List<String>? get triggerCategories => throw _privateConstructorUsedError;
+  String? get notes => throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
   DateTime? get updatedAt => throw _privateConstructorUsedError;
 
@@ -56,10 +56,10 @@ abstract class $MealRecordModelCopyWith<$Res> {
       @JsonKey(name: 'record_datetime') DateTime recordedAt,
       @JsonKey(name: 'meal_type') String mealType,
       List<String> foods,
-      @JsonKey(name: 'trigger_categories') List<String>? triggerCategories,
       @JsonKey(name: 'fullness_level') int fullnessLevel,
-      String? notes,
       @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'trigger_categories') List<String>? triggerCategories,
+      String? notes,
       @JsonKey(name: 'updated_at') DateTime? updatedAt});
 }
 
@@ -81,10 +81,10 @@ class _$MealRecordModelCopyWithImpl<$Res, $Val extends MealRecordModel>
     Object? recordedAt = null,
     Object? mealType = null,
     Object? foods = null,
-    Object? triggerCategories = freezed,
     Object? fullnessLevel = null,
-    Object? notes = freezed,
     Object? createdAt = null,
+    Object? triggerCategories = freezed,
+    Object? notes = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -108,22 +108,22 @@ class _$MealRecordModelCopyWithImpl<$Res, $Val extends MealRecordModel>
           ? _value.foods
           : foods // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      triggerCategories: freezed == triggerCategories
-          ? _value.triggerCategories
-          : triggerCategories // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
       fullnessLevel: null == fullnessLevel
           ? _value.fullnessLevel
           : fullnessLevel // ignore: cast_nullable_to_non_nullable
               as int,
-      notes: freezed == notes
-          ? _value.notes
-          : notes // ignore: cast_nullable_to_non_nullable
-              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      triggerCategories: freezed == triggerCategories
+          ? _value.triggerCategories
+          : triggerCategories // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -146,10 +146,10 @@ abstract class _$$MealRecordModelImplCopyWith<$Res>
       @JsonKey(name: 'record_datetime') DateTime recordedAt,
       @JsonKey(name: 'meal_type') String mealType,
       List<String> foods,
-      @JsonKey(name: 'trigger_categories') List<String>? triggerCategories,
       @JsonKey(name: 'fullness_level') int fullnessLevel,
-      String? notes,
       @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'trigger_categories') List<String>? triggerCategories,
+      String? notes,
       @JsonKey(name: 'updated_at') DateTime? updatedAt});
 }
 
@@ -169,10 +169,10 @@ class __$$MealRecordModelImplCopyWithImpl<$Res>
     Object? recordedAt = null,
     Object? mealType = null,
     Object? foods = null,
-    Object? triggerCategories = freezed,
     Object? fullnessLevel = null,
-    Object? notes = freezed,
     Object? createdAt = null,
+    Object? triggerCategories = freezed,
+    Object? notes = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_$MealRecordModelImpl(
@@ -196,22 +196,22 @@ class __$$MealRecordModelImplCopyWithImpl<$Res>
           ? _value._foods
           : foods // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      triggerCategories: freezed == triggerCategories
-          ? _value._triggerCategories
-          : triggerCategories // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
       fullnessLevel: null == fullnessLevel
           ? _value.fullnessLevel
           : fullnessLevel // ignore: cast_nullable_to_non_nullable
               as int,
-      notes: freezed == notes
-          ? _value.notes
-          : notes // ignore: cast_nullable_to_non_nullable
-              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      triggerCategories: freezed == triggerCategories
+          ? _value._triggerCategories
+          : triggerCategories // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -229,11 +229,11 @@ class _$MealRecordModelImpl extends _MealRecordModel {
       @JsonKey(name: 'record_datetime') required this.recordedAt,
       @JsonKey(name: 'meal_type') required this.mealType,
       required final List<String> foods,
+      @JsonKey(name: 'fullness_level') required this.fullnessLevel,
+      @JsonKey(name: 'created_at') required this.createdAt,
       @JsonKey(name: 'trigger_categories')
       final List<String>? triggerCategories,
-      @JsonKey(name: 'fullness_level') required this.fullnessLevel,
       this.notes,
-      @JsonKey(name: 'created_at') required this.createdAt,
       @JsonKey(name: 'updated_at') this.updatedAt})
       : _foods = foods,
         _triggerCategories = triggerCategories,
@@ -261,6 +261,12 @@ class _$MealRecordModelImpl extends _MealRecordModel {
     return EqualUnmodifiableListView(_foods);
   }
 
+  @override
+  @JsonKey(name: 'fullness_level')
+  final int fullnessLevel;
+  @override
+  @JsonKey(name: 'created_at')
+  final DateTime createdAt;
   final List<String>? _triggerCategories;
   @override
   @JsonKey(name: 'trigger_categories')
@@ -274,20 +280,14 @@ class _$MealRecordModelImpl extends _MealRecordModel {
   }
 
   @override
-  @JsonKey(name: 'fullness_level')
-  final int fullnessLevel;
-  @override
   final String? notes;
-  @override
-  @JsonKey(name: 'created_at')
-  final DateTime createdAt;
   @override
   @JsonKey(name: 'updated_at')
   final DateTime? updatedAt;
 
   @override
   String toString() {
-    return 'MealRecordModel(id: $id, userId: $userId, recordedAt: $recordedAt, mealType: $mealType, foods: $foods, triggerCategories: $triggerCategories, fullnessLevel: $fullnessLevel, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'MealRecordModel(id: $id, userId: $userId, recordedAt: $recordedAt, mealType: $mealType, foods: $foods, fullnessLevel: $fullnessLevel, createdAt: $createdAt, triggerCategories: $triggerCategories, notes: $notes, updatedAt: $updatedAt)';
   }
 
   @override
@@ -302,13 +302,13 @@ class _$MealRecordModelImpl extends _MealRecordModel {
             (identical(other.mealType, mealType) ||
                 other.mealType == mealType) &&
             const DeepCollectionEquality().equals(other._foods, _foods) &&
-            const DeepCollectionEquality()
-                .equals(other._triggerCategories, _triggerCategories) &&
             (identical(other.fullnessLevel, fullnessLevel) ||
                 other.fullnessLevel == fullnessLevel) &&
-            (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
+            const DeepCollectionEquality()
+                .equals(other._triggerCategories, _triggerCategories) &&
+            (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt));
   }
@@ -322,10 +322,10 @@ class _$MealRecordModelImpl extends _MealRecordModel {
       recordedAt,
       mealType,
       const DeepCollectionEquality().hash(_foods),
-      const DeepCollectionEquality().hash(_triggerCategories),
       fullnessLevel,
-      notes,
       createdAt,
+      const DeepCollectionEquality().hash(_triggerCategories),
+      notes,
       updatedAt);
 
   @JsonKey(ignore: true)
@@ -350,11 +350,11 @@ abstract class _MealRecordModel extends MealRecordModel {
           @JsonKey(name: 'record_datetime') required final DateTime recordedAt,
           @JsonKey(name: 'meal_type') required final String mealType,
           required final List<String> foods,
+          @JsonKey(name: 'fullness_level') required final int fullnessLevel,
+          @JsonKey(name: 'created_at') required final DateTime createdAt,
           @JsonKey(name: 'trigger_categories')
           final List<String>? triggerCategories,
-          @JsonKey(name: 'fullness_level') required final int fullnessLevel,
           final String? notes,
-          @JsonKey(name: 'created_at') required final DateTime createdAt,
           @JsonKey(name: 'updated_at') final DateTime? updatedAt}) =
       _$MealRecordModelImpl;
   const _MealRecordModel._() : super._();
@@ -376,16 +376,16 @@ abstract class _MealRecordModel extends MealRecordModel {
   @override
   List<String> get foods;
   @override
-  @JsonKey(name: 'trigger_categories')
-  List<String>? get triggerCategories;
-  @override
   @JsonKey(name: 'fullness_level')
   int get fullnessLevel;
   @override
-  String? get notes;
-  @override
   @JsonKey(name: 'created_at')
   DateTime get createdAt;
+  @override
+  @JsonKey(name: 'trigger_categories')
+  List<String>? get triggerCategories;
+  @override
+  String? get notes;
   @override
   @JsonKey(name: 'updated_at')
   DateTime? get updatedAt;

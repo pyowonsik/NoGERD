@@ -996,7 +996,7 @@ class _AIInsights extends StatelessWidget {
             ),
             const SizedBox(width: 10),
             const Text(
-              '주간 AI 리포트',
+              '지난주 AI 리포트',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,

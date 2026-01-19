@@ -34,6 +34,10 @@ class _LoginPageState extends State<LoginPage> {
         child: SafeArea(
           child: BlocConsumer<AuthBloc, AuthState>(
             listener: (context, state) {
+              // 현재 페이지가 활성화되어 있을 때만 처리 (회원가입 페이지에서 중복 스낵바 방지)
+              final isCurrent = ModalRoute.of(context)?.isCurrent ?? false;
+              if (!isCurrent) return;
+
               state.maybeWhen(
                 authenticated: (user) {
                   context.go('/');
@@ -41,7 +45,9 @@ class _LoginPageState extends State<LoginPage> {
                 error: (failure) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text(failure.message),
+                      content: Text(
+                        ErrorMessageHelper.toKorean(failure.message),
+                      ),
                       backgroundColor: Colors.red.shade400,
                       behavior: SnackBarBehavior.floating,
                       shape: RoundedRectangleBorder(
@@ -70,16 +76,6 @@ class _LoginPageState extends State<LoginPage> {
                         // 로고 영역
                         const AppLogo(),
                         const SizedBox(height: 24),
-                        const Text(
-                          'NoGERD',
-                          style: TextStyle(
-                            fontSize: 36,
-                            fontWeight: FontWeight.bold,
-                            color: AppTheme.textPrimary,
-                            letterSpacing: 1.5,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
                         Text(
                           '건강한 일상을 위한 첫 걸음',
                           style: TextStyle(
@@ -173,7 +169,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           decoration: InputDecoration(
                             labelText: '비밀번호',
-                            hintText: '6자 이상 입력',
+                            hintText: '12자 이상 입력 (특수문자 + 영어 대소문자 + 숫자 조합)',
                             filled: true,
                             fillColor: Colors.white.withAlpha(13),
                             prefixIcon: Icon(
@@ -242,8 +238,8 @@ class _LoginPageState extends State<LoginPage> {
                             if (value == null || value.isEmpty) {
                               return '비밀번호를 입력해주세요';
                             }
-                            if (value.length < 6) {
-                              return '비밀번호는 6자 이상이어야 합니다';
+                            if (value.length < 12) {
+                              return '12자 이상 입력 (특수문자 + 영어 대소문자 + 숫자 조합).';
                             }
                             return null;
                           },

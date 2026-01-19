@@ -9,6 +9,7 @@ import 'package:no_gerd/features/settings/domain/entities/app_settings.dart';
 import 'package:no_gerd/features/settings/domain/usecases/delete_all_data_usecase.dart';
 import 'package:no_gerd/features/settings/domain/usecases/export_data_usecase.dart';
 import 'package:no_gerd/features/settings/domain/usecases/load_settings_usecase.dart';
+import 'package:no_gerd/shared/utils/error_message_helper.dart';
 
 part 'settings_bloc.freezed.dart';
 part 'settings_event.dart';
@@ -69,7 +70,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         state.copyWith(
           isProcessing: false,
           failure: some(failure),
-          message: some('데이터 내보내기 실패: ${failure.message}'),
+          message: some(
+            '데이터 내보내기 실패: ${ErrorMessageHelper.toKorean(failure.message)}',
+          ),
         ),
       ),
       (filePath) => emit(

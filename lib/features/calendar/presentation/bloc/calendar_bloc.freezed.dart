@@ -658,9 +658,6 @@ mixin _$CalendarState {
   /// 포커스된 날짜 (캘린더에서 보이는 월)
   DateTime get focusedDay => throw _privateConstructorUsedError;
 
-  /// 선택된 날짜
-  DateTime? get selectedDay => throw _privateConstructorUsedError;
-
   /// 캘린더 포맷 (월/주/2주)
   CalendarFormat get calendarFormat => throw _privateConstructorUsedError;
 
@@ -668,12 +665,15 @@ mixin _$CalendarState {
   Map<DateTime, Map<String, dynamic>> get monthRecords =>
       throw _privateConstructorUsedError;
 
+  /// 에러
+  Option<Failure> get failure => throw _privateConstructorUsedError;
+
+  /// 선택된 날짜
+  DateTime? get selectedDay => throw _privateConstructorUsedError;
+
   /// 선택된 날짜의 기록
   Map<String, dynamic>? get selectedDayRecords =>
       throw _privateConstructorUsedError;
-
-  /// 에러
-  Option<Failure> get failure => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CalendarStateCopyWith<CalendarState> get copyWith =>
@@ -689,11 +689,11 @@ abstract class $CalendarStateCopyWith<$Res> {
   $Res call(
       {bool isLoading,
       DateTime focusedDay,
-      DateTime? selectedDay,
       CalendarFormat calendarFormat,
       Map<DateTime, Map<String, dynamic>> monthRecords,
-      Map<String, dynamic>? selectedDayRecords,
-      Option<Failure> failure});
+      Option<Failure> failure,
+      DateTime? selectedDay,
+      Map<String, dynamic>? selectedDayRecords});
 }
 
 /// @nodoc
@@ -711,11 +711,11 @@ class _$CalendarStateCopyWithImpl<$Res, $Val extends CalendarState>
   $Res call({
     Object? isLoading = null,
     Object? focusedDay = null,
-    Object? selectedDay = freezed,
     Object? calendarFormat = null,
     Object? monthRecords = null,
-    Object? selectedDayRecords = freezed,
     Object? failure = null,
+    Object? selectedDay = freezed,
+    Object? selectedDayRecords = freezed,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -726,10 +726,6 @@ class _$CalendarStateCopyWithImpl<$Res, $Val extends CalendarState>
           ? _value.focusedDay
           : focusedDay // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      selectedDay: freezed == selectedDay
-          ? _value.selectedDay
-          : selectedDay // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
       calendarFormat: null == calendarFormat
           ? _value.calendarFormat
           : calendarFormat // ignore: cast_nullable_to_non_nullable
@@ -738,14 +734,18 @@ class _$CalendarStateCopyWithImpl<$Res, $Val extends CalendarState>
           ? _value.monthRecords
           : monthRecords // ignore: cast_nullable_to_non_nullable
               as Map<DateTime, Map<String, dynamic>>,
-      selectedDayRecords: freezed == selectedDayRecords
-          ? _value.selectedDayRecords
-          : selectedDayRecords // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
       failure: null == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
               as Option<Failure>,
+      selectedDay: freezed == selectedDay
+          ? _value.selectedDay
+          : selectedDay // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      selectedDayRecords: freezed == selectedDayRecords
+          ? _value.selectedDayRecords
+          : selectedDayRecords // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
     ) as $Val);
   }
 }
@@ -761,11 +761,11 @@ abstract class _$$CalendarStateImplCopyWith<$Res>
   $Res call(
       {bool isLoading,
       DateTime focusedDay,
-      DateTime? selectedDay,
       CalendarFormat calendarFormat,
       Map<DateTime, Map<String, dynamic>> monthRecords,
-      Map<String, dynamic>? selectedDayRecords,
-      Option<Failure> failure});
+      Option<Failure> failure,
+      DateTime? selectedDay,
+      Map<String, dynamic>? selectedDayRecords});
 }
 
 /// @nodoc
@@ -781,11 +781,11 @@ class __$$CalendarStateImplCopyWithImpl<$Res>
   $Res call({
     Object? isLoading = null,
     Object? focusedDay = null,
-    Object? selectedDay = freezed,
     Object? calendarFormat = null,
     Object? monthRecords = null,
-    Object? selectedDayRecords = freezed,
     Object? failure = null,
+    Object? selectedDay = freezed,
+    Object? selectedDayRecords = freezed,
   }) {
     return _then(_$CalendarStateImpl(
       isLoading: null == isLoading
@@ -796,10 +796,6 @@ class __$$CalendarStateImplCopyWithImpl<$Res>
           ? _value.focusedDay
           : focusedDay // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      selectedDay: freezed == selectedDay
-          ? _value.selectedDay
-          : selectedDay // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
       calendarFormat: null == calendarFormat
           ? _value.calendarFormat
           : calendarFormat // ignore: cast_nullable_to_non_nullable
@@ -808,14 +804,18 @@ class __$$CalendarStateImplCopyWithImpl<$Res>
           ? _value._monthRecords
           : monthRecords // ignore: cast_nullable_to_non_nullable
               as Map<DateTime, Map<String, dynamic>>,
-      selectedDayRecords: freezed == selectedDayRecords
-          ? _value._selectedDayRecords
-          : selectedDayRecords // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
       failure: null == failure
           ? _value.failure
           : failure // ignore: cast_nullable_to_non_nullable
               as Option<Failure>,
+      selectedDay: freezed == selectedDay
+          ? _value.selectedDay
+          : selectedDay // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      selectedDayRecords: freezed == selectedDayRecords
+          ? _value._selectedDayRecords
+          : selectedDayRecords // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
     ));
   }
 }
@@ -826,11 +826,11 @@ class _$CalendarStateImpl implements _CalendarState {
   const _$CalendarStateImpl(
       {required this.isLoading,
       required this.focusedDay,
-      this.selectedDay,
       required this.calendarFormat,
       required final Map<DateTime, Map<String, dynamic>> monthRecords,
-      final Map<String, dynamic>? selectedDayRecords,
-      required this.failure})
+      required this.failure,
+      this.selectedDay,
+      final Map<String, dynamic>? selectedDayRecords})
       : _monthRecords = monthRecords,
         _selectedDayRecords = selectedDayRecords;
 
@@ -841,10 +841,6 @@ class _$CalendarStateImpl implements _CalendarState {
   /// 포커스된 날짜 (캘린더에서 보이는 월)
   @override
   final DateTime focusedDay;
-
-  /// 선택된 날짜
-  @override
-  final DateTime? selectedDay;
 
   /// 캘린더 포맷 (월/주/2주)
   @override
@@ -861,6 +857,14 @@ class _$CalendarStateImpl implements _CalendarState {
     return EqualUnmodifiableMapView(_monthRecords);
   }
 
+  /// 에러
+  @override
+  final Option<Failure> failure;
+
+  /// 선택된 날짜
+  @override
+  final DateTime? selectedDay;
+
   /// 선택된 날짜의 기록
   final Map<String, dynamic>? _selectedDayRecords;
 
@@ -875,13 +879,9 @@ class _$CalendarStateImpl implements _CalendarState {
     return EqualUnmodifiableMapView(value);
   }
 
-  /// 에러
-  @override
-  final Option<Failure> failure;
-
   @override
   String toString() {
-    return 'CalendarState(isLoading: $isLoading, focusedDay: $focusedDay, selectedDay: $selectedDay, calendarFormat: $calendarFormat, monthRecords: $monthRecords, selectedDayRecords: $selectedDayRecords, failure: $failure)';
+    return 'CalendarState(isLoading: $isLoading, focusedDay: $focusedDay, calendarFormat: $calendarFormat, monthRecords: $monthRecords, failure: $failure, selectedDay: $selectedDay, selectedDayRecords: $selectedDayRecords)';
   }
 
   @override
@@ -893,15 +893,15 @@ class _$CalendarStateImpl implements _CalendarState {
                 other.isLoading == isLoading) &&
             (identical(other.focusedDay, focusedDay) ||
                 other.focusedDay == focusedDay) &&
-            (identical(other.selectedDay, selectedDay) ||
-                other.selectedDay == selectedDay) &&
             (identical(other.calendarFormat, calendarFormat) ||
                 other.calendarFormat == calendarFormat) &&
             const DeepCollectionEquality()
                 .equals(other._monthRecords, _monthRecords) &&
+            (identical(other.failure, failure) || other.failure == failure) &&
+            (identical(other.selectedDay, selectedDay) ||
+                other.selectedDay == selectedDay) &&
             const DeepCollectionEquality()
-                .equals(other._selectedDayRecords, _selectedDayRecords) &&
-            (identical(other.failure, failure) || other.failure == failure));
+                .equals(other._selectedDayRecords, _selectedDayRecords));
   }
 
   @override
@@ -909,11 +909,11 @@ class _$CalendarStateImpl implements _CalendarState {
       runtimeType,
       isLoading,
       focusedDay,
-      selectedDay,
       calendarFormat,
       const DeepCollectionEquality().hash(_monthRecords),
-      const DeepCollectionEquality().hash(_selectedDayRecords),
-      failure);
+      failure,
+      selectedDay,
+      const DeepCollectionEquality().hash(_selectedDayRecords));
 
   @JsonKey(ignore: true)
   @override
@@ -926,11 +926,11 @@ abstract class _CalendarState implements CalendarState {
   const factory _CalendarState(
       {required final bool isLoading,
       required final DateTime focusedDay,
-      final DateTime? selectedDay,
       required final CalendarFormat calendarFormat,
       required final Map<DateTime, Map<String, dynamic>> monthRecords,
-      final Map<String, dynamic>? selectedDayRecords,
-      required final Option<Failure> failure}) = _$CalendarStateImpl;
+      required final Option<Failure> failure,
+      final DateTime? selectedDay,
+      final Map<String, dynamic>? selectedDayRecords}) = _$CalendarStateImpl;
 
   @override
 
@@ -942,10 +942,6 @@ abstract class _CalendarState implements CalendarState {
   DateTime get focusedDay;
   @override
 
-  /// 선택된 날짜
-  DateTime? get selectedDay;
-  @override
-
   /// 캘린더 포맷 (월/주/2주)
   CalendarFormat get calendarFormat;
   @override
@@ -954,12 +950,16 @@ abstract class _CalendarState implements CalendarState {
   Map<DateTime, Map<String, dynamic>> get monthRecords;
   @override
 
-  /// 선택된 날짜의 기록
-  Map<String, dynamic>? get selectedDayRecords;
-  @override
-
   /// 에러
   Option<Failure> get failure;
+  @override
+
+  /// 선택된 날짜
+  DateTime? get selectedDay;
+  @override
+
+  /// 선택된 날짜의 기록
+  Map<String, dynamic>? get selectedDayRecords;
   @override
   @JsonKey(ignore: true)
   _$$CalendarStateImplCopyWith<_$CalendarStateImpl> get copyWith =>

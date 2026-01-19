@@ -69,36 +69,35 @@ class AnalyzeTriggersUseCase
     }
 
     try {
-      final triggerCounts = <TriggerFoodCategory, int>{};
-      var currentDate = params.startDate;
+      // 범위 조회로 한 번에 데이터 가져오기
+      final result = await _repository.getMealRecordsInRange(
+        params.startDate,
+        params.endDate,
+      );
 
-      while (!currentDate.isAfter(params.endDate)) {
-        final result = await _repository.getMealRecords(currentDate);
+      return result.fold(
+        Left.new,
+        (meals) {
+          final triggerCounts = <TriggerFoodCategory, int>{};
 
-        result.fold(
-          (failure) => null,
-          (meals) {
-            for (final meal in meals) {
-              final triggers = meal.triggerCategories;
-              if (triggers != null) {
-                for (final trigger in triggers) {
-                  triggerCounts[trigger] = (triggerCounts[trigger] ?? 0) + 1;
-                }
+          for (final meal in meals) {
+            final triggers = meal.triggerCategories;
+            if (triggers != null) {
+              for (final trigger in triggers) {
+                triggerCounts[trigger] = (triggerCounts[trigger] ?? 0) + 1;
               }
             }
-          },
-        );
+          }
 
-        currentDate = currentDate.add(const Duration(days: 1));
-      }
+          // 빈도순으로 정렬
+          final analysisList = triggerCounts.entries
+              .map((e) => TriggerAnalysis(category: e.key, count: e.value))
+              .toList()
+            ..sort((a, b) => b.count.compareTo(a.count));
 
-      // 빈도순으로 정렬
-      final analysisList = triggerCounts.entries
-          .map((e) => TriggerAnalysis(category: e.key, count: e.value))
-          .toList()
-        ..sort((a, b) => b.count.compareTo(a.count));
-
-      return Right(analysisList);
+          return Right(analysisList);
+        },
+      );
     } catch (e) {
       return Left(Failure.unexpected(e.toString()));
     }

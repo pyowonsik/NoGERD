@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 
 import 'package:no_gerd/core/error/failures.dart';
 import 'package:no_gerd/core/usecase/usecase.dart';
+import 'package:no_gerd/features/record/domain/entities/symptom_record.dart';
 import 'package:no_gerd/features/record/domain/repositories/record_repository.dart';
 
 /// 주간 타입
@@ -81,26 +82,54 @@ class GetSymptomTrendsUseCase
     }
 
     try {
-      final trends = <SymptomTrend>[];
-      var currentDate = params.startDate;
+      // 범위 조회로 한 번에 데이터 가져오기
+      final result = await _repository.getSymptomRecordsInRange(
+        params.startDate,
+        params.endDate,
+      );
 
-      while (!currentDate.isAfter(params.endDate)) {
-        final result = await _repository.getSymptomRecords(currentDate);
+      return result.fold(
+        Left.new,
+        (symptoms) {
+          // 날짜별로 그룹핑
+          final symptomsByDate = <DateTime, List<SymptomRecord>>{};
 
-        result.fold(
-          (failure) => null,
-          (symptoms) {
-            if (symptoms.isNotEmpty) {
-              final totalSeverity = symptoms.fold<int>(
+          for (final symptom in symptoms) {
+            final date = DateTime(
+              symptom.recordedAt.year,
+              symptom.recordedAt.month,
+              symptom.recordedAt.day,
+            );
+            symptomsByDate.putIfAbsent(date, () => []).add(symptom);
+          }
+
+          // 범위 내 모든 날짜에 대해 SymptomTrend 생성
+          final trends = <SymptomTrend>[];
+          var currentDate = DateTime(
+            params.startDate.year,
+            params.startDate.month,
+            params.startDate.day,
+          );
+          final endDate = DateTime(
+            params.endDate.year,
+            params.endDate.month,
+            params.endDate.day,
+          );
+
+          while (!currentDate.isAfter(endDate)) {
+            final daySymptoms = symptomsByDate[currentDate] ?? [];
+
+            if (daySymptoms.isNotEmpty) {
+              final totalSeverity = daySymptoms.fold<int>(
                 0,
                 (sum, symptom) => sum + symptom.severity,
               );
-              final averageSeverity = totalSeverity / symptoms.length;
+              final averageSeverity = totalSeverity / daySymptoms.length;
 
               trends.add(
                 SymptomTrend(
                   date: currentDate,
-                  count: symptoms.length,
+                  count: daySymptoms.length,
                   averageSeverity: averageSeverity,
                 ),
               );
@@ -113,24 +142,23 @@ class GetSymptomTrendsUseCase
                 ),
               );
             }
-          },
-        );
 
-        currentDate = currentDate.add(const Duration(days: 1));
-      }
+            currentDate = currentDate.add(const Duration(days: 1));
+          }
 
-      // 날짜 순으로 정렬 (오래된 순)
-      trends.sort((a, b) => a.date.compareTo(b.date));
-
-      return Right(trends);
+          return Right(trends);
+        },
+      );
     } catch (e) {
       return Left(Failure.unexpected(e.toString()));
     }
   }
 
   /// Mock 데이터 생성
-  List<SymptomTrend> _generateMockTrends(DateRangeParams params,
-      {required bool isGood}) {
+  List<SymptomTrend> _generateMockTrends(
+    DateRangeParams params, {
+    required bool isGood,
+  }) {
     final trends = <SymptomTrend>[];
     var currentDate = params.startDate;
 

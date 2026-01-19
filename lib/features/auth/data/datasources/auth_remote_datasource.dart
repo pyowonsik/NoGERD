@@ -10,8 +10,9 @@ abstract class AuthRemoteDataSource {
   Future<void> signOut();
   Future<UserModel?> getCurrentUser();
   Stream<UserModel?> authStateChanges();
-  Future<void> resendVerificationEmail();
+  Future<void> resendVerificationEmail(String email);
   Future<void> sendPasswordResetEmail(String email);
+  Future<UserModel> verifyOtp({required String email, required String token});
 }
 
 /// Supabase Auth DataSource 구현
@@ -99,20 +100,40 @@ class SupabaseAuthDataSource implements AuthRemoteDataSource {
   }
 
   @override
-  Future<void> resendVerificationEmail() async {
+  Future<void> resendVerificationEmail(String email) async {
     try {
-      final user = _supabase.auth.currentUser;
-      if (user == null) {
-        throw Exception('로그인이 필요합니다');
-      }
       await _supabase.auth.resend(
         type: OtpType.signup,
-        email: user.email,
+        email: email,
       );
     } on AuthException catch (e) {
       throw AuthDataSourceException(e.message);
     } catch (e) {
       throw AuthDataSourceException('인증 이메일 발송 실패: ${e}');
+    }
+  }
+
+  @override
+  Future<UserModel> verifyOtp({
+    required String email,
+    required String token,
+  }) async {
+    try {
+      final response = await _supabase.auth.verifyOTP(
+        email: email,
+        token: token,
+        type: OtpType.signup,
+      );
+
+      if (response.user == null) {
+        throw Exception('인증 실패');
+      }
+
+      return UserModel.fromSupabaseUser(response.user!);
+    } on AuthException catch (e) {
+      throw AuthDataSourceException(e.message);
+    } catch (e) {
+      throw AuthDataSourceException('OTP 인증 실패: ${e}');
     }
   }
 

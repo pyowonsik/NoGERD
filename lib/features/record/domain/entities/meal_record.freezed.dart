@@ -28,18 +28,18 @@ mixin _$MealRecord {
   /// 음식 목록
   List<String> get foods => throw _privateConstructorUsedError;
 
+  /// 포만감 (1-10)
+  int get fullnessLevel => throw _privateConstructorUsedError;
+
+  /// 생성 시간
+  DateTime get createdAt => throw _privateConstructorUsedError;
+
   /// 트리거 음식 카테고리
   List<TriggerFoodCategory>? get triggerCategories =>
       throw _privateConstructorUsedError;
 
-  /// 포만감 (1-10)
-  int get fullnessLevel => throw _privateConstructorUsedError;
-
   /// 메모
   String? get notes => throw _privateConstructorUsedError;
-
-  /// 생성 시간
-  DateTime get createdAt => throw _privateConstructorUsedError;
 
   /// 수정 시간
   DateTime? get updatedAt => throw _privateConstructorUsedError;
@@ -60,10 +60,10 @@ abstract class $MealRecordCopyWith<$Res> {
       DateTime recordedAt,
       MealType mealType,
       List<String> foods,
-      List<TriggerFoodCategory>? triggerCategories,
       int fullnessLevel,
-      String? notes,
       DateTime createdAt,
+      List<TriggerFoodCategory>? triggerCategories,
+      String? notes,
       DateTime? updatedAt});
 }
 
@@ -84,10 +84,10 @@ class _$MealRecordCopyWithImpl<$Res, $Val extends MealRecord>
     Object? recordedAt = null,
     Object? mealType = null,
     Object? foods = null,
-    Object? triggerCategories = freezed,
     Object? fullnessLevel = null,
-    Object? notes = freezed,
     Object? createdAt = null,
+    Object? triggerCategories = freezed,
+    Object? notes = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -107,22 +107,22 @@ class _$MealRecordCopyWithImpl<$Res, $Val extends MealRecord>
           ? _value.foods
           : foods // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      triggerCategories: freezed == triggerCategories
-          ? _value.triggerCategories
-          : triggerCategories // ignore: cast_nullable_to_non_nullable
-              as List<TriggerFoodCategory>?,
       fullnessLevel: null == fullnessLevel
           ? _value.fullnessLevel
           : fullnessLevel // ignore: cast_nullable_to_non_nullable
               as int,
-      notes: freezed == notes
-          ? _value.notes
-          : notes // ignore: cast_nullable_to_non_nullable
-              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      triggerCategories: freezed == triggerCategories
+          ? _value.triggerCategories
+          : triggerCategories // ignore: cast_nullable_to_non_nullable
+              as List<TriggerFoodCategory>?,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -144,10 +144,10 @@ abstract class _$$MealRecordImplCopyWith<$Res>
       DateTime recordedAt,
       MealType mealType,
       List<String> foods,
-      List<TriggerFoodCategory>? triggerCategories,
       int fullnessLevel,
-      String? notes,
       DateTime createdAt,
+      List<TriggerFoodCategory>? triggerCategories,
+      String? notes,
       DateTime? updatedAt});
 }
 
@@ -166,10 +166,10 @@ class __$$MealRecordImplCopyWithImpl<$Res>
     Object? recordedAt = null,
     Object? mealType = null,
     Object? foods = null,
-    Object? triggerCategories = freezed,
     Object? fullnessLevel = null,
-    Object? notes = freezed,
     Object? createdAt = null,
+    Object? triggerCategories = freezed,
+    Object? notes = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_$MealRecordImpl(
@@ -189,22 +189,22 @@ class __$$MealRecordImplCopyWithImpl<$Res>
           ? _value._foods
           : foods // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      triggerCategories: freezed == triggerCategories
-          ? _value._triggerCategories
-          : triggerCategories // ignore: cast_nullable_to_non_nullable
-              as List<TriggerFoodCategory>?,
       fullnessLevel: null == fullnessLevel
           ? _value.fullnessLevel
           : fullnessLevel // ignore: cast_nullable_to_non_nullable
               as int,
-      notes: freezed == notes
-          ? _value.notes
-          : notes // ignore: cast_nullable_to_non_nullable
-              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      triggerCategories: freezed == triggerCategories
+          ? _value._triggerCategories
+          : triggerCategories // ignore: cast_nullable_to_non_nullable
+              as List<TriggerFoodCategory>?,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -221,10 +221,10 @@ class _$MealRecordImpl implements _MealRecord {
       required this.recordedAt,
       required this.mealType,
       required final List<String> foods,
-      final List<TriggerFoodCategory>? triggerCategories,
       required this.fullnessLevel,
-      this.notes,
       required this.createdAt,
+      final List<TriggerFoodCategory>? triggerCategories,
+      this.notes,
       this.updatedAt})
       : _foods = foods,
         _triggerCategories = triggerCategories;
@@ -252,6 +252,14 @@ class _$MealRecordImpl implements _MealRecord {
     return EqualUnmodifiableListView(_foods);
   }
 
+  /// 포만감 (1-10)
+  @override
+  final int fullnessLevel;
+
+  /// 생성 시간
+  @override
+  final DateTime createdAt;
+
   /// 트리거 음식 카테고리
   final List<TriggerFoodCategory>? _triggerCategories;
 
@@ -266,17 +274,9 @@ class _$MealRecordImpl implements _MealRecord {
     return EqualUnmodifiableListView(value);
   }
 
-  /// 포만감 (1-10)
-  @override
-  final int fullnessLevel;
-
   /// 메모
   @override
   final String? notes;
-
-  /// 생성 시간
-  @override
-  final DateTime createdAt;
 
   /// 수정 시간
   @override
@@ -284,7 +284,7 @@ class _$MealRecordImpl implements _MealRecord {
 
   @override
   String toString() {
-    return 'MealRecord(id: $id, recordedAt: $recordedAt, mealType: $mealType, foods: $foods, triggerCategories: $triggerCategories, fullnessLevel: $fullnessLevel, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'MealRecord(id: $id, recordedAt: $recordedAt, mealType: $mealType, foods: $foods, fullnessLevel: $fullnessLevel, createdAt: $createdAt, triggerCategories: $triggerCategories, notes: $notes, updatedAt: $updatedAt)';
   }
 
   @override
@@ -298,13 +298,13 @@ class _$MealRecordImpl implements _MealRecord {
             (identical(other.mealType, mealType) ||
                 other.mealType == mealType) &&
             const DeepCollectionEquality().equals(other._foods, _foods) &&
-            const DeepCollectionEquality()
-                .equals(other._triggerCategories, _triggerCategories) &&
             (identical(other.fullnessLevel, fullnessLevel) ||
                 other.fullnessLevel == fullnessLevel) &&
-            (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
+            const DeepCollectionEquality()
+                .equals(other._triggerCategories, _triggerCategories) &&
+            (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt));
   }
@@ -316,10 +316,10 @@ class _$MealRecordImpl implements _MealRecord {
       recordedAt,
       mealType,
       const DeepCollectionEquality().hash(_foods),
-      const DeepCollectionEquality().hash(_triggerCategories),
       fullnessLevel,
-      notes,
       createdAt,
+      const DeepCollectionEquality().hash(_triggerCategories),
+      notes,
       updatedAt);
 
   @JsonKey(ignore: true)
@@ -335,10 +335,10 @@ abstract class _MealRecord implements MealRecord {
       required final DateTime recordedAt,
       required final MealType mealType,
       required final List<String> foods,
-      final List<TriggerFoodCategory>? triggerCategories,
       required final int fullnessLevel,
-      final String? notes,
       required final DateTime createdAt,
+      final List<TriggerFoodCategory>? triggerCategories,
+      final String? notes,
       final DateTime? updatedAt}) = _$MealRecordImpl;
 
   @override
@@ -359,20 +359,20 @@ abstract class _MealRecord implements MealRecord {
   List<String> get foods;
   @override
 
-  /// 트리거 음식 카테고리
-  List<TriggerFoodCategory>? get triggerCategories;
-  @override
-
   /// 포만감 (1-10)
   int get fullnessLevel;
   @override
 
-  /// 메모
-  String? get notes;
-  @override
-
   /// 생성 시간
   DateTime get createdAt;
+  @override
+
+  /// 트리거 음식 카테고리
+  List<TriggerFoodCategory>? get triggerCategories;
+  @override
+
+  /// 메모
+  String? get notes;
   @override
 
   /// 수정 시간

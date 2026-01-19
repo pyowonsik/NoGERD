@@ -28,11 +28,11 @@ mixin _$SymptomRecord {
   /// 심각도 (1-10)
   int get severity => throw _privateConstructorUsedError;
 
-  /// 메모
-  String? get notes => throw _privateConstructorUsedError;
-
   /// 생성 시간
   DateTime get createdAt => throw _privateConstructorUsedError;
+
+  /// 메모
+  String? get notes => throw _privateConstructorUsedError;
 
   /// 수정 시간
   DateTime? get updatedAt => throw _privateConstructorUsedError;
@@ -53,8 +53,8 @@ abstract class $SymptomRecordCopyWith<$Res> {
       DateTime recordedAt,
       List<GerdSymptom> symptoms,
       int severity,
-      String? notes,
       DateTime createdAt,
+      String? notes,
       DateTime? updatedAt});
 }
 
@@ -75,8 +75,8 @@ class _$SymptomRecordCopyWithImpl<$Res, $Val extends SymptomRecord>
     Object? recordedAt = null,
     Object? symptoms = null,
     Object? severity = null,
-    Object? notes = freezed,
     Object? createdAt = null,
+    Object? notes = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -96,14 +96,14 @@ class _$SymptomRecordCopyWithImpl<$Res, $Val extends SymptomRecord>
           ? _value.severity
           : severity // ignore: cast_nullable_to_non_nullable
               as int,
-      notes: freezed == notes
-          ? _value.notes
-          : notes // ignore: cast_nullable_to_non_nullable
-              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -125,8 +125,8 @@ abstract class _$$SymptomRecordImplCopyWith<$Res>
       DateTime recordedAt,
       List<GerdSymptom> symptoms,
       int severity,
-      String? notes,
       DateTime createdAt,
+      String? notes,
       DateTime? updatedAt});
 }
 
@@ -145,8 +145,8 @@ class __$$SymptomRecordImplCopyWithImpl<$Res>
     Object? recordedAt = null,
     Object? symptoms = null,
     Object? severity = null,
-    Object? notes = freezed,
     Object? createdAt = null,
+    Object? notes = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_$SymptomRecordImpl(
@@ -166,14 +166,14 @@ class __$$SymptomRecordImplCopyWithImpl<$Res>
           ? _value.severity
           : severity // ignore: cast_nullable_to_non_nullable
               as int,
-      notes: freezed == notes
-          ? _value.notes
-          : notes // ignore: cast_nullable_to_non_nullable
-              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -190,8 +190,8 @@ class _$SymptomRecordImpl implements _SymptomRecord {
       required this.recordedAt,
       required final List<GerdSymptom> symptoms,
       required this.severity,
-      this.notes,
       required this.createdAt,
+      this.notes,
       this.updatedAt})
       : _symptoms = symptoms;
 
@@ -218,13 +218,13 @@ class _$SymptomRecordImpl implements _SymptomRecord {
   @override
   final int severity;
 
-  /// 메모
-  @override
-  final String? notes;
-
   /// 생성 시간
   @override
   final DateTime createdAt;
+
+  /// 메모
+  @override
+  final String? notes;
 
   /// 수정 시간
   @override
@@ -232,7 +232,7 @@ class _$SymptomRecordImpl implements _SymptomRecord {
 
   @override
   String toString() {
-    return 'SymptomRecord(id: $id, recordedAt: $recordedAt, symptoms: $symptoms, severity: $severity, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'SymptomRecord(id: $id, recordedAt: $recordedAt, symptoms: $symptoms, severity: $severity, createdAt: $createdAt, notes: $notes, updatedAt: $updatedAt)';
   }
 
   @override
@@ -246,9 +246,9 @@ class _$SymptomRecordImpl implements _SymptomRecord {
             const DeepCollectionEquality().equals(other._symptoms, _symptoms) &&
             (identical(other.severity, severity) ||
                 other.severity == severity) &&
-            (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
+            (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt));
   }
@@ -260,8 +260,8 @@ class _$SymptomRecordImpl implements _SymptomRecord {
       recordedAt,
       const DeepCollectionEquality().hash(_symptoms),
       severity,
-      notes,
       createdAt,
+      notes,
       updatedAt);
 
   @JsonKey(ignore: true)
@@ -277,8 +277,8 @@ abstract class _SymptomRecord implements SymptomRecord {
       required final DateTime recordedAt,
       required final List<GerdSymptom> symptoms,
       required final int severity,
-      final String? notes,
       required final DateTime createdAt,
+      final String? notes,
       final DateTime? updatedAt}) = _$SymptomRecordImpl;
 
   @override
@@ -299,12 +299,12 @@ abstract class _SymptomRecord implements SymptomRecord {
   int get severity;
   @override
 
-  /// 메모
-  String? get notes;
-  @override
-
   /// 생성 시간
   DateTime get createdAt;
+  @override
+
+  /// 메모
+  String? get notes;
   @override
 
   /// 수정 시간

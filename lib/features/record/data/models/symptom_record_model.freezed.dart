@@ -27,9 +27,9 @@ mixin _$SymptomRecordModel {
   DateTime get recordedAt => throw _privateConstructorUsedError;
   List<String> get symptoms => throw _privateConstructorUsedError;
   int get severity => throw _privateConstructorUsedError;
-  String? get notes => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
   DateTime get createdAt => throw _privateConstructorUsedError;
+  String? get notes => throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
   DateTime? get updatedAt => throw _privateConstructorUsedError;
 
@@ -51,8 +51,8 @@ abstract class $SymptomRecordModelCopyWith<$Res> {
       @JsonKey(name: 'record_datetime') DateTime recordedAt,
       List<String> symptoms,
       int severity,
-      String? notes,
       @JsonKey(name: 'created_at') DateTime createdAt,
+      String? notes,
       @JsonKey(name: 'updated_at') DateTime? updatedAt});
 }
 
@@ -74,8 +74,8 @@ class _$SymptomRecordModelCopyWithImpl<$Res, $Val extends SymptomRecordModel>
     Object? recordedAt = null,
     Object? symptoms = null,
     Object? severity = null,
-    Object? notes = freezed,
     Object? createdAt = null,
+    Object? notes = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -99,14 +99,14 @@ class _$SymptomRecordModelCopyWithImpl<$Res, $Val extends SymptomRecordModel>
           ? _value.severity
           : severity // ignore: cast_nullable_to_non_nullable
               as int,
-      notes: freezed == notes
-          ? _value.notes
-          : notes // ignore: cast_nullable_to_non_nullable
-              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -129,8 +129,8 @@ abstract class _$$SymptomRecordModelImplCopyWith<$Res>
       @JsonKey(name: 'record_datetime') DateTime recordedAt,
       List<String> symptoms,
       int severity,
-      String? notes,
       @JsonKey(name: 'created_at') DateTime createdAt,
+      String? notes,
       @JsonKey(name: 'updated_at') DateTime? updatedAt});
 }
 
@@ -150,8 +150,8 @@ class __$$SymptomRecordModelImplCopyWithImpl<$Res>
     Object? recordedAt = null,
     Object? symptoms = null,
     Object? severity = null,
-    Object? notes = freezed,
     Object? createdAt = null,
+    Object? notes = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_$SymptomRecordModelImpl(
@@ -175,14 +175,14 @@ class __$$SymptomRecordModelImplCopyWithImpl<$Res>
           ? _value.severity
           : severity // ignore: cast_nullable_to_non_nullable
               as int,
-      notes: freezed == notes
-          ? _value.notes
-          : notes // ignore: cast_nullable_to_non_nullable
-              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -200,8 +200,8 @@ class _$SymptomRecordModelImpl extends _SymptomRecordModel {
       @JsonKey(name: 'record_datetime') required this.recordedAt,
       required final List<String> symptoms,
       required this.severity,
-      this.notes,
       @JsonKey(name: 'created_at') required this.createdAt,
+      this.notes,
       @JsonKey(name: 'updated_at') this.updatedAt})
       : _symptoms = symptoms,
         super._();
@@ -228,17 +228,17 @@ class _$SymptomRecordModelImpl extends _SymptomRecordModel {
   @override
   final int severity;
   @override
-  final String? notes;
-  @override
   @JsonKey(name: 'created_at')
   final DateTime createdAt;
+  @override
+  final String? notes;
   @override
   @JsonKey(name: 'updated_at')
   final DateTime? updatedAt;
 
   @override
   String toString() {
-    return 'SymptomRecordModel(id: $id, userId: $userId, recordedAt: $recordedAt, symptoms: $symptoms, severity: $severity, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'SymptomRecordModel(id: $id, userId: $userId, recordedAt: $recordedAt, symptoms: $symptoms, severity: $severity, createdAt: $createdAt, notes: $notes, updatedAt: $updatedAt)';
   }
 
   @override
@@ -253,9 +253,9 @@ class _$SymptomRecordModelImpl extends _SymptomRecordModel {
             const DeepCollectionEquality().equals(other._symptoms, _symptoms) &&
             (identical(other.severity, severity) ||
                 other.severity == severity) &&
-            (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
+            (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt));
   }
@@ -269,8 +269,8 @@ class _$SymptomRecordModelImpl extends _SymptomRecordModel {
       recordedAt,
       const DeepCollectionEquality().hash(_symptoms),
       severity,
-      notes,
       createdAt,
+      notes,
       updatedAt);
 
   @JsonKey(ignore: true)
@@ -295,8 +295,8 @@ abstract class _SymptomRecordModel extends SymptomRecordModel {
           @JsonKey(name: 'record_datetime') required final DateTime recordedAt,
           required final List<String> symptoms,
           required final int severity,
-          final String? notes,
           @JsonKey(name: 'created_at') required final DateTime createdAt,
+          final String? notes,
           @JsonKey(name: 'updated_at') final DateTime? updatedAt}) =
       _$SymptomRecordModelImpl;
   const _SymptomRecordModel._() : super._();
@@ -317,10 +317,10 @@ abstract class _SymptomRecordModel extends SymptomRecordModel {
   @override
   int get severity;
   @override
-  String? get notes;
-  @override
   @JsonKey(name: 'created_at')
   DateTime get createdAt;
+  @override
+  String? get notes;
   @override
   @JsonKey(name: 'updated_at')
   DateTime? get updatedAt;

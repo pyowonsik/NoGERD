@@ -47,12 +47,14 @@ import '../../features/insights/domain/usecases/get_symptom_trends_usecase.dart'
 import '../../features/insights/domain/usecases/get_weekly_pattern_usecase.dart'
     as _i1039;
 import '../../features/insights/presentation/bloc/insights_bloc.dart' as _i658;
+import '../../features/record/data/datasources/record_local_datasource.dart'
+    as _i1;
 import '../../features/record/data/datasources/record_remote_datasource.dart'
     as _i1004;
 import '../../features/record/data/datasources/supabase_record_datasource.dart'
     as _i865;
-import '../../features/record/data/repositories/supabase_record_repository_impl.dart'
-    as _i982;
+import '../../features/record/data/repositories/hybrid_record_repository_impl.dart'
+    as _i39;
 import '../../features/record/domain/repositories/record_repository.dart'
     as _i968;
 import '../../features/record/domain/usecases/add_lifestyle_record_usecase.dart'
@@ -104,6 +106,7 @@ import '../../features/settings/domain/usecases/schedule_alarm_usecase.dart'
     as _i57;
 import '../../features/settings/presentation/bloc/alarm_bloc.dart' as _i528;
 import '../../features/settings/presentation/bloc/settings_bloc.dart' as _i585;
+import '../services/connectivity_service.dart' as _i47;
 import 'injection.dart' as _i464;
 import 'supabase_module.dart' as _i695;
 
@@ -125,6 +128,8 @@ extension GetItInjectableX on _i174.GetIt {
       preResolve: true,
     );
     gh.lazySingleton<_i454.SupabaseClient>(() => supabaseModule.supabaseClient);
+    gh.lazySingleton<_i47.ConnectivityService>(
+        () => _i47.ConnectivityService());
     gh.lazySingleton<_i1069.AIRemoteDataSource>(
         () => _i1069.AIRemoteDataSource(gh<_i460.SharedPreferences>()));
     gh.lazySingleton<_i599.SettingsLocalDataSource>(
@@ -139,17 +144,23 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i852.AlarmLocalDataSourceImpl(gh<_i460.SharedPreferences>()));
     gh.lazySingleton<_i1004.RecordRemoteDataSource>(
         () => _i865.SupabaseRecordDataSource(gh<_i454.SupabaseClient>()));
+    gh.lazySingleton<_i1.RecordLocalDataSource>(
+        () => _i1.HiveRecordLocalDataSource());
+    gh.lazySingleton<_i968.IRecordRepository>(
+        () => _i39.HybridRecordRepositoryImpl(
+              gh<_i1004.RecordRemoteDataSource>(),
+              gh<_i1.RecordLocalDataSource>(),
+              gh<_i454.SupabaseClient>(),
+              gh<_i47.ConnectivityService>(),
+            ));
     gh.lazySingleton<_i787.IAuthRepository>(
         () => _i153.AuthRepositoryImpl(gh<_i161.AuthRemoteDataSource>()));
+    gh.factory<_i202.HomeBloc>(
+        () => _i202.HomeBloc(gh<_i968.IRecordRepository>()));
     gh.lazySingleton<_i1003.AlarmRepository>(() => _i282.AlarmRepositoryImpl(
           gh<_i92.AlarmPlatformDataSource>(),
           gh<_i852.AlarmLocalDataSource>(),
         ));
-    gh.lazySingleton<_i968.IRecordRepository>(
-        () => _i982.SupabaseRecordRepositoryImpl(
-              gh<_i1004.RecordRemoteDataSource>(),
-              gh<_i454.SupabaseClient>(),
-            ));
     gh.lazySingleton<_i674.SettingsRepository>(
         () => _i955.SettingsRepositoryImpl(
               gh<_i599.SettingsLocalDataSource>(),
@@ -206,6 +217,24 @@ extension GetItInjectableX on _i174.GetIt {
         _i374.GetMealRecordByDateAndTypeUseCase(gh<_i968.IRecordRepository>()));
     gh.factory<_i680.AddLifestyleRecordUseCase>(
         () => _i680.AddLifestyleRecordUseCase(gh<_i968.IRecordRepository>()));
+    gh.factory<_i658.InsightsBloc>(() => _i658.InsightsBloc(
+          gh<_i968.IRecordRepository>(),
+          gh<_i382.CalculateHealthScoreUseCase>(),
+          gh<_i152.AnalyzeTriggersUseCase>(),
+          gh<_i106.GetSymptomTrendsUseCase>(),
+          gh<_i1039.GetWeeklyPatternUseCase>(),
+          gh<_i84.GetSymptomDistributionUseCase>(),
+          gh<_i102.GetMealSymptomCorrelationUseCase>(),
+          gh<_i588.GetLifestyleImpactUseCase>(),
+          gh<_i65.GetAIInsightsUseCase>(),
+        ));
+    gh.singleton<_i797.AuthBloc>(() => _i797.AuthBloc(
+          gh<_i259.SignInUseCase>(),
+          gh<_i860.SignUpUseCase>(),
+          gh<_i915.SignOutUseCase>(),
+          gh<_i17.GetCurrentUserUseCase>(),
+          gh<_i787.IAuthRepository>(),
+        ));
     gh.factory<_i57.ScheduleAlarmUseCase>(
         () => _i57.ScheduleAlarmUseCase(gh<_i1003.AlarmRepository>()));
     gh.factory<_i123.GetAlarmConfigsUseCase>(
@@ -233,24 +262,6 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i674.UpsertMealRecordUseCase>(),
           gh<_i373.GetLifestyleRecordByDateAndTypeUseCase>(),
           gh<_i146.UpsertLifestyleRecordUseCase>(),
-        ));
-    gh.factory<_i202.HomeBloc>(
-        () => _i202.HomeBloc(gh<_i968.IRecordRepository>()));
-    gh.singleton<_i797.AuthBloc>(() => _i797.AuthBloc(
-          gh<_i259.SignInUseCase>(),
-          gh<_i860.SignUpUseCase>(),
-          gh<_i915.SignOutUseCase>(),
-          gh<_i17.GetCurrentUserUseCase>(),
-        ));
-    gh.factory<_i658.InsightsBloc>(() => _i658.InsightsBloc(
-          gh<_i382.CalculateHealthScoreUseCase>(),
-          gh<_i152.AnalyzeTriggersUseCase>(),
-          gh<_i106.GetSymptomTrendsUseCase>(),
-          gh<_i1039.GetWeeklyPatternUseCase>(),
-          gh<_i84.GetSymptomDistributionUseCase>(),
-          gh<_i102.GetMealSymptomCorrelationUseCase>(),
-          gh<_i588.GetLifestyleImpactUseCase>(),
-          gh<_i65.GetAIInsightsUseCase>(),
         ));
     gh.factory<_i1021.CalendarBloc>(
         () => _i1021.CalendarBloc(gh<_i86.GetRecordsForMonthUseCase>()));

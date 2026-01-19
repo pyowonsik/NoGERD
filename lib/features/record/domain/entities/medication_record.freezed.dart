@@ -22,6 +22,9 @@ mixin _$MedicationRecord {
   /// 기록 시간
   DateTime get recordedAt => throw _privateConstructorUsedError;
 
+  /// 생성 시간
+  DateTime get createdAt => throw _privateConstructorUsedError;
+
   /// 약물 복용 여부 (true: 복용함, false: 복용 안함)
   bool get isTaken => throw _privateConstructorUsedError;
 
@@ -44,9 +47,6 @@ mixin _$MedicationRecord {
   /// 메모
   String? get notes => throw _privateConstructorUsedError;
 
-  /// 생성 시간
-  DateTime get createdAt => throw _privateConstructorUsedError;
-
   /// 수정 시간
   DateTime? get updatedAt => throw _privateConstructorUsedError;
 
@@ -64,6 +64,7 @@ abstract class $MedicationRecordCopyWith<$Res> {
   $Res call(
       {String id,
       DateTime recordedAt,
+      DateTime createdAt,
       bool isTaken,
       List<MedicationType>? medicationTypes,
       String? medicationName,
@@ -71,7 +72,6 @@ abstract class $MedicationRecordCopyWith<$Res> {
       String? purpose,
       int? effectiveness,
       String? notes,
-      DateTime createdAt,
       DateTime? updatedAt});
 }
 
@@ -90,6 +90,7 @@ class _$MedicationRecordCopyWithImpl<$Res, $Val extends MedicationRecord>
   $Res call({
     Object? id = null,
     Object? recordedAt = null,
+    Object? createdAt = null,
     Object? isTaken = null,
     Object? medicationTypes = freezed,
     Object? medicationName = freezed,
@@ -97,7 +98,6 @@ class _$MedicationRecordCopyWithImpl<$Res, $Val extends MedicationRecord>
     Object? purpose = freezed,
     Object? effectiveness = freezed,
     Object? notes = freezed,
-    Object? createdAt = null,
     Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -108,6 +108,10 @@ class _$MedicationRecordCopyWithImpl<$Res, $Val extends MedicationRecord>
       recordedAt: null == recordedAt
           ? _value.recordedAt
           : recordedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
       isTaken: null == isTaken
           ? _value.isTaken
@@ -137,10 +141,6 @@ class _$MedicationRecordCopyWithImpl<$Res, $Val extends MedicationRecord>
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as String?,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -160,6 +160,7 @@ abstract class _$$MedicationRecordImplCopyWith<$Res>
   $Res call(
       {String id,
       DateTime recordedAt,
+      DateTime createdAt,
       bool isTaken,
       List<MedicationType>? medicationTypes,
       String? medicationName,
@@ -167,7 +168,6 @@ abstract class _$$MedicationRecordImplCopyWith<$Res>
       String? purpose,
       int? effectiveness,
       String? notes,
-      DateTime createdAt,
       DateTime? updatedAt});
 }
 
@@ -184,6 +184,7 @@ class __$$MedicationRecordImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? recordedAt = null,
+    Object? createdAt = null,
     Object? isTaken = null,
     Object? medicationTypes = freezed,
     Object? medicationName = freezed,
@@ -191,7 +192,6 @@ class __$$MedicationRecordImplCopyWithImpl<$Res>
     Object? purpose = freezed,
     Object? effectiveness = freezed,
     Object? notes = freezed,
-    Object? createdAt = null,
     Object? updatedAt = freezed,
   }) {
     return _then(_$MedicationRecordImpl(
@@ -202,6 +202,10 @@ class __$$MedicationRecordImplCopyWithImpl<$Res>
       recordedAt: null == recordedAt
           ? _value.recordedAt
           : recordedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
       isTaken: null == isTaken
           ? _value.isTaken
@@ -231,10 +235,6 @@ class __$$MedicationRecordImplCopyWithImpl<$Res>
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as String?,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -249,6 +249,7 @@ class _$MedicationRecordImpl implements _MedicationRecord {
   const _$MedicationRecordImpl(
       {required this.id,
       required this.recordedAt,
+      required this.createdAt,
       this.isTaken = true,
       final List<MedicationType>? medicationTypes,
       this.medicationName,
@@ -256,7 +257,6 @@ class _$MedicationRecordImpl implements _MedicationRecord {
       this.purpose,
       this.effectiveness,
       this.notes,
-      required this.createdAt,
       this.updatedAt})
       : _medicationTypes = medicationTypes;
 
@@ -267,6 +267,10 @@ class _$MedicationRecordImpl implements _MedicationRecord {
   /// 기록 시간
   @override
   final DateTime recordedAt;
+
+  /// 생성 시간
+  @override
+  final DateTime createdAt;
 
   /// 약물 복용 여부 (true: 복용함, false: 복용 안함)
   @override
@@ -306,17 +310,13 @@ class _$MedicationRecordImpl implements _MedicationRecord {
   @override
   final String? notes;
 
-  /// 생성 시간
-  @override
-  final DateTime createdAt;
-
   /// 수정 시간
   @override
   final DateTime? updatedAt;
 
   @override
   String toString() {
-    return 'MedicationRecord(id: $id, recordedAt: $recordedAt, isTaken: $isTaken, medicationTypes: $medicationTypes, medicationName: $medicationName, dosage: $dosage, purpose: $purpose, effectiveness: $effectiveness, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'MedicationRecord(id: $id, recordedAt: $recordedAt, createdAt: $createdAt, isTaken: $isTaken, medicationTypes: $medicationTypes, medicationName: $medicationName, dosage: $dosage, purpose: $purpose, effectiveness: $effectiveness, notes: $notes, updatedAt: $updatedAt)';
   }
 
   @override
@@ -327,6 +327,8 @@ class _$MedicationRecordImpl implements _MedicationRecord {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.recordedAt, recordedAt) ||
                 other.recordedAt == recordedAt) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
             (identical(other.isTaken, isTaken) || other.isTaken == isTaken) &&
             const DeepCollectionEquality()
                 .equals(other._medicationTypes, _medicationTypes) &&
@@ -337,8 +339,6 @@ class _$MedicationRecordImpl implements _MedicationRecord {
             (identical(other.effectiveness, effectiveness) ||
                 other.effectiveness == effectiveness) &&
             (identical(other.notes, notes) || other.notes == notes) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt));
   }
@@ -348,6 +348,7 @@ class _$MedicationRecordImpl implements _MedicationRecord {
       runtimeType,
       id,
       recordedAt,
+      createdAt,
       isTaken,
       const DeepCollectionEquality().hash(_medicationTypes),
       medicationName,
@@ -355,7 +356,6 @@ class _$MedicationRecordImpl implements _MedicationRecord {
       purpose,
       effectiveness,
       notes,
-      createdAt,
       updatedAt);
 
   @JsonKey(ignore: true)
@@ -370,6 +370,7 @@ abstract class _MedicationRecord implements MedicationRecord {
   const factory _MedicationRecord(
       {required final String id,
       required final DateTime recordedAt,
+      required final DateTime createdAt,
       final bool isTaken,
       final List<MedicationType>? medicationTypes,
       final String? medicationName,
@@ -377,7 +378,6 @@ abstract class _MedicationRecord implements MedicationRecord {
       final String? purpose,
       final int? effectiveness,
       final String? notes,
-      required final DateTime createdAt,
       final DateTime? updatedAt}) = _$MedicationRecordImpl;
 
   @override
@@ -388,6 +388,10 @@ abstract class _MedicationRecord implements MedicationRecord {
 
   /// 기록 시간
   DateTime get recordedAt;
+  @override
+
+  /// 생성 시간
+  DateTime get createdAt;
   @override
 
   /// 약물 복용 여부 (true: 복용함, false: 복용 안함)
@@ -416,10 +420,6 @@ abstract class _MedicationRecord implements MedicationRecord {
 
   /// 메모
   String? get notes;
-  @override
-
-  /// 생성 시간
-  DateTime get createdAt;
   @override
 
   /// 수정 시간

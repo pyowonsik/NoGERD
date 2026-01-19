@@ -14,12 +14,12 @@ _$MealRecordModelImpl _$$MealRecordModelImplFromJson(
       recordedAt: DateTime.parse(json['record_datetime'] as String),
       mealType: json['meal_type'] as String,
       foods: (json['foods'] as List<dynamic>).map((e) => e as String).toList(),
+      fullnessLevel: (json['fullness_level'] as num).toInt(),
+      createdAt: DateTime.parse(json['created_at'] as String),
       triggerCategories: (json['trigger_categories'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      fullnessLevel: (json['fullness_level'] as num).toInt(),
       notes: json['notes'] as String?,
-      createdAt: DateTime.parse(json['created_at'] as String),
       updatedAt: json['updated_at'] == null
           ? null
           : DateTime.parse(json['updated_at'] as String),
@@ -33,9 +33,9 @@ Map<String, dynamic> _$$MealRecordModelImplToJson(
       'record_datetime': instance.recordedAt.toIso8601String(),
       'meal_type': instance.mealType,
       'foods': instance.foods,
-      'trigger_categories': instance.triggerCategories,
       'fullness_level': instance.fullnessLevel,
-      'notes': instance.notes,
       'created_at': instance.createdAt.toIso8601String(),
+      'trigger_categories': instance.triggerCategories,
+      'notes': instance.notes,
       'updated_at': instance.updatedAt?.toIso8601String(),
     };

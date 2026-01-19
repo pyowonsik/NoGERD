@@ -72,33 +72,32 @@ class GetSymptomDistributionUseCase
     }
 
     try {
-      final symptomCounts = <GerdSymptom, int>{};
-      var currentDate = params.startDate;
+      // 범위 조회로 한 번에 데이터 가져오기
+      final result = await _repository.getSymptomRecordsInRange(
+        params.startDate,
+        params.endDate,
+      );
 
-      while (!currentDate.isAfter(params.endDate)) {
-        final result = await _repository.getSymptomRecords(currentDate);
+      return result.fold(
+        Left.new,
+        (symptoms) {
+          final symptomCounts = <GerdSymptom, int>{};
 
-        result.fold(
-          (failure) => null,
-          (symptoms) {
-            for (final symptomRecord in symptoms) {
-              for (final symptom in symptomRecord.symptoms) {
-                symptomCounts[symptom] = (symptomCounts[symptom] ?? 0) + 1;
-              }
+          for (final symptomRecord in symptoms) {
+            for (final symptom in symptomRecord.symptoms) {
+              symptomCounts[symptom] = (symptomCounts[symptom] ?? 0) + 1;
             }
-          },
-        );
+          }
 
-        currentDate = currentDate.add(const Duration(days: 1));
-      }
+          // 빈도순으로 정렬
+          final distributionList = symptomCounts.entries
+              .map((e) => SymptomDistribution(symptom: e.key, count: e.value))
+              .toList()
+            ..sort((a, b) => b.count.compareTo(a.count));
 
-      // 빈도순으로 정렬
-      final distributionList = symptomCounts.entries
-          .map((e) => SymptomDistribution(symptom: e.key, count: e.value))
-          .toList()
-        ..sort((a, b) => b.count.compareTo(a.count));
-
-      return Right(distributionList);
+          return Right(distributionList);
+        },
+      );
     } catch (e) {
       return Left(Failure.unexpected(e.toString()));
     }

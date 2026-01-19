@@ -101,6 +101,28 @@ class GetMealSymptomCorrelationUseCase
     }
 
     try {
+      // 범위 조회로 한 번에 데이터 가져오기 (병렬 실행)
+      final mealFuture =
+          _repository.getMealRecordsInRange(params.startDate, params.endDate);
+      final symptomFuture = _repository.getSymptomRecordsInRange(
+        params.startDate,
+        params.endDate,
+      );
+
+      final mealResult = await mealFuture;
+      final symptomResult = await symptomFuture;
+
+      // 둘 중 하나라도 실패하면 에러 반환
+      if (mealResult.isLeft()) {
+        return mealResult.fold(
+          Left.new,
+          (_) => const Right([]),
+        );
+      }
+
+      final meals = mealResult.getOrElse((_) => []);
+      final symptoms = symptomResult.getOrElse((_) => []);
+
       final mealCounts = <MealType, int>{
         for (final type in MealType.values) type: 0,
       };
@@ -108,43 +130,20 @@ class GetMealSymptomCorrelationUseCase
         for (final type in MealType.values) type: 0,
       };
 
-      var currentDate = params.startDate;
+      // 식사 카운트 및 식사 후 증상 발생 확인
+      for (final meal in meals) {
+        mealCounts[meal.mealType] = (mealCounts[meal.mealType] ?? 0) + 1;
 
-      while (!currentDate.isAfter(params.endDate)) {
-        // 식사 기록 가져오기
-        final mealResult = await _repository.getMealRecords(currentDate);
-        // 증상 기록 가져오기
-        final symptomResult = await _repository.getSymptomRecords(currentDate);
+        // 해당 식사 후 2시간 이내 증상 발생 확인
+        final hasSymptomAfterMeal = symptoms.any((symptom) {
+          final timeDiff = symptom.recordedAt.difference(meal.recordedAt);
+          return timeDiff.inMinutes >= 0 && timeDiff.inHours < 2; // 2시간 이내
+        });
 
-        mealResult.fold(
-          (failure) => null,
-          (meals) {
-            // 식사 카운트
-            for (final meal in meals) {
-              mealCounts[meal.mealType] = (mealCounts[meal.mealType] ?? 0) + 1;
-
-              // 해당 식사 후 2시간 이내 증상 발생 확인
-              symptomResult.fold(
-                (failure) => null,
-                (symptoms) {
-                  final hasSymptomAfterMeal = symptoms.any((symptom) {
-                    final timeDiff =
-                        symptom.recordedAt.difference(meal.recordedAt);
-                    return timeDiff.inMinutes >= 0 &&
-                        timeDiff.inHours < 2; // 2시간 이내
-                  });
-
-                  if (hasSymptomAfterMeal) {
-                    symptomAfterMealCounts[meal.mealType] =
-                        (symptomAfterMealCounts[meal.mealType] ?? 0) + 1;
-                  }
-                },
-              );
-            }
-          },
-        );
-
-        currentDate = currentDate.add(const Duration(days: 1));
+        if (hasSymptomAfterMeal) {
+          symptomAfterMealCounts[meal.mealType] =
+              (symptomAfterMealCounts[meal.mealType] ?? 0) + 1;
+        }
       }
 
       // 결과 리스트 생성 (아침, 점심, 저녁만 포함)

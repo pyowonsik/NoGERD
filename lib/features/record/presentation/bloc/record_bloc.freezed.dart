@@ -2498,6 +2498,12 @@ mixin _$RecordState {
   List<LifestyleRecord> get lifestyleRecords =>
       throw _privateConstructorUsedError;
 
+  /// 에러
+  Option<Failure> get failure => throw _privateConstructorUsedError;
+
+  /// 성공 메시지
+  Option<String> get successMessage => throw _privateConstructorUsedError;
+
   /// 현재 편집 중인 식사 기록 (UPSERT용)
   MealRecord? get currentMealRecord => throw _privateConstructorUsedError;
 
@@ -2507,12 +2513,6 @@ mixin _$RecordState {
 
   /// 편집 모드 여부 (기존 기록 수정 중)
   bool get isEditMode => throw _privateConstructorUsedError;
-
-  /// 에러
-  Option<Failure> get failure => throw _privateConstructorUsedError;
-
-  /// 성공 메시지
-  Option<String> get successMessage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RecordStateCopyWith<RecordState> get copyWith =>
@@ -2531,11 +2531,11 @@ abstract class $RecordStateCopyWith<$Res> {
       List<MealRecord> mealRecords,
       List<MedicationRecord> medicationRecords,
       List<LifestyleRecord> lifestyleRecords,
+      Option<Failure> failure,
+      Option<String> successMessage,
       MealRecord? currentMealRecord,
       LifestyleRecord? currentLifestyleRecord,
-      bool isEditMode,
-      Option<Failure> failure,
-      Option<String> successMessage});
+      bool isEditMode});
 
   $MealRecordCopyWith<$Res>? get currentMealRecord;
   $LifestyleRecordCopyWith<$Res>? get currentLifestyleRecord;
@@ -2559,11 +2559,11 @@ class _$RecordStateCopyWithImpl<$Res, $Val extends RecordState>
     Object? mealRecords = null,
     Object? medicationRecords = null,
     Object? lifestyleRecords = null,
+    Object? failure = null,
+    Object? successMessage = null,
     Object? currentMealRecord = freezed,
     Object? currentLifestyleRecord = freezed,
     Object? isEditMode = null,
-    Object? failure = null,
-    Object? successMessage = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -2586,6 +2586,14 @@ class _$RecordStateCopyWithImpl<$Res, $Val extends RecordState>
           ? _value.lifestyleRecords
           : lifestyleRecords // ignore: cast_nullable_to_non_nullable
               as List<LifestyleRecord>,
+      failure: null == failure
+          ? _value.failure
+          : failure // ignore: cast_nullable_to_non_nullable
+              as Option<Failure>,
+      successMessage: null == successMessage
+          ? _value.successMessage
+          : successMessage // ignore: cast_nullable_to_non_nullable
+              as Option<String>,
       currentMealRecord: freezed == currentMealRecord
           ? _value.currentMealRecord
           : currentMealRecord // ignore: cast_nullable_to_non_nullable
@@ -2598,14 +2606,6 @@ class _$RecordStateCopyWithImpl<$Res, $Val extends RecordState>
           ? _value.isEditMode
           : isEditMode // ignore: cast_nullable_to_non_nullable
               as bool,
-      failure: null == failure
-          ? _value.failure
-          : failure // ignore: cast_nullable_to_non_nullable
-              as Option<Failure>,
-      successMessage: null == successMessage
-          ? _value.successMessage
-          : successMessage // ignore: cast_nullable_to_non_nullable
-              as Option<String>,
     ) as $Val);
   }
 
@@ -2649,11 +2649,11 @@ abstract class _$$RecordStateImplCopyWith<$Res>
       List<MealRecord> mealRecords,
       List<MedicationRecord> medicationRecords,
       List<LifestyleRecord> lifestyleRecords,
+      Option<Failure> failure,
+      Option<String> successMessage,
       MealRecord? currentMealRecord,
       LifestyleRecord? currentLifestyleRecord,
-      bool isEditMode,
-      Option<Failure> failure,
-      Option<String> successMessage});
+      bool isEditMode});
 
   @override
   $MealRecordCopyWith<$Res>? get currentMealRecord;
@@ -2677,11 +2677,11 @@ class __$$RecordStateImplCopyWithImpl<$Res>
     Object? mealRecords = null,
     Object? medicationRecords = null,
     Object? lifestyleRecords = null,
+    Object? failure = null,
+    Object? successMessage = null,
     Object? currentMealRecord = freezed,
     Object? currentLifestyleRecord = freezed,
     Object? isEditMode = null,
-    Object? failure = null,
-    Object? successMessage = null,
   }) {
     return _then(_$RecordStateImpl(
       isLoading: null == isLoading
@@ -2704,6 +2704,14 @@ class __$$RecordStateImplCopyWithImpl<$Res>
           ? _value._lifestyleRecords
           : lifestyleRecords // ignore: cast_nullable_to_non_nullable
               as List<LifestyleRecord>,
+      failure: null == failure
+          ? _value.failure
+          : failure // ignore: cast_nullable_to_non_nullable
+              as Option<Failure>,
+      successMessage: null == successMessage
+          ? _value.successMessage
+          : successMessage // ignore: cast_nullable_to_non_nullable
+              as Option<String>,
       currentMealRecord: freezed == currentMealRecord
           ? _value.currentMealRecord
           : currentMealRecord // ignore: cast_nullable_to_non_nullable
@@ -2716,14 +2724,6 @@ class __$$RecordStateImplCopyWithImpl<$Res>
           ? _value.isEditMode
           : isEditMode // ignore: cast_nullable_to_non_nullable
               as bool,
-      failure: null == failure
-          ? _value.failure
-          : failure // ignore: cast_nullable_to_non_nullable
-              as Option<Failure>,
-      successMessage: null == successMessage
-          ? _value.successMessage
-          : successMessage // ignore: cast_nullable_to_non_nullable
-              as Option<String>,
     ));
   }
 }
@@ -2737,11 +2737,11 @@ class _$RecordStateImpl implements _RecordState {
       required final List<MealRecord> mealRecords,
       required final List<MedicationRecord> medicationRecords,
       required final List<LifestyleRecord> lifestyleRecords,
+      required this.failure,
+      required this.successMessage,
       this.currentMealRecord,
       this.currentLifestyleRecord,
-      this.isEditMode = false,
-      required this.failure,
-      required this.successMessage})
+      this.isEditMode = false})
       : _symptomRecords = symptomRecords,
         _mealRecords = mealRecords,
         _medicationRecords = medicationRecords,
@@ -2797,6 +2797,14 @@ class _$RecordStateImpl implements _RecordState {
     return EqualUnmodifiableListView(_lifestyleRecords);
   }
 
+  /// 에러
+  @override
+  final Option<Failure> failure;
+
+  /// 성공 메시지
+  @override
+  final Option<String> successMessage;
+
   /// 현재 편집 중인 식사 기록 (UPSERT용)
   @override
   final MealRecord? currentMealRecord;
@@ -2810,17 +2818,9 @@ class _$RecordStateImpl implements _RecordState {
   @JsonKey()
   final bool isEditMode;
 
-  /// 에러
-  @override
-  final Option<Failure> failure;
-
-  /// 성공 메시지
-  @override
-  final Option<String> successMessage;
-
   @override
   String toString() {
-    return 'RecordState(isLoading: $isLoading, symptomRecords: $symptomRecords, mealRecords: $mealRecords, medicationRecords: $medicationRecords, lifestyleRecords: $lifestyleRecords, currentMealRecord: $currentMealRecord, currentLifestyleRecord: $currentLifestyleRecord, isEditMode: $isEditMode, failure: $failure, successMessage: $successMessage)';
+    return 'RecordState(isLoading: $isLoading, symptomRecords: $symptomRecords, mealRecords: $mealRecords, medicationRecords: $medicationRecords, lifestyleRecords: $lifestyleRecords, failure: $failure, successMessage: $successMessage, currentMealRecord: $currentMealRecord, currentLifestyleRecord: $currentLifestyleRecord, isEditMode: $isEditMode)';
   }
 
   @override
@@ -2838,15 +2838,15 @@ class _$RecordStateImpl implements _RecordState {
                 .equals(other._medicationRecords, _medicationRecords) &&
             const DeepCollectionEquality()
                 .equals(other._lifestyleRecords, _lifestyleRecords) &&
+            (identical(other.failure, failure) || other.failure == failure) &&
+            (identical(other.successMessage, successMessage) ||
+                other.successMessage == successMessage) &&
             (identical(other.currentMealRecord, currentMealRecord) ||
                 other.currentMealRecord == currentMealRecord) &&
             (identical(other.currentLifestyleRecord, currentLifestyleRecord) ||
                 other.currentLifestyleRecord == currentLifestyleRecord) &&
             (identical(other.isEditMode, isEditMode) ||
-                other.isEditMode == isEditMode) &&
-            (identical(other.failure, failure) || other.failure == failure) &&
-            (identical(other.successMessage, successMessage) ||
-                other.successMessage == successMessage));
+                other.isEditMode == isEditMode));
   }
 
   @override
@@ -2857,11 +2857,11 @@ class _$RecordStateImpl implements _RecordState {
       const DeepCollectionEquality().hash(_mealRecords),
       const DeepCollectionEquality().hash(_medicationRecords),
       const DeepCollectionEquality().hash(_lifestyleRecords),
+      failure,
+      successMessage,
       currentMealRecord,
       currentLifestyleRecord,
-      isEditMode,
-      failure,
-      successMessage);
+      isEditMode);
 
   @JsonKey(ignore: true)
   @override
@@ -2877,11 +2877,11 @@ abstract class _RecordState implements RecordState {
       required final List<MealRecord> mealRecords,
       required final List<MedicationRecord> medicationRecords,
       required final List<LifestyleRecord> lifestyleRecords,
+      required final Option<Failure> failure,
+      required final Option<String> successMessage,
       final MealRecord? currentMealRecord,
       final LifestyleRecord? currentLifestyleRecord,
-      final bool isEditMode,
-      required final Option<Failure> failure,
-      required final Option<String> successMessage}) = _$RecordStateImpl;
+      final bool isEditMode}) = _$RecordStateImpl;
 
   @override
 
@@ -2905,6 +2905,14 @@ abstract class _RecordState implements RecordState {
   List<LifestyleRecord> get lifestyleRecords;
   @override
 
+  /// 에러
+  Option<Failure> get failure;
+  @override
+
+  /// 성공 메시지
+  Option<String> get successMessage;
+  @override
+
   /// 현재 편집 중인 식사 기록 (UPSERT용)
   MealRecord? get currentMealRecord;
   @override
@@ -2915,14 +2923,6 @@ abstract class _RecordState implements RecordState {
 
   /// 편집 모드 여부 (기존 기록 수정 중)
   bool get isEditMode;
-  @override
-
-  /// 에러
-  Option<Failure> get failure;
-  @override
-
-  /// 성공 메시지
-  Option<String> get successMessage;
   @override
   @JsonKey(ignore: true)
   _$$RecordStateImplCopyWith<_$RecordStateImpl> get copyWith =>

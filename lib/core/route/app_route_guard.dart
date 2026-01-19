@@ -45,8 +45,9 @@ class AppRouteGuard {
       // 인증 실패: 로그인으로
       error: (_) => isLoginScreen ? null : loginPath,
 
-      // 이메일 인증 필요: 인증 페이지로
-      emailVerificationRequired: (_) => '/verify-email',
+      // 이메일 인증 필요: 인증 페이지로 (이메일 파라미터 포함)
+      emailVerificationRequired: (email) =>
+          '/verify-email?email=${Uri.encodeComponent(email)}',
 
       orElse: () => null,
     );

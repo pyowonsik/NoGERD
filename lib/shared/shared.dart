@@ -16,3 +16,5 @@ export 'widgets/inputs/custom_time_picker.dart';
 export 'widgets/inputs/severity_slider.dart';
 // Widgets - Logo
 export 'widgets/logo/app_logo.dart';
+// Utils
+export 'utils/error_message_helper.dart';

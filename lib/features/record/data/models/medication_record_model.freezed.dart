@@ -26,6 +26,8 @@ mixin _$MedicationRecordModel {
   String get userId => throw _privateConstructorUsedError;
   @JsonKey(name: 'record_datetime')
   DateTime get recordedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  DateTime get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_taken')
   bool get isTaken => throw _privateConstructorUsedError;
   @JsonKey(name: 'medication_types')
@@ -36,8 +38,6 @@ mixin _$MedicationRecordModel {
   String? get purpose => throw _privateConstructorUsedError;
   int? get effectiveness => throw _privateConstructorUsedError;
   String? get notes => throw _privateConstructorUsedError;
-  @JsonKey(name: 'created_at')
-  DateTime get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
   DateTime? get updatedAt => throw _privateConstructorUsedError;
 
@@ -57,6 +57,7 @@ abstract class $MedicationRecordModelCopyWith<$Res> {
       {String id,
       @JsonKey(name: 'user_id') String userId,
       @JsonKey(name: 'record_datetime') DateTime recordedAt,
+      @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'is_taken') bool isTaken,
       @JsonKey(name: 'medication_types') List<String>? medicationTypes,
       @JsonKey(name: 'medication_name') String? medicationName,
@@ -64,7 +65,6 @@ abstract class $MedicationRecordModelCopyWith<$Res> {
       String? purpose,
       int? effectiveness,
       String? notes,
-      @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt});
 }
 
@@ -85,6 +85,7 @@ class _$MedicationRecordModelCopyWithImpl<$Res,
     Object? id = null,
     Object? userId = null,
     Object? recordedAt = null,
+    Object? createdAt = null,
     Object? isTaken = null,
     Object? medicationTypes = freezed,
     Object? medicationName = freezed,
@@ -92,7 +93,6 @@ class _$MedicationRecordModelCopyWithImpl<$Res,
     Object? purpose = freezed,
     Object? effectiveness = freezed,
     Object? notes = freezed,
-    Object? createdAt = null,
     Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -107,6 +107,10 @@ class _$MedicationRecordModelCopyWithImpl<$Res,
       recordedAt: null == recordedAt
           ? _value.recordedAt
           : recordedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
       isTaken: null == isTaken
           ? _value.isTaken
@@ -136,10 +140,6 @@ class _$MedicationRecordModelCopyWithImpl<$Res,
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as String?,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -161,6 +161,7 @@ abstract class _$$MedicationRecordModelImplCopyWith<$Res>
       {String id,
       @JsonKey(name: 'user_id') String userId,
       @JsonKey(name: 'record_datetime') DateTime recordedAt,
+      @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'is_taken') bool isTaken,
       @JsonKey(name: 'medication_types') List<String>? medicationTypes,
       @JsonKey(name: 'medication_name') String? medicationName,
@@ -168,7 +169,6 @@ abstract class _$$MedicationRecordModelImplCopyWith<$Res>
       String? purpose,
       int? effectiveness,
       String? notes,
-      @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt});
 }
 
@@ -187,6 +187,7 @@ class __$$MedicationRecordModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? userId = null,
     Object? recordedAt = null,
+    Object? createdAt = null,
     Object? isTaken = null,
     Object? medicationTypes = freezed,
     Object? medicationName = freezed,
@@ -194,7 +195,6 @@ class __$$MedicationRecordModelImplCopyWithImpl<$Res>
     Object? purpose = freezed,
     Object? effectiveness = freezed,
     Object? notes = freezed,
-    Object? createdAt = null,
     Object? updatedAt = freezed,
   }) {
     return _then(_$MedicationRecordModelImpl(
@@ -209,6 +209,10 @@ class __$$MedicationRecordModelImplCopyWithImpl<$Res>
       recordedAt: null == recordedAt
           ? _value.recordedAt
           : recordedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
       isTaken: null == isTaken
           ? _value.isTaken
@@ -238,10 +242,6 @@ class __$$MedicationRecordModelImplCopyWithImpl<$Res>
           ? _value.notes
           : notes // ignore: cast_nullable_to_non_nullable
               as String?,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -257,6 +257,7 @@ class _$MedicationRecordModelImpl extends _MedicationRecordModel {
       {required this.id,
       @JsonKey(name: 'user_id') required this.userId,
       @JsonKey(name: 'record_datetime') required this.recordedAt,
+      @JsonKey(name: 'created_at') required this.createdAt,
       @JsonKey(name: 'is_taken') this.isTaken = true,
       @JsonKey(name: 'medication_types') final List<String>? medicationTypes,
       @JsonKey(name: 'medication_name') this.medicationName,
@@ -264,7 +265,6 @@ class _$MedicationRecordModelImpl extends _MedicationRecordModel {
       this.purpose,
       this.effectiveness,
       this.notes,
-      @JsonKey(name: 'created_at') required this.createdAt,
       @JsonKey(name: 'updated_at') this.updatedAt})
       : _medicationTypes = medicationTypes,
         super._();
@@ -280,6 +280,9 @@ class _$MedicationRecordModelImpl extends _MedicationRecordModel {
   @override
   @JsonKey(name: 'record_datetime')
   final DateTime recordedAt;
+  @override
+  @JsonKey(name: 'created_at')
+  final DateTime createdAt;
   @override
   @JsonKey(name: 'is_taken')
   final bool isTaken;
@@ -306,15 +309,12 @@ class _$MedicationRecordModelImpl extends _MedicationRecordModel {
   @override
   final String? notes;
   @override
-  @JsonKey(name: 'created_at')
-  final DateTime createdAt;
-  @override
   @JsonKey(name: 'updated_at')
   final DateTime? updatedAt;
 
   @override
   String toString() {
-    return 'MedicationRecordModel(id: $id, userId: $userId, recordedAt: $recordedAt, isTaken: $isTaken, medicationTypes: $medicationTypes, medicationName: $medicationName, dosage: $dosage, purpose: $purpose, effectiveness: $effectiveness, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'MedicationRecordModel(id: $id, userId: $userId, recordedAt: $recordedAt, createdAt: $createdAt, isTaken: $isTaken, medicationTypes: $medicationTypes, medicationName: $medicationName, dosage: $dosage, purpose: $purpose, effectiveness: $effectiveness, notes: $notes, updatedAt: $updatedAt)';
   }
 
   @override
@@ -326,6 +326,8 @@ class _$MedicationRecordModelImpl extends _MedicationRecordModel {
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.recordedAt, recordedAt) ||
                 other.recordedAt == recordedAt) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
             (identical(other.isTaken, isTaken) || other.isTaken == isTaken) &&
             const DeepCollectionEquality()
                 .equals(other._medicationTypes, _medicationTypes) &&
@@ -336,8 +338,6 @@ class _$MedicationRecordModelImpl extends _MedicationRecordModel {
             (identical(other.effectiveness, effectiveness) ||
                 other.effectiveness == effectiveness) &&
             (identical(other.notes, notes) || other.notes == notes) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt));
   }
@@ -349,6 +349,7 @@ class _$MedicationRecordModelImpl extends _MedicationRecordModel {
       id,
       userId,
       recordedAt,
+      createdAt,
       isTaken,
       const DeepCollectionEquality().hash(_medicationTypes),
       medicationName,
@@ -356,7 +357,6 @@ class _$MedicationRecordModelImpl extends _MedicationRecordModel {
       purpose,
       effectiveness,
       notes,
-      createdAt,
       updatedAt);
 
   @JsonKey(ignore: true)
@@ -379,6 +379,7 @@ abstract class _MedicationRecordModel extends MedicationRecordModel {
       {required final String id,
       @JsonKey(name: 'user_id') required final String userId,
       @JsonKey(name: 'record_datetime') required final DateTime recordedAt,
+      @JsonKey(name: 'created_at') required final DateTime createdAt,
       @JsonKey(name: 'is_taken') final bool isTaken,
       @JsonKey(name: 'medication_types') final List<String>? medicationTypes,
       @JsonKey(name: 'medication_name') final String? medicationName,
@@ -386,7 +387,6 @@ abstract class _MedicationRecordModel extends MedicationRecordModel {
       final String? purpose,
       final int? effectiveness,
       final String? notes,
-      @JsonKey(name: 'created_at') required final DateTime createdAt,
       @JsonKey(name: 'updated_at')
       final DateTime? updatedAt}) = _$MedicationRecordModelImpl;
   const _MedicationRecordModel._() : super._();
@@ -402,6 +402,9 @@ abstract class _MedicationRecordModel extends MedicationRecordModel {
   @override
   @JsonKey(name: 'record_datetime')
   DateTime get recordedAt;
+  @override
+  @JsonKey(name: 'created_at')
+  DateTime get createdAt;
   @override
   @JsonKey(name: 'is_taken')
   bool get isTaken;
@@ -419,9 +422,6 @@ abstract class _MedicationRecordModel extends MedicationRecordModel {
   int? get effectiveness;
   @override
   String? get notes;
-  @override
-  @JsonKey(name: 'created_at')
-  DateTime get createdAt;
   @override
   @JsonKey(name: 'updated_at')
   DateTime? get updatedAt;

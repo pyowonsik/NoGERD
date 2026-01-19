@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
@@ -129,6 +130,20 @@ class AIRemoteDataSource {
         final gemini = Gemini.instance;
         final prompt = _buildPrompt(state);
 
+        // 프롬프트 로그 출력 (디버그 모드에서만)
+        if (kDebugMode) {
+          // ignore: avoid_print
+          print('\n${'=' * 60}');
+          // ignore: avoid_print
+          print('🤖 Gemini에 보내는 프롬프트:');
+          // ignore: avoid_print
+          print('${'=' * 60}');
+          // ignore: avoid_print
+          print(prompt);
+          // ignore: avoid_print
+          print('${'=' * 60}\n');
+        }
+
         final response = await gemini.prompt(
           parts: [Part.text(prompt)],
           model: 'gemini-2.5-flash-lite', // 무료 티어
@@ -161,9 +176,13 @@ class AIRemoteDataSource {
 
   /// 디버그 로그 출력
   void _printDataLog(InsightsState state) {
+    // Release 빌드에서는 로그 출력 안 함
+    if (!kDebugMode) return;
+
     final divider = '=' * 60;
     final subDivider = '-' * 40;
 
+    // ignore: avoid_print
     print('\n$divider');
     print('📊 주간 리포트 생성 - 데이터 로그');
     print(divider);

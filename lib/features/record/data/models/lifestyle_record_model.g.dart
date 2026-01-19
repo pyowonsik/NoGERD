@@ -14,8 +14,8 @@ _$LifestyleRecordModelImpl _$$LifestyleRecordModelImplFromJson(
       recordedAt: DateTime.parse(json['record_datetime'] as String),
       lifestyleType: json['lifestyle_type'] as String,
       details: json['details'] as Map<String, dynamic>,
-      notes: json['notes'] as String?,
       createdAt: DateTime.parse(json['created_at'] as String),
+      notes: json['notes'] as String?,
       updatedAt: json['updated_at'] == null
           ? null
           : DateTime.parse(json['updated_at'] as String),
@@ -29,7 +29,7 @@ Map<String, dynamic> _$$LifestyleRecordModelImplToJson(
       'record_datetime': instance.recordedAt.toIso8601String(),
       'lifestyle_type': instance.lifestyleType,
       'details': instance.details,
-      'notes': instance.notes,
       'created_at': instance.createdAt.toIso8601String(),
+      'notes': instance.notes,
       'updated_at': instance.updatedAt?.toIso8601String(),
     };

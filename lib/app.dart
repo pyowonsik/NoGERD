@@ -83,7 +83,7 @@ class _AppState extends State<App> {
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
-        title: 'NoGERD',
+        title: '꾸르꾸억',
         theme: AppTheme.lightTheme,
         routerConfig: _router,
       ),
