@@ -11,9 +11,9 @@ import 'package:no_gerd/features/record/presentation/bloc/record_bloc.dart';
 import 'package:no_gerd/features/record/presentation/pages/record_detail_page.dart';
 import 'package:no_gerd/features/settings/presentation/pages/alarm_settings_page.dart';
 import 'package:no_gerd/features/settings/presentation/pages/settings_page.dart';
-import 'package:no_gerd/screens/main_screen.dart';
-import 'package:no_gerd/screens/record/quick_record_modal.dart';
-import 'package:no_gerd/screens/splash/splash_screen.dart';
+import 'package:no_gerd/shared/presentation/main_screen.dart';
+import 'package:no_gerd/features/record/presentation/widgets/quick_record_modal.dart';
+import 'package:no_gerd/features/auth/presentation/pages/splash_screen.dart';
 import 'package:no_gerd/shared/constants/gerd_constants.dart';
 
 /// 앱의 모든 라우트를 정의하는 클래스
