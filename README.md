@@ -21,7 +21,9 @@
 
 ## 데모 영상
 
-<video src="screenshots/preview_movie.mp4" controls width="300"></video>
+<p align="center">
+  <img src="screenshots/preview_movie.gif" width="280" alt="데모"/>
+</p>
 
 ## 스크린샷
 
