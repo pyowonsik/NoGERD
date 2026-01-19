@@ -1,4 +1,4 @@
-package com.example.no_gerd
+package com.pyowonsik.nogerd
 
 import android.app.NotificationManager
 import android.app.PendingIntent

@@ -4,7 +4,7 @@ import UserNotifications
 
 @main
 @objc class AppDelegate: FlutterAppDelegate {
-  private let CHANNEL = "com.example.no_gerd/alarm"
+  private let CHANNEL = "com.pyowonsik.nogerd/alarm"
 
   override func application(
     _ application: UIApplication,

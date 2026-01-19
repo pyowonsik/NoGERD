@@ -27,7 +27,7 @@ abstract class AlarmPlatformDataSource {
 class AlarmPlatformDataSourceImpl implements AlarmPlatformDataSource {
   /// 생성자
   const AlarmPlatformDataSourceImpl();
-  static const _channel = MethodChannel('com.example.no_gerd/alarm');
+  static const _channel = MethodChannel('com.pyowonsik.nogerd/alarm');
 
   @override
   Future<bool> scheduleAlarm(AlarmConfig config) async {

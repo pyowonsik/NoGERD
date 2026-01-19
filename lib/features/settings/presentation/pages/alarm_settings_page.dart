@@ -56,24 +56,6 @@ class _AlarmSettingsView extends StatelessWidget {
             ),
           ),
           centerTitle: true,
-          actions: [
-            BlocBuilder<AlarmBloc, AlarmState>(
-              builder: (context, state) {
-                if (!state.hasPermission && !state.isLoading) {
-                  return IconButton(
-                    icon: const Icon(Icons.notifications_off),
-                    onPressed: () {
-                      context.read<AlarmBloc>().add(
-                            const AlarmEvent.requestPermission(),
-                          );
-                    },
-                    tooltip: '알림 권한 요청',
-                  );
-                }
-                return const SizedBox.shrink();
-              },
-            ),
-          ],
         ),
         body: BlocBuilder<AlarmBloc, AlarmState>(
           builder: (context, state) {
@@ -86,9 +68,6 @@ class _AlarmSettingsView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // 권한 안내
-                  if (!state.hasPermission) _buildPermissionWarning(context),
-
                   // 식사 알림 섹션
                   _buildSectionHeader(context, '🍽️', '식사 알림'),
                   const SizedBox(height: 4),
@@ -218,33 +197,6 @@ class _AlarmSettingsView extends StatelessWidget {
             );
           },
         ),
-      ),
-    );
-  }
-
-  Widget _buildPermissionWarning(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 20),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.orange.shade50,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.orange.shade200),
-      ),
-      child: Row(
-        children: [
-          Icon(Icons.warning_amber_rounded, color: Colors.orange.shade700),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              '알림 권한이 필요합니다. 상단 아이콘을 눌러 권한을 허용해주세요.',
-              style: TextStyle(
-                fontSize: 13,
-                color: Colors.orange.shade900,
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

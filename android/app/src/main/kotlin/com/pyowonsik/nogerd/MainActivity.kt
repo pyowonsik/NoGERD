@@ -1,4 +1,4 @@
-package com.example.no_gerd
+package com.pyowonsik.nogerd
 
 import android.Manifest
 import android.app.AlarmManager
@@ -17,7 +17,7 @@ import io.flutter.plugin.common.MethodChannel
 import java.util.Calendar
 
 class MainActivity: FlutterActivity() {
-    private val CHANNEL = "com.example.no_gerd/alarm"
+    private val CHANNEL = "com.pyowonsik.nogerd/alarm"
     private val NOTIFICATION_CHANNEL_ID = "alarm_notifications"
     private val POST_NOTIFICATIONS_PERMISSION_CODE = 1001
 
