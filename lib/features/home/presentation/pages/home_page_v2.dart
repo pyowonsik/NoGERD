@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
 import 'package:no_gerd/features/home/presentation/bloc/home_bloc.dart';
-import 'package:no_gerd/features/record/presentation/bloc/record_bloc.dart';
-import 'package:no_gerd/shared/shared.dart';
-import 'package:no_gerd/shared/constants/gerd_constants.dart';
-
 import 'package:no_gerd/features/home/presentation/widgets/recent_records_section.dart';
 import 'package:no_gerd/features/home/presentation/widgets/today_summary_section.dart';
+import 'package:no_gerd/features/record/presentation/bloc/record_bloc.dart';
+import 'package:no_gerd/shared/shared.dart';
 
 /// 홈 화면 V2 - 새로운 기획
 /// 기록 방법: [아침][점심][저녁] + [약물][생활습관][증상] (upsert 방식)
@@ -215,7 +212,7 @@ class _RecordMethodSection extends StatefulWidget {
 }
 
 class _RecordMethodSectionState extends State<_RecordMethodSection> {
-  bool _notTakingMedication = false;
+  bool _isTakingMedication = true;
 
   @override
   Widget build(BuildContext context) {
@@ -236,12 +233,12 @@ class _RecordMethodSectionState extends State<_RecordMethodSection> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
-                color: _notTakingMedication
+                color: _isTakingMedication
                     ? AppTheme.info.withValues(alpha: 0.15)
                     : Colors.grey.shade100,
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
-                  color: _notTakingMedication
+                  color: _isTakingMedication
                       ? AppTheme.info
                       : Colors.grey.shade300,
                 ),
@@ -250,11 +247,11 @@ class _RecordMethodSectionState extends State<_RecordMethodSection> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
-                    _notTakingMedication
-                        ? Icons.cancel_rounded
-                        : Icons.medication_rounded,
+                    _isTakingMedication
+                        ? Icons.medication_rounded
+                        : Icons.cancel_rounded,
                     size: 16,
-                    color: _notTakingMedication
+                    color: _isTakingMedication
                         ? AppTheme.info
                         : Colors.grey.shade600,
                   ),
@@ -264,21 +261,25 @@ class _RecordMethodSectionState extends State<_RecordMethodSection> {
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
-                      color: _notTakingMedication
+                      color: _isTakingMedication
                           ? AppTheme.info
                           : Colors.grey.shade600,
                     ),
                   ),
                   const SizedBox(width: 4),
-                  SizedBox(
-                    height: 20,
-                    child: Switch(
-                      value: _notTakingMedication,
-                      onChanged: (value) {
-                        setState(() => _notTakingMedication = value);
-                      },
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      activeThumbColor: AppTheme.info,
+                  Transform.scale(
+                    scale: 0.7,
+                    child: SizedBox(
+                      height: 20,
+                      width: 40,
+                      child: Switch(
+                        value: _isTakingMedication,
+                        onChanged: (value) {
+                          setState(() => _isTakingMedication = value);
+                        },
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        activeThumbColor: AppTheme.info,
+                      ),
                     ),
                   ),
                 ],
@@ -339,16 +340,11 @@ class _RecordMethodSectionState extends State<_RecordMethodSection> {
           children: [
             Expanded(
               child: _RecordButton(
-                emoji: _notTakingMedication ? '🚫' : '💊',
-                label: _notTakingMedication ? '안먹음' : '약물',
-                gradient: _notTakingMedication
-                    ? const LinearGradient(
-                        colors: [Color(0xFF64B5F6), Color(0xFF42A5F5)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      )
-                    : AppTheme.medicationGradient,
-                onTap: () => widget.onMedicationTap(_notTakingMedication),
+                emoji: '💊',
+                label: '복용',
+                gradient: AppTheme.medicationGradient,
+                onTap: () => widget.onMedicationTap(false),
+                disabled: !_isTakingMedication,
               ),
             ),
             const SizedBox(width: 10),
