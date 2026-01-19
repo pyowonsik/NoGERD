@@ -31,11 +31,11 @@ mixin _$LifestyleRecord {
   /// 예: 스트레스 - {"level": 7}
   Map<String, dynamic> get details => throw _privateConstructorUsedError;
 
-  /// 메모
-  String? get notes => throw _privateConstructorUsedError;
-
   /// 생성 시간
   DateTime get createdAt => throw _privateConstructorUsedError;
+
+  /// 메모
+  String? get notes => throw _privateConstructorUsedError;
 
   /// 수정 시간
   DateTime? get updatedAt => throw _privateConstructorUsedError;
@@ -56,8 +56,8 @@ abstract class $LifestyleRecordCopyWith<$Res> {
       DateTime recordedAt,
       LifestyleType lifestyleType,
       Map<String, dynamic> details,
-      String? notes,
       DateTime createdAt,
+      String? notes,
       DateTime? updatedAt});
 }
 
@@ -78,8 +78,8 @@ class _$LifestyleRecordCopyWithImpl<$Res, $Val extends LifestyleRecord>
     Object? recordedAt = null,
     Object? lifestyleType = null,
     Object? details = null,
-    Object? notes = freezed,
     Object? createdAt = null,
+    Object? notes = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -99,14 +99,14 @@ class _$LifestyleRecordCopyWithImpl<$Res, $Val extends LifestyleRecord>
           ? _value.details
           : details // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
-      notes: freezed == notes
-          ? _value.notes
-          : notes // ignore: cast_nullable_to_non_nullable
-              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -128,8 +128,8 @@ abstract class _$$LifestyleRecordImplCopyWith<$Res>
       DateTime recordedAt,
       LifestyleType lifestyleType,
       Map<String, dynamic> details,
-      String? notes,
       DateTime createdAt,
+      String? notes,
       DateTime? updatedAt});
 }
 
@@ -148,8 +148,8 @@ class __$$LifestyleRecordImplCopyWithImpl<$Res>
     Object? recordedAt = null,
     Object? lifestyleType = null,
     Object? details = null,
-    Object? notes = freezed,
     Object? createdAt = null,
+    Object? notes = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_$LifestyleRecordImpl(
@@ -169,14 +169,14 @@ class __$$LifestyleRecordImplCopyWithImpl<$Res>
           ? _value._details
           : details // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
-      notes: freezed == notes
-          ? _value.notes
-          : notes // ignore: cast_nullable_to_non_nullable
-              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -193,8 +193,8 @@ class _$LifestyleRecordImpl implements _LifestyleRecord {
       required this.recordedAt,
       required this.lifestyleType,
       required final Map<String, dynamic> details,
-      this.notes,
       required this.createdAt,
+      this.notes,
       this.updatedAt})
       : _details = details;
 
@@ -227,13 +227,13 @@ class _$LifestyleRecordImpl implements _LifestyleRecord {
     return EqualUnmodifiableMapView(_details);
   }
 
-  /// 메모
-  @override
-  final String? notes;
-
   /// 생성 시간
   @override
   final DateTime createdAt;
+
+  /// 메모
+  @override
+  final String? notes;
 
   /// 수정 시간
   @override
@@ -241,7 +241,7 @@ class _$LifestyleRecordImpl implements _LifestyleRecord {
 
   @override
   String toString() {
-    return 'LifestyleRecord(id: $id, recordedAt: $recordedAt, lifestyleType: $lifestyleType, details: $details, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'LifestyleRecord(id: $id, recordedAt: $recordedAt, lifestyleType: $lifestyleType, details: $details, createdAt: $createdAt, notes: $notes, updatedAt: $updatedAt)';
   }
 
   @override
@@ -255,9 +255,9 @@ class _$LifestyleRecordImpl implements _LifestyleRecord {
             (identical(other.lifestyleType, lifestyleType) ||
                 other.lifestyleType == lifestyleType) &&
             const DeepCollectionEquality().equals(other._details, _details) &&
-            (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
+            (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt));
   }
@@ -269,8 +269,8 @@ class _$LifestyleRecordImpl implements _LifestyleRecord {
       recordedAt,
       lifestyleType,
       const DeepCollectionEquality().hash(_details),
-      notes,
       createdAt,
+      notes,
       updatedAt);
 
   @JsonKey(ignore: true)
@@ -287,8 +287,8 @@ abstract class _LifestyleRecord implements LifestyleRecord {
       required final DateTime recordedAt,
       required final LifestyleType lifestyleType,
       required final Map<String, dynamic> details,
-      final String? notes,
       required final DateTime createdAt,
+      final String? notes,
       final DateTime? updatedAt}) = _$LifestyleRecordImpl;
 
   @override
@@ -312,12 +312,12 @@ abstract class _LifestyleRecord implements LifestyleRecord {
   Map<String, dynamic> get details;
   @override
 
-  /// 메모
-  String? get notes;
-  @override
-
   /// 생성 시간
   DateTime get createdAt;
+  @override
+
+  /// 메모
+  String? get notes;
   @override
 
   /// 수정 시간

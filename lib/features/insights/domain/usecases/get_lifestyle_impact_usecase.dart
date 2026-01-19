@@ -107,81 +107,80 @@ class GetLifestyleImpactUseCase
     }
 
     try {
-      final lifestyleData = <LifestyleType, List<double>>{};
-      var currentDate = params.startDate;
+      // 범위 조회로 한 번에 데이터 가져오기
+      final result = await _repository.getLifestyleRecordsInRange(
+        params.startDate,
+        params.endDate,
+      );
 
-      while (!currentDate.isAfter(params.endDate)) {
-        final result = await _repository.getLifestyleRecords(currentDate);
+      return result.fold(
+        Left.new,
+        (records) {
+          final lifestyleData = <LifestyleType, List<double>>{};
 
-        result.fold(
-          (failure) => null,
-          (records) {
-            for (final record in records) {
-              final type = record.lifestyleType;
-              final details = record.details;
+          for (final record in records) {
+            final details = record.details;
 
-              // 통합 생활습관 기록 처리
-              // 수면 정보
-              final sleepHours = (details['sleep_hours'] as num?)?.toDouble();
-              if (sleepHours != null) {
-                lifestyleData
-                    .putIfAbsent(LifestyleType.sleep, () => [])
-                    .add(sleepHours);
-              }
-
-              // 스트레스 정보
-              final stressLevel = (details['stress_level'] as num?)?.toDouble();
-              if (stressLevel != null) {
-                lifestyleData
-                    .putIfAbsent(LifestyleType.stress, () => [])
-                    .add(stressLevel);
-              }
-
-              // 운동 정보 (boolean -> 1 또는 0으로 변환)
-              final exercised = details['exercised'] as bool?;
-              if (exercised != null) {
-                lifestyleData
-                    .putIfAbsent(LifestyleType.exercise, () => [])
-                    .add(exercised ? 1.0 : 0.0);
-              }
+            // 통합 생활습관 기록 처리
+            // 수면 정보
+            final sleepHours = (details['sleep_hours'] as num?)?.toDouble();
+            if (sleepHours != null) {
+              lifestyleData
+                  .putIfAbsent(LifestyleType.sleep, () => [])
+                  .add(sleepHours);
             }
-          },
-        );
 
-        currentDate = currentDate.add(const Duration(days: 1));
-      }
+            // 스트레스 정보
+            final stressLevel = (details['stress_level'] as num?)?.toDouble();
+            if (stressLevel != null) {
+              lifestyleData
+                  .putIfAbsent(LifestyleType.stress, () => [])
+                  .add(stressLevel);
+            }
 
-      // 총 일수 계산
-      final totalDays = params.endDate.difference(params.startDate).inDays + 1;
+            // 운동 정보 (boolean -> 1 또는 0으로 변환)
+            final exercised = details['exercised'] as bool?;
+            if (exercised != null) {
+              lifestyleData
+                  .putIfAbsent(LifestyleType.exercise, () => [])
+                  .add(exercised ? 1.0 : 0.0);
+            }
+          }
 
-      // 분석 결과 생성
-      final impacts = <LifestyleImpact>[];
+          // 총 일수 계산
+          final totalDays =
+              params.endDate.difference(params.startDate).inDays + 1;
 
-      // 수면 분석
-      if (lifestyleData.containsKey(LifestyleType.sleep)) {
-        final sleepValues = lifestyleData[LifestyleType.sleep]!;
-        final averageSleep =
-            sleepValues.reduce((a, b) => a + b) / sleepValues.length;
-        impacts.add(_analyzeSleep(averageSleep));
-      }
+          // 분석 결과 생성
+          final impacts = <LifestyleImpact>[];
 
-      // 운동 분석
-      if (lifestyleData.containsKey(LifestyleType.exercise)) {
-        final exerciseValues = lifestyleData[LifestyleType.exercise]!;
-        // 운동한 횟수 계산 (1.0 값의 개수)
-        final exerciseCount = exerciseValues.where((v) => v == 1.0).length;
-        impacts.add(_analyzeExercise(exerciseCount, totalDays));
-      }
+          // 수면 분석
+          if (lifestyleData.containsKey(LifestyleType.sleep)) {
+            final sleepValues = lifestyleData[LifestyleType.sleep]!;
+            final averageSleep =
+                sleepValues.reduce((a, b) => a + b) / sleepValues.length;
+            impacts.add(_analyzeSleep(averageSleep));
+          }
 
-      // 스트레스 분석
-      if (lifestyleData.containsKey(LifestyleType.stress)) {
-        final stressValues = lifestyleData[LifestyleType.stress]!;
-        final averageStress =
-            stressValues.reduce((a, b) => a + b) / stressValues.length;
-        impacts.add(_analyzeStress(averageStress));
-      }
+          // 운동 분석
+          if (lifestyleData.containsKey(LifestyleType.exercise)) {
+            final exerciseValues = lifestyleData[LifestyleType.exercise]!;
+            // 운동한 횟수 계산 (1.0 값의 개수)
+            final exerciseCount = exerciseValues.where((v) => v == 1.0).length;
+            impacts.add(_analyzeExercise(exerciseCount, totalDays));
+          }
 
-      return Right(impacts);
+          // 스트레스 분석
+          if (lifestyleData.containsKey(LifestyleType.stress)) {
+            final stressValues = lifestyleData[LifestyleType.stress]!;
+            final averageStress =
+                stressValues.reduce((a, b) => a + b) / stressValues.length;
+            impacts.add(_analyzeStress(averageStress));
+          }
+
+          return Right(impacts);
+        },
+      );
     } catch (e) {
       return Left(Failure.unexpected(e.toString()));
     }

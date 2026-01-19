@@ -195,7 +195,7 @@ class _SymptomRecordScreenState extends State<SymptomRecordScreen> {
             (failure) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(failure.message),
+                  content: Text(ErrorMessageHelper.toKorean(failure.message)),
                   behavior: SnackBarBehavior.floating,
                   backgroundColor: AppTheme.error,
                   shape: RoundedRectangleBorder(
@@ -714,7 +714,7 @@ class _MealRecordScreenState extends State<MealRecordScreen> {
             (failure) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(failure.message),
+                  content: Text(ErrorMessageHelper.toKorean(failure.message)),
                   behavior: SnackBarBehavior.floating,
                   backgroundColor: AppTheme.error,
                   shape: RoundedRectangleBorder(
@@ -1223,7 +1223,7 @@ class _MedicationRecordScreenState extends State<MedicationRecordScreen> {
             (failure) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(failure.message),
+                  content: Text(ErrorMessageHelper.toKorean(failure.message)),
                   behavior: SnackBarBehavior.floating,
                   backgroundColor: AppTheme.error,
                   shape: RoundedRectangleBorder(
@@ -1801,7 +1801,7 @@ class _LifestyleRecordScreenState extends State<LifestyleRecordScreen> {
             (failure) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text(failure.message),
+                  content: Text(ErrorMessageHelper.toKorean(failure.message)),
                   behavior: SnackBarBehavior.floating,
                   backgroundColor: AppTheme.error,
                   shape: RoundedRectangleBorder(

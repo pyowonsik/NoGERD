@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:no_gerd/core/usecase/usecase.dart';
+import 'package:no_gerd/features/auth/domain/repositories/auth_repository.dart';
 import 'package:no_gerd/features/auth/domain/usecases/get_current_user_usecase.dart';
 import 'package:no_gerd/features/auth/domain/usecases/sign_in_usecase.dart';
 import 'package:no_gerd/features/auth/domain/usecases/sign_out_usecase.dart';
@@ -17,17 +18,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     this._signUpUseCase,
     this._signOutUseCase,
     this._getCurrentUserUseCase,
+    this._authRepository,
   ) : super(const AuthState.initial()) {
     on<AuthEventCheckStatus>(_onCheckStatus);
     on<AuthEventSignIn>(_onSignIn);
     on<AuthEventSignUp>(_onSignUp);
     on<AuthEventSignOut>(_onSignOut);
+    on<AuthEventResendVerification>(_onResendVerification);
+    on<AuthEventVerifyOtp>(_onVerifyOtp);
   }
 
   final SignInUseCase _signInUseCase;
   final SignUpUseCase _signUpUseCase;
   final SignOutUseCase _signOutUseCase;
   final GetCurrentUserUseCase _getCurrentUserUseCase;
+  final IAuthRepository _authRepository;
 
   Future<void> _onCheckStatus(
     AuthEventCheckStatus event,
@@ -77,7 +82,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     result.fold(
       (failure) => emit(AuthState.error(failure)),
-      (user) => emit(AuthState.authenticated(user)),
+      // 회원가입 성공 시 이메일 인증 필요 상태로 전환
+      (user) => emit(AuthState.emailVerificationRequired(event.email)),
     );
   }
 
@@ -87,5 +93,29 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     await _signOutUseCase(const NoParams());
     emit(const AuthState.unauthenticated());
+  }
+
+  Future<void> _onResendVerification(
+    AuthEventResendVerification event,
+    Emitter<AuthState> emit,
+  ) async {
+    await _authRepository.resendVerificationEmail(event.email);
+  }
+
+  Future<void> _onVerifyOtp(
+    AuthEventVerifyOtp event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(const AuthState.loading());
+
+    final result = await _authRepository.verifyOtp(
+      email: event.email,
+      token: event.token,
+    );
+
+    result.fold(
+      (failure) => emit(AuthState.error(failure)),
+      (user) => emit(AuthState.authenticated(user)),
+    );
   }
 }

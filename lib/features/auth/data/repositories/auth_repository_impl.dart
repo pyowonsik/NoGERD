@@ -78,12 +78,30 @@ class AuthRepositoryImpl implements IAuthRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> resendVerificationEmail() async {
+  Future<Either<Failure, Unit>> resendVerificationEmail(String email) async {
     try {
-      await _remoteDataSource.resendVerificationEmail();
+      await _remoteDataSource.resendVerificationEmail(email);
       return const Right(unit);
     } catch (e) {
       return Left(Failure.unexpected('인증 이메일 발송 실패: ${e}'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, User>> verifyOtp({
+    required String email,
+    required String token,
+  }) async {
+    try {
+      final userModel = await _remoteDataSource.verifyOtp(
+        email: email,
+        token: token,
+      );
+      return Right(userModel.toEntity());
+    } on AuthDataSourceException catch (e) {
+      return Left(_handleAuthError(e.message));
+    } catch (e) {
+      return Left(Failure.unexpected('OTP 인증 실패: ${e}'));
     }
   }
 

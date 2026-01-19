@@ -50,8 +50,8 @@ class _SettingsPageContent extends StatelessWidget {
                     // 공유 다이얼로그 표시
                     final result = await Share.shareXFiles(
                       [XFile(filePath)],
-                      subject: 'NoGERD 데이터 백업',
-                      text: 'NoGERD 앱의 건강 기록 데이터입니다.',
+                      subject: '꾸르꾸억 데이터 백업',
+                      text: '꾸르꾸억 앱의 건강 기록 데이터입니다.',
                     );
 
                     // 공유 성공 메시지
@@ -786,7 +786,7 @@ class _SettingsPageContent extends StatelessWidget {
                     children: [
                       _buildTermsSection(
                         '제1조 (목적)',
-                        '본 약관은 NoGERD(이하 "서비스")의 이용과 관련하여 서비스 제공자와 이용자 간의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.',
+                        '본 약관은 꾸르꾸억(이하 "서비스")의 이용과 관련하여 서비스 제공자와 이용자 간의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.',
                       ),
                       _buildTermsSection(
                         '제2조 (정의)',
@@ -901,7 +901,7 @@ class _SettingsPageContent extends StatelessWidget {
                     children: [
                       _buildTermsSection(
                         '1. 개인정보의 수집 및 이용 목적',
-                        'NoGERD는 다음의 목적을 위하여 개인정보를 처리합니다:\n'
+                        '꾸르꾸억은 다음의 목적을 위하여 개인정보를 처리합니다:\n'
                             '• 회원 가입 및 관리\n'
                             '• 건강 기록 서비스 제공\n'
                             '• 서비스 개선 및 분석\n'
@@ -930,7 +930,7 @@ class _SettingsPageContent extends StatelessWidget {
                       ),
                       _buildTermsSection(
                         '4. 개인정보의 제3자 제공',
-                        'NoGERD는 원칙적으로 이용자의 개인정보를 제3자에게 제공하지 않습니다. 다만, 다음의 경우에는 예외로 합니다:\n'
+                        '꾸르꾸억은 원칙적으로 이용자의 개인정보를 제3자에게 제공하지 않습니다. 다만, 다음의 경우에는 예외로 합니다:\n'
                             '• 이용자가 사전에 동의한 경우\n'
                             '• 법령의 규정에 의거하거나, 수사 목적으로 법령에 정해진 절차와 방법에 따라 수사기관의 요구가 있는 경우',
                       ),
@@ -941,7 +941,7 @@ class _SettingsPageContent extends StatelessWidget {
                       ),
                       _buildTermsSection(
                         '6. 개인정보의 안전성 확보 조치',
-                        'NoGERD는 개인정보의 안전성 확보를 위해 다음과 같은 조치를 취하고 있습니다:\n'
+                        '꾸르꾸억은 개인정보의 안전성 확보를 위해 다음과 같은 조치를 취하고 있습니다:\n'
                             '• 비밀번호 암호화: 비밀번호는 암호화되어 저장 및 관리\n'
                             '• 해킹 등에 대비한 기술적 대책\n'
                             '• 접근 제한: 개인정보를 처리하는 데이터베이스 시스템에 대한 접근 권한 부여, 변경, 말소\n'
@@ -961,7 +961,7 @@ class _SettingsPageContent extends StatelessWidget {
                       ),
                       _buildTermsSection(
                         '9. 개인정보 보호책임자',
-                        '성명: NoGERD 개인정보 보호책임자\n'
+                        '성명: 꾸르꾸억 개인정보 보호책임자\n'
                             '이메일: qqrtyu@gmail.com\n\n'
                             '개인정보 처리에 관한 문의사항이 있으시면 언제든지 연락 주시기 바랍니다.',
                       ),

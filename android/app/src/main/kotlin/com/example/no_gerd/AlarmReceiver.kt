@@ -32,7 +32,7 @@ class AlarmReceiver : BroadcastReceiver() {
 
         // 알림 생성
         val notification = NotificationCompat.Builder(context, "alarm_notifications")
-            .setSmallIcon(android.R.drawable.ic_dialog_info)
+            .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle(title)
             .setContentText(body)
             .setPriority(NotificationCompat.PRIORITY_HIGH)

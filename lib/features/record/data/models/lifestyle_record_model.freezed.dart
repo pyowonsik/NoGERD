@@ -28,9 +28,9 @@ mixin _$LifestyleRecordModel {
   @JsonKey(name: 'lifestyle_type')
   String get lifestyleType => throw _privateConstructorUsedError;
   Map<String, dynamic> get details => throw _privateConstructorUsedError;
-  String? get notes => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
   DateTime get createdAt => throw _privateConstructorUsedError;
+  String? get notes => throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
   DateTime? get updatedAt => throw _privateConstructorUsedError;
 
@@ -52,8 +52,8 @@ abstract class $LifestyleRecordModelCopyWith<$Res> {
       @JsonKey(name: 'record_datetime') DateTime recordedAt,
       @JsonKey(name: 'lifestyle_type') String lifestyleType,
       Map<String, dynamic> details,
-      String? notes,
       @JsonKey(name: 'created_at') DateTime createdAt,
+      String? notes,
       @JsonKey(name: 'updated_at') DateTime? updatedAt});
 }
 
@@ -76,8 +76,8 @@ class _$LifestyleRecordModelCopyWithImpl<$Res,
     Object? recordedAt = null,
     Object? lifestyleType = null,
     Object? details = null,
-    Object? notes = freezed,
     Object? createdAt = null,
+    Object? notes = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -101,14 +101,14 @@ class _$LifestyleRecordModelCopyWithImpl<$Res,
           ? _value.details
           : details // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
-      notes: freezed == notes
-          ? _value.notes
-          : notes // ignore: cast_nullable_to_non_nullable
-              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -131,8 +131,8 @@ abstract class _$$LifestyleRecordModelImplCopyWith<$Res>
       @JsonKey(name: 'record_datetime') DateTime recordedAt,
       @JsonKey(name: 'lifestyle_type') String lifestyleType,
       Map<String, dynamic> details,
-      String? notes,
       @JsonKey(name: 'created_at') DateTime createdAt,
+      String? notes,
       @JsonKey(name: 'updated_at') DateTime? updatedAt});
 }
 
@@ -152,8 +152,8 @@ class __$$LifestyleRecordModelImplCopyWithImpl<$Res>
     Object? recordedAt = null,
     Object? lifestyleType = null,
     Object? details = null,
-    Object? notes = freezed,
     Object? createdAt = null,
+    Object? notes = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_$LifestyleRecordModelImpl(
@@ -177,14 +177,14 @@ class __$$LifestyleRecordModelImplCopyWithImpl<$Res>
           ? _value._details
           : details // ignore: cast_nullable_to_non_nullable
               as Map<String, dynamic>,
-      notes: freezed == notes
-          ? _value.notes
-          : notes // ignore: cast_nullable_to_non_nullable
-              as String?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      notes: freezed == notes
+          ? _value.notes
+          : notes // ignore: cast_nullable_to_non_nullable
+              as String?,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -202,8 +202,8 @@ class _$LifestyleRecordModelImpl extends _LifestyleRecordModel {
       @JsonKey(name: 'record_datetime') required this.recordedAt,
       @JsonKey(name: 'lifestyle_type') required this.lifestyleType,
       required final Map<String, dynamic> details,
-      this.notes,
       @JsonKey(name: 'created_at') required this.createdAt,
+      this.notes,
       @JsonKey(name: 'updated_at') this.updatedAt})
       : _details = details,
         super._();
@@ -231,17 +231,17 @@ class _$LifestyleRecordModelImpl extends _LifestyleRecordModel {
   }
 
   @override
-  final String? notes;
-  @override
   @JsonKey(name: 'created_at')
   final DateTime createdAt;
+  @override
+  final String? notes;
   @override
   @JsonKey(name: 'updated_at')
   final DateTime? updatedAt;
 
   @override
   String toString() {
-    return 'LifestyleRecordModel(id: $id, userId: $userId, recordedAt: $recordedAt, lifestyleType: $lifestyleType, details: $details, notes: $notes, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'LifestyleRecordModel(id: $id, userId: $userId, recordedAt: $recordedAt, lifestyleType: $lifestyleType, details: $details, createdAt: $createdAt, notes: $notes, updatedAt: $updatedAt)';
   }
 
   @override
@@ -256,9 +256,9 @@ class _$LifestyleRecordModelImpl extends _LifestyleRecordModel {
             (identical(other.lifestyleType, lifestyleType) ||
                 other.lifestyleType == lifestyleType) &&
             const DeepCollectionEquality().equals(other._details, _details) &&
-            (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
+            (identical(other.notes, notes) || other.notes == notes) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt));
   }
@@ -272,8 +272,8 @@ class _$LifestyleRecordModelImpl extends _LifestyleRecordModel {
       recordedAt,
       lifestyleType,
       const DeepCollectionEquality().hash(_details),
-      notes,
       createdAt,
+      notes,
       updatedAt);
 
   @JsonKey(ignore: true)
@@ -299,8 +299,8 @@ abstract class _LifestyleRecordModel extends LifestyleRecordModel {
           @JsonKey(name: 'record_datetime') required final DateTime recordedAt,
           @JsonKey(name: 'lifestyle_type') required final String lifestyleType,
           required final Map<String, dynamic> details,
-          final String? notes,
           @JsonKey(name: 'created_at') required final DateTime createdAt,
+          final String? notes,
           @JsonKey(name: 'updated_at') final DateTime? updatedAt}) =
       _$LifestyleRecordModelImpl;
   const _LifestyleRecordModel._() : super._();
@@ -322,10 +322,10 @@ abstract class _LifestyleRecordModel extends LifestyleRecordModel {
   @override
   Map<String, dynamic> get details;
   @override
-  String? get notes;
-  @override
   @JsonKey(name: 'created_at')
   DateTime get createdAt;
+  @override
+  String? get notes;
   @override
   @JsonKey(name: 'updated_at')
   DateTime? get updatedAt;

@@ -15,5 +15,11 @@ class AuthEvent with _$AuthEvent {
     required String password,
   }) = AuthEventSignUp;
   const factory AuthEvent.signOut() = AuthEventSignOut;
-  const factory AuthEvent.resendVerification() = AuthEventResendVerification;
+  const factory AuthEvent.resendVerification({
+    required String email,
+  }) = AuthEventResendVerification;
+  const factory AuthEvent.verifyOtp({
+    required String email,
+    required String token,
+  }) = AuthEventVerifyOtp;
 }

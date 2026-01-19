@@ -29,14 +29,14 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
     CalendarEventLoadMonth event,
     Emitter<CalendarState> emit,
   ) async {
-    print('🔥 [CalendarBloc] _onLoadMonth 시작: ${event.month}');
+    // ignore: avoid_print
+    print('======== [CalendarBloc] _onLoadMonth 시작: ${event.month.year}-${event.month.month} ========');
     emit(state.copyWith(isLoading: true, failure: none()));
 
     final result = await _getRecordsForMonthUseCase(event.month);
 
     result.fold(
       (failure) {
-        print('❌ [CalendarBloc] 데이터 로드 실패: $failure');
         emit(
           state.copyWith(
             isLoading: false,
@@ -45,8 +45,6 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
         );
       },
       (monthRecords) {
-        print('✅ [CalendarBloc] 데이터 로드 성공: ${monthRecords.length}개 날짜');
-
         // 선택된 날짜가 있으면 해당 날짜의 기록도 업데이트
         Map<String, dynamic>? selectedDayRecords;
         if (state.selectedDay != null) {
@@ -56,10 +54,10 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
             state.selectedDay!.day,
           );
           selectedDayRecords = monthRecords[normalizedDay];
-          print(
-              '🔥 [CalendarBloc] 선택된 날짜 기록 업데이트: ${selectedDayRecords != null ? "있음" : "없음"}');
         }
 
+        // ignore: avoid_print
+        print('======== [CalendarBloc] _onLoadMonth 완료: ${monthRecords.length}일 데이터 로드 ========');
         emit(
           state.copyWith(
             isLoading: false,

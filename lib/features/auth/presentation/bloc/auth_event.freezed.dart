@@ -22,7 +22,8 @@ mixin _$AuthEvent {
     required TResult Function(String email, String password) signIn,
     required TResult Function(String email, String password) signUp,
     required TResult Function() signOut,
-    required TResult Function() resendVerification,
+    required TResult Function(String email) resendVerification,
+    required TResult Function(String email, String token) verifyOtp,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -31,7 +32,8 @@ mixin _$AuthEvent {
     TResult? Function(String email, String password)? signIn,
     TResult? Function(String email, String password)? signUp,
     TResult? Function()? signOut,
-    TResult? Function()? resendVerification,
+    TResult? Function(String email)? resendVerification,
+    TResult? Function(String email, String token)? verifyOtp,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -40,7 +42,8 @@ mixin _$AuthEvent {
     TResult Function(String email, String password)? signIn,
     TResult Function(String email, String password)? signUp,
     TResult Function()? signOut,
-    TResult Function()? resendVerification,
+    TResult Function(String email)? resendVerification,
+    TResult Function(String email, String token)? verifyOtp,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -52,6 +55,7 @@ mixin _$AuthEvent {
     required TResult Function(AuthEventSignOut value) signOut,
     required TResult Function(AuthEventResendVerification value)
         resendVerification,
+    required TResult Function(AuthEventVerifyOtp value) verifyOtp,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -61,6 +65,7 @@ mixin _$AuthEvent {
     TResult? Function(AuthEventSignUp value)? signUp,
     TResult? Function(AuthEventSignOut value)? signOut,
     TResult? Function(AuthEventResendVerification value)? resendVerification,
+    TResult? Function(AuthEventVerifyOtp value)? verifyOtp,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -70,6 +75,7 @@ mixin _$AuthEvent {
     TResult Function(AuthEventSignUp value)? signUp,
     TResult Function(AuthEventSignOut value)? signOut,
     TResult Function(AuthEventResendVerification value)? resendVerification,
+    TResult Function(AuthEventVerifyOtp value)? verifyOtp,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -135,7 +141,8 @@ class _$AuthEventCheckStatusImpl implements AuthEventCheckStatus {
     required TResult Function(String email, String password) signIn,
     required TResult Function(String email, String password) signUp,
     required TResult Function() signOut,
-    required TResult Function() resendVerification,
+    required TResult Function(String email) resendVerification,
+    required TResult Function(String email, String token) verifyOtp,
   }) {
     return checkStatus();
   }
@@ -147,7 +154,8 @@ class _$AuthEventCheckStatusImpl implements AuthEventCheckStatus {
     TResult? Function(String email, String password)? signIn,
     TResult? Function(String email, String password)? signUp,
     TResult? Function()? signOut,
-    TResult? Function()? resendVerification,
+    TResult? Function(String email)? resendVerification,
+    TResult? Function(String email, String token)? verifyOtp,
   }) {
     return checkStatus?.call();
   }
@@ -159,7 +167,8 @@ class _$AuthEventCheckStatusImpl implements AuthEventCheckStatus {
     TResult Function(String email, String password)? signIn,
     TResult Function(String email, String password)? signUp,
     TResult Function()? signOut,
-    TResult Function()? resendVerification,
+    TResult Function(String email)? resendVerification,
+    TResult Function(String email, String token)? verifyOtp,
     required TResult orElse(),
   }) {
     if (checkStatus != null) {
@@ -177,6 +186,7 @@ class _$AuthEventCheckStatusImpl implements AuthEventCheckStatus {
     required TResult Function(AuthEventSignOut value) signOut,
     required TResult Function(AuthEventResendVerification value)
         resendVerification,
+    required TResult Function(AuthEventVerifyOtp value) verifyOtp,
   }) {
     return checkStatus(this);
   }
@@ -189,6 +199,7 @@ class _$AuthEventCheckStatusImpl implements AuthEventCheckStatus {
     TResult? Function(AuthEventSignUp value)? signUp,
     TResult? Function(AuthEventSignOut value)? signOut,
     TResult? Function(AuthEventResendVerification value)? resendVerification,
+    TResult? Function(AuthEventVerifyOtp value)? verifyOtp,
   }) {
     return checkStatus?.call(this);
   }
@@ -201,6 +212,7 @@ class _$AuthEventCheckStatusImpl implements AuthEventCheckStatus {
     TResult Function(AuthEventSignUp value)? signUp,
     TResult Function(AuthEventSignOut value)? signOut,
     TResult Function(AuthEventResendVerification value)? resendVerification,
+    TResult Function(AuthEventVerifyOtp value)? verifyOtp,
     required TResult orElse(),
   }) {
     if (checkStatus != null) {
@@ -292,7 +304,8 @@ class _$AuthEventSignInImpl implements AuthEventSignIn {
     required TResult Function(String email, String password) signIn,
     required TResult Function(String email, String password) signUp,
     required TResult Function() signOut,
-    required TResult Function() resendVerification,
+    required TResult Function(String email) resendVerification,
+    required TResult Function(String email, String token) verifyOtp,
   }) {
     return signIn(email, password);
   }
@@ -304,7 +317,8 @@ class _$AuthEventSignInImpl implements AuthEventSignIn {
     TResult? Function(String email, String password)? signIn,
     TResult? Function(String email, String password)? signUp,
     TResult? Function()? signOut,
-    TResult? Function()? resendVerification,
+    TResult? Function(String email)? resendVerification,
+    TResult? Function(String email, String token)? verifyOtp,
   }) {
     return signIn?.call(email, password);
   }
@@ -316,7 +330,8 @@ class _$AuthEventSignInImpl implements AuthEventSignIn {
     TResult Function(String email, String password)? signIn,
     TResult Function(String email, String password)? signUp,
     TResult Function()? signOut,
-    TResult Function()? resendVerification,
+    TResult Function(String email)? resendVerification,
+    TResult Function(String email, String token)? verifyOtp,
     required TResult orElse(),
   }) {
     if (signIn != null) {
@@ -334,6 +349,7 @@ class _$AuthEventSignInImpl implements AuthEventSignIn {
     required TResult Function(AuthEventSignOut value) signOut,
     required TResult Function(AuthEventResendVerification value)
         resendVerification,
+    required TResult Function(AuthEventVerifyOtp value) verifyOtp,
   }) {
     return signIn(this);
   }
@@ -346,6 +362,7 @@ class _$AuthEventSignInImpl implements AuthEventSignIn {
     TResult? Function(AuthEventSignUp value)? signUp,
     TResult? Function(AuthEventSignOut value)? signOut,
     TResult? Function(AuthEventResendVerification value)? resendVerification,
+    TResult? Function(AuthEventVerifyOtp value)? verifyOtp,
   }) {
     return signIn?.call(this);
   }
@@ -358,6 +375,7 @@ class _$AuthEventSignInImpl implements AuthEventSignIn {
     TResult Function(AuthEventSignUp value)? signUp,
     TResult Function(AuthEventSignOut value)? signOut,
     TResult Function(AuthEventResendVerification value)? resendVerification,
+    TResult Function(AuthEventVerifyOtp value)? verifyOtp,
     required TResult orElse(),
   }) {
     if (signIn != null) {
@@ -457,7 +475,8 @@ class _$AuthEventSignUpImpl implements AuthEventSignUp {
     required TResult Function(String email, String password) signIn,
     required TResult Function(String email, String password) signUp,
     required TResult Function() signOut,
-    required TResult Function() resendVerification,
+    required TResult Function(String email) resendVerification,
+    required TResult Function(String email, String token) verifyOtp,
   }) {
     return signUp(email, password);
   }
@@ -469,7 +488,8 @@ class _$AuthEventSignUpImpl implements AuthEventSignUp {
     TResult? Function(String email, String password)? signIn,
     TResult? Function(String email, String password)? signUp,
     TResult? Function()? signOut,
-    TResult? Function()? resendVerification,
+    TResult? Function(String email)? resendVerification,
+    TResult? Function(String email, String token)? verifyOtp,
   }) {
     return signUp?.call(email, password);
   }
@@ -481,7 +501,8 @@ class _$AuthEventSignUpImpl implements AuthEventSignUp {
     TResult Function(String email, String password)? signIn,
     TResult Function(String email, String password)? signUp,
     TResult Function()? signOut,
-    TResult Function()? resendVerification,
+    TResult Function(String email)? resendVerification,
+    TResult Function(String email, String token)? verifyOtp,
     required TResult orElse(),
   }) {
     if (signUp != null) {
@@ -499,6 +520,7 @@ class _$AuthEventSignUpImpl implements AuthEventSignUp {
     required TResult Function(AuthEventSignOut value) signOut,
     required TResult Function(AuthEventResendVerification value)
         resendVerification,
+    required TResult Function(AuthEventVerifyOtp value) verifyOtp,
   }) {
     return signUp(this);
   }
@@ -511,6 +533,7 @@ class _$AuthEventSignUpImpl implements AuthEventSignUp {
     TResult? Function(AuthEventSignUp value)? signUp,
     TResult? Function(AuthEventSignOut value)? signOut,
     TResult? Function(AuthEventResendVerification value)? resendVerification,
+    TResult? Function(AuthEventVerifyOtp value)? verifyOtp,
   }) {
     return signUp?.call(this);
   }
@@ -523,6 +546,7 @@ class _$AuthEventSignUpImpl implements AuthEventSignUp {
     TResult Function(AuthEventSignUp value)? signUp,
     TResult Function(AuthEventSignOut value)? signOut,
     TResult Function(AuthEventResendVerification value)? resendVerification,
+    TResult Function(AuthEventVerifyOtp value)? verifyOtp,
     required TResult orElse(),
   }) {
     if (signUp != null) {
@@ -586,7 +610,8 @@ class _$AuthEventSignOutImpl implements AuthEventSignOut {
     required TResult Function(String email, String password) signIn,
     required TResult Function(String email, String password) signUp,
     required TResult Function() signOut,
-    required TResult Function() resendVerification,
+    required TResult Function(String email) resendVerification,
+    required TResult Function(String email, String token) verifyOtp,
   }) {
     return signOut();
   }
@@ -598,7 +623,8 @@ class _$AuthEventSignOutImpl implements AuthEventSignOut {
     TResult? Function(String email, String password)? signIn,
     TResult? Function(String email, String password)? signUp,
     TResult? Function()? signOut,
-    TResult? Function()? resendVerification,
+    TResult? Function(String email)? resendVerification,
+    TResult? Function(String email, String token)? verifyOtp,
   }) {
     return signOut?.call();
   }
@@ -610,7 +636,8 @@ class _$AuthEventSignOutImpl implements AuthEventSignOut {
     TResult Function(String email, String password)? signIn,
     TResult Function(String email, String password)? signUp,
     TResult Function()? signOut,
-    TResult Function()? resendVerification,
+    TResult Function(String email)? resendVerification,
+    TResult Function(String email, String token)? verifyOtp,
     required TResult orElse(),
   }) {
     if (signOut != null) {
@@ -628,6 +655,7 @@ class _$AuthEventSignOutImpl implements AuthEventSignOut {
     required TResult Function(AuthEventSignOut value) signOut,
     required TResult Function(AuthEventResendVerification value)
         resendVerification,
+    required TResult Function(AuthEventVerifyOtp value) verifyOtp,
   }) {
     return signOut(this);
   }
@@ -640,6 +668,7 @@ class _$AuthEventSignOutImpl implements AuthEventSignOut {
     TResult? Function(AuthEventSignUp value)? signUp,
     TResult? Function(AuthEventSignOut value)? signOut,
     TResult? Function(AuthEventResendVerification value)? resendVerification,
+    TResult? Function(AuthEventVerifyOtp value)? verifyOtp,
   }) {
     return signOut?.call(this);
   }
@@ -652,6 +681,7 @@ class _$AuthEventSignOutImpl implements AuthEventSignOut {
     TResult Function(AuthEventSignUp value)? signUp,
     TResult Function(AuthEventSignOut value)? signOut,
     TResult Function(AuthEventResendVerification value)? resendVerification,
+    TResult Function(AuthEventVerifyOtp value)? verifyOtp,
     required TResult orElse(),
   }) {
     if (signOut != null) {
@@ -671,6 +701,8 @@ abstract class _$$AuthEventResendVerificationImplCopyWith<$Res> {
           _$AuthEventResendVerificationImpl value,
           $Res Function(_$AuthEventResendVerificationImpl) then) =
       __$$AuthEventResendVerificationImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String email});
 }
 
 /// @nodoc
@@ -681,27 +713,51 @@ class __$$AuthEventResendVerificationImplCopyWithImpl<$Res>
       _$AuthEventResendVerificationImpl _value,
       $Res Function(_$AuthEventResendVerificationImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+  }) {
+    return _then(_$AuthEventResendVerificationImpl(
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$AuthEventResendVerificationImpl implements AuthEventResendVerification {
-  const _$AuthEventResendVerificationImpl();
+  const _$AuthEventResendVerificationImpl({required this.email});
+
+  @override
+  final String email;
 
   @override
   String toString() {
-    return 'AuthEvent.resendVerification()';
+    return 'AuthEvent.resendVerification(email: $email)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AuthEventResendVerificationImpl);
+            other is _$AuthEventResendVerificationImpl &&
+            (identical(other.email, email) || other.email == email));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, email);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AuthEventResendVerificationImplCopyWith<_$AuthEventResendVerificationImpl>
+      get copyWith => __$$AuthEventResendVerificationImplCopyWithImpl<
+          _$AuthEventResendVerificationImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -710,9 +766,10 @@ class _$AuthEventResendVerificationImpl implements AuthEventResendVerification {
     required TResult Function(String email, String password) signIn,
     required TResult Function(String email, String password) signUp,
     required TResult Function() signOut,
-    required TResult Function() resendVerification,
+    required TResult Function(String email) resendVerification,
+    required TResult Function(String email, String token) verifyOtp,
   }) {
-    return resendVerification();
+    return resendVerification(email);
   }
 
   @override
@@ -722,9 +779,10 @@ class _$AuthEventResendVerificationImpl implements AuthEventResendVerification {
     TResult? Function(String email, String password)? signIn,
     TResult? Function(String email, String password)? signUp,
     TResult? Function()? signOut,
-    TResult? Function()? resendVerification,
+    TResult? Function(String email)? resendVerification,
+    TResult? Function(String email, String token)? verifyOtp,
   }) {
-    return resendVerification?.call();
+    return resendVerification?.call(email);
   }
 
   @override
@@ -734,11 +792,12 @@ class _$AuthEventResendVerificationImpl implements AuthEventResendVerification {
     TResult Function(String email, String password)? signIn,
     TResult Function(String email, String password)? signUp,
     TResult Function()? signOut,
-    TResult Function()? resendVerification,
+    TResult Function(String email)? resendVerification,
+    TResult Function(String email, String token)? verifyOtp,
     required TResult orElse(),
   }) {
     if (resendVerification != null) {
-      return resendVerification();
+      return resendVerification(email);
     }
     return orElse();
   }
@@ -752,6 +811,7 @@ class _$AuthEventResendVerificationImpl implements AuthEventResendVerification {
     required TResult Function(AuthEventSignOut value) signOut,
     required TResult Function(AuthEventResendVerification value)
         resendVerification,
+    required TResult Function(AuthEventVerifyOtp value) verifyOtp,
   }) {
     return resendVerification(this);
   }
@@ -764,6 +824,7 @@ class _$AuthEventResendVerificationImpl implements AuthEventResendVerification {
     TResult? Function(AuthEventSignUp value)? signUp,
     TResult? Function(AuthEventSignOut value)? signOut,
     TResult? Function(AuthEventResendVerification value)? resendVerification,
+    TResult? Function(AuthEventVerifyOtp value)? verifyOtp,
   }) {
     return resendVerification?.call(this);
   }
@@ -776,6 +837,7 @@ class _$AuthEventResendVerificationImpl implements AuthEventResendVerification {
     TResult Function(AuthEventSignUp value)? signUp,
     TResult Function(AuthEventSignOut value)? signOut,
     TResult Function(AuthEventResendVerification value)? resendVerification,
+    TResult Function(AuthEventVerifyOtp value)? verifyOtp,
     required TResult orElse(),
   }) {
     if (resendVerification != null) {
@@ -786,6 +848,181 @@ class _$AuthEventResendVerificationImpl implements AuthEventResendVerification {
 }
 
 abstract class AuthEventResendVerification implements AuthEvent {
-  const factory AuthEventResendVerification() =
+  const factory AuthEventResendVerification({required final String email}) =
       _$AuthEventResendVerificationImpl;
+
+  String get email;
+  @JsonKey(ignore: true)
+  _$$AuthEventResendVerificationImplCopyWith<_$AuthEventResendVerificationImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AuthEventVerifyOtpImplCopyWith<$Res> {
+  factory _$$AuthEventVerifyOtpImplCopyWith(_$AuthEventVerifyOtpImpl value,
+          $Res Function(_$AuthEventVerifyOtpImpl) then) =
+      __$$AuthEventVerifyOtpImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String email, String token});
+}
+
+/// @nodoc
+class __$$AuthEventVerifyOtpImplCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$AuthEventVerifyOtpImpl>
+    implements _$$AuthEventVerifyOtpImplCopyWith<$Res> {
+  __$$AuthEventVerifyOtpImplCopyWithImpl(_$AuthEventVerifyOtpImpl _value,
+      $Res Function(_$AuthEventVerifyOtpImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? email = null,
+    Object? token = null,
+  }) {
+    return _then(_$AuthEventVerifyOtpImpl(
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      token: null == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$AuthEventVerifyOtpImpl implements AuthEventVerifyOtp {
+  const _$AuthEventVerifyOtpImpl({required this.email, required this.token});
+
+  @override
+  final String email;
+  @override
+  final String token;
+
+  @override
+  String toString() {
+    return 'AuthEvent.verifyOtp(email: $email, token: $token)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AuthEventVerifyOtpImpl &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.token, token) || other.token == token));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, email, token);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AuthEventVerifyOtpImplCopyWith<_$AuthEventVerifyOtpImpl> get copyWith =>
+      __$$AuthEventVerifyOtpImplCopyWithImpl<_$AuthEventVerifyOtpImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() checkStatus,
+    required TResult Function(String email, String password) signIn,
+    required TResult Function(String email, String password) signUp,
+    required TResult Function() signOut,
+    required TResult Function(String email) resendVerification,
+    required TResult Function(String email, String token) verifyOtp,
+  }) {
+    return verifyOtp(email, token);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? checkStatus,
+    TResult? Function(String email, String password)? signIn,
+    TResult? Function(String email, String password)? signUp,
+    TResult? Function()? signOut,
+    TResult? Function(String email)? resendVerification,
+    TResult? Function(String email, String token)? verifyOtp,
+  }) {
+    return verifyOtp?.call(email, token);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? checkStatus,
+    TResult Function(String email, String password)? signIn,
+    TResult Function(String email, String password)? signUp,
+    TResult Function()? signOut,
+    TResult Function(String email)? resendVerification,
+    TResult Function(String email, String token)? verifyOtp,
+    required TResult orElse(),
+  }) {
+    if (verifyOtp != null) {
+      return verifyOtp(email, token);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(AuthEventCheckStatus value) checkStatus,
+    required TResult Function(AuthEventSignIn value) signIn,
+    required TResult Function(AuthEventSignUp value) signUp,
+    required TResult Function(AuthEventSignOut value) signOut,
+    required TResult Function(AuthEventResendVerification value)
+        resendVerification,
+    required TResult Function(AuthEventVerifyOtp value) verifyOtp,
+  }) {
+    return verifyOtp(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(AuthEventCheckStatus value)? checkStatus,
+    TResult? Function(AuthEventSignIn value)? signIn,
+    TResult? Function(AuthEventSignUp value)? signUp,
+    TResult? Function(AuthEventSignOut value)? signOut,
+    TResult? Function(AuthEventResendVerification value)? resendVerification,
+    TResult? Function(AuthEventVerifyOtp value)? verifyOtp,
+  }) {
+    return verifyOtp?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(AuthEventCheckStatus value)? checkStatus,
+    TResult Function(AuthEventSignIn value)? signIn,
+    TResult Function(AuthEventSignUp value)? signUp,
+    TResult Function(AuthEventSignOut value)? signOut,
+    TResult Function(AuthEventResendVerification value)? resendVerification,
+    TResult Function(AuthEventVerifyOtp value)? verifyOtp,
+    required TResult orElse(),
+  }) {
+    if (verifyOtp != null) {
+      return verifyOtp(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class AuthEventVerifyOtp implements AuthEvent {
+  const factory AuthEventVerifyOtp(
+      {required final String email,
+      required final String token}) = _$AuthEventVerifyOtpImpl;
+
+  String get email;
+  String get token;
+  @JsonKey(ignore: true)
+  _$$AuthEventVerifyOtpImplCopyWith<_$AuthEventVerifyOtpImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -46,40 +46,46 @@ class GetWeeklyPatternUseCase
         for (int i = 1; i <= 7; i++) i: 0,
       };
 
-      // 지난 28일(4주) 데이터 분석
+      // 지난 28일(4주) 데이터를 범위 쿼리로 한 번에 가져오기
       final now = DateTime.now();
-      for (var i = 0; i < 28; i++) {
-        final date = now.subtract(Duration(days: i));
-        final dayOfWeek = date.weekday; // 1=월, 7=일
+      final endDate = DateTime(now.year, now.month, now.day);
+      final startDate = endDate.subtract(const Duration(days: 27));
 
-        final result = await _repository.getAllRecords(date);
+      final result = await _repository.getAllRecordsInRange(startDate, endDate);
 
-        result.fold(
-          (failure) => null,
-          (records) {
-            final symptoms = records['symptoms'] as List;
-            final meals = records['meals'] as List;
+      return result.fold(
+        Left.new,
+        (recordsByDate) {
+          // 날짜별로 요일 카운트 집계
+          for (final entry in recordsByDate.entries) {
+            final date = entry.key;
+            final records = entry.value;
+            final dayOfWeek = date.weekday; // 1=월, 7=일
+
+            final symptoms = records['symptoms'] as List? ?? [];
+            final meals = records['meals'] as List? ?? [];
 
             symptomCounts[dayOfWeek] =
                 (symptomCounts[dayOfWeek] ?? 0) + symptoms.length;
-            mealCounts[dayOfWeek] = (mealCounts[dayOfWeek] ?? 0) + meals.length;
-          },
-        );
-      }
+            mealCounts[dayOfWeek] =
+                (mealCounts[dayOfWeek] ?? 0) + meals.length;
+          }
 
-      // WeeklyPattern 리스트 생성
-      final patterns = <WeeklyPattern>[];
-      for (var day = 1; day <= 7; day++) {
-        patterns.add(
-          WeeklyPattern(
-            dayOfWeek: day,
-            symptomCount: symptomCounts[day] ?? 0,
-            mealCount: mealCounts[day] ?? 0,
-          ),
-        );
-      }
+          // WeeklyPattern 리스트 생성
+          final patterns = <WeeklyPattern>[];
+          for (var day = 1; day <= 7; day++) {
+            patterns.add(
+              WeeklyPattern(
+                dayOfWeek: day,
+                symptomCount: symptomCounts[day] ?? 0,
+                mealCount: mealCounts[day] ?? 0,
+              ),
+            );
+          }
 
-      return Right(patterns);
+          return Right(patterns);
+        },
+      );
     } catch (e) {
       return Left(Failure.unexpected(e.toString()));
     }

@@ -6,12 +6,20 @@ import 'package:no_gerd/features/record/data/models/symptom_record_model.dart';
 abstract class RecordRemoteDataSource {
   // Symptom Records
   Future<List<SymptomRecordModel>> getSymptomRecords(DateTime date);
+  Future<List<SymptomRecordModel>> getSymptomRecordsInRange(
+    DateTime startDate,
+    DateTime endDate,
+  );
   Future<void> addSymptomRecord(SymptomRecordModel record);
   Future<void> updateSymptomRecord(SymptomRecordModel record);
   Future<void> deleteSymptomRecord(String id);
 
   // Meal Records
   Future<List<MealRecordModel>> getMealRecords(DateTime date);
+  Future<List<MealRecordModel>> getMealRecordsInRange(
+    DateTime startDate,
+    DateTime endDate,
+  );
   Future<MealRecordModel?> getMealRecordByDateAndType(
     DateTime date,
     String mealType,
@@ -23,12 +31,20 @@ abstract class RecordRemoteDataSource {
 
   // Medication Records
   Future<List<MedicationRecordModel>> getMedicationRecords(DateTime date);
+  Future<List<MedicationRecordModel>> getMedicationRecordsInRange(
+    DateTime startDate,
+    DateTime endDate,
+  );
   Future<void> addMedicationRecord(MedicationRecordModel record);
   Future<void> updateMedicationRecord(MedicationRecordModel record);
   Future<void> deleteMedicationRecord(String id);
 
   // Lifestyle Records
   Future<List<LifestyleRecordModel>> getLifestyleRecords(DateTime date);
+  Future<List<LifestyleRecordModel>> getLifestyleRecordsInRange(
+    DateTime startDate,
+    DateTime endDate,
+  );
   Future<LifestyleRecordModel?> getLifestyleRecordByDateAndType(
     DateTime date,
     String lifestyleType,

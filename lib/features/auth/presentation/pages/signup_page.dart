@@ -103,10 +103,17 @@ class _SignUpPageState extends State<SignUpPage> {
                 authenticated: (_) {
                   context.go('/');
                 },
+                emailVerificationRequired: (email) {
+                  // 이메일 인증 페이지로 이동
+                  context
+                      .go('/verify-email?email=${Uri.encodeComponent(email)}');
+                },
                 error: (failure) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text(failure.message),
+                      content: Text(
+                        ErrorMessageHelper.toKorean(failure.message),
+                      ),
                       backgroundColor: Colors.red.shade400,
                       behavior: SnackBarBehavior.floating,
                       shape: RoundedRectangleBorder(
@@ -207,7 +214,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           decoration: _buildInputDecoration(
                             label: '비밀번호',
-                            hint: '6자 이상 입력',
+                            hint: '영문, 숫자, 특수문자 포함 12자 이상',
                             prefixIcon: Icons.lock_outline,
                             suffixIcon: IconButton(
                               icon: Icon(
@@ -227,8 +234,18 @@ class _SignUpPageState extends State<SignUpPage> {
                             if (value == null || value.isEmpty) {
                               return '비밀번호를 입력해주세요';
                             }
-                            if (value.length < 6) {
-                              return '비밀번호는 6자 이상이어야 합니다';
+                            if (value.length < 12) {
+                              return '비밀번호는 12자 이상이어야 합니다';
+                            }
+                            if (!RegExp(r'[a-zA-Z]').hasMatch(value)) {
+                              return '영문을 포함해야 합니다';
+                            }
+                            if (!RegExp(r'[0-9]').hasMatch(value)) {
+                              return '숫자를 포함해야 합니다';
+                            }
+                            if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]')
+                                .hasMatch(value)) {
+                              return '특수문자를 포함해야 합니다';
                             }
                             return null;
                           },
@@ -266,7 +283,15 @@ class _SignUpPageState extends State<SignUpPage> {
                             if (value == null || value.isEmpty) {
                               return '비밀번호 확인을 입력해주세요';
                             }
-                            if (value != _passwordController.text) {
+                            // 비밀번호 조건 불만족 시 중복 에러 방지
+                            final password = _passwordController.text;
+                            if (password.length < 12 ||
+                                !RegExp(r'[a-zA-Z]').hasMatch(password) ||
+                                !RegExp(r'[0-9]').hasMatch(password) ||
+                                !RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(password)) {
+                              return null;
+                            }
+                            if (value != password) {
                               return '비밀번호가 일치하지 않습니다';
                             }
                             return null;

@@ -5,12 +5,13 @@ import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:no_gerd/app.dart';
+import 'package:no_gerd/core/di/injection.dart';
+import 'package:no_gerd/features/record/data/datasources/record_local_datasource.dart';
+import 'package:no_gerd/features/record/domain/repositories/record_repository.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-
-import 'package:no_gerd/app.dart';
-import 'package:no_gerd/core/di/injection.dart';
 
 /// 플러터 로컬 알림 플러그인 (현재 미사용 - Method Channel 사용)
 // final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -31,9 +32,8 @@ Future<void> main() async {
     anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
 
-  // Hive 초기화
+  // Hive 초기화 (오프라인 캐시용)
   await Hive.initFlutter();
-  // TODO: Record 모델 Adapter 등록 (Hive 저장소 구현 시)
 
   // Timezone DB 초기화
   tz.initializeTimeZones();
@@ -62,6 +62,12 @@ Future<void> main() async {
 
   // DI 초기화 (새로운 Injectable 기반)
   await configureDependencies();
+
+  // 로컬 캐시 초기화
+  await getIt<RecordLocalDataSource>().init();
+
+  // Repository 미리 초기화 (오프라인 동기화 리스너 시작)
+  getIt<IRecordRepository>();
 
   runApp(const App());
 }

@@ -22,10 +22,10 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 mixin _$UserModel {
   String get id => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
-  @JsonKey(name: 'email_confirmed_at')
-  DateTime? get emailConfirmedAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
   DateTime get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'email_confirmed_at')
+  DateTime? get emailConfirmedAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
   DateTime? get updatedAt => throw _privateConstructorUsedError;
 
@@ -43,8 +43,8 @@ abstract class $UserModelCopyWith<$Res> {
   $Res call(
       {String id,
       String email,
-      @JsonKey(name: 'email_confirmed_at') DateTime? emailConfirmedAt,
       @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'email_confirmed_at') DateTime? emailConfirmedAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt});
 }
 
@@ -63,8 +63,8 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   $Res call({
     Object? id = null,
     Object? email = null,
-    Object? emailConfirmedAt = freezed,
     Object? createdAt = null,
+    Object? emailConfirmedAt = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -76,14 +76,14 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      emailConfirmedAt: freezed == emailConfirmedAt
-          ? _value.emailConfirmedAt
-          : emailConfirmedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      emailConfirmedAt: freezed == emailConfirmedAt
+          ? _value.emailConfirmedAt
+          : emailConfirmedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -103,8 +103,8 @@ abstract class _$$UserModelImplCopyWith<$Res>
   $Res call(
       {String id,
       String email,
-      @JsonKey(name: 'email_confirmed_at') DateTime? emailConfirmedAt,
       @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'email_confirmed_at') DateTime? emailConfirmedAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt});
 }
 
@@ -121,8 +121,8 @@ class __$$UserModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? email = null,
-    Object? emailConfirmedAt = freezed,
     Object? createdAt = null,
+    Object? emailConfirmedAt = freezed,
     Object? updatedAt = freezed,
   }) {
     return _then(_$UserModelImpl(
@@ -134,14 +134,14 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
               as String,
-      emailConfirmedAt: freezed == emailConfirmedAt
-          ? _value.emailConfirmedAt
-          : emailConfirmedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      emailConfirmedAt: freezed == emailConfirmedAt
+          ? _value.emailConfirmedAt
+          : emailConfirmedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       updatedAt: freezed == updatedAt
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
@@ -156,8 +156,8 @@ class _$UserModelImpl extends _UserModel {
   const _$UserModelImpl(
       {required this.id,
       required this.email,
-      @JsonKey(name: 'email_confirmed_at') this.emailConfirmedAt,
       @JsonKey(name: 'created_at') required this.createdAt,
+      @JsonKey(name: 'email_confirmed_at') this.emailConfirmedAt,
       @JsonKey(name: 'updated_at') this.updatedAt})
       : super._();
 
@@ -169,18 +169,18 @@ class _$UserModelImpl extends _UserModel {
   @override
   final String email;
   @override
-  @JsonKey(name: 'email_confirmed_at')
-  final DateTime? emailConfirmedAt;
-  @override
   @JsonKey(name: 'created_at')
   final DateTime createdAt;
+  @override
+  @JsonKey(name: 'email_confirmed_at')
+  final DateTime? emailConfirmedAt;
   @override
   @JsonKey(name: 'updated_at')
   final DateTime? updatedAt;
 
   @override
   String toString() {
-    return 'UserModel(id: $id, email: $email, emailConfirmedAt: $emailConfirmedAt, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'UserModel(id: $id, email: $email, createdAt: $createdAt, emailConfirmedAt: $emailConfirmedAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -190,10 +190,10 @@ class _$UserModelImpl extends _UserModel {
             other is _$UserModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.email, email) || other.email == email) &&
-            (identical(other.emailConfirmedAt, emailConfirmedAt) ||
-                other.emailConfirmedAt == emailConfirmedAt) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
+            (identical(other.emailConfirmedAt, emailConfirmedAt) ||
+                other.emailConfirmedAt == emailConfirmedAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt));
   }
@@ -201,7 +201,7 @@ class _$UserModelImpl extends _UserModel {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, email, emailConfirmedAt, createdAt, updatedAt);
+      runtimeType, id, email, createdAt, emailConfirmedAt, updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -221,8 +221,8 @@ abstract class _UserModel extends UserModel {
   const factory _UserModel(
           {required final String id,
           required final String email,
-          @JsonKey(name: 'email_confirmed_at') final DateTime? emailConfirmedAt,
           @JsonKey(name: 'created_at') required final DateTime createdAt,
+          @JsonKey(name: 'email_confirmed_at') final DateTime? emailConfirmedAt,
           @JsonKey(name: 'updated_at') final DateTime? updatedAt}) =
       _$UserModelImpl;
   const _UserModel._() : super._();
@@ -235,11 +235,11 @@ abstract class _UserModel extends UserModel {
   @override
   String get email;
   @override
-  @JsonKey(name: 'email_confirmed_at')
-  DateTime? get emailConfirmedAt;
-  @override
   @JsonKey(name: 'created_at')
   DateTime get createdAt;
+  @override
+  @JsonKey(name: 'email_confirmed_at')
+  DateTime? get emailConfirmedAt;
   @override
   @JsonKey(name: 'updated_at')
   DateTime? get updatedAt;

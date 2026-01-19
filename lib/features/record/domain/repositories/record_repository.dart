@@ -18,6 +18,12 @@ abstract class IRecordRepository {
     DateTime date,
   );
 
+  /// 날짜 범위의 증상 기록 조회
+  Future<Either<Failure, List<SymptomRecord>>> getSymptomRecordsInRange(
+    DateTime startDate,
+    DateTime endDate,
+  );
+
   /// 증상 기록 추가
   Future<Either<Failure, Unit>> addSymptomRecord(SymptomRecord record);
 
@@ -31,6 +37,12 @@ abstract class IRecordRepository {
 
   /// 특정 날짜의 식사 기록 조회
   Future<Either<Failure, List<MealRecord>>> getMealRecords(DateTime date);
+
+  /// 날짜 범위의 식사 기록 조회
+  Future<Either<Failure, List<MealRecord>>> getMealRecordsInRange(
+    DateTime startDate,
+    DateTime endDate,
+  );
 
   /// 특정 날짜 + 식사 타입의 단일 기록 조회 (UPSERT용)
   Future<Either<Failure, MealRecord?>> getMealRecordByDateAndType(
@@ -57,6 +69,12 @@ abstract class IRecordRepository {
     DateTime date,
   );
 
+  /// 날짜 범위의 약물 기록 조회
+  Future<Either<Failure, List<MedicationRecord>>> getMedicationRecordsInRange(
+    DateTime startDate,
+    DateTime endDate,
+  );
+
   /// 약물 기록 추가
   Future<Either<Failure, Unit>> addMedicationRecord(MedicationRecord record);
 
@@ -71,6 +89,12 @@ abstract class IRecordRepository {
   /// 특정 날짜의 생활습관 기록 조회
   Future<Either<Failure, List<LifestyleRecord>>> getLifestyleRecords(
     DateTime date,
+  );
+
+  /// 날짜 범위의 생활습관 기록 조회
+  Future<Either<Failure, List<LifestyleRecord>>> getLifestyleRecordsInRange(
+    DateTime startDate,
+    DateTime endDate,
   );
 
   /// 특정 날짜 + 생활습관 타입의 단일 기록 조회 (UPSERT용)
@@ -95,4 +119,8 @@ abstract class IRecordRepository {
 
   /// 특정 날짜의 모든 기록 조회
   Future<Either<Failure, Map<String, dynamic>>> getAllRecords(DateTime date);
+
+  /// 날짜 범위의 모든 기록 조회 (월별 캘린더용)
+  Future<Either<Failure, Map<DateTime, Map<String, dynamic>>>>
+      getAllRecordsInRange(DateTime startDate, DateTime endDate);
 }

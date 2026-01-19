@@ -27,8 +27,14 @@ abstract class IAuthRepository {
   Stream<User?> authStateChanges();
 
   /// 이메일 인증 재발송
-  Future<Either<Failure, Unit>> resendVerificationEmail();
+  Future<Either<Failure, Unit>> resendVerificationEmail(String email);
 
   /// 비밀번호 재설정 이메일 발송
   Future<Either<Failure, Unit>> sendPasswordResetEmail(String email);
+
+  /// OTP 인증
+  Future<Either<Failure, User>> verifyOtp({
+    required String email,
+    required String token,
+  });
 }

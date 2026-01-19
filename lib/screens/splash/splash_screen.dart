@@ -84,7 +84,7 @@ class _SplashScreenState extends State<SplashScreen>
                 shaderCallback: (bounds) =>
                     AppTheme.primaryGradient.createShader(bounds),
                 child: const Text(
-                  'NoGERD',
+                  '꾸르꾸억',
                   style: TextStyle(
                     fontSize: 42,
                     fontWeight: FontWeight.bold,
