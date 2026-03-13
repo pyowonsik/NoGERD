@@ -30,7 +30,10 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
     Emitter<CalendarState> emit,
   ) async {
     // ignore: avoid_print
-    print('======== [CalendarBloc] _onLoadMonth 시작: ${event.month.year}-${event.month.month} ========');
+    print(
+      '[CalendarBloc] _onLoadMonth: '
+      '${event.month.year}-${event.month.month}',
+    );
     emit(state.copyWith(isLoading: true, failure: none()));
 
     final result = await _getRecordsForMonthUseCase(event.month);
@@ -57,7 +60,10 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
         }
 
         // ignore: avoid_print
-        print('======== [CalendarBloc] _onLoadMonth 완료: ${monthRecords.length}일 데이터 로드 ========');
+        print(
+          '[CalendarBloc] _onLoadMonth 완료: '
+          '${monthRecords.length}일 데이터 로드',
+        );
         emit(
           state.copyWith(
             isLoading: false,

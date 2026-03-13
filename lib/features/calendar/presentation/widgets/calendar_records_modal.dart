@@ -4,6 +4,7 @@ import 'package:no_gerd/shared/shared.dart';
 
 /// 캘린더 날짜별 전체 기록 모달
 class CalendarRecordsModal extends StatefulWidget {
+  /// 생성자
   const CalendarRecordsModal({
     required this.records,
     required this.date,
@@ -203,8 +204,9 @@ class _RecordItem extends StatelessWidget {
     }
 
     final recordedAt = record.recordedAt as DateTime;
-    final timeStr =
-        '${recordedAt.hour.toString().padLeft(2, '0')}:${recordedAt.minute.toString().padLeft(2, '0')}';
+    final hourStr = recordedAt.hour.toString().padLeft(2, '0');
+    final minStr = recordedAt.minute.toString().padLeft(2, '0');
+    final timeStr = '$hourStr:$minStr';
 
     return GlassCard(
       padding: const EdgeInsets.all(14),

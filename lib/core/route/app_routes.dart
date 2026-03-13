@@ -18,20 +18,31 @@ import 'package:no_gerd/shared/constants/gerd_constants.dart';
 
 /// 앱의 모든 라우트를 정의하는 클래스
 abstract final class AppRoutes {
-  // Navigator Keys (각 탭별 독립적인 네비게이션 스택)
+  /// 루트 네비게이터 키
   static final GlobalKey<NavigatorState> rootNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: 'root');
+
+  /// 홈 탭 네비게이터 키
   static final GlobalKey<NavigatorState> homeTabNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: 'home_tab');
+
+  /// 캘린더 탭 네비게이터 키
   static final GlobalKey<NavigatorState> calendarTabNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: 'calendar_tab');
+
+  /// 알람 탭 네비게이터 키
   static final GlobalKey<NavigatorState> alarmTabNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: 'alarm_tab');
+
+  /// 인사이트 탭 네비게이터 키
   static final GlobalKey<NavigatorState> insightsTabNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: 'insights_tab');
+
+  /// 설정 탭 네비게이터 키
   static final GlobalKey<NavigatorState> settingsTabNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: 'settings_tab');
 
+  /// 앱의 모든 라우트 목록
   static List<RouteBase> get routes => [
         // 1. 인증 불필요 페이지
         GoRoute(

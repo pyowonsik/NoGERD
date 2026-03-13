@@ -172,10 +172,8 @@ class SettingsRepositoryImpl implements SettingsRepository {
       await file.writeAsString(csv);
 
       return right(path);
-    } catch (e, stackTrace) {
-      print('❌ CSV Export Error: $e');
-      print('Stack trace: $stackTrace');
-      return left(Failure.unexpected('데이터 내보내기 실패: ${e}'));
+    } catch (e) {
+      return left(Failure.unexpected('데이터 내보내기 실패: $e'));
     }
   }
 

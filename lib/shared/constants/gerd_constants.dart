@@ -13,6 +13,8 @@ enum SeverityLevel {
   /// 심함 (7-10)
   severe(3, '심함', Color(0xFFE57373));
 
+  const SeverityLevel(this.value, this.label, this.color);
+
   /// 숫자 값
   final int value;
 
@@ -21,8 +23,6 @@ enum SeverityLevel {
 
   /// 색상
   final Color color;
-
-  const SeverityLevel(this.value, this.label, this.color);
 
   /// 숫자 값으로 SeverityLevel 가져오기
   static SeverityLevel fromValue(int value) {
@@ -70,6 +70,8 @@ enum GerdSymptom {
   /// 트림
   burping('트림', '💨', '잦은 트림');
 
+  const GerdSymptom(this.label, this.emoji, this.description);
+
   /// 라벨
   final String label;
 
@@ -78,8 +80,6 @@ enum GerdSymptom {
 
   /// 설명
   final String description;
-
-  const GerdSymptom(this.label, this.emoji, this.description);
 }
 
 /// 트리거 음식 카테고리
@@ -108,6 +108,8 @@ enum TriggerFoodCategory {
   /// 민트
   mint('민트', '🌿', ['페퍼민트', '민트차']);
 
+  const TriggerFoodCategory(this.label, this.emoji, this.examples);
+
   /// 라벨
   final String label;
 
@@ -116,8 +118,6 @@ enum TriggerFoodCategory {
 
   /// 예시 음식들
   final List<String> examples;
-
-  const TriggerFoodCategory(this.label, this.emoji, this.examples);
 }
 
 /// 약물 종류
@@ -134,6 +134,8 @@ enum MedicationType {
   /// 위장운동촉진제
   prokinetic('위장운동촉진제', '⚡', ['돔페리돈', '모사프리드', '이토프리드']);
 
+  const MedicationType(this.label, this.emoji, this.examples);
+
   /// 라벨
   final String label;
 
@@ -142,8 +144,6 @@ enum MedicationType {
 
   /// 예시 약물들
   final List<String> examples;
-
-  const MedicationType(this.label, this.emoji, this.examples);
 }
 
 /// 기록 유형
@@ -160,6 +160,8 @@ enum RecordType {
   /// 생활습관
   lifestyle('생활습관', Icons.self_improvement_rounded, AppTheme.lifestyleColor);
 
+  const RecordType(this.label, this.icon, this.color);
+
   /// 라벨
   final String label;
 
@@ -168,8 +170,6 @@ enum RecordType {
 
   /// 색상
   final Color color;
-
-  const RecordType(this.label, this.icon, this.color);
 }
 
 /// 식사 유형
@@ -189,13 +189,13 @@ enum MealType {
   /// 야식
   lateNight('야식', '🌃');
 
+  const MealType(this.label, this.emoji);
+
   /// 라벨
   final String label;
 
   /// 이모지
   final String emoji;
-
-  const MealType(this.label, this.emoji);
 }
 
 /// 생활습관 유형
@@ -215,6 +215,8 @@ enum LifestyleType {
   /// 자세
   posture('자세', '🧘', '식후 자세');
 
+  const LifestyleType(this.label, this.emoji, this.description);
+
   /// 라벨
   final String label;
 
@@ -223,6 +225,4 @@ enum LifestyleType {
 
   /// 설명
   final String description;
-
-  const LifestyleType(this.label, this.emoji, this.description);
 }

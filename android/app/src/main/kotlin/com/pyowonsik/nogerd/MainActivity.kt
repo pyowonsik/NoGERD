@@ -21,15 +21,18 @@ class MainActivity: FlutterActivity() {
     private val NOTIFICATION_CHANNEL_ID = "alarm_notifications"
     private val POST_NOTIFICATIONS_PERMISSION_CODE = 1001
 
+    // Flutter MethodChannel 설정 및 네이티브 메서드 핸들링
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
 
-        // Notification Channel 생성 (Android 8.0+)
         createNotificationChannel()
 
+        // 1. MethodChannel 수신 - Flutter에서 호출한 메서드를 네이티브에서 처리
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
+            // 2. 메서드 이름에 따라 분기 처리
             when (call.method) {
                 "scheduleAlarm" -> {
+                    // 3. Flutter에서 전달한 파라미터 추출
                     val id = call.argument<Int>("id")
                     val title = call.argument<String>("title")
                     val body = call.argument<String>("body")
@@ -41,6 +44,7 @@ class MainActivity: FlutterActivity() {
                         return@setMethodCallHandler
                     }
 
+                    // 4. AlarmManager로 알림 예약 후 결과 반환
                     val success = scheduleAlarm(id, title, body, hour, minute)
                     result.success(success)
                 }
@@ -87,15 +91,21 @@ class MainActivity: FlutterActivity() {
         }
     }
 
+    // AlarmManager를 사용한 알림 예약
+    // Android 네이티브 AlarmManager API로 정확한 시간에 알림 트리거
     private fun scheduleAlarm(id: Int, title: String, body: String, hour: Int, minute: Int): Boolean {
         return try {
+            // 1. AlarmManager 인스턴스 획득
             val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+            // 2. 알림 발생 시 실행할 BroadcastReceiver Intent 생성
             val intent = Intent(this, AlarmReceiver::class.java).apply {
                 putExtra("id", id)
                 putExtra("title", title)
                 putExtra("body", body)
             }
 
+            // 3. PendingIntent 생성 - 알림 시간에 실행될 Intent
             val pendingIntent = PendingIntent.getBroadcast(
                 this,
                 id,
@@ -103,7 +113,7 @@ class MainActivity: FlutterActivity() {
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
 
-            // 다음 알림 시간 계산
+            // 4. 알림 시간 계산 (매일 반복)
             val calendar = Calendar.getInstance().apply {
                 set(Calendar.HOUR_OF_DAY, hour)
                 set(Calendar.MINUTE, minute)
@@ -116,7 +126,7 @@ class MainActivity: FlutterActivity() {
                 }
             }
 
-            // Android 6.0+ Doze 모드 대응
+            // 5. Doze 모드에서도 정확한 알림을 위해 setExactAndAllowWhileIdle 사용
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 alarmManager.setExactAndAllowWhileIdle(
                     AlarmManager.RTC_WAKEUP,

@@ -9,6 +9,7 @@ import 'package:no_gerd/shared/shared.dart';
 
 /// 로그인 페이지
 class LoginPage extends StatefulWidget {
+  /// 생성자
   const LoginPage({super.key});
 
   @override

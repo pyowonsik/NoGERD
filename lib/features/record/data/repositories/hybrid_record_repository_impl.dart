@@ -28,6 +28,7 @@ class HybridRecordRepositoryImpl implements IRecordRepository {
   // 테스트용: 목 데이터 사용 플래그 (App Store 스크린샷용)
   static const _useMockData = false;
 
+  /// 생성자
   HybridRecordRepositoryImpl(
     this._remoteDataSource,
     this._localDataSource,
@@ -66,10 +67,13 @@ class HybridRecordRepositoryImpl implements IRecordRepository {
 
   bool get _isOnline => _connectivityService.isConnected;
 
+  /// 네트워크 상태 변화 감지
+  /// 오프라인 → 온라인 전환 시 대기열 동기화 트리거
   void _listenConnectivity() {
     _connectivitySubscription =
         _connectivityService.connectivityStream.listen((isConnected) {
       if (isConnected) {
+        // 온라인 연결 감지 → 대기열에 저장된 작업들을 서버에 동기화
         syncPendingRecords();
       }
     });
@@ -123,12 +127,16 @@ class HybridRecordRepositoryImpl implements IRecordRepository {
 
       if (_isOnline) {
         try {
-          final models =
-              await _remoteDataSource.getSymptomRecordsInRange(startDate, endDate);
+          final models = await _remoteDataSource.getSymptomRecordsInRange(
+            startDate,
+            endDate,
+          );
           return Right(models.map((m) => m.toEntity()).toList());
         } on RecordDataSourceException {
-          final models =
-              await _localDataSource.getSymptomRecordsInRange(startDate, endDate);
+          final models = await _localDataSource.getSymptomRecordsInRange(
+            startDate,
+            endDate,
+          );
           return Right(models.map((m) => m.toEntity()).toList());
         }
       } else {
@@ -292,6 +300,10 @@ class HybridRecordRepositoryImpl implements IRecordRepository {
     }
   }
 
+  /// 식사 기록 추가 (오프라인 지원)
+  /// 1. 로컬(Hive)에 항상 먼저 저장 → 오프라인에서도 데이터 유실 방지
+  /// 2. 온라인 상태: Supabase에 저장 시도, 실패 시 대기열에 추가
+  /// 3. 오프라인 상태: 대기열에 추가하여 나중에 동기화
   @override
   Future<Either<Failure, Unit>> addMealRecord(MealRecord record) async {
     try {
@@ -301,15 +313,20 @@ class HybridRecordRepositoryImpl implements IRecordRepository {
       }
 
       final model = MealRecordModel.fromEntity(record, userId);
+
+      // 1. 로컬(Hive)에 항상 먼저 저장 → 오프라인에서도 데이터 유실 방지
       await _localDataSource.addMealRecord(model);
 
       if (_isOnline) {
+        // 2-1. 온라인 상태: Supabase에 저장 시도
         try {
           await _remoteDataSource.addMealRecord(model);
         } catch (e) {
+          // 2-2. 서버 저장 실패 시: 대기열에 추가하여 나중에 재시도
           await _addToPendingSync('meal', 'add', model.toJson());
         }
       } else {
+        // 3. 오프라인 상태: 대기열에 추가하여 나중에 동기화
         await _addToPendingSync('meal', 'add', model.toJson());
       }
 
@@ -901,10 +918,14 @@ class HybridRecordRepositoryImpl implements IRecordRepository {
           );
         } on RecordDataSourceException {
           // 오프라인 폴백
-          symptoms =
-              await _localDataSource.getSymptomRecordsInRange(startDate, endDate);
-          meals =
-              await _localDataSource.getMealRecordsInRange(startDate, endDate);
+          symptoms = await _localDataSource.getSymptomRecordsInRange(
+            startDate,
+            endDate,
+          );
+          meals = await _localDataSource.getMealRecordsInRange(
+            startDate,
+            endDate,
+          );
           medications = await _localDataSource.getMedicationRecordsInRange(
             startDate,
             endDate,
@@ -915,10 +936,14 @@ class HybridRecordRepositoryImpl implements IRecordRepository {
           );
         }
       } else {
-        symptoms =
-            await _localDataSource.getSymptomRecordsInRange(startDate, endDate);
-        meals =
-            await _localDataSource.getMealRecordsInRange(startDate, endDate);
+        symptoms = await _localDataSource.getSymptomRecordsInRange(
+          startDate,
+          endDate,
+        );
+        meals = await _localDataSource.getMealRecordsInRange(
+          startDate,
+          endDate,
+        );
         medications = await _localDataSource.getMedicationRecordsInRange(
           startDate,
           endDate,
@@ -1094,17 +1119,24 @@ class HybridRecordRepositoryImpl implements IRecordRepository {
     );
   }
 
-  /// 대기 중인 동기화 처리
+  /// 대기열에 저장된 작업들을 Supabase에 동기화
+  /// 1. 대기열에서 동기화 대기 중인 레코드 조회
+  /// 2. 각 레코드를 Supabase에 동기화
+  /// 3. 동기화 완료 후 대기열에서 제거
   Future<void> syncPendingRecords() async {
+    // 오프라인이면 동기화 불가
     if (!_isOnline) return;
 
+    // 1. 대기열에서 동기화 대기 중인 레코드 조회
     final pendingRecords = await _localDataSource.getPendingSyncRecords();
     if (pendingRecords.isEmpty) return;
 
     for (final record in pendingRecords) {
       try {
         final data = jsonDecode(record.data) as Map<String, dynamic>;
+        // 2. 각 레코드를 Supabase에 동기화
         await _processPendingRecord(record.type, record.action, data);
+        // 3. 동기화 완료 후 대기열에서 제거
         await _localDataSource.removePendingSyncRecord(record.id);
       } catch (e) {
         _logError('Sync failed: ${record.id}', error: e);

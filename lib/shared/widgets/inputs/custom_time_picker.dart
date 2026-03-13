@@ -5,14 +5,21 @@ import 'package:no_gerd/shared/theme/app_theme.dart';
 /// 앱 컨셉에 맞는 커스텀 시간 선택기
 /// iOS 스타일 휠 피커 + Teal 기반 디자인
 class CustomTimePicker extends StatefulWidget {
+  /// 생성자
   const CustomTimePicker({
     super.key,
     required this.initialTime,
     this.title = '시간 선택',
     this.subtitle,
   });
+
+  /// 초기 시간
   final TimeOfDay initialTime;
+
+  /// 제목
   final String title;
+
+  /// 부제목
   final String? subtitle;
 
   /// 시간 선택 Bottom Sheet 표시
@@ -325,7 +332,8 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      '${_selectedHour.toString().padLeft(2, '0')}:${_selectedMinute.toString().padLeft(2, '0')} 설정',
+                      '${_selectedHour.toString().padLeft(2, '0')}:'
+                      '${_selectedMinute.toString().padLeft(2, '0')} 설정',
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,

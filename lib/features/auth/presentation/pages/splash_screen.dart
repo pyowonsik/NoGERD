@@ -5,6 +5,7 @@ import 'package:no_gerd/shared/shared.dart';
 /// 스플래시 스크린
 /// 순수 UI만 표시 (네비게이션 로직은 AppRouteGuard가 처리)
 class SplashScreen extends StatefulWidget {
+  /// 생성자
   const SplashScreen({super.key});
 
   @override

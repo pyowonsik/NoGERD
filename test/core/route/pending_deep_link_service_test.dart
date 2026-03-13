@@ -75,7 +75,9 @@ void main() {
       expect(consumedLink, isNull);
     });
 
-    test('multiple consumePendingDeepLink calls should return null after first', () {
+    test(
+        'multiple consumePendingDeepLink calls should return null after first',
+        () {
       // Arrange
       const testLink = '/profile';
       service.setPendingDeepLink(testLink);

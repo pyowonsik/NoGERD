@@ -5,8 +5,10 @@ import 'package:no_gerd/shared/constants/gerd_constants.dart';
 part 'meal_record_model.freezed.dart';
 part 'meal_record_model.g.dart';
 
+/// 식사 기록 Model
 @freezed
 class MealRecordModel with _$MealRecordModel {
+  /// Entity에서 Model 생성
   factory MealRecordModel.fromEntity(MealRecord entity, String userId) {
     return MealRecordModel(
       id: entity.id,
@@ -21,6 +23,8 @@ class MealRecordModel with _$MealRecordModel {
       updatedAt: entity.updatedAt,
     );
   }
+
+  /// MealRecordModel 생성자
   const factory MealRecordModel({
     required String id,
     @JsonKey(name: 'user_id') required String userId,
@@ -36,9 +40,11 @@ class MealRecordModel with _$MealRecordModel {
 
   const MealRecordModel._();
 
+  /// JSON에서 Model 생성
   factory MealRecordModel.fromJson(Map<String, dynamic> json) =>
       _$MealRecordModelFromJson(json);
 
+  /// Entity로 변환
   MealRecord toEntity() {
     return MealRecord(
       id: id,

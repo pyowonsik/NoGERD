@@ -7,6 +7,7 @@ import 'package:injectable/injectable.dart';
 /// 네트워크 연결 상태 서비스
 @lazySingleton
 class ConnectivityService {
+  /// 생성자
   ConnectivityService() {
     _init();
   }

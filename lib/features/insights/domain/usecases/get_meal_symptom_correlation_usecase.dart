@@ -55,7 +55,8 @@ class GetMealSymptomCorrelationUseCase
 
   @override
   Future<Either<Failure, List<MealSymptomCorrelation>>> call(
-      DateRangeParams params) async {
+    DateRangeParams params,
+  ) async {
     if (_useMockData) {
       // 이번 주 = 좋은 시나리오, 지난 주 = 나쁜 시나리오
       final isGood = _isThisWeek(params);

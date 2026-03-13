@@ -9,11 +9,13 @@ import 'package:no_gerd/shared/shared.dart';
 /// 메인 스크린 (Bottom Navigation 포함)
 /// StatefulShellRoute와 연동하여 탭 네비게이션 구현
 class MainScreen extends StatelessWidget {
+  /// 생성자
   const MainScreen({
     required this.navigationShell,
     super.key,
   });
 
+  /// StatefulShellRoute 네비게이션 쉘
   final StatefulNavigationShell navigationShell;
 
   void _onTap(int index) {

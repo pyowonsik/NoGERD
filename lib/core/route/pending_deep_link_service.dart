@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart';
 /// TTL(Time To Live) 5분 적용
 class PendingDeepLinkService {
   PendingDeepLinkService._();
+
+  /// 싱글톤 인스턴스
   static final instance = PendingDeepLinkService._();
 
   static const _ttl = Duration(minutes: 5);
@@ -11,6 +13,7 @@ class PendingDeepLinkService {
   String? _pendingDeepLink;
   DateTime? _pendingDeepLinkTimestamp;
 
+  /// 보류 중인 딥링크 조회
   String? get pendingDeepLink => _pendingDeepLink;
 
   /// 딥링크 저장
@@ -40,6 +43,7 @@ class PendingDeepLinkService {
     return link;
   }
 
+  /// 보류 중인 딥링크 초기화
   void clear() {
     _pendingDeepLink = null;
     _pendingDeepLinkTimestamp = null;

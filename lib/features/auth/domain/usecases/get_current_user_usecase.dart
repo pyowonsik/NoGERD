@@ -9,6 +9,7 @@ import 'package:no_gerd/features/auth/domain/repositories/auth_repository.dart';
 /// 현재 사용자 조회 UseCase
 @injectable
 class GetCurrentUserUseCase implements UseCase<User?, NoParams> {
+  /// 생성자
   const GetCurrentUserUseCase(this._repository);
 
   final IAuthRepository _repository;

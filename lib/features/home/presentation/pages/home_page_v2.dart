@@ -11,6 +11,7 @@ import 'package:no_gerd/shared/shared.dart';
 /// 기록 방법: [아침][점심][저녁] + [약물][생활습관][증상] (upsert 방식)
 /// 오늘 요약 + 최근 기록만 표시
 class HomePageV2 extends StatefulWidget {
+  /// 생성자
   const HomePageV2({super.key});
 
   @override
@@ -103,8 +104,10 @@ class _HomePageV2Content extends StatelessWidget {
                             },
                             onLifestyleTap: () {
                               final recordBloc = context.read<RecordBloc>();
-                              context.push('/record/lifestyle',
-                                  extra: recordBloc);
+                              context.push(
+                                '/record/lifestyle',
+                                extra: recordBloc,
+                              );
                             },
                             onSymptomTap: () {
                               final recordBloc = context.read<RecordBloc>();

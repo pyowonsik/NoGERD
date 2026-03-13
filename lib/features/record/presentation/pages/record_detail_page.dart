@@ -8,7 +8,10 @@ import 'package:intl/intl.dart';
 
 /// 기록 상세 보기 화면 (읽기 전용)
 class RecordDetailPage extends StatelessWidget {
+  /// 생성자
   const RecordDetailPage({super.key, required this.record});
+
+  /// 기록 데이터
   final dynamic record;
 
   @override

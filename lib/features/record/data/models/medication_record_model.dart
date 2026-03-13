@@ -5,8 +5,10 @@ import 'package:no_gerd/shared/constants/gerd_constants.dart';
 part 'medication_record_model.freezed.dart';
 part 'medication_record_model.g.dart';
 
+/// 약물 기록 Model
 @freezed
 class MedicationRecordModel with _$MedicationRecordModel {
+  /// Entity에서 Model 생성
   factory MedicationRecordModel.fromEntity(
     MedicationRecord entity,
     String userId,
@@ -27,6 +29,8 @@ class MedicationRecordModel with _$MedicationRecordModel {
       updatedAt: entity.updatedAt,
     );
   }
+
+  /// MedicationRecordModel 생성자
   const factory MedicationRecordModel({
     required String id,
     @JsonKey(name: 'user_id') required String userId,
@@ -44,9 +48,11 @@ class MedicationRecordModel with _$MedicationRecordModel {
 
   const MedicationRecordModel._();
 
+  /// JSON에서 Model 생성
   factory MedicationRecordModel.fromJson(Map<String, dynamic> json) =>
       _$MedicationRecordModelFromJson(json);
 
+  /// Entity로 변환
   MedicationRecord toEntity() {
     return MedicationRecord(
       id: id,

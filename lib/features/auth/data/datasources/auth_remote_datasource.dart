@@ -5,19 +5,35 @@ import 'package:no_gerd/features/auth/data/models/user_model.dart';
 
 /// Auth DataSource Interface
 abstract class AuthRemoteDataSource {
+  /// 회원가입
   Future<UserModel> signUp({required String email, required String password});
+
+  /// 로그인
   Future<UserModel> signIn({required String email, required String password});
+
+  /// 로그아웃
   Future<void> signOut();
+
+  /// 현재 사용자 조회
   Future<UserModel?> getCurrentUser();
+
+  /// 인증 상태 변경 스트림
   Stream<UserModel?> authStateChanges();
+
+  /// 인증 이메일 재발송
   Future<void> resendVerificationEmail(String email);
+
+  /// 비밀번호 재설정 이메일 발송
   Future<void> sendPasswordResetEmail(String email);
+
+  /// OTP 인증
   Future<UserModel> verifyOtp({required String email, required String token});
 }
 
 /// Supabase Auth DataSource 구현
 @LazySingleton(as: AuthRemoteDataSource)
 class SupabaseAuthDataSource implements AuthRemoteDataSource {
+  /// 생성자
   const SupabaseAuthDataSource(this._supabase);
 
   final SupabaseClient _supabase;
@@ -151,8 +167,10 @@ class SupabaseAuthDataSource implements AuthRemoteDataSource {
 
 /// Auth DataSource Exception
 class AuthDataSourceException implements Exception {
+  /// 생성자
   const AuthDataSourceException(this.message);
 
+  /// 에러 메시지
   final String message;
 
   @override

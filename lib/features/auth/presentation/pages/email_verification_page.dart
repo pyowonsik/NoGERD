@@ -10,8 +10,10 @@ import 'package:no_gerd/shared/shared.dart';
 
 /// 이메일 인증 페이지 (OTP 입력 방식)
 class EmailVerificationPage extends StatefulWidget {
+  /// 생성자
   const EmailVerificationPage({required this.email, super.key});
 
+  /// 인증할 이메일 주소
   final String email;
 
   @override
@@ -272,7 +274,8 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                                   Icon(
                                     Icons.help_outline_rounded,
                                     size: 18,
-                                    color: AppTheme.textSecondary.withAlpha(179),
+                                    color: AppTheme.textSecondary
+                                        .withAlpha(179),
                                   ),
                                   const SizedBox(width: 8),
                                   Text(
@@ -288,7 +291,9 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                               ),
                               const SizedBox(height: 8),
                               Text(
-                                '• 스팸 폴더를 확인해주세요\n• 이메일 주소가 올바른지 확인해주세요\n• 몇 분 후에 다시 시도해주세요',
+                                '• 스팸 폴더를 확인해주세요\n'
+                                '• 이메일 주소가 올바른지 확인해주세요\n'
+                                '• 몇 분 후에 다시 시도해주세요',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: AppTheme.textSecondary.withAlpha(153),

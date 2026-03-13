@@ -6,6 +6,7 @@ import 'package:no_gerd/shared/shared.dart';
 
 /// 전체 기록 보기 모달
 class AllRecordsModal extends StatefulWidget {
+  /// 생성자
   const AllRecordsModal({
     required this.records,
     super.key,

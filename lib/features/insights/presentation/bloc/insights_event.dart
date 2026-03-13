@@ -13,5 +13,6 @@ class InsightsEvent with _$InsightsEvent {
   const factory InsightsEvent.loadAIInsights() = InsightsEventLoadAIInsights;
 
   /// 저장된 AI 리포트 로드
-  const factory InsightsEvent.loadSavedInsight() = InsightsEventLoadSavedInsight;
+  const factory InsightsEvent.loadSavedInsight() =
+      InsightsEventLoadSavedInsight;
 }

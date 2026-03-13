@@ -9,6 +9,7 @@ import 'package:no_gerd/shared/shared.dart';
 /// 알람 설정 화면
 /// 식사 알림, 약물 복용 알림 설정
 class AlarmSettingsPage extends StatelessWidget {
+  /// 생성자
   const AlarmSettingsPage({super.key});
 
   @override

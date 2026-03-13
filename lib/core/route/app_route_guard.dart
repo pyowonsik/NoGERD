@@ -5,9 +5,11 @@ import 'package:no_gerd/features/auth/presentation/bloc/auth_bloc.dart';
 
 /// 라우팅 가드: 인증 상태에 따른 redirect 로직
 class AppRouteGuard {
+  /// 생성자
   const AppRouteGuard(this._authBloc);
   final AuthBloc _authBloc;
 
+  /// 인증 상태에 따른 라우팅 가드 로직
   String? guard(BuildContext context, GoRouterState state) {
     const loginPath = '/login';
     const splashPath = '/splash';

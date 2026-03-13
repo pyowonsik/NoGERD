@@ -9,9 +9,12 @@ import 'package:no_gerd/features/record/data/models/meal_record_model.dart';
 import 'package:no_gerd/features/record/data/models/medication_record_model.dart';
 import 'package:no_gerd/features/record/data/models/symptom_record_model.dart';
 
+/// Supabase 기반 Record 원격 데이터소스 구현
 @LazySingleton(as: RecordRemoteDataSource)
 class SupabaseRecordDataSource implements RecordRemoteDataSource {
+  /// 생성자
   SupabaseRecordDataSource(this._supabase);
+
   final SupabaseClient _supabase;
 
   void _logError(String message, {Object? error}) {
@@ -34,8 +37,10 @@ class SupabaseRecordDataSource implements RecordRemoteDataSource {
           .order('record_datetime', ascending: false);
 
       return (response as List)
-          .map((json) =>
-              SymptomRecordModel.fromJson(json as Map<String, dynamic>))
+          .map(
+            (json) =>
+                SymptomRecordModel.fromJson(json as Map<String, dynamic>),
+          )
           .toList();
     } catch (e) {
       _logError('getSymptomRecords failed', error: e);
@@ -61,8 +66,10 @@ class SupabaseRecordDataSource implements RecordRemoteDataSource {
           .order('record_datetime', ascending: false);
 
       return (response as List)
-          .map((json) =>
-              SymptomRecordModel.fromJson(json as Map<String, dynamic>))
+          .map(
+            (json) =>
+                SymptomRecordModel.fromJson(json as Map<String, dynamic>),
+          )
           .toList();
     } catch (e) {
       _logError('getSymptomRecordsInRange failed', error: e);
@@ -235,8 +242,10 @@ class SupabaseRecordDataSource implements RecordRemoteDataSource {
           .order('record_datetime', ascending: false);
 
       return (response as List)
-          .map((json) =>
-              MedicationRecordModel.fromJson(json as Map<String, dynamic>))
+          .map(
+            (json) =>
+                MedicationRecordModel.fromJson(json as Map<String, dynamic>),
+          )
           .toList();
     } catch (e) {
       _logError('getMedicationRecords failed', error: e);
@@ -262,8 +271,10 @@ class SupabaseRecordDataSource implements RecordRemoteDataSource {
           .order('record_datetime', ascending: false);
 
       return (response as List)
-          .map((json) =>
-              MedicationRecordModel.fromJson(json as Map<String, dynamic>))
+          .map(
+            (json) =>
+                MedicationRecordModel.fromJson(json as Map<String, dynamic>),
+          )
           .toList();
     } catch (e) {
       _logError('getMedicationRecordsInRange failed', error: e);
@@ -321,8 +332,10 @@ class SupabaseRecordDataSource implements RecordRemoteDataSource {
           .order('record_datetime', ascending: false);
 
       return (response as List)
-          .map((json) =>
-              LifestyleRecordModel.fromJson(json as Map<String, dynamic>))
+          .map(
+            (json) =>
+                LifestyleRecordModel.fromJson(json as Map<String, dynamic>),
+          )
           .toList();
     } catch (e) {
       _logError('getLifestyleRecords failed', error: e);
@@ -348,8 +361,10 @@ class SupabaseRecordDataSource implements RecordRemoteDataSource {
           .order('record_datetime', ascending: false);
 
       return (response as List)
-          .map((json) =>
-              LifestyleRecordModel.fromJson(json as Map<String, dynamic>))
+          .map(
+            (json) =>
+                LifestyleRecordModel.fromJson(json as Map<String, dynamic>),
+          )
           .toList();
     } catch (e) {
       _logError('getLifestyleRecordsInRange failed', error: e);

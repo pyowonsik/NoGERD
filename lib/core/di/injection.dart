@@ -19,6 +19,7 @@ Future<void> configureDependencies() async => getIt.init();
 /// Core Module - SharedPreferences 등록
 @module
 abstract class CoreModule {
+  /// SharedPreferences 인스턴스 제공
   @preResolve
   Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
 }

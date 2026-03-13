@@ -13,6 +13,7 @@ import 'package:no_gerd/features/auth/presentation/bloc/auth_state.dart';
 /// Auth BLoC
 @singleton
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  /// 생성자
   AuthBloc(
     this._signInUseCase,
     this._signUpUseCase,

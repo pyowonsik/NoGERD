@@ -6,14 +6,21 @@ import 'package:no_gerd/shared/shared.dart';
 
 /// 건강 점수 카드
 class HealthScoreCard extends StatefulWidget {
+  /// 생성자
   const HealthScoreCard({
     super.key,
     required this.score,
     this.previousScore,
     this.message,
   });
+
+  /// 현재 건강 점수
   final int score;
+
+  /// 이전 건강 점수 (비교용)
   final int? previousScore;
+
+  /// 표시할 메시지
   final String? message;
 
   @override

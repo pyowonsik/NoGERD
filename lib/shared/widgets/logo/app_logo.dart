@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 /// 앱 공통 로고 위젯
 class AppLogo extends StatelessWidget {
+  /// 생성자
   const AppLogo({
     super.key,
     this.size = LogoSize.medium,
@@ -40,7 +41,12 @@ class AppLogo extends StatelessWidget {
 
 /// 로고 크기 열거형
 enum LogoSize {
+  /// 작은 크기 (80px)
   small,
+
+  /// 중간 크기 (120px)
   medium,
+
+  /// 큰 크기 (160px)
   large,
 }

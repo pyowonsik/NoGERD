@@ -7,6 +7,7 @@ import 'package:no_gerd/features/auth/presentation/bloc/auth_bloc.dart';
 
 /// GoRouter 인스턴스를 생성하는 클래스
 class AppRouter {
+  /// GoRouter 인스턴스 생성
   static GoRouter createRouter({AuthBloc? authBloc}) {
     final bloc = authBloc ?? getIt<AuthBloc>();
 

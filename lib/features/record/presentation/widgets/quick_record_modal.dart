@@ -21,6 +21,7 @@ String _formatTime24(TimeOfDay time) {
 
 /// 빠른 기록 모달 (FAB 클릭 시 표시)
 class QuickRecordModal extends StatelessWidget {
+  /// 생성자
   const QuickRecordModal({super.key});
 
   @override
@@ -148,7 +149,10 @@ class _RecordOption extends StatelessWidget {
 // ============================================================
 // 증상 기록 화면
 // ============================================================
+
+/// 증상 기록 화면
 class SymptomRecordScreen extends StatefulWidget {
+  /// 생성자
   const SymptomRecordScreen({super.key});
 
   @override
@@ -612,7 +616,10 @@ class _SymptomRecordScreenState extends State<SymptomRecordScreen> {
 // ============================================================
 // 식사 기록 화면 (UPSERT 지원)
 // ============================================================
+
+/// 식사 기록 화면
 class MealRecordScreen extends StatefulWidget {
+  /// 생성자
   const MealRecordScreen({super.key, this.initialMealType});
 
   /// 초기 식사 타입 (홈에서 아침/점심/저녁 버튼 클릭 시 전달)
@@ -781,7 +788,8 @@ class _MealRecordScreenState extends State<MealRecordScreen> {
                                           type != MealType.values.last ? 8 : 0,
                                     ),
                                     padding: const EdgeInsets.symmetric(
-                                        vertical: 12),
+                                      vertical: 12,
+                                    ),
                                     decoration: BoxDecoration(
                                       color: isSelected
                                           ? AppTheme.mealColor
@@ -1171,7 +1179,10 @@ class _MealRecordScreenState extends State<MealRecordScreen> {
 // ============================================================
 // 약물 기록 화면
 // ============================================================
+
+/// 약물 기록 화면
 class MedicationRecordScreen extends StatefulWidget {
+  /// 생성자
   const MedicationRecordScreen({super.key, this.initialNotTaking = false});
 
   /// 초기 복용 안함 상태 (홈에서 토글 ON 시 true)
@@ -1373,8 +1384,10 @@ class _MedicationRecordScreenState extends State<MedicationRecordScreen> {
                         ),
                         child: Row(
                           children: [
-                            Text(type.emoji,
-                                style: const TextStyle(fontSize: 24)),
+                            Text(
+                              type.emoji,
+                              style: const TextStyle(fontSize: 24),
+                            ),
                             const SizedBox(width: 12),
                             Expanded(
                               child: Column(
@@ -1513,7 +1526,9 @@ class _MedicationRecordScreenState extends State<MedicationRecordScreen> {
                   },
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 14),
+                      horizontal: 16,
+                      vertical: 14,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(12),
@@ -1566,7 +1581,8 @@ class _MedicationRecordScreenState extends State<MedicationRecordScreen> {
                     return Expanded(
                       child: GestureDetector(
                         onTap: () => setState(
-                            () => _effectiveness = (effect['value'] as int)!),
+                          () => _effectiveness = (effect['value'] as int)!,
+                        ),
                         child: Container(
                           margin: EdgeInsets.only(
                             right: effect['label'] != '별로' ? 8 : 0,
@@ -1694,7 +1710,10 @@ class _MedicationRecordScreenState extends State<MedicationRecordScreen> {
 // ============================================================
 // 생활습관 기록 화면 (UPSERT 지원)
 // ============================================================
+
+/// 생활습관 기록 화면
 class LifestyleRecordScreen extends StatefulWidget {
+  /// 생성자
   const LifestyleRecordScreen({super.key});
 
   @override
@@ -2185,7 +2204,9 @@ class _LifestyleRecordScreenState extends State<LifestyleRecordScreen> {
                     Text(
                       '30분 이상의 가벼운 운동도 포함됩니다',
                       style: TextStyle(
-                          fontSize: 13, color: AppTheme.textSecondary),
+                        fontSize: 13,
+                        color: AppTheme.textSecondary,
+                      ),
                     ),
                   ],
                 ),

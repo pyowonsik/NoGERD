@@ -8,14 +8,20 @@ import 'package:no_gerd/features/auth/domain/repositories/auth_repository.dart';
 
 /// SignIn UseCase 파라미터
 class SignInParams {
+  /// 생성자
   SignInParams({required this.email, required this.password});
+
+  /// 이메일
   final String email;
+
+  /// 비밀번호
   final String password;
 }
 
 /// 로그인 UseCase
 @injectable
 class SignInUseCase implements UseCase<User, SignInParams> {
+  /// 생성자
   const SignInUseCase(this._repository);
 
   final IAuthRepository _repository;

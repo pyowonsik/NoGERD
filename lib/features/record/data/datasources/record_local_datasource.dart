@@ -12,7 +12,10 @@ import 'package:no_gerd/features/record/data/models/symptom_record_model.dart';
 
 /// 로컬 데이터소스 예외
 class RecordLocalDataSourceException implements Exception {
+  /// 생성자
   RecordLocalDataSourceException(this.message);
+
+  /// 예외 메시지
   final String message;
 
   @override
@@ -21,6 +24,7 @@ class RecordLocalDataSourceException implements Exception {
 
 /// 동기화 대기 중인 레코드
 class PendingSyncRecord {
+  /// 생성자
   PendingSyncRecord({
     required this.id,
     required this.type,
@@ -29,6 +33,7 @@ class PendingSyncRecord {
     required this.createdAt,
   });
 
+  /// JSON에서 PendingSyncRecord 생성
   factory PendingSyncRecord.fromJson(Map<String, dynamic> json) {
     return PendingSyncRecord(
       id: json['id'] as String,
@@ -38,12 +43,23 @@ class PendingSyncRecord {
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
   }
+
+  /// 레코드 ID
   final String id;
+
+  /// 레코드 타입
   final String type;
+
+  /// 동기화 액션
   final String action;
+
+  /// 레코드 데이터
   final String data;
+
+  /// 생성 시간
   final DateTime createdAt;
 
+  /// JSON으로 변환
   Map<String, dynamic> toJson() => {
         'id': id,
         'type': type,
@@ -55,74 +71,139 @@ class PendingSyncRecord {
 
 /// Record 로컬 데이터 소스 인터페이스
 abstract class RecordLocalDataSource {
+  /// 초기화
   Future<void> init();
 
   // Symptom Records
+  /// 증상 기록 조회
   Future<List<SymptomRecordModel>> getSymptomRecords(DateTime date);
+
+  /// 증상 기록 범위 조회
   Future<List<SymptomRecordModel>> getSymptomRecordsInRange(
     DateTime startDate,
     DateTime endDate,
   );
+
+  /// 증상 기록 캐싱
   Future<void> cacheSymptomRecords(
     DateTime date,
     List<SymptomRecordModel> records,
   );
+
+  /// 증상 기록 추가
   Future<void> addSymptomRecord(SymptomRecordModel record);
+
+  /// 증상 기록 수정
   Future<void> updateSymptomRecord(SymptomRecordModel record);
+
+  /// 증상 기록 upsert
   Future<void> upsertSymptomRecord(SymptomRecordModel record);
+
+  /// 증상 기록 삭제
   Future<void> deleteSymptomRecord(String id);
 
   // Meal Records
+  /// 식사 기록 조회
   Future<List<MealRecordModel>> getMealRecords(DateTime date);
+
+  /// 식사 기록 범위 조회
   Future<List<MealRecordModel>> getMealRecordsInRange(
     DateTime startDate,
     DateTime endDate,
   );
+
+  /// 식사 기록 캐싱
   Future<void> cacheMealRecords(DateTime date, List<MealRecordModel> records);
+
+  /// 식사 기록 추가
   Future<void> addMealRecord(MealRecordModel record);
+
+  /// 식사 기록 수정
   Future<void> updateMealRecord(MealRecordModel record);
+
+  /// 식사 기록 upsert
   Future<void> upsertMealRecord(MealRecordModel record);
+
+  /// 식사 기록 삭제
   Future<void> deleteMealRecord(String id);
 
   // Medication Records
+  /// 약물 기록 조회
   Future<List<MedicationRecordModel>> getMedicationRecords(DateTime date);
+
+  /// 약물 기록 범위 조회
   Future<List<MedicationRecordModel>> getMedicationRecordsInRange(
     DateTime startDate,
     DateTime endDate,
   );
+
+  /// 약물 기록 캐싱
   Future<void> cacheMedicationRecords(
     DateTime date,
     List<MedicationRecordModel> records,
   );
+
+  /// 약물 기록 추가
   Future<void> addMedicationRecord(MedicationRecordModel record);
+
+  /// 약물 기록 수정
   Future<void> updateMedicationRecord(MedicationRecordModel record);
+
+  /// 약물 기록 upsert
   Future<void> upsertMedicationRecord(MedicationRecordModel record);
+
+  /// 약물 기록 삭제
   Future<void> deleteMedicationRecord(String id);
 
   // Lifestyle Records
+  /// 생활습관 기록 조회
   Future<List<LifestyleRecordModel>> getLifestyleRecords(DateTime date);
+
+  /// 생활습관 기록 범위 조회
   Future<List<LifestyleRecordModel>> getLifestyleRecordsInRange(
     DateTime startDate,
     DateTime endDate,
   );
+
+  /// 생활습관 기록 캐싱
   Future<void> cacheLifestyleRecords(
     DateTime date,
     List<LifestyleRecordModel> records,
   );
+
+  /// 생활습관 기록 추가
   Future<void> addLifestyleRecord(LifestyleRecordModel record);
+
+  /// 생활습관 기록 수정
   Future<void> updateLifestyleRecord(LifestyleRecordModel record);
+
+  /// 생활습관 기록 upsert
   Future<void> upsertLifestyleRecord(LifestyleRecordModel record);
+
+  /// 생활습관 기록 삭제
   Future<void> deleteLifestyleRecord(String id);
 
   // Pending Sync
+  /// 동기화 대기열에 추가
   Future<void> addToPendingSync(PendingSyncRecord record);
+
+  /// 동기화 대기 레코드 조회
   Future<List<PendingSyncRecord>> getPendingSyncRecords();
+
+  /// 동기화 대기 레코드 삭제
   Future<void> removePendingSyncRecord(String id);
+
+  /// 동기화 대기 레코드 전체 삭제
   Future<void> clearPendingSyncRecords();
 
   // Cache Management
+  /// 캐시 전체 삭제
   Future<void> clearAllCache();
+
+  /// 마지막 동기화 시간 조회
   Future<DateTime?> getLastSyncTime();
+
+  /// 마지막 동기화 시간 설정
   Future<void> setLastSyncTime(DateTime time);
 }
 
@@ -150,7 +231,9 @@ class HiveRecordLocalDataSource implements RecordLocalDataSource {
   }
 
   String _dateKey(DateTime date) {
-    return '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+    final month = date.month.toString().padLeft(2, '0');
+    final day = date.day.toString().padLeft(2, '0');
+    return '${date.year}-$month-$day';
   }
 
   @override

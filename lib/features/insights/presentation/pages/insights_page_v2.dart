@@ -591,7 +591,8 @@ class _MealSymptomCorrelation extends StatelessWidget {
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      '$highestMeal 식사 후 증상이 가장 많이 발생해요. $highestMeal 식사량을 줄여보세요.',
+                      '$highestMeal 식사 후 증상이 가장 많이 발생해요. '
+                      '$highestMeal 식사량을 줄여보세요.',
                       style: const TextStyle(
                         fontSize: 13,
                         color: AppTheme.warning,
@@ -1247,7 +1248,9 @@ class _AIInsightCards extends StatelessWidget {
         // 생성 시간 및 다음 리포트 안내
         const SizedBox(height: 12),
         Text(
-          '${_formatDate(insight.generatedAt)} 생성${nextReportDate != null ? ' · 다음 리포트: ${_formatNextDate(nextReportDate!)}' : ''}',
+          '${_formatDate(insight.generatedAt)} 생성'
+          '${nextReportDate != null ? ' · 다음 리포트: '
+              '${_formatNextDate(nextReportDate!)}' : ''}',
           style: const TextStyle(
             fontSize: 11,
             color: AppTheme.textTertiary,

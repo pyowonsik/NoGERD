@@ -50,5 +50,6 @@ class RecordEvent with _$RecordEvent {
       RecordEventUpsertLifestyleRecord;
 
   /// 현재 편집 중인 기록 초기화
-  const factory RecordEvent.clearCurrentRecord() = RecordEventClearCurrentRecord;
+  const factory RecordEvent.clearCurrentRecord() =
+      RecordEventClearCurrentRecord;
 }

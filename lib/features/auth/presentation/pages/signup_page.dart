@@ -9,6 +9,7 @@ import 'package:no_gerd/shared/shared.dart';
 
 /// 회원가입 페이지
 class SignUpPage extends StatefulWidget {
+  /// 생성자
   const SignUpPage({super.key});
 
   @override
@@ -288,7 +289,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             if (password.length < 12 ||
                                 !RegExp(r'[a-zA-Z]').hasMatch(password) ||
                                 !RegExp(r'[0-9]').hasMatch(password) ||
-                                !RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(password)) {
+                                !RegExp(r'[!@#$%^&*(),.?":{}|<>]')
+                                    .hasMatch(password)) {
                               return null;
                             }
                             if (value != password) {

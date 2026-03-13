@@ -79,11 +79,14 @@ class AIRemoteDataSource {
   // 주 1회 제한 활성화
   static const _bypassWeeklyLimit = false;
 
-  /// AI 인사이트 생성
+  /// AI 인사이트 생성 (Gemini API 호출)
+  /// 1. 주 1회 생성 제한 체크
+  /// 2. 지난주 기록 데이터로 프롬프트 생성
+  /// 3. Gemini API 호출 및 JSON 응답 파싱
   Future<Either<Failure, AIInsight>> generateInsight(
     InsightsState state,
   ) async {
-    // 주 1회 제한 체크
+    // 1. 주 1회 제한 체크 - API 비용 절감
     if (!_bypassWeeklyLimit && !canGenerateThisWeek()) {
       return left(
         const Failure.validation(
@@ -92,7 +95,7 @@ class AIRemoteDataSource {
       );
     }
 
-    // 지난주 데이터 유효성 체크 (최소 3일 이상 기록 필요)
+    // 2. 지난주 데이터 유효성 체크 (최소 3일 이상 기록 필요)
     final lastWeekRecordedDays =
         state.lastWeekSymptomTrends.where((t) => t.count > 0).length;
 
@@ -105,15 +108,13 @@ class AIRemoteDataSource {
       );
     }
 
-    // 디버그 로그 출력
     _printDataLog(state);
 
     try {
       late AIInsight insight;
 
       if (_useMockData) {
-        // Mock 데이터 사용 (테스트용)
-        await Future<void>.delayed(const Duration(seconds: 2)); // 로딩 시뮬레이션
+        await Future<void>.delayed(const Duration(seconds: 2));
         insight = AIInsight(
           summary: '지난 주 건강 상태가 양호했습니다! 증상 발생이 적고 '
               '전반적으로 잘 관리하고 계세요. 이 좋은 습관을 유지해주세요.',
@@ -126,43 +127,40 @@ class AIRemoteDataSource {
           generatedAt: DateTime.now(),
         );
       } else {
-        // 실제 Gemini API 호출
+        // 3. Gemini API 호출
         final gemini = Gemini.instance;
+        // 4. 지난주 기록 데이터로 프롬프트 생성
         final prompt = _buildPrompt(state);
 
-        // 프롬프트 로그 출력 (디버그 모드에서만)
         if (kDebugMode) {
-          // ignore: avoid_print
-          print('\n${'=' * 60}');
-          // ignore: avoid_print
-          print('🤖 Gemini에 보내는 프롬프트:');
-          // ignore: avoid_print
-          print('${'=' * 60}');
-          // ignore: avoid_print
-          print(prompt);
-          // ignore: avoid_print
-          print('${'=' * 60}\n');
+          debugPrint('\n${'=' * 60}');
+          debugPrint('🤖 Gemini에 보내는 프롬프트:');
+          debugPrint('=' * 60);
+          debugPrint(prompt);
+          debugPrint('${'=' * 60}\n');
         }
 
+        // 5. Gemini API 호출 - 프롬프트 전송 및 응답 수신
         final response = await gemini.prompt(
           parts: [Part.text(prompt)],
-          model: 'gemini-2.5-flash-lite', // 무료 티어
+          model: 'gemini-2.5-flash-lite', // 무료 티어 모델 사용
         );
 
         if (response?.output == null) {
           return left(const Failure.unexpected('AI 응답을 받지 못했습니다.'));
         }
 
+        // 6. JSON 응답 파싱하여 AIInsight 객체로 변환
         insight = _parseResponse(response!.output!);
       }
 
-      // 생성 시간 저장
+      // 7. 생성 시간 저장 (주 1회 제한용)
       await _prefs.setString(
         _lastGeneratedKey,
         DateTime.now().toIso8601String(),
       );
 
-      // 리포트 JSON 저장
+      // 8. 리포트 JSON 저장 (캐싱)
       await _prefs.setString(
         _savedInsightKey,
         jsonEncode(insight.toJson()),
@@ -182,14 +180,13 @@ class AIRemoteDataSource {
     final divider = '=' * 60;
     final subDivider = '-' * 40;
 
-    // ignore: avoid_print
-    print('\n$divider');
-    print('📊 주간 리포트 생성 - 데이터 로그');
-    print(divider);
+    debugPrint('\n$divider');
+    debugPrint('📊 주간 리포트 생성 - 데이터 로그');
+    debugPrint(divider);
 
     // ===== 이번 주 데이터 (UI 표시용) =====
-    print('\n🟢 이번 주 데이터 (UI 표시용)');
-    print(subDivider);
+    debugPrint('\n🟢 이번 주 데이터 (UI 표시용)');
+    debugPrint(subDivider);
 
     // 증상 추이
     final thisWeekSymptomCount = state.symptomTrends.fold<int>(
@@ -198,41 +195,43 @@ class AIRemoteDataSource {
     );
     final thisWeekRecordedDays =
         state.symptomTrends.where((t) => t.count > 0).length;
-    print('📈 증상 추이: 총 $thisWeekSymptomCount회 (기록일: $thisWeekRecordedDays일)');
+    debugPrint(
+      '증상 추이: 총 ${thisWeekSymptomCount}회 (기록일: ${thisWeekRecordedDays}일)',
+    );
 
     // 증상 분포
     if (state.symptomDistribution.isNotEmpty) {
-      print('🩺 증상 분포:');
+      debugPrint('🩺 증상 분포:');
       for (final d in state.symptomDistribution.take(3)) {
-        print('   - ${d.symptom.label}: ${d.count}회');
+        debugPrint('   - ${d.symptom.label}: ${d.count}회');
       }
     }
 
     // 트리거 음식
     if (state.triggerAnalysis.isNotEmpty) {
-      print('🍔 트리거 음식:');
+      debugPrint('🍔 트리거 음식:');
       for (final t in state.triggerAnalysis.take(3)) {
-        print('   - ${t.category.label}: ${t.count}회');
+        debugPrint('   - ${t.category.label}: ${t.count}회');
       }
     }
 
     // 식사별 증상
-    print('🍽️ 식사별 증상 발생률:');
+    debugPrint('🍽️ 식사별 증상 발생률:');
     for (final c in state.mealSymptomCorrelation) {
-      print('   - ${c.mealType.label}: ${c.percentage}%');
+      debugPrint('   - ${c.mealType.label}: ${c.percentage}%');
     }
 
     // 생활습관
     if (state.lifestyleImpacts.isNotEmpty) {
-      print('💪 생활습관:');
+      debugPrint('💪 생활습관:');
       for (final l in state.lifestyleImpacts) {
-        print('   - ${l.lifestyleType.label}: ${l.statusLabel}');
+        debugPrint('   - ${l.lifestyleType.label}: ${l.statusLabel}');
       }
     }
 
     // ===== 지난 주 데이터 (AI 분석용) =====
-    print('\n🔴 지난 주 데이터 (AI 분석용)');
-    print(subDivider);
+    debugPrint('\n🔴 지난 주 데이터 (AI 분석용)');
+    debugPrint(subDivider);
 
     // 증상 추이
     final lastWeekSymptomCount = state.lastWeekSymptomTrends.fold<int>(
@@ -241,44 +240,48 @@ class AIRemoteDataSource {
     );
     final lastWeekRecordedDays =
         state.lastWeekSymptomTrends.where((t) => t.count > 0).length;
-    print('📈 증상 추이: 총 $lastWeekSymptomCount회 (기록일: $lastWeekRecordedDays일)');
+    debugPrint(
+      '증상 추이: 총 ${lastWeekSymptomCount}회 (기록일: ${lastWeekRecordedDays}일)',
+    );
 
     // 증상 분포
     if (state.lastWeekSymptomDistribution.isNotEmpty) {
-      print('🩺 증상 분포:');
+      debugPrint('🩺 증상 분포:');
       for (final d in state.lastWeekSymptomDistribution.take(3)) {
-        print('   - ${d.symptom.label}: ${d.count}회');
+        debugPrint('   - ${d.symptom.label}: ${d.count}회');
       }
     }
 
     // 트리거 음식
     if (state.lastWeekTriggerAnalysis.isNotEmpty) {
-      print('🍔 트리거 음식:');
+      debugPrint('🍔 트리거 음식:');
       for (final t in state.lastWeekTriggerAnalysis.take(3)) {
-        print('   - ${t.category.label}: ${t.count}회');
+        debugPrint('   - ${t.category.label}: ${t.count}회');
       }
     }
 
     // 식사별 증상
-    print('🍽️ 식사별 증상 발생률:');
+    debugPrint('🍽️ 식사별 증상 발생률:');
     for (final c in state.lastWeekMealSymptomCorrelation) {
-      print('   - ${c.mealType.label}: ${c.percentage}%');
+      debugPrint('   - ${c.mealType.label}: ${c.percentage}%');
     }
 
     // 생활습관
     if (state.lastWeekLifestyleImpacts.isNotEmpty) {
-      print('💪 생활습관:');
+      debugPrint('💪 생활습관:');
       for (final l in state.lastWeekLifestyleImpacts) {
-        print('   - ${l.lifestyleType.label}: ${l.statusLabel}');
+        debugPrint('   - ${l.lifestyleType.label}: ${l.statusLabel}');
       }
     }
 
-    print('\n$divider');
-    print('🤖 Gemini에게 지난 주 데이터로 분석 요청 중...');
-    print('$divider\n');
+    debugPrint('\n$divider');
+    debugPrint('🤖 Gemini에게 지난 주 데이터로 분석 요청 중...');
+    debugPrint('$divider\n');
   }
 
   /// 프롬프트 빌드 (지난 주 데이터 사용)
+  /// 지난주 증상, 트리거 음식, 식사별 증상 발생률, 생활습관 데이터를
+  /// Gemini가 이해할 수 있는 프롬프트로 변환
   String _buildPrompt(InsightsState state) {
     // 지난 주 증상 총 횟수 계산
     final totalSymptoms = state.lastWeekSymptomTrends.fold<int>(
@@ -352,15 +355,18 @@ ${lifestyleStatus.isEmpty ? '- 기록 없음' : lifestyleStatus}
 ''';
   }
 
-  /// 응답 파싱
+  /// Gemini 응답 파싱
+  /// JSON 형식의 응답에서 summary, dietAdvice, lifestyleAdvice, triggerWarning 추출
   AIInsight _parseResponse(String output) {
     try {
-      // JSON 추출 (마크다운 코드블록 처리)
+      // 1. 정규식으로 JSON 추출 (마크다운 코드블록 처리)
       final jsonMatch = RegExp(r'\{[\s\S]*\}').firstMatch(output);
       if (jsonMatch == null) throw const FormatException('No JSON found');
 
+      // 2. JSON 파싱
       final json = jsonDecode(jsonMatch.group(0)!) as Map<String, dynamic>;
 
+      // 3. AIInsight 객체로 변환
       return AIInsight(
         summary: json['summary'] as String? ?? '',
         dietAdvice: json['dietAdvice'] as String? ?? '',

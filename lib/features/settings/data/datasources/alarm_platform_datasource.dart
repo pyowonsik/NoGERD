@@ -23,17 +23,23 @@ abstract class AlarmPlatformDataSource {
 }
 
 /// 알림 플랫폼 데이터 소스 구현체 (Method Channel)
+/// Flutter에서 Android/iOS 네이티브 알림 기능 호출
 @LazySingleton(as: AlarmPlatformDataSource)
 class AlarmPlatformDataSourceImpl implements AlarmPlatformDataSource {
   /// 생성자
   const AlarmPlatformDataSourceImpl();
+
+  // 1. MethodChannel 정의 - Android/iOS 네이티브 코드와 통신하는 채널
   static const _channel = MethodChannel('com.pyowonsik.nogerd/alarm');
 
+  /// 알림 예약 (Flutter → Native)
+  /// MethodChannel을 통해 네이티브 AlarmManager 호출
   @override
   Future<bool> scheduleAlarm(AlarmConfig config) async {
     try {
+      // 2. invokeMethod로 네이티브 함수 호출 + 파라미터 전달
       final result = await _channel.invokeMethod<bool>(
-        'scheduleAlarm',
+        'scheduleAlarm', // 네이티브에서 처리할 메서드 이름
         {
           'id': config.type.id,
           'title': config.type.title,

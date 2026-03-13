@@ -5,8 +5,10 @@ import 'package:no_gerd/shared/constants/gerd_constants.dart';
 part 'symptom_record_model.freezed.dart';
 part 'symptom_record_model.g.dart';
 
+/// 증상 기록 Model
 @freezed
 class SymptomRecordModel with _$SymptomRecordModel {
+  /// Entity에서 Model 생성
   factory SymptomRecordModel.fromEntity(SymptomRecord entity, String userId) {
     return SymptomRecordModel(
       id: entity.id,
@@ -19,6 +21,8 @@ class SymptomRecordModel with _$SymptomRecordModel {
       updatedAt: entity.updatedAt,
     );
   }
+
+  /// SymptomRecordModel 생성자
   const factory SymptomRecordModel({
     required String id,
     @JsonKey(name: 'user_id') required String userId,
@@ -32,9 +36,11 @@ class SymptomRecordModel with _$SymptomRecordModel {
 
   const SymptomRecordModel._();
 
+  /// JSON에서 Model 생성
   factory SymptomRecordModel.fromJson(Map<String, dynamic> json) =>
       _$SymptomRecordModelFromJson(json);
 
+  /// Entity로 변환
   SymptomRecord toEntity() {
     return SymptomRecord(
       id: id,

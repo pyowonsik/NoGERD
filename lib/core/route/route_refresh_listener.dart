@@ -6,6 +6,7 @@ import 'package:no_gerd/features/auth/presentation/bloc/auth_state.dart';
 
 /// AuthBloc의 상태 변경을 감지하여 GoRouter의 redirect를 재실행하는 리스너
 class RouteRefreshListener extends ChangeNotifier {
+  /// 생성자
   RouteRefreshListener(this._authBloc) {
     notifyListeners();
     _authStreamSubscription = _authBloc.stream.listen((_) {

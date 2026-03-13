@@ -47,7 +47,8 @@ class AnalyzeTriggersUseCase
 
   @override
   Future<Either<Failure, List<TriggerAnalysis>>> call(
-      DateRangeParams params) async {
+    DateRangeParams params,
+  ) async {
     if (_useMockData) {
       // 이번 주 = 좋은 시나리오, 지난 주 = 나쁜 시나리오
       final isGood = _isThisWeek(params);

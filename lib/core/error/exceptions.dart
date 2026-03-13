@@ -6,8 +6,13 @@ library;
 
 /// 기본 앱 예외
 abstract class AppException implements Exception {
+  /// 생성자
   const AppException(this.message, [this.cause]);
+
+  /// 예외 메시지
   final String message;
+
+  /// 원인 예외
   final dynamic cause;
 
   @override
@@ -16,30 +21,36 @@ abstract class AppException implements Exception {
 
 /// 데이터베이스 예외 (Hive 관련)
 class DatabaseException extends AppException {
+  /// 생성자
   const DatabaseException(super.message, [super.cause]);
 }
 
 /// 캐시 예외
 class CacheException extends AppException {
+  /// 생성자
   const CacheException(super.message, [super.cause]);
 }
 
 /// 데이터 없음 예외
 class NotFoundException extends AppException {
+  /// 생성자
   const NotFoundException(super.message, [super.cause]);
 }
 
 /// 유효성 검사 예외
 class ValidationException extends AppException {
+  /// 생성자
   const ValidationException(super.message, [super.cause]);
 }
 
 /// 권한 예외
 class PermissionException extends AppException {
+  /// 생성자
   const PermissionException(super.message, [super.cause]);
 }
 
 /// 데이터 형식 예외
 class FormatException extends AppException {
+  /// 생성자
   const FormatException(super.message, [super.cause]);
 }

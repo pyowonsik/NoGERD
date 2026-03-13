@@ -82,9 +82,15 @@ class InsightsBloc extends Bloc<InsightsEvent, InsightsState> {
         GetSymptomTrendsUseCase.getWeekRange(WeekType.lastWeek);
 
     // ignore: avoid_print
-    print('[InsightsBloc] 이번 주: ${thisWeekRange.startDate} ~ ${thisWeekRange.endDate}');
+    print(
+      '[InsightsBloc] 이번 주: '
+      '${thisWeekRange.startDate} ~ ${thisWeekRange.endDate}',
+    );
     // ignore: avoid_print
-    print('[InsightsBloc] 지난 주: ${lastWeekRange.startDate} ~ ${lastWeekRange.endDate}');
+    print(
+      '[InsightsBloc] 지난 주: '
+      '${lastWeekRange.startDate} ~ ${lastWeekRange.endDate}',
+    );
 
     // ===== 데이터를 한 번만 가져오기 (최적화) =====
     // ignore: avoid_print

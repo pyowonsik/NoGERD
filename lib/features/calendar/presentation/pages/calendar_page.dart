@@ -22,7 +22,6 @@ class _CalendarPageState extends State<CalendarPage> {
   @override
   void initState() {
     super.initState();
-    print('🔥 [CalendarPage] initState 호출');
     // 페이지 진입 시 현재 월 데이터 로드
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
@@ -35,7 +34,6 @@ class _CalendarPageState extends State<CalendarPage> {
 
   @override
   Widget build(BuildContext context) {
-    print('🔥 [CalendarPage] build 호출');
     return BlocListener<RecordBloc, RecordState>(
       listener: (context, state) {
         // RecordBloc에서 성공 메시지가 있으면 CalendarBloc을 새로고침
@@ -98,12 +96,6 @@ class _CalendarPageContent extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: BlocBuilder<CalendarBloc, CalendarState>(
                   buildWhen: (previous, current) {
-                    print('🔥 [CalendarPage] buildWhen 체크');
-                    print(
-                        '   - monthRecords 변경: ${previous.monthRecords != current.monthRecords}');
-                    print(
-                        '   - monthRecords 개수: ${current.monthRecords.length}');
-                    print('   - isLoading: ${current.isLoading}');
                     return previous.selectedDay != current.selectedDay ||
                         previous.focusedDay != current.focusedDay ||
                         previous.monthRecords != current.monthRecords ||
@@ -111,8 +103,6 @@ class _CalendarPageContent extends StatelessWidget {
                         previous.isLoading != current.isLoading;
                   },
                   builder: (context, state) {
-                    print('🔥 [CalendarPage] BlocBuilder.builder 호출');
-                    print('   - monthRecords 개수: ${state.monthRecords.length}');
 
                     // 로딩 중일 때 표시
                     if (state.isLoading) {
@@ -524,8 +514,9 @@ class _CalendarPageContent extends StatelessWidget {
 
               final data = record['data'];
               final recordedAt = data.recordedAt as DateTime;
-              final timeStr =
-                  '${recordedAt.hour.toString().padLeft(2, '0')}:${recordedAt.minute.toString().padLeft(2, '0')}';
+              final hourStr = recordedAt.hour.toString().padLeft(2, '0');
+              final minStr = recordedAt.minute.toString().padLeft(2, '0');
+              final timeStr = '$hourStr:$minStr';
 
               // 제목 생성 (타입별로 다르게)
               String title;

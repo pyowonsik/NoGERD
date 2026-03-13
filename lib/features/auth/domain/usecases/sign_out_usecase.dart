@@ -8,6 +8,7 @@ import 'package:no_gerd/features/auth/domain/repositories/auth_repository.dart';
 /// 로그아웃 UseCase
 @injectable
 class SignOutUseCase implements UseCase<Unit, NoParams> {
+  /// 생성자
   const SignOutUseCase(this._repository);
 
   final IAuthRepository _repository;

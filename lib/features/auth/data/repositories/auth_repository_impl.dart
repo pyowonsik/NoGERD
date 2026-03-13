@@ -9,6 +9,7 @@ import 'package:no_gerd/features/auth/domain/repositories/auth_repository.dart';
 /// Auth Repository 구현
 @LazySingleton(as: IAuthRepository)
 class AuthRepositoryImpl implements IAuthRepository {
+  /// 생성자
   const AuthRepositoryImpl(this._remoteDataSource);
 
   final AuthRemoteDataSource _remoteDataSource;
